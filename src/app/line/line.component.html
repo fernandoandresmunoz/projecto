@@ -1,0 +1,37 @@
+<div style='border: 1px solid gray; padding: 1em;'>
+    
+    
+    <div style='display: inline-flex; margin-bottom: 2em;'>
+        <div><span style='font-size: 2em;'>P0 = </span> <app-point  [point]='getPointA()' ></app-point></div>
+        <br>
+        <div><span style='font-size: 2em;'>P1 = </span> <app-point  [point]='getPointB()'></app-point></div>
+        
+    </div>
+    <div style='font-size: 2em;'>
+    
+        pendiente = {{ calcularPendiente() }}
+    </div>
+    <div>
+        distancia = {{ calcularDistancia() }}
+    </div>
+    <div>
+        x = {{ getValueX() }} y = {{ getValueY() }}
+        <br>
+    
+        <button (click)='disminuirX()'>-</button>
+        <button (click)='aumentarX()'>+</button>
+    </div>
+    
+    <!-- <div>
+    
+        y = <span *ngIf='calcularPendiente() !== 1'>{{ calcularPendiente() }} x  +  {{ intereseccionEnEjeY().getY()}}</span>
+    </div> -->
+    <div>
+        <h3>Ecuación</h3>
+
+        <span style='font-size: 2em;'>{{ ecuacionRecta() }}</span>
+    </div>
+    <div>
+    
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div style=' display: inline-flex; font-size: 2em; margin-right: 2em;'>
+    <div>
+        <div style='text-align: center;'>( {{ getX() }}, </div>
+        <button (click)='disminuirX()'>-</button>
+        <button (mousedown)='aumentarX()'>+</button>
+    </div>
+    <div style='margin-left: 1em;'>
+        <div style='text-align: center;'>{{ getY() }} )</div>
+        <button (click)='disminuirY()'>-</button>
+        <button (click)='aumentarY()'>+</button>
+    </div>
+</div>
