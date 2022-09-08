@@ -1,0 +1,243 @@
+{{ getElements().length }}
+generation : {{ getGeneration() }}
+
+
+<div>
+    <p>azules {{ totalAzules() }}</p>
+    <p>verdes {{ totalVerdes() }}</p>
+    <p>cafes {{ totalCafes() }}</p>
+    <p>rojos {{ totalRojos() }}</p>
+    <p>grises {{ totalGrises() }}</p>
+</div>
+<p>{{ getBloques().length}}</p>
+<p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
+
+    <button (click)='setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
+
+<table>
+    <tr *ngFor='let elemento of ELEMENTS'>
+        <td>
+            {{ elemento }}
+        </td>
+        <td>
+<select (change)='changeRule(elemento, $event.target.value)' name="" id="" >
+        <option [value]='rule.name'
+        *ngFor='let rule of getRules().sort()'>{{ rule.name }} ( {{ rule.notation }} )</option>
+    </select>
+        </td>
+    </tr>
+    
+</table>
+<div>
+    <div>
+
+        <div>
+
+            <canvas style='border: 1px solid gray' #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
+<div>
+<div>
+
+    <table>
+        <tr>
+            <td>
+                <!-- <button></button> -->
+            </td>
+            <td>
+                <button (click)='subir(); draw()'>subir </button>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <button (click)='
+                izquierda();
+                draw()'>izquierda</button>
+            </td>
+            <td></td>
+            <td>
+                <button (click)='
+                derecha();
+                draw()'>derecha</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button (click)='
+                bajar();
+                draw()' >bajar</button>
+
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+                
+
+            </div>
+                <button (click)='clean()'>clean</button>
+            </div>
+
+        </div>
+        <div *ngIf='showAuxiliaryLines()'>
+            <div>
+                BC = {{ getLineBC().ecuacionRecta() }}
+            </div>
+            
+            <div>
+                horizonte <button (click)='getPointD().setY(getPointD().getY() - 1);
+                getPointC().setY(getPointD().getY() - 1); draw()
+                '>-</button>
+                <button (click)='getPointD().setY(getPointD().getY() + 1);
+                getPointC().setY(getPointD().getY() + 1); draw()
+                '>+</button>
+                <br>
+                zenit <button (click)='getPointA().setX(getPointA().getX() - 1);
+                getPointB().setX(getPointB().getX() - 1); draw()
+                '>-</button>
+                <button (click)='getPointA().setX(getPointA().getX() + 1);
+                getPointB().setX(getPointB().getX() + 1); draw()
+                '>+</button>
+                <br>
+                militar <button (click)='downMilitary(); draw()
+                '>-</button>
+                <button (click)='upMilitary(); draw()
+                '>+</button>
+            </div>
+            
+            <div>
+                alto celula <button (click)='getAltoCelula() > 1 && setAltoCelula(getAltoCelula() -1 ); draw()'>-</button>
+                <button (click)='setAltoCelula(getAltoCelula() + 1); draw()'>+</button>
+                {{ getAltoCelula() }}
+                <br>
+                ancho celula <button (click)='setAnchoCelula(getAnchoCelula() - 1); draw()'>-</button>
+                <button (click)='setAnchoCelula(getAnchoCelula() + 1); draw()'>+</button>
+                {{ getAnchoCelula() }}
+                <br>
+                largo celula <button (click)='setLargoCelula(getLargoCelula() - 1); draw()'>-</button>
+                <button (click)='setLargoCelula(getLargoCelula() + 1); draw()'>+</button> {{ getLargoCelula() }}
+            </div>
+            <div style='border: 1px solid gray'>
+                <button (click)='left(); draw()'>Left</button>
+                <button (click)='right(); draw()'>Right</button>
+                <button (click)='up(); draw()'>Up</button>
+                <button (click)='down(); draw()'>Down</button>
+            </div>
+            <div style='border: 1px solid gray'>
+                AC = {{ cube.getRectaAC().ecuacionRecta() }}
+                <br>
+                BD = {{ getLineBD().ecuacionRecta()}}
+                <br>
+                <br>
+                AD = {{ getLineAD().ecuacionRecta() }}
+                <br>
+                BC = {{ getLineBC().ecuacionRecta() }}
+                <br>
+                columnas: {{ getColumnas() }} | filas {{ getFilas() }} <button
+                    (click)='setFilas(getFilas() -1 ); draw()'>-</button>
+                <button (click)='setFilas(getFilas() + 1); draw()'>+</button>
+                <br>
+                <button (click)='setColumnas(getColumnas() - 1); draw()'>-</button>
+                <button (click)='setColumnas(getColumnas() + 1); draw()'>+</button>
+            </div>
+            <div style='width: 80%'>
+                <div style='display: inline-flex;'>
+                    <div style='border: 1px solid gray; width: 700px; '>
+                        <div>
+                            <h3>Sur (Punto A) </h3>
+                            <p>
+                                x = {{ getPointA().getX() }}
+                                <button (click)='getPointA().setX(getPointA().getX() - 1); draw()'>-</button><button
+                                    (click)='getPointA().setX(getPointA().getX() + 1); draw()'>+</button>
+                                y = {{ getPointA().getY()}}
+                                <button (click)='getPointA().setY(getPointA().getY() - 1); draw()'>-</button><button
+                                    (click)='getPointA().setY(getPointA().getY() + 1); draw()'>+</button>
+                            </p>
+                        </div>
+                        <br>
+                        <div>
+                            <h3>Norte ( Punto B )</h3>
+                            <p>
+                                x = {{ getLine1().getPointB().getX() }}
+                                <button (click)='getPointB().setX(getPointB().getX() - 1); draw()'>-</button>
+                                <button (click)='getPointB().setX(getPointB().getX() + 1); draw()'>+</button>
+                                y = {{ getLine1().getPointB().getY() }}
+                                <button (click)='getPointB().setY(getPointB().getY() - 1); draw()'>-</button><button
+                                    (click)='getPointB().setY(getPointB().getY() + 1); draw()'>+</button>
+                            </p>
+                        </div>
+                        <!-- esta era la pendiente de las diagonales. -->
+                        <!-- <p>
+                            pendiente = {{ getLine1().calcularPendiente()}}
+                        </p> -->
+                        <div>
+                            <h3>East (Punto C )</h3>
+                            <p>
+                                x = {{ getPointC().getX() }}
+                                <button (click)='getPointC().setX(getPointC().getX() - 1); draw()'>-</button><button
+                                    (click)='getPointC().setX(getPointC().getX() + 1); draw()'>+</button>
+                            </p>
+                            <p>
+                                y = {{ getPointC().getY()}}
+                                <button (click)='getPointC().setY(getPointC().getY() - 1); draw()'>-</button><button
+                                    (click)='getPointC().setY(getPointC().getY() + 1); draw()'>+</button>
+                            </p>
+                        </div>
+                        <div>
+                            <h3>West (Punto D)</h3>
+                            <p>
+                                x = {{ getPointD().getX() }}
+                                <br>
+                                <button (click)='getPointD().setX(getPointD().getX() - 1); draw()'>-</button><button
+                                    (click)='getPointD().setX(getPointD().getX() + 1); draw()'>+</button>
+                            </p>
+                            <p>
+                                y = {{ getPointD().getY() }}
+                                <br>
+                                <button (click)='getPointD().setY(getPointD().getY() - 1); draw()'>-</button><button
+                                    (click)='getPointD().setY(getPointD().getY() + 1); draw()'>+</button>
+                            </p>
+                        </div>
+                        <!-- <p>
+                            // esta es la pendiente de la diagonal 2
+                            pendiente = {{ getLine2().calcularPendiente()}}
+                        </p> -->
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+            
+            
+            
+            <div *ngIf='showAuxiliaryLines()'>
+                <div style='border: 1px solid gray'>
+                    <ul>
+                        <li *ngFor='let projection of getProjections()'>
+                            <button (click)='setSelectedProjection(projection)' [disabled]='getSelectedProjection() === projection'>
+                                {{ projection }}
+                            </button>
+                        </li>
+                    </ul>
+            
+                </div>
+                <div style='border: 1px solid gray;'>
+                    <p>
+                        height: {{ getHeight() }}
+                        <br>
+                        <button (click)='setHeight(getHeight() - 1); draw()'>-</button><button
+                            (click)='setHeight(getHeight() + 1); draw()'>+</button>
+                    </p>
+                    <!-- <p>
+                                    {{ getLine1().calcularInterseccionRecta(getLine2()).getX()}},
+                                    {{ getLine1().calcularInterseccionRecta(getLine2()).getY()}}
+                                </p> -->
+
+                </div>
+            </div>
+        </div>
+                    Scale: {{ getScale() }}
+                    <br>
+                    <button (click)='setScale(getScale() - 1); draw()'> - </button>
+                    <button (click)='setScale(getScale() + 1); draw()'>+</button>
+

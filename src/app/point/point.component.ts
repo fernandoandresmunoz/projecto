@@ -1,30 +1,45 @@
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { Line, Point } from 'src/modelo';
-
+import { Line } from 'line';
+import { Point } from 'point';
 @Component({
   selector: 'app-point',
   templateUrl: './point.component.html',
   styleUrls: ['./point.component.styl']
 })
 export class PointComponent implements OnInit, Point {
+  getLine(pointB: Point): Line {
+    throw new Error('Method not implemented.');
+  }
 
   @Input() point: Point;
-  // @Input() name: string;
 
-  constructor() {
+  @ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
+  public context: CanvasRenderingContext2D;
 
-   }
+  ngAfterViewInit(): void {
+    this.context = this.myCanvas.nativeElement.getContext('2d');
+    this.draw();
+  }
+
+  draw(): void {
+    this.context.clearRect(0, 0, 400, 400);
+    this.context.fillRect(this.point.getScaledX(), this.point.getScaledY(), this.point.getScale(), this.point.getScale());
+  }
+
   getScaledX(): number {
-    throw new Error('Method not implemented.');
+    return this.point.getScaledX();
   }
   getScaledY(): number {
-    throw new Error('Method not implemented.');
+    return this.point.getScaledY();
   }
   setScale(scale: number): void {
-    throw new Error('Method not implemented.');
+    this.point.setScale(scale);
+    this.draw();
   }
   getScale(): number {
-    throw new Error('Method not implemented.');
+    return this.point.getScale();
   }
   calularInterseccionPerpendicular(line: Line): Point {
     return this.point.calularInterseccionPerpendicular(line);
@@ -59,18 +74,19 @@ export class PointComponent implements OnInit, Point {
   }
   aumentarX(): void {
     this.point.aumentarX();
+    this.draw();
   }
   disminuirX(): void {
     this.point.disminuirX();
+    this.draw();
   }
   aumentarY(): void {
     this.point.aumentarY();
+    this.draw();
   }
   disminuirY(): void {
     this.point.disminuirY();
-  }
-  draw(): void {
-    this.point.draw();
+    this.draw();
   }
 
   ngOnInit(): void {

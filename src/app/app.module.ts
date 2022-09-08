@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { LineComponent } from './line/line.component';
 import { PointComponent } from './point/point.component';
+import { TwoLinesAppComponent } from './two-lines-app/two-lines-app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CanvasComponent,
     LineComponent,
-    PointComponent
+    PointComponent,
+    TwoLinesAppComponent
   ],
   imports: [
     BrowserModule,

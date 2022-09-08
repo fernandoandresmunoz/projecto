@@ -1,5 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { App,  ConcreteLine,  ConcretePoint,  COneLineAndPointApp,  CTwoLinesApp,  Line, OneLineAndPointApp, Point, TwoLinesApp  } from 'src/modelo';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { Cube } from 'cube';
+import { Line } from 'line';
+import { Point } from 'point';
+import { ShapeFactory } from 'shapeFactory';
+import { App,      COneLineAndPointApp,    OneLineAndPointApp  } from 'src/modelo';
 
 
 
@@ -9,28 +14,24 @@ import { App,  ConcreteLine,  ConcretePoint,  COneLineAndPointApp,  CTwoLinesApp
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.styl']
 })
-export class AppComponent  implements OneLineAndPointApp{
+export class AppComponent implements OnInit  {
+  cube: Cube;
+  shapeFactory: ShapeFactory = new ConcreteShapeFactory();
+  generacion = 0;
 
-  app = new COneLineAndPointApp();
-  @ViewChild('lienzo')
-  lienzo: ElementRef<HTMLCanvasElement>;
+  constructor() {
+    this.cube = this.shapeFactory.createMilitaryCube();
 
-  public context: CanvasRenderingContext2D;
 
-  getLine(): Line {
-    return this.app.getLine();
   }
-  setLine(line: Line): void {
-    this.app.setLine(line);
+
+
+  ngOnInit(): void {
+
+
   }
-  getPoint(): Point {
-    return this.app.getPoint();
-  }
-  setPoint(point: Point): void {
-    this.app.setPoint(point);
-  }
-  getIntersection(): Point {
-    return this.app.getIntersection();
-  }
+
+
+
 }
 

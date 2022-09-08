@@ -1,3 +1,7 @@
+    <canvas style='border: 1px solid gray' #myCanvas
+width="400"
+height="400"></canvas>
+<br>
 <div style=' display: inline-flex; font-size: 2em; margin-right: 2em;'>
     <div>
         <div style='text-align: center;'>( {{ getX() }}, </div>
@@ -9,4 +13,20 @@
         <button (click)='disminuirY()'>-</button>
         <button (click)='aumentarY()'>+</button>
     </div>
+</div>
+
+<div style='border: 1px solid gray'>
+    scaled x = {{ getScaledX() }}
+    <br>
+    scaled y = {{ getScaledY() }}
+</div>
+<div>
+    <h2>Scale: </h2>
+    {{ getScale() }}
+</div>
+<div>
+    <button
+        (click)='setScale(getScale() - 1)'
+    >-</button>
+    <button (click)='setScale(getScale() + 1)'>+</button>
 </div>

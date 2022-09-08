@@ -1,5 +1,8 @@
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { Line, Point } from 'src/modelo';
+import { Line } from 'line';
+import { Point } from 'point';
 
 @Component({
   selector: 'app-line',
@@ -12,7 +15,46 @@ export class LineComponent implements OnInit, Line {
 
   variable: number = 0;
 
+
+
+  @ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
+
+
+  public context: CanvasRenderingContext2D;
+
+  ngAfterViewInit(): void {
+    this.context = this.myCanvas.nativeElement.getContext('2d');
+    this.draw();
+  }
+
+  draw(): void {
+    // this.context.fillRect(10,10,100,100);
+
+    this.context.clearRect(0, 0, 400, 400);
+    this.context.fillRect(this.line.getPointA().getScaledX(), this.line.getPointA().getScaledY(), this.getScale(), this.getScale());
+    this.context.fillRect(this.line.getPointB().getScaledX(), this.line.getPointB().getScaledY(), this.getScale(), this.getScale());
+    // this.context.moveTo(this.line.getPointA().getX(), this.line.getPointA().getY());
+    // this.context.lineTo(this.line.getPointB().getX(), this.line.getPointB().getY());
+    this.context.beginPath();
+    this.context.moveTo(this.line.getPointA().getScaledX(), this.line.getPointA().getScaledY());
+    this.context.lineTo(this.line.getPointB().getScaledX(), this.line.getPointB().getScaledY());
+    this.context.stroke();
+
+  }
+
+
+
+
   constructor() { }
+  getSplitPoints(quantity: number): Point[] {
+    throw new Error('Method not implemented.');
+  }
+  getScale(): number {
+    return this.line.getScale();
+  }
+  setScale(scale: number): void {
+    this.line.setScale(scale);
+  }
   getPoints(min: number, max: number, step: number): Point[] {
     throw new Error('Method not implemented.');
   }
@@ -59,9 +101,7 @@ export class LineComponent implements OnInit, Line {
   calcularDistancia(): number {
     return this.line.calcularDistancia();
   }
-  draw(): void {
-    throw new Error('Method not implemented.');
-  }
+  
 
   ngOnInit(): void {
   }

@@ -1,27 +1,2 @@
-<!-- <app-point [point]='point'></app-point> -->
-
-
-
-<canvas #lienzo
-width="400"
-height="400"
- (mousemove)='mouseMove($event)'>
-</canvas>
-
-
-<app-line [line]='getLine()'></app-line>
-<app-point [point]='getPoint()'></app-point>
-<!-- <div>
-  {{ getPoint().ecuacionRectaPerpendicular(getLine())}}
-</div> -->
-
-<div>
-  {{ getPoint().puntoPerpendicular(getLine()).getX()}}
-</div>
-<div>
-  {{ getPoint().puntoPerpendicular(getLine()).getY()}}
-</div>
-
-<div>
-  {{ getPoint().ecuacionRectaPerpendicular(getLine())}}
-</div>
+<app-two-lines-app [cube]='cube'>
+</app-two-lines-app>
