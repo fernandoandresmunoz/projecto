@@ -37,7 +37,19 @@ import { PedestrianLife } from "rules/PedestrianLife";
 import { CorrosionOfConformity } from "rules/CorrosionOfConformity";
 import { SnowLife } from "rules/SnowLife";
 
+
+
 export class ConcreteShapeFactory implements ShapeFactory {
+
+
+
+    createMilitary3(): Cube {
+        let cube = this.createMilitaryCube();
+        for (let i = 0 ;  i< 20; i++) {
+            cube.downMilitary();
+        }
+        return cube;
+    }
     createAntiLifeRule(): Rule {
         throw new Error("Method not implemented.");
     }
@@ -270,6 +282,15 @@ export class ConcreteShapeFactory implements ShapeFactory {
         )
     }
 
+
+    createMilitary2(): Cube {
+        let cube = this.createMilitaryCube();
+        for (let i = 0 ;  i< 10; i++) {
+            cube.downMilitary();
+        }
+        return cube;
+    }
+
     createMilitaryCube(): Cube {
 
         let pointA = this.createPoint(40, 50);
@@ -279,6 +300,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let pointD = this.createPoint(0, 40);
 
         let cube = this.createCube(pointA, pointB, pointC, pointD);
+
+
+        // let pointA = this.createPoint(13, 58);
+        // let pointB = this.createPoint(91, 9);
+        // let pointC = this.createPoint(116, 55);
+        // let pointD = this.createPoint(2,11);
+        // let cube = this.createCube(pointA, pointB, pointC, pointD) ;
+
+
+
 
         cube.setSelectedProjection('military');
         cube.setHeight(5);
@@ -294,20 +325,20 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.setPoint3(this.createPoint(40, 50))
         this.configureCube(cube);
 
-        cube.setAnchoLienzo(1300);
-        cube.setAltoLienzo(900);
+        cube.setAnchoLienzo(800);
+        cube.setAltoLienzo(600);
         cube.setAvance(50);
         cube.setShowAuxiliaryLines(false);
 
-        for (let i = 0; i < 50; i++) {
-            cube.down();
-        }
+        // for (let i = 0; i < 50; i++) {
+        //     cube.down();
+        // }
 
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 34; i++) {
             cube.right();
         }
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 20; i++) {
             cube.upMilitary();
         }
 
@@ -324,45 +355,13 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.down();
         cube.down();
         cube.down();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.right();
-        cube.setFilas(100);
-        cube.setColumnas(40);
-        cube.setScale(3)
+        cube.setFilas(50);
+        cube.setColumnas(30);
+        cube.setAltoLienzo(160); 
+        cube.setAnchoLienzo(240); 
+        cube.setScale(1)
 
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-        cube.down()
-
-
+        
 
         cube.setMatrizActiva(cube.createRandomMatriz())
         cube.setRule(this.createLifeRule());

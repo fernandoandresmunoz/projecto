@@ -203,4 +203,6 @@ export interface Cube  {
     getColorSchema(): {} ;
 
     changeRule(element: string, rule: string): void;
+    densidad(): number;
+    avanzarUnaGeneracion(): void;
 }

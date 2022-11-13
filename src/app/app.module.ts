@@ -7,6 +7,9 @@ import { CanvasComponent } from './canvas/canvas.component';
 import { LineComponent } from './line/line.component';
 import { PointComponent } from './point/point.component';
 import { TwoLinesAppComponent } from './two-lines-app/two-lines-app.component';
+import { ArbolComponent } from './arbol/arbol.component';
+import { NodoComponent } from './nodo/nodo.component';
+import { CurvaComponent } from './curva/curva.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { TwoLinesAppComponent } from './two-lines-app/two-lines-app.component';
     CanvasComponent,
     LineComponent,
     PointComponent,
-    TwoLinesAppComponent
+    TwoLinesAppComponent,
+    ArbolComponent,
+    NodoComponent,
+    CurvaComponent
   ],
   imports: [
     BrowserModule,

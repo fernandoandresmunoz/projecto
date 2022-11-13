@@ -1,4 +1,4 @@
-import { ElementRef, Input } from '@angular/core';
+import { ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Bloque } from 'bloque';
 import { ConcreteShapeFactory } from 'concreteShapeFactory';
@@ -14,7 +14,7 @@ import { ShapeFactory } from 'shapeFactory';
   templateUrl: './two-lines-app.component.html',
   styleUrls: ['./two-lines-app.component.styl']
 })
-export class TwoLinesAppComponent implements OnInit, Cube {
+export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
   ELEMENTS = [
     'GREEN',
@@ -37,19 +37,18 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   public context: CanvasRenderingContext2D;
 
   constructor() {
-  //  this.cube = this.shapeFactory.createCavalierCube();
-
- 
-  //  if ( localStorage.getItem('data') !== null ) {
-  //   this.setPuntos( JSON.parse( localStorage.getItem('data') || '').points) 
-  //  }
-  //  setInterval(() => {
-  //    this.dibujarMatriz([
-  //       [1,1,0]
-      
-  //    ])
-  //    this.draw();
-  //  }, 1000)
+        setInterval(() => {
+          this.draw();
+    }, 500)
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.draw();
+  }
+  avanzarUnaGeneracion(): void {
+    this.cube.avanzarUnaGeneracion();
+  }
+  densidad(): number {
+    return this.cube.densidad();
   }
   changeRule(element: string, rule: string): void {
     this.cube.changeRule(element, rule);
@@ -126,7 +125,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   setPause(pause: boolean): void {
     this.cube.setPause(pause);
   }
-  crearBloque(data: {state: number, color: string}, altura: number): void {
+  crearBloque(data: { state: number, color: string }, altura: number): void {
     this.crearBloque(data, altura);
   }
   getRules(): { name: string; rule: Rule; notation: string; }[] {
@@ -153,16 +152,16 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   setRule(rule: Rule): void {
     this.cube.setRule(rule);
   }
-  createRandomMatriz(): {state: number, color: string}[][] {
+  createRandomMatriz(): { state: number, color: string }[][] {
     return this.cube.createRandomMatriz();
   }
-  matrizSiguiente(matriz: {state: number, color: string}[][]): {state: number, color: string}[][] {
+  matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][] {
     return this.matrizSiguiente(matriz);
   }
-  getMatrizActiva(): {state: number, color: string}[][] {
+  getMatrizActiva(): { state: number, color: string }[][] {
     return this.cube.getMatrizActiva();
   }
-  setMatrizActiva(matrizActiva: {state: number, color: string}[][]): void {
+  setMatrizActiva(matrizActiva: { state: number, color: string }[][]): void {
     return this.cube.setMatrizActiva(matrizActiva);
   }
   getGeneration(): number {
@@ -171,7 +170,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   setGeneration(generation: number): void {
     this.cube.setGeneration(generation);
   }
-  dibujarMatriz(matriz: {state: number, color: string}[][]): void {
+  dibujarMatriz(matriz: { state: number, color: string }[][]): void {
     this.cube.dibujarMatriz(matriz);
   }
   getAvance(): number {
@@ -266,8 +265,8 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     }
 
     this.context.fillStyle = 'Red';
-    this.context.strokeStyle= 'Red'
-    this.context.fillText(`${ String(interseccion.getX()) }, ${ String(interseccion.getY())} `, 10, 20);
+    this.context.strokeStyle = 'Red'
+    this.context.fillText(`${String(interseccion.getX())}, ${String(interseccion.getY())} `, 10, 20);
 
     let lineP4P5 = this.shapeFactory.createLine(this.cube.getPoint4(), this.cube.getPoint5());
     let lineP1P3 = this.shapeFactory.createLine(this.cube.getPoint1(), this.cube.getPoint3());
@@ -275,7 +274,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     let lineP6P7 = this.shapeFactory.createLine(this.cube.getPoint6(), this.cube.getPoint7());
     let lineP0P2 = this.shapeFactory.createLine(this.cube.getPoint(), this.cube.getPoint2());
 
-    let p0 =this.getInterseccion(lineP4P5, lineP1P3);
+    let p0 = this.getInterseccion(lineP4P5, lineP1P3);
     let p2 = this.getInterseccion(lineP1P3, lineP0P2);
 
 
@@ -317,14 +316,14 @@ export class TwoLinesAppComponent implements OnInit, Cube {
 
 
 
-  //       this.context.fillStyle = 'Blue'
-  // this.context.beginPath();
-  //   this.context.moveTo(p4.getX() * this.getScale(), p4.getY() * this.getScale());
-  //   this.context.lineTo(p5.getX() * this.getScale(), p5.getY() * this.getScale());
-  //   this.context.lineTo(p7.getX() * this.getScale(), p7.getY() * this.getScale());
-  //   this.context.lineTo(p6.getX() * this.getScale(), p6.getY() * this.getScale());
-  //   this.context.closePath()
-  //   this.context.fill()
+    //       this.context.fillStyle = 'Blue'
+    // this.context.beginPath();
+    //   this.context.moveTo(p4.getX() * this.getScale(), p4.getY() * this.getScale());
+    //   this.context.lineTo(p5.getX() * this.getScale(), p5.getY() * this.getScale());
+    //   this.context.lineTo(p7.getX() * this.getScale(), p7.getY() * this.getScale());
+    //   this.context.lineTo(p6.getX() * this.getScale(), p6.getY() * this.getScale());
+    //   this.context.closePath()
+    //   this.context.fill()
 
     // this.drawLine(p0, p4);
     // this.drawLine(p1, p5);
@@ -357,21 +356,21 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   parseColors(color: string) {
     if (color === "Red") {
 
-    return [ "Crimson", "LightCoral", "DarkRed"]
-    } else if ( color === "Green") {
+      return ["Crimson", "LightCoral", "DarkRed"]
+    } else if (color === "Green") {
       return ["Green", "DarkseaGreen", "DarkGreen"]
-    } else if ( color === "Blue") {
+    } else if (color === "Blue") {
 
-      return [ "CornflowerBlue", "LightBlue","Blue"]
-    } else if ( color === "Brown") {
+      return ["CornflowerBlue", "LightBlue", "Blue"]
+    } else if (color === "Brown") {
 
-      return ["Brown", "SandyBrown","SaddleBrown"]
+      return ["Brown", "SandyBrown", "SaddleBrown"]
     }
- else if( color === "Gray") {
+    else if (color === "Gray") {
 
-      return [ "DarkGray", "LightGray", "Gray"]
+      return ["DarkGray", "LightGray", "Gray"]
     }
-    return ["","",""]
+    return ["", "", ""]
   }
   drawCubes(): void {
     this.getBloques().map(bloque => {
@@ -400,7 +399,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
 
 
       // this.context.fillStyle = bloque.getData().color 	;
-      this.context.fillStyle = this.parseColors(bloque.getData().color)[0] 	;
+      this.context.fillStyle = this.parseColors(bloque.getData().color)[0];
 
       this.context.beginPath();
       this.context.moveTo(a.getX() * this.getScale(), a.getY() * this.getScale());
@@ -411,7 +410,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
       this.context.closePath();
       this.context.fill();
 
-      this.context.fillStyle = this.parseColors(bloque.getData().color)[1] ;
+      this.context.fillStyle = this.parseColors(bloque.getData().color)[1];
       this.context.beginPath();
       this.context.moveTo(a.getX() * this.getScale(), (a.getY() - bloque.getAltura()) * this.getScale());
       this.context.lineTo(b.getX() * this.getScale(), (b.getY() - bloque.getAltura()) * this.getScale());
@@ -421,7 +420,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
       this.context.closePath();
       this.context.fill();
 
-      this.context.fillStyle = this.parseColors(bloque.getData().color)[2]; 
+      this.context.fillStyle = this.parseColors(bloque.getData().color)[2];
       // this.context.fillStyle = bloque.getData().color;
 
       this.context.beginPath();
@@ -483,7 +482,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     return this.cube.getBloques();
   }
   addBloque(bloque: Bloque): void {
-    this.cube.addBloque(bloque); 
+    this.cube.addBloque(bloque);
   }
   getInterseccion(line1: Line, line2: Line): Point {
     return this.cube.getInterseccion(line1, line2);
@@ -601,13 +600,13 @@ export class TwoLinesAppComponent implements OnInit, Cube {
       this.setScale(this.getScale() + 1);
     } else if (event.key === '-') {
       if (this.getScale() > 1)
-      this.setScale(this.getScale() - 1);
+        this.setScale(this.getScale() - 1);
     } else if (event.key === 'a') {
       // this.crearBloque()
       // this.key = event.key;
     }
     this.draw();
-}
+  }
 
 
 
@@ -615,12 +614,18 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     // this.context.fillRect(10,10,100,100);
 
 
+    // this.context.clearRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    if ( this.context === undefined ) {
+      return
+    }
     this.context.clearRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
 
     this.context.strokeStyle = 'Black'
-    this.context.fillStyle = '#595447';
+    // this.context.fillStyle = '#595447';
+    this.context.fillStyle = 'Black';
 
-    this.context.fillRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    // this.context.fillRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    this.context.fillRect(0, 0, 200, 200);
 
     let puntoA = this.getPointA();
     let puntoB = this.getPointB();
@@ -768,7 +773,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     this.drawCelula();
 
 
-      this.context.font = "20px Arial";
+    this.context.font = "20px Arial";
     if (this.showAuxiliaryLines()) {
 
       this.context.fillText('A', pointA.getX() * this.getScale(), pointA.getY() * this.getScale());
@@ -778,7 +783,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     }
 
 
-    if ( this.showAuxiliaryLines()) {
+    if (this.showAuxiliaryLines()) {
       this.context.fillStyle = 'Black'
       this.context.fillText('0', this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale())
       this.context.fillText('1', this.getPoint1().getX() * this.getScale(), this.getPoint1().getY() * this.getScale())
@@ -796,7 +801,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
 
   dibujarRectaCompleta(line: Line): void {
     this.drawLine(this.shapeFactory.createPoint(0, line.calcularPendiente() * 0 + line.intereseccionEnEjeY().getY()),
-    this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY()))
+      this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY()))
   }
 
   paintQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void {
@@ -808,13 +813,13 @@ export class TwoLinesAppComponent implements OnInit, Cube {
 
 
 
-    for ( let i = 0; i < (this.getColumnas()); i ++ ) {
-      
-       let point1 = line1.getSplitPoints(this.getColumnas())[i];
-      
+    for (let i = 0; i < (this.getColumnas()); i++) {
+
+      let point1 = line1.getSplitPoints(this.getColumnas())[i];
+
       let point2 = line2.getSplitPoints(this.getColumnas()).reverse()[i + 1]
 
-      if ( i === 0 ) {
+      if (i === 0) {
       } else {
         this.context.strokeStyle = 'Gray'
       }
@@ -830,12 +835,12 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   drawFilas(line1: Line, line2: Line): void {
     this.context.beginPath();
     this.context.strokeStyle = 'Gray';
-    for ( let i = 0; i < (this.getFilas()); i ++ ) {
+    for (let i = 0; i < (this.getFilas()); i++) {
       let point1 = line1.getSplitPoints(this.getFilas())[i];
-      
+
       let point2 = line2.getSplitPoints(this.getFilas()).reverse()[i + 1]
 
-      if ( i === 0 ) {
+      if (i === 0) {
       } else {
         this.context.strokeStyle = 'Gray'
       }
@@ -843,8 +848,8 @@ export class TwoLinesAppComponent implements OnInit, Cube {
       this.drawLine(point1, point2);
 
       try {
-        
-      // this.dibujarRectaCompleta(this.shapeFactory.createLine(point1, point2));
+
+        // this.dibujarRectaCompleta(this.shapeFactory.createLine(point1, point2));
       } catch (error) {
 
       }
@@ -859,7 +864,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   drawSplitLine(line: Line): void {
     this.context.beginPath();
     this.context.strokeStyle = 'Black';
-    for ( let i = 0; i < ( line.getSplitPoints(this.getColumnas()).length ); i ++ ) {
+    for (let i = 0; i < (line.getSplitPoints(this.getColumnas()).length); i++) {
       let point = line.getSplitPoints(this.getColumnas())[i];
 
       // this.context.fillRect(point.getX() * this.getScale(), point.getY() * this.getScale(), 2, 2)
@@ -868,7 +873,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
 
 
   }
-  
+
 
 
   setPointA(point: Point): void {
@@ -903,10 +908,10 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     // parte superior
     this.context.fillStyle = '#AED6F1'
     this.context.beginPath();
-    this.context.moveTo(pointD.getScaledX(), pointD.getScaledY() );
-    this.context.lineTo(pointA.getScaledX(), pointA.getScaledY() );
-    this.context.lineTo(pointC.getScaledX(), pointC.getScaledY() );
-    this.context.lineTo(pointB.getScaledX(), pointB.getScaledY() )
+    this.context.moveTo(pointD.getScaledX(), pointD.getScaledY());
+    this.context.lineTo(pointA.getScaledX(), pointA.getScaledY());
+    this.context.lineTo(pointC.getScaledX(), pointC.getScaledY());
+    this.context.lineTo(pointB.getScaledX(), pointB.getScaledY())
 
     this.context.closePath();
     this.context.fill();
@@ -942,29 +947,29 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   }
   drawRoof(puntoA: Point, puntoB: Point, puntoC: Point, puntoD: Point): void {
 
-    let alto = this.getHeight() ;
+    let alto = this.getHeight();
     // // this.context.stroke();
 
 
     // punto A
     this.context.beginPath();
     this.context.moveTo(puntoA.getX() * this.getScale(), puntoA.getY() * this.getScale());
-    this.context.lineTo(this.getPointA().getX() * this.getScale(), this.getPointA().getY() * this.getScale() + alto );
+    this.context.lineTo(this.getPointA().getX() * this.getScale(), this.getPointA().getY() * this.getScale() + alto);
     this.context.stroke();
 
 
     // punto A
     this.context.beginPath();
     this.context.moveTo(puntoA.getX() * this.getScale(), puntoA.getY() * this.getScale());
-    this.context.lineTo(this.getPointA().getX() * this.getScale(), this.getPointA().getY() * this.getScale() + alto );
+    this.context.lineTo(this.getPointA().getX() * this.getScale(), this.getPointA().getY() * this.getScale() + alto);
     this.context.stroke();
 
 
 
     // punto B
     this.context.beginPath();
-    this.context.moveTo(this.getPointB().getScaledX(), this.getPointB().getScaledY()  );
-    this.context.lineTo(this.getPointB().getScaledX(), this.getPointB().getScaledY() + alto );
+    this.context.moveTo(this.getPointB().getScaledX(), this.getPointB().getScaledY());
+    this.context.lineTo(this.getPointB().getScaledX(), this.getPointB().getScaledY() + alto);
     this.context.stroke();
 
 
@@ -1022,7 +1027,7 @@ export class TwoLinesAppComponent implements OnInit, Cube {
     return this.cube.getPointH();
   }
   drawLine(pointA: Point, pointB: Point): void {
-    if ( pointA === undefined || pointB === undefined) {
+    if (pointA === undefined || pointB === undefined) {
       return;
     }
     this.context.beginPath();
@@ -1087,27 +1092,6 @@ export class TwoLinesAppComponent implements OnInit, Cube {
   }
 
   ngOnInit(): void {
-
-
-  
-
-    setInterval(() => {
-
-      if (!this.getPause()) {
-
-        this.setGeneration(this.getGeneration() + 1);
-
-
-        this.cube.dibujarMatriz(this.cube.getMatrizActiva())
-
-        // tthis.matrizSiguiente(this.cube.getMatrizActiva())
-        this.cube.setMatrizActiva(this.cube.matrizSiguiente(this.cube.getMatrizActiva()))
-
-      }
-
-        this.draw();
-
-    }, 500)
 
   }
 

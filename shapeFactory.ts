@@ -15,7 +15,6 @@ export interface ShapeFactory {
     createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube;
 
     createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube;
-    createMilitaryCube(): Cube;
     createTrimetricCube(): Cube;
     createCavalier(): Cube;
     createCavalierCube(): Cube;
@@ -52,5 +51,8 @@ export interface ShapeFactory {
     crearCiudad(): Element;
     crearVegetacion(): Element;
 
+    createMilitaryCube(): Cube;
+    createMilitary2(): Cube;
+    createMilitary3(): Cube;
 
 }

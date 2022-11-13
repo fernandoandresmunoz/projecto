@@ -263,6 +263,57 @@ export default class ConcreteCube implements Cube {
         // this.setRedRule(this.shapeFactory.createCoralRule());
 
     }
+    avanzarUnaGeneracion(): void {
+
+      if (!this.getPause()) {
+
+        this.setGeneration(this.getGeneration() + 1);
+
+
+        if ( this.getGeneration() === 1) {
+          this.setGrayRule(this.shapeFactory.createLifeWithoutDeathRule());
+          this.setBlueRule(this.shapeFactory.createReplicatorRule());
+          this.setBrownRule(this.shapeFactory.createReplicatorRule());
+          this.setRedRule(this.shapeFactory.createReplicatorRule());
+          // this.cube.setGreenRule(this.shapeFactory.create34LifeRule());
+        }
+
+        if ( this.getGeneration() === 2) {
+
+          this.setGrayRule(this.shapeFactory.createDayAndNightRule());
+          this.setGreenRule(this.shapeFactory.createCoralRule());
+        }
+
+        if(this.getGeneration() === 5) {
+
+          this.setRedRule(this.shapeFactory.createAnnealRule())
+          this.setBlueRule(this.shapeFactory.createDiamoebaRule());
+        }
+
+        if  ( this.getGeneration() === 10) {
+
+          this.setBrownRule(this.shapeFactory.createAnnealRule())
+          this.setRedRule(this.shapeFactory.createAnnealRule())
+        }
+
+        if ( this.getGeneration() === 35) {
+          this.setRedRule(this.shapeFactory.createMazeRule())
+        }
+        else if ( this.getGeneration() === 80) {
+          this.setGrayRule(this.shapeFactory.createWalledCityRule())
+        }
+        this.dibujarMatriz(this.getMatrizActiva())
+
+        // tthis.matrizSiguiente(this.cube.getMatrizActiva())
+        this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
+      }
+
+
+
+    }
+    densidad(): number {
+        return this.getBloques().length / ( this.getFilas() * this.getColumnas()); 
+    }
     changeRule(element: string, rule: string): void {
         switch (element) {
             case 'RED':
@@ -739,7 +790,7 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
 
         //   this.addBloque(new BloqueConcreto(p2, p0, p1, p3,  Math.floor(Math.random() * 20) + 1 ));
        
-        this.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, altura));
+        this.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, this.getAltoCelula()));
         //   localStorage.setItem('data', JSON.stringify({ 'points': this.getPuntos() }));
         // this.addPunto([this.puntoCelula.getX(), p0.getY()]);
 

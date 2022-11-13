@@ -1,2 +1,120 @@
-<app-two-lines-app [cube]='cube'>
+
+
+<div class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
+    <ul>
+        <app-nodo
+        [umbralInferior]='umbralInferior'
+        [umbralSuperior]='umbralSuperior'
+        [root]='raiz'></app-nodo>
+    </ul>
+</div>
+
+<h4>{{ umbralInferior }}</h4><button (click)='umbralInferior = umbralInferior - step'>-</button>
+<button (click)='umbralInferior = umbralInferior +  step '>+</button> <br>
+<h4>{{ umbralSuperior }}</h4>
+<button (click)='umbralSuperior = umbralSuperior - step'>-</button><button
+(click)='umbralSuperior = umbralSuperior + step'
+>+</button><br>
+<!-- <table border=1>
+    <tr>
+        <td>total</td>
+        <td>
+            {{ raiz.average() | number }}
+        </td>
+    </tr>
+    <tr>
+        <td>azules</td>
+        <td>
+            {{ raiz.azules() | number }}
+        </td>
+    </tr>
+    <tr>
+        <td>red</td>
+        <td>
+            {{ raiz.rojos() | number }}
+        </td>
+    </tr>
+    <tr>
+        <td>cafes</td>
+        <td>
+            {{ raiz.cafes() | number }}
+        </td>
+    </tr>
+    <tr>
+        <td>grises</td>
+        <td>
+            {{ raiz.grises() | number }}
+        </td>
+    </tr>
+    <tr>
+        <td>verdes</td>
+        <td>
+            {{ raiz.verdes() | number }}
+        </td>
+    </tr>
+</table> -->
+<h2>{{ generacion }}</h2>
+<!-- <app-curva [generacion]='generacion' 
+[points]='points'
+[azules]='azules'
+[verdes]='verdes'
+[rojos]='rojos'
+[cafes]='cafes'
+[grises]='grises'
+
+></app-curva> -->
+
+
+
+<!-- <div class='tf-tree tf-ancestor-tree'>
+    <ul>
+        <li>
+            <span class='tf-nc' [ngStyle]="{'background-color': raiz.getState(), 'height': '20px',
+                       'width': '20px', 'display': 'inline-block'}"></span>
+            <ul>
+                <li *ngFor='let child of raiz.getChildren()'>
+                    <span class='tf-nc' [ngStyle]="{'background-color': child.getState()}"></span>
+                    <ul>
+                        <li *ngFor='let nodo of child.getChildren()'>
+
+                            <span class='tf-nc' [ngStyle]="{'background-color': nodo.getState()}"></span>
+                            <ul>
+                                <li *ngFor='let hijo of nodo.getChildren()'>
+                                    <span class='tf-nc' [ngStyle]="{'background-color': hijo.getState()}"></span>
+                                    <ul>
+                                        <li *ngFor="let subhijo of hijo.getChildren()">
+
+                                            <span class='tf-nc'
+                                                [ngStyle]="{'background-color': subhijo.getState()}"></span>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </li>
+    </ul>
+</div> -->
+
+
+
+<!-- <div *ngFor='let automata of automatas'>
+<app-two-lines-app [cube]='automata' >
 </app-two-lines-app>
+</div>
+
+
+
+
+<app-two-lines-app [cube]='cubo2'>
+</app-two-lines-app> -->
+
+<!--
+<app-two-lines-app [cube]='cubo3'>
+</app-two-lines-app> -->
+
