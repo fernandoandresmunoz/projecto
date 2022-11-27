@@ -8,6 +8,7 @@ import { Point } from 'point';
 import { Rule } from 'rule';
 import { Element } from 'rules/element';
 import { ShapeFactory } from 'shapeFactory';
+import { JUEGO } from 'src/JUEGO';
 
 @Component({
   selector: 'app-two-lines-app',
@@ -620,12 +621,12 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     }
     this.context.clearRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
 
-    this.context.strokeStyle = 'Black'
+    this.context.strokeStyle = JUEGO.CELULA.BACKGROUND_COLOR;
     // this.context.fillStyle = '#595447';
-    this.context.fillStyle = 'Black';
+    this.context.fillStyle = JUEGO.CELULA.BACKGROUND_COLOR;
 
-    // this.context.fillRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
-    this.context.fillRect(0, 0, 200, 200);
+    this.context.fillRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    // this.context.fillRect(0, 0, 200, 200);
 
     let puntoA = this.getPointA();
     let puntoB = this.getPointB();

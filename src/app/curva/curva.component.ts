@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { JUEGO } from 'src/JUEGO';
 
 @Component({
   selector: 'app-curva',
@@ -89,8 +90,12 @@ export class CurvaComponent implements OnInit, OnChanges {
 
     this.context.strokeStyle = 'Red'
     this.context.beginPath()
-    this.context.moveTo(0, this.alturaLienzo - 0.7 * this.alturaLienzo);
-    this.context.lineTo(800, this.alturaLienzo - 0.7 * this.alturaLienzo)
+    this.context.moveTo(0, this.alturaLienzo - JUEGO.UMBRAL_SUPERIOR * this.alturaLienzo);
+    this.context.lineTo(800, this.alturaLienzo - JUEGO.UMBRAL_SUPERIOR * this.alturaLienzo)
+    this.context.stroke();
+    this.context.beginPath()
+    this.context.moveTo(0, this.alturaLienzo - JUEGO.UMBRAL_INFERIOR * this.alturaLienzo);
+    this.context.lineTo(800, this.alturaLienzo - JUEGO.UMBRAL_INFERIOR * this.alturaLienzo)
     this.context.stroke();
 
 

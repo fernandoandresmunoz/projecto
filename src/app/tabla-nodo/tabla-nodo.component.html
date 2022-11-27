@@ -1,0 +1,22 @@
+
+<div >
+    <div >
+        <table style='display: inline-block; margin-right: 1em ' border=1 *ngFor='let child of nodo.getChildren()'>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th colspan="2">state</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let x of child.getChildren(); let i = index'>
+                    <td>{{ i }}</td>
+                    <td [ngStyle]="{'background-color': x.getState(umbralInferior, umbralSuperior), 'width': '10px'}"></td>
+                    <td>{{ x.average().toFixed(2) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr>
+<br>

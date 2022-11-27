@@ -1,8 +1,11 @@
+
 <li *ngIf='root.getChildren().length > 0'>
-    <span class='tf-nc' [ngStyle]="{
+    <span class='tf-nc ' [ngStyle]="{
         'background-color': root.getState(umbralInferior, umbralSuperior),
     'color': ( root.getState(umbralInferior, umbralSuperior) === 'red' || root.getState(umbralInferior, umbralSuperior) === 'green' ) ? 'white': 'black',
- 'display': 'inline-block', 'font-size': '12px', 'width': '5em'}">
+ 'display': 'inline-block', 'font-size': '12px', 'width': '5em'}
+ 
+ ">
         {{ root.average() | number}}
     </span>
     <ul>
@@ -12,7 +15,7 @@
     </ul>
 </li>
 
-<span *ngIf='root.getChildren().length === 0 ' class='tf-nc' [ngStyle]="{
+<span *ngIf='root.getChildren().length === 0 ' class='tf-nc ' [ngStyle]="{
     'background-color': root.getState(umbralInferior, umbralSuperior), 
     'font-size': '14px',
     'width': '5em',
@@ -24,4 +27,7 @@
 
 </span>
 
+<span class=''>
+
     <app-two-lines-app *ngIf='root.getChildren().length === 0' [cube]='root.getAutomata()' ></app-two-lines-app>
+</span>

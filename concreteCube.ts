@@ -1,4 +1,4 @@
-import { Cube } from "cube";
+import { Cube as IAutomata } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
@@ -10,16 +10,13 @@ import { LifeRule } from "life-rule";
 import { Element } from './rules/element';
 
 
-export default class ConcreteCube implements Cube {
-    // deberia llamarse clase cubo
+export default class Automata implements IAutomata {
 
-    // line1: Line = new ConcreteLine(new ConcretePoint(56, 40), new ConcretePoint(51, 1));
 
     shapeFactory: ShapeFactory = new ConcreteShapeFactory();
     line1: Line; // no son relevantes estas propiedades
     line2: Line; //
 
-    // line1: Line = 
     // line2: Line = new ConcreteLine( new ConcretePoint(91, 17), new ConcretePoint(14, 20));
 
     scale: number ;
@@ -83,7 +80,6 @@ export default class ConcreteCube implements Cube {
 
     greenRule: Rule = this.shapeFactory.createLifeRule();
     redRule: Rule = this.shapeFactory.createLifeRule();
-    // redRule: Rule;
 
     rules: {name: string, rule: Rule, notation: string}[] = [
         {
@@ -260,7 +256,6 @@ export default class ConcreteCube implements Cube {
         this.setActiveRule(this.shapeFactory.createLifeRule());
 
         this.setGreenRule(this.shapeFactory.createCoralRule());
-        // this.setRedRule(this.shapeFactory.createCoralRule());
 
     }
     avanzarUnaGeneracion(): void {
@@ -271,36 +266,48 @@ export default class ConcreteCube implements Cube {
 
 
         if ( this.getGeneration() === 1) {
-          this.setGrayRule(this.shapeFactory.createLifeWithoutDeathRule());
-          this.setBlueRule(this.shapeFactory.createReplicatorRule());
           this.setBrownRule(this.shapeFactory.createReplicatorRule());
-          this.setRedRule(this.shapeFactory.createReplicatorRule());
-          // this.cube.setGreenRule(this.shapeFactory.create34LifeRule());
+          this.setBlueRule(this.shapeFactory.createReplicatorRule());
         }
 
         if ( this.getGeneration() === 2) {
 
-          this.setGrayRule(this.shapeFactory.createDayAndNightRule());
-          this.setGreenRule(this.shapeFactory.createCoralRule());
         }
 
         if(this.getGeneration() === 5) {
 
-          this.setRedRule(this.shapeFactory.createAnnealRule())
-          this.setBlueRule(this.shapeFactory.createDiamoebaRule());
-        }
-
-        if  ( this.getGeneration() === 10) {
-
           this.setBrownRule(this.shapeFactory.createAnnealRule())
-          this.setRedRule(this.shapeFactory.createAnnealRule())
+          this.setBlueRule(this.shapeFactory.createAnnealRule());
+          this.setGreenRule(this.shapeFactory.createCoralRule());
+          this.setRedRule(this.shapeFactory.MazeWithMice());
+          this.setGrayRule(this.shapeFactory.createWalledCityRule())
         }
 
-        if ( this.getGeneration() === 35) {
-          this.setRedRule(this.shapeFactory.createMazeRule())
+        if  ( this.getGeneration() === 50) {
+
+          this.setBrownRule(this.shapeFactory.createDayAndNightRule())
         }
-        else if ( this.getGeneration() === 80) {
-          this.setGrayRule(this.shapeFactory.createWalledCityRule())
+
+        if ( this.getGeneration() === 20) {
+          
+        }
+        else if ( this.getGeneration() === 25) {
+        //   this.setRedRule(this.shapeFactory.MazeWithMice())
+        //   this.setGrayRule(this.shapeFactory.createLifeRule())
+        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
+        //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
+        //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
+        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
+            this.setBrownRule(this.shapeFactory.createDiamoebaRule())
+        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
+        }
+
+        else if ( this.getGeneration() === 630) {
+        //   this.setGrayRule(this.shapeFactory.createWalledCityRule())
+        //   this.setRedRule(this.shapeFactory.MazectricWithMice());
+        //   this.setGreenRule(this.shapeFactory.createCoralRule());
+        //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
+ 
         }
         this.dibujarMatriz(this.getMatrizActiva())
 
@@ -497,11 +504,11 @@ export default class ConcreteCube implements Cube {
                     }
                     else if (x % 3 === 0) {
 
-                        salida[fila][columna] = {state: 1, color: 'Brown'}
+                        salida[fila][columna] = {state: 1, color: 'Green'}
                     } 
                     else if ( x%2 === 0) {
 
-                        salida[fila][columna] = {state: 1, color: 'Blue'}
+                        salida[fila][columna] = {state: 1, color: 'Brown'}
                     }
                     else if ( x%5 === 0) {
 
@@ -509,7 +516,7 @@ export default class ConcreteCube implements Cube {
                     }
                     else {
 
-                    salida[fila][columna] = {state: 1, color: 'Green'}
+                    salida[fila][columna] = {state: 1, color: 'Blue'}
                     }
 
                 } else {

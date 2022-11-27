@@ -10,6 +10,7 @@ import { TwoLinesAppComponent } from './two-lines-app/two-lines-app.component';
 import { ArbolComponent } from './arbol/arbol.component';
 import { NodoComponent } from './nodo/nodo.component';
 import { CurvaComponent } from './curva/curva.component';
+import { TablaNodoComponent } from './tabla-nodo/tabla-nodo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CurvaComponent } from './curva/curva.component';
     TwoLinesAppComponent,
     ArbolComponent,
     NodoComponent,
-    CurvaComponent
+    CurvaComponent,
+    TablaNodoComponent
   ],
   imports: [
     BrowserModule,

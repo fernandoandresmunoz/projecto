@@ -1,6 +1,7 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Factory, Nodo } from './ifaces/game';
+import { Component,  OnInit } from '@angular/core';
+import { JUEGO } from 'src/JUEGO';
+import { Nodo } from 'src/Nodo';
+import { Factory } from './ifaces/game';
 
 
 
@@ -14,9 +15,16 @@ export class AppComponent implements OnInit  {
   factory = new Factory();
 
 
-  umbralInferior = 0.5;
-  umbralSuperior = 0.73;
-  step = 0.01
+  umbralInferior = JUEGO.UMBRAL_INFERIOR;
+  umbralSuperior = JUEGO.UMBRAL_SUPERIOR;
+  step = JUEGO.UMBRAL_STEP;
+  mostrarGrafica = JUEGO.MOSTRAR_GRAFICO;
+  mostrarTabla = JUEGO.MOSTRAR_TABLA;
+  backgroundColor = JUEGO.BACKGROUND_COLOR;
+  title= JUEGO.TITLE;
+  fontColor = JUEGO.FONT_COLOR;
+  showTree = JUEGO.SHOW_TREE;
+  showTitle = JUEGO.SHOW_TITLE;
   
 
   raiz: Nodo;
@@ -30,7 +38,7 @@ export class AppComponent implements OnInit  {
 
   constructor() {
 
-    this.raiz = this.factory.crearArbol2();
+    this.raiz = this.factory.crearPlanta();
 
     this.raiz.setAutomatas();
 
@@ -59,7 +67,7 @@ export class AppComponent implements OnInit  {
       else if ( this.generacion > 150 && this.raiz.average() > 0.74) {
         // this.raiz.allDiamoeba();
       }
-    }, 500)
+    },JUEGO.INTERVALO_GENERACION)
 
 
 

@@ -6,7 +6,7 @@ import { Bloque } from "bloque";
 import { BloqueConcreto } from "bloque-concreto";
 import { ConcreteLine } from "concrete-line";
 import { ConcretePoint } from "concrete-point";
-import ConcreteCube from "concreteCube";
+import IAutomata from "concreteCube";
 import { Cube } from "cube";
 import { DayAndNight } from "day-and-night";
 import { Diamoeba } from "diamoeba";
@@ -36,6 +36,8 @@ import { MazeWithMice } from "rules/MazeWithMice";
 import { PedestrianLife } from "rules/PedestrianLife";
 import { CorrosionOfConformity } from "rules/CorrosionOfConformity";
 import { SnowLife } from "rules/SnowLife";
+import { JUEGO } from "src/JUEGO";
+import Automata from "concreteCube";
 
 
 
@@ -283,7 +285,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
     }
 
 
-    createMilitary2(): Cube {
+    createMilitary2(): IAutomata {
         let cube = this.createMilitaryCube();
         for (let i = 0 ;  i< 10; i++) {
             cube.downMilitary();
@@ -291,7 +293,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return cube;
     }
 
-    createMilitaryCube(): Cube {
+    createMilitaryCube(): IAutomata {
 
         let pointA = this.createPoint(40, 50);
         let pointB = this.createPoint(40, 30);
@@ -302,8 +304,10 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let cube = this.createCube(pointA, pointB, pointC, pointD);
 
 
+
         // let pointA = this.createPoint(13, 58);
         // let pointB = this.createPoint(91, 9);
+
         // let pointC = this.createPoint(116, 55);
         // let pointD = this.createPoint(2,11);
         // let cube = this.createCube(pointA, pointB, pointC, pointD) ;
@@ -314,9 +318,9 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.setSelectedProjection('military');
         cube.setHeight(5);
         // cube.setColumnas(25);
-        cube.setAltoCelula(2);
-        cube.setAnchoCelula(2);
-        cube.setLargoCelula(2)
+        cube.setAltoCelula(JUEGO.CELULA.ALTO);
+        cube.setAnchoCelula(JUEGO.CELULA.ANCHO);
+        cube.setLargoCelula(JUEGO.CELULA.LARGO)
 
         cube.setPoint(this.createPoint(0, 40));
         cube.setPoint1(this.createPoint(0, 40));
@@ -325,8 +329,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.setPoint3(this.createPoint(40, 50))
         this.configureCube(cube);
 
-        cube.setAnchoLienzo(800);
-        cube.setAltoLienzo(600);
+        cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
+        cube.setAltoLienzo(JUEGO.ALTO_LIENZO);
         cube.setAvance(50);
         cube.setShowAuxiliaryLines(false);
 
@@ -334,7 +338,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         //     cube.down();
         // }
 
-        for (let i = 0; i < 34; i++) {
+        for (let i = 0; i < 14; i++) {
             cube.right();
         }
 
@@ -345,8 +349,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.clean();
         localStorage.clear()
 
-        cube.left();
-        cube.left();
+        
         cube.down();
         cube.down();
         cube.down();
@@ -355,11 +358,61 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.down();
         cube.down();
         cube.down();
-        cube.setFilas(50);
-        cube.setColumnas(30);
-        cube.setAltoLienzo(160); 
-        cube.setAnchoLienzo(240); 
-        cube.setScale(1)
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.down();
+        cube.setFilas(JUEGO.CELULA.FILAS);
+        cube.setColumnas(JUEGO.CELULA.COLUMNAS);
+        cube.setAltoLienzo(JUEGO.CELULA.ALTO_LIENZO); 
+        cube.setAnchoLienzo(JUEGO.CELULA.ANCHO_LIENZO); 
+        cube.setScale(JUEGO.CELULA.SCALE);
 
         
 
@@ -435,7 +488,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
     }
 
 
-    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube {
+    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
 
 
         // let pointA = this.createPoint(42, 44);
@@ -444,7 +497,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         // let pointD = this.createPoint(10,43);
 
 
-        let cube = new ConcreteCube(pointA, pointB, pointC, pointD);
+        let cube = new Automata(pointA, pointB, pointC, pointD);
         cube.setScale(10);
         cube.setHeight(27)
         // cube.setSelectedProjection('isometric');
