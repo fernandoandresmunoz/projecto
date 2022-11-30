@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Cube } from 'cube';
-import { Nodo } from '../ifaces/game';
+import { Nodo } from 'src/Nodo';
 
 @Component({
   selector: 'app-arbol',

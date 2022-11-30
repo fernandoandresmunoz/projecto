@@ -1,16 +1,17 @@
 
+    {{ raiz.average()}}
 <div [ngStyle]="{ 'background-color': backgroundColor,  'margin': '0px', color: fontColor}" >
     
   <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1>
-    <!-- <div  class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
+    <div  *ngIf='showArbol' class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
         <ul>
             <app-nodo
             [umbralInferior]='umbralInferior'
             [umbralSuperior]='umbralSuperior'
             [root]='raiz'></app-nodo>
         </ul>
-    </div> -->
-    <div *ngIf='showTree'>
+    </div>
+    <div >
         
         <h4>{{ umbralInferior }}</h4><button (click)='umbralInferior = umbralInferior - step'>-</button>
         <button (click)='umbralInferior = umbralInferior +  step '>+</button> <br>
@@ -58,22 +59,26 @@
         </tr>
     </table>
     <h2>{{ generacion }}</h2>
-    <!-- <app-curva *ngIf='mostrarGrafica' [generacion]='generacion'
-    [points]='points'
-    [azules]='azules'
-    [verdes]='verdes'
-    [rojos]='rojos'
-    [cafes]='cafes'
-    [grises]='grises'
-    
-    ></app-curva> -->
+    <div *ngIf='showCurva'>
+        <app-curva *ngIf='mostrarGrafica' [generacion]='generacion'
+        [points]='points'
+        [azules]='azules'
+        [verdes]='verdes'
+        [rojos]='rojos'
+        [cafes]='cafes'
+        [grises]='grises'
+        
+        ></app-curva>
+    </div>
     
   {{ raiz.getHojas().length}}  
-
-  <app-tabla-nodo [umbralInferior]='umbralInferior'
-  [umbralSuperior]='umbralSuperior'
-  [nodo]='raiz' ></app-tabla-nodo>
+<div *ngIf='showTabla'>
     
+      <app-tabla-nodo [umbralInferior]='umbralInferior'
+      [umbralSuperior]='umbralSuperior'
+      [nodo]='raiz' ></app-tabla-nodo>
+    
+</div>
     <!-- <div class='tf-tree tf-ancestor-tree'>
         <ul>
             <li>

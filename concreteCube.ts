@@ -2,12 +2,21 @@ import { Cube as IAutomata } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
-import { ConcreteShapeFactory  } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 import { Bloque } from "bloque";
 import { BloqueConcreto } from "bloque-concreto";
 import { Rule } from "rule";
-import { LifeRule } from "life-rule";
 import { Element } from './rules/element';
+import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
+import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
+import { ConcreteAliveNeighborsStrategy } from "src/app/ConcreteAliveNeighborsStrategy";
+import { AliveNeighborsStrategy } from "src/app/AliveNeighborsStrategy";
+import { RandomMatrixStrategy } from "src/app/RandomMatrixStrategy";
+import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
+import { DrawingStrategy } from "src/app/DrawingStrategy";
+import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
+import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
+import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStrategy";
 
 
 export default class Automata implements IAutomata {
@@ -19,8 +28,8 @@ export default class Automata implements IAutomata {
 
     // line2: Line = new ConcreteLine( new ConcretePoint(91, 17), new ConcretePoint(14, 20));
 
-    scale: number ;
-    height: number ;
+    scale: number;
+    height: number;
 
     pointA: Point;
     pointB: Point;
@@ -57,7 +66,7 @@ export default class Automata implements IAutomata {
     point6: Point;
     point7: Point;
 
-    bloques: Bloque[] = [];
+    bloques: Bloque[] = [];
 
     puntos: number[][][] = [];
 
@@ -71,9 +80,9 @@ export default class Automata implements IAutomata {
 
     avance: number;
     generation: number = 0;
-    matrizActiva: {state: number, color: string}[][] ;
+    matrizActiva: { state: number, color: string }[][];
 
-    rule: Rule ;
+    rule: Rule;
     activeRule: Rule;
 
     pause: boolean = false;
@@ -81,7 +90,7 @@ export default class Automata implements IAutomata {
     greenRule: Rule = this.shapeFactory.createLifeRule();
     redRule: Rule = this.shapeFactory.createLifeRule();
 
-    rules: {name: string, rule: Rule, notation: string}[] = [
+    rules: { name: string, rule: Rule, notation: string }[] = [
         {
             name: 'life',
             rule: this.shapeFactory.createLifeRule(),
@@ -201,7 +210,7 @@ export default class Automata implements IAutomata {
 
     elements: Element[] = [];
 
-    colorSchema  = {
+    colorSchema = {
         'Red': {
             primary: 'Red',
             secondary: 'Coral',
@@ -228,10 +237,16 @@ export default class Automata implements IAutomata {
             terciary: 'Gray'
         }
     }
-    
+
     blueRule: Rule;
     brownRule: Rule;
     grayRule: Rule;
+
+    nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
+    aliveNeighborsStrategy: AliveNeighborsStrategy = new ConcreteAliveNeighborsStrategy();
+    randomMatrixStrategy: RandomMatrixStrategy = new ConcreteRandomMatrixStrategy();
+    drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
+    blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
 
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
@@ -244,8 +259,8 @@ export default class Automata implements IAutomata {
         this.setLine2(this.shapeFactory.createLine(pointC, pointD));
 
         const ad = this.shapeFactory.createLine(pointA, pointD);
-        const  bc = this.shapeFactory.createLine(pointB, pointC);
-        const ac  = this.shapeFactory.createLine(pointA, pointC);
+        const bc = this.shapeFactory.createLine(pointB, pointC);
+        const ac = this.shapeFactory.createLine(pointA, pointC);
         const bd = this.shapeFactory.createLine(pointB, pointD);
 
 
@@ -260,90 +275,90 @@ export default class Automata implements IAutomata {
     }
     avanzarUnaGeneracion(): void {
 
-      if (!this.getPause()) {
+        if (!this.getPause()) {
 
-        this.setGeneration(this.getGeneration() + 1);
+            this.setGeneration(this.getGeneration() + 1);
 
 
-        if ( this.getGeneration() === 1) {
-          this.setBrownRule(this.shapeFactory.createReplicatorRule());
-          this.setBlueRule(this.shapeFactory.createReplicatorRule());
+            if (this.getGeneration() === 1) {
+                this.setBrownRule(this.shapeFactory.createReplicatorRule());
+                this.setBlueRule(this.shapeFactory.createReplicatorRule());
+            }
+
+            if (this.getGeneration() === 2) {
+
+            }
+
+            if (this.getGeneration() === 5) {
+
+                this.setBlueRule(this.shapeFactory.createAnnealRule());
+                this.setGreenRule(this.shapeFactory.createCoralRule());
+                this.setRedRule(this.shapeFactory.MazeWithMice());
+                this.setGrayRule(this.shapeFactory.createWalledCityRule())
+            }
+
+            if (this.getGeneration() === 50) {
+
+                this.setBrownRule(this.shapeFactory.createAnnealRule())
+                this.setBrownRule(this.shapeFactory.createDayAndNightRule())
+            }
+
+            if (this.getGeneration() === 20) {
+
+            }
+            else if (this.getGeneration() === 25) {
+                //   this.setRedRule(this.shapeFactory.MazeWithMice())
+                //   this.setGrayRule(this.shapeFactory.createLifeRule())
+                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
+                //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
+                //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
+                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
+                this.setBrownRule(this.shapeFactory.createDiamoebaRule())
+                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
+            }
+
+            else if (this.getGeneration() === 630) {
+                //   this.setGrayRule(this.shapeFactory.createWalledCityRule())
+                //   this.setRedRule(this.shapeFactory.MazectricWithMice());
+                //   this.setGreenRule(this.shapeFactory.createCoralRule());
+                //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
+
+            }
+            this.dibujarMatriz(this.getMatrizActiva())
+
+            // tthis.matrizSiguiente(this.cube.getMatrizActiva())
+            this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
         }
-
-        if ( this.getGeneration() === 2) {
-
-        }
-
-        if(this.getGeneration() === 5) {
-
-          this.setBrownRule(this.shapeFactory.createAnnealRule())
-          this.setBlueRule(this.shapeFactory.createAnnealRule());
-          this.setGreenRule(this.shapeFactory.createCoralRule());
-          this.setRedRule(this.shapeFactory.MazeWithMice());
-          this.setGrayRule(this.shapeFactory.createWalledCityRule())
-        }
-
-        if  ( this.getGeneration() === 50) {
-
-          this.setBrownRule(this.shapeFactory.createDayAndNightRule())
-        }
-
-        if ( this.getGeneration() === 20) {
-          
-        }
-        else if ( this.getGeneration() === 25) {
-        //   this.setRedRule(this.shapeFactory.MazeWithMice())
-        //   this.setGrayRule(this.shapeFactory.createLifeRule())
-        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
-        //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
-        //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
-        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
-            this.setBrownRule(this.shapeFactory.createDiamoebaRule())
-        //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
-        }
-
-        else if ( this.getGeneration() === 630) {
-        //   this.setGrayRule(this.shapeFactory.createWalledCityRule())
-        //   this.setRedRule(this.shapeFactory.MazectricWithMice());
-        //   this.setGreenRule(this.shapeFactory.createCoralRule());
-        //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
- 
-        }
-        this.dibujarMatriz(this.getMatrizActiva())
-
-        // tthis.matrizSiguiente(this.cube.getMatrizActiva())
-        this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
-      }
 
 
 
     }
     densidad(): number {
-        return this.getBloques().length / ( this.getFilas() * this.getColumnas()); 
+        return this.getBloques().length / (this.getFilas() * this.getColumnas());
     }
     changeRule(element: string, rule: string): void {
         switch (element) {
             case 'RED':
-                
-                this.setRedRule( this.getRules().filter(obj => obj.name === rule)[0].rule )
+
+                this.setRedRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
 
             case 'GREEN':
                 // this.setGreenRule(this.getRules().filter( obj => obj.name === rule)[0])
-                this.setGreenRule( this.getRules().filter(obj => obj.name === rule)[0].rule )
+                this.setGreenRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
 
             case 'BROWN':
-                this.setBrownRule( this.getRules().filter(obj => obj.name === rule)[0].rule )
+                this.setBrownRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
 
             case 'BLUE':
-                this.setBlueRule( this.getRules().filter(obj => obj.name === rule)[0].rule )
+                this.setBlueRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
-             case 'GRAY':
-                this.setGrayRule( this.getRules().filter(obj => obj.name === rule)[0].rule )
+            case 'GRAY':
+                this.setGrayRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
-        
+
             default:
                 break;
         }
@@ -370,19 +385,19 @@ export default class Automata implements IAutomata {
         this.grayRule = rule;
     }
     totalAzules(): number {
-        return this.getBloques().filter( obj => obj.getData().color === 'Blue').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Blue').length;
     }
     totalVerdes(): number {
-        return this.getBloques().filter( obj => obj.getData().color === 'Green').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Green').length;
     }
     totalCafes(): number {
-        return this.getBloques().filter( obj => obj.getData().color === 'Brown').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Brown').length;
     }
     totalRojos(): number {
-        return this.getBloques().filter( obj => obj.getData().color === 'Red').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Red').length;
     }
     totalGrises(): number {
-        return this.getBloques().filter( obj => obj.getData().color === 'Gray').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Gray').length;
     }
     getElements(): Element[] {
         return this.elements;
@@ -411,52 +426,8 @@ export default class Automata implements IAutomata {
     setPause(pause: boolean): void {
         this.pause = pause;
     }
-    calculateAliveNeighbors(nuevaMatriz: {state: number, color: string}[][], fila: number, columna: number): {state: number, color: string}[] {
-
-        let vecinos : {state: number, color: string}[] = [];
-        let vivas = 0;
-        if (fila > 0 && columna > 0 && nuevaMatriz[fila - 1][columna - 1].state === 1) {
-            vivas += 1
-
-            vecinos.push(nuevaMatriz[fila-1][columna - 1]);
-
-        }
-        if (fila > 0 && nuevaMatriz[fila - 1][columna].state == 1) {
-            vivas += 1
-
-            vecinos.push(nuevaMatriz[fila-1][columna])
-
-        }
-        if (fila > 0 && nuevaMatriz[fila - 1][columna + 1]?.state == 1) {
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila - 1][columna + 1])
-        }
-        if (columna > 0 && nuevaMatriz[fila][columna - 1].state == 1) {
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila][columna - 1])
-        }
-        if (columna < nuevaMatriz[fila].length && nuevaMatriz[fila][columna + 1]?.state == 1) {
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila][columna + 1])
-        }
-        if (fila < nuevaMatriz.length - 1 && columna > 0 && nuevaMatriz[fila + 1][columna - 1].state == 1) {
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna - 1])
-        }
-        if (fila < nuevaMatriz.length - 1 && nuevaMatriz[fila + 1][columna].state == 1) {
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna])
-        }
-        if (fila < nuevaMatriz.length - 1 && columna < nuevaMatriz[fila + 1].length &&
-            nuevaMatriz[fila + 1][columna + 1]?.state == 1) {
-
-            vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna + 1])
-        }
-
-        return vecinos;
-
-
+    calculateAliveNeighbors(nuevaMatriz: { state: number, color: string }[][], fila: number, columna: number): { state: number, color: string }[] {
+        return this.aliveNeighborsStrategy.calculate(nuevaMatriz, fila, columna);
     }
     getRules(): { name: string; rule: Rule; notation: string; }[] {
         return this.rules;
@@ -482,204 +453,16 @@ export default class Automata implements IAutomata {
     setRule(rule: Rule): void {
         this.rule = rule;
     }
-    createRandomMatriz(): {state: number, color: string}[][] {
-
-        let filas = this.getFilas();
-        let columnas = this.getColumnas();
-    
-        let salida: {state: number, color: string}[][] = [ ]
-
-        for (let fila = 0 ; fila < filas; fila ++) {
-            salida.push([])
-            for (let columna = 0; columna < columnas ; columna ++){
-                const n = Math.floor(Math.random() * 20);
-
-                if (n % 7=== 0 ) {
-
-                    const x = Math.floor(Math.random() * 20);
-
-                    if ( x %4 === 0) {
-
-                    salida[fila][columna] = {state: 1, color: 'Red'}
-                    }
-                    else if (x % 3 === 0) {
-
-                        salida[fila][columna] = {state: 1, color: 'Green'}
-                    } 
-                    else if ( x%2 === 0) {
-
-                        salida[fila][columna] = {state: 1, color: 'Brown'}
-                    }
-                    else if ( x%5 === 0) {
-
-                        salida[fila][columna] = {state: 1, color: 'Gray'}
-                    }
-                    else {
-
-                    salida[fila][columna] = {state: 1, color: 'Blue'}
-                    }
-
-                } else {
-                    salida[fila][columna] = {state: 0, color: ''};
-                }
-            }
-        }
-        return salida;
-
-
+    createRandomMatriz(): { state: number, color: string }[][] {
+        return this.randomMatrixStrategy.create(this);
     }
-    matrizSiguiente(matriz: {state: number, color: string}[][]): {state: number, color: string}[][] {
-        // aqui tengo que hacer todo el cálculo para calcular la siguiente matriz
-
-        let nuevaMatriz = [...matriz];
-
-       
-        for (let fila = 0 ; fila < matriz.length; fila ++) {
-            for (let columna = 0; columna < matriz[0].length ; columna ++) {
-
-                // if (fila > 0 && fila < matriz.length - 1 && columna > 0 && columna < matriz[fila].length - 1) {
-
-                    const vivas: {state: number, color: string}[] = this.calculateAliveNeighbors(nuevaMatriz, fila, columna);
-
-                    const vecinosVerdes =  vivas.filter( obj => obj.color === 'Green').length
-                    const vecinosRojos =  vivas.filter( obj => obj.color === 'Red').length
-                    const vecinosAzules =  vivas.filter( obj => obj.color === 'Blue').length
-                    const vecinosGrises = vivas.filter( obj => obj.color ==='Gray').length
-                    const vecinosCafes = vivas.filter( obj => obj.color ==='Brown').length
-
-                    // arriba izquierda
-
-                    if (nuevaMatriz[fila][columna].state == 1) {
-
-                        // vivas.filter(obj => obj.color === 'Red') > vivas.filter(obj => obj.color === 'Green') ?
-                        // this.setActiveRule(this.shapeFactory.createLifeRule() ) :
-                        // this.setActiveRule(this.shapeFactory.createCoralRule());
-
-                        if (vecinosRojos > vecinosGrises && vecinosRojos> vecinosVerdes && vecinosRojos > vecinosCafes  && vecinosRojos > vecinosAzules) {
-                            if (this.getRedRule()?.surviveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                            } else {
-                                nuevaMatriz[fila][columna].state = 0;
-                            }
-                        } 
-
-                        else if (vecinosCafes > vecinosGrises && vecinosCafes > vecinosVerdes && vecinosCafes > vecinosRojos && vecinosCafes > vecinosAzules) {
-                            if (this.getBrownRule()?.surviveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                            } else {
-                                nuevaMatriz[fila][columna].state = 0;
-                            }
-
-                        }
-
-                        else if ( vecinosAzules > vecinosGrises && vecinosAzules > vecinosVerdes ) {
-                            if (this.getBlueRule()?.surviveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                            } else {
-                                nuevaMatriz[fila][columna].state = 0;
-                            }
-
-
-                        }
-                        else if ( vecinosGrises > vecinosVerdes) {
-                            if ( this.getGrayRule()?.surviveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                            } else {
-                                nuevaMatriz[fila][columna].state = 0
-                            }
-                        }
-
-                        else {
-                            if (this.getGreenRule()?.surviveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                            } else {
-                                nuevaMatriz[fila][columna].state = 0;
-                            }
-                        }
-
-                        
-
-                    } else if (nuevaMatriz[fila][columna].state === 0) {
-
-                        if (vecinosRojos > vecinosGrises && vecinosRojos > vecinosVerdes && vecinosRojos > vecinosCafes && vecinosRojos > vecinosAzules ) {
-
-                            // this.setActiveRule(this.shapeFactory.createLifeRule());
-                            if (this.getRedRule()?.liveCondition(vivas.length)) {
-
-                                nuevaMatriz[fila][columna].state = 1;
-                                nuevaMatriz[fila][columna].color = 'Red'
-
-                            }
-                        }
-
-                        else if (vecinosCafes > vecinosGrises && vecinosCafes > vecinosAzules && vecinosCafes > vecinosVerdes  ) {
-                            if (this.getBrownRule()?.liveCondition(vivas.length)) {
-                                nuevaMatriz[fila][columna].state = 1;
-                                nuevaMatriz[fila][columna].color = 'Brown'
-
-
-                            }
-                        } else if ( vecinosAzules > vecinosGrises && vecinosAzules > vecinosVerdes) {
-                            if (this.getBlueRule()?.liveCondition(vivas.length)) {
-                                nuevaMatriz[fila][columna].state = 1;
-                                nuevaMatriz[fila][columna].color = 'Blue'
-
-
-                            }
-                        }
-
-                        else if ( vecinosGrises > vecinosVerdes) {
-                            if (this.getGrayRule()?.liveCondition(vivas.length)) {
-                                nuevaMatriz[fila][columna].state = 1;
-                                nuevaMatriz[fila][columna].color = 'Gray'
-
-
-                            }
-                        }
-
-                        else {
-                            // this.setActiveRule(this.shapeFactory.createCoralRule())
-                            if (this.getGreenRule()?.liveCondition(vivas.length)) {
-                                nuevaMatriz[fila][columna].state = 1;
-                                nuevaMatriz[fila][columna].color = 'Green'
-
-
-                            }
-                        }
-                        // if (this.getActiveRule()?.liveCondition(vivas.length)) {
-                        //     nuevaMatriz[fila][columna].state = 1
-
-                        //     if (vivas.filter(obj => obj.color === 'Red') > vivas.filter(obj => obj.color === 'Green')) {
-
-                        //         nuevaMatriz[fila][columna].color = 'Red'
-                        //     } else {
-                        //         nuevaMatriz[fila][columna].color = 'Green'
-
-                        //     }
-                        // }
-                    // }
-
-                    // arriba centro
-                    // arriba
-                // }
-
-
-                    }
-            }
-        }
-    
-       
-        return nuevaMatriz;
+    matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][] {
+        return this.nextMatrixStrategy.nextMatrix(matriz)
     }
-    getMatrizActiva(): {state: number, color: string}[][] {
+    getMatrizActiva(): { state: number, color: string }[][] {
         return this.matrizActiva;
     }
-    setMatrizActiva(matrizActiva: {state: number, color: string}[][]): void {
+    setMatrizActiva(matrizActiva: { state: number, color: string }[][]): void {
         this.matrizActiva = matrizActiva;
     }
     getGeneration(): number {
@@ -695,7 +478,7 @@ export default class Automata implements IAutomata {
     setAvance(avance: number): void {
         this.avance = avance;
     }
-    setShowAuxiliaryLines(showAuxiliaryLines: boolean): void{
+    setShowAuxiliaryLines(showAuxiliaryLines: boolean): void {
         this.auxiliaryLines = showAuxiliaryLines;
     }
     getAnchoLienzo(): number {
@@ -711,40 +494,8 @@ export default class Automata implements IAutomata {
         this.altoLienzo = altoLienzo;
     }
 
-dibujarMatriz(matriz: {state: number, color: string}[][]): void {
-        this.clean();
-        if (matriz === undefined) return
-
-        const matrizAuxiliar = [ ...matriz ];
-
-        for (let x = 0; x < matrizAuxiliar.length; x++) {
-            matrizAuxiliar[x] = matrizAuxiliar[x].slice().reverse();
-            // matriz[x] = matriz[x].reverse();
-        }
-
-
-        for (let i = 0; i < matrizAuxiliar.length; i++) {
-            for (let j = 0; j < matrizAuxiliar[i].length; j++) {
-
-                if (matrizAuxiliar[i][j].state >= 1) {
-                        this.crearBloque({state: matrizAuxiliar[i][j].state, color: matrizAuxiliar[i][j].color});
-                }
-                this.left();
-            }
-            for (let x = 0; x < matrizAuxiliar[0].length; x++) {
-                this.right();
-            }
-            this.down();
-
-
-
-        }
-
-        for (let u = 0; u < matrizAuxiliar.length; u++) {
-            this.up();
-        }
-        
-
+    dibujarMatriz(matriz: { state: number, color: string }[][]): void {
+        this.drawingStrategy.draw(this, matriz );
     }
     crearTableroAleatorio(): void {
         this.clean();
@@ -756,7 +507,7 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
                 if (n % 2 == 0) {
 
 
-                    this.crearBloque({state: 0, color: 'red'});
+                    this.crearBloque({ state: 0, color: 'red' });
                 }
                 this.left();
             }
@@ -769,38 +520,8 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
             this.up();
         }
     }
-    crearBloque(data: {state: number, color: string}, altura:number = 2): void {
-
-        let lineP4P5 = this.shapeFactory.createLine(this.getPoint4(), this.getPoint5());
-        let lineP1P3 = this.shapeFactory.createLine(this.getPoint1(), this.getPoint3());
-
-        let lineP6P7 = this.shapeFactory.createLine(this.getPoint6(), this.getPoint7());
-        let lineP0P2 = this.shapeFactory.createLine(this.getPoint(), this.getPoint2());
-
-        let p0 = this.getInterseccion(lineP4P5, lineP1P3);
-        let p1 = this.getInterseccion(lineP4P5, lineP6P7);
-        let p2 = this.getInterseccion(lineP1P3, lineP0P2);
-        let p3 = this.getInterseccion(lineP0P2, lineP6P7);
-
-        //   let p4 = this.shapeFactory.createPoint(p0.getX(), p0.getY() - 5)
-        //   let p5 = this.shapeFactory.createPoint(p1.getX(), p1.getY() - 5)
-        //   let p6 = this.shapeFactory.createPoint(p2.getX(), p2.getY() - 5)
-        //   let p7 = this.shapeFactory.createPoint(p3.getX(), p3.getY() - 5)
-
-        this.addPunto([
-            [p2.getX(), p2.getY()],
-            [p0.getX(), p0.getY()],
-            [p1.getX(), p1.getY()],
-            [p3.getX(), p3.getY()],
-
-        ])
-
-        //   this.addBloque(new BloqueConcreto(p2, p0, p1, p3,  Math.floor(Math.random() * 20) + 1 ));
-       
-        this.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, this.getAltoCelula()));
-        //   localStorage.setItem('data', JSON.stringify({ 'points': this.getPuntos() }));
-        // this.addPunto([this.puntoCelula.getX(), p0.getY()]);
-
+    crearBloque(data: { state: number, color: string }, altura: number = 2): void {
+        this.blockCreationStrategy.create(data, altura);
     }
     upMilitary(): void {
         this.getPointA().setY(this.getPointA().getY() + 1);
@@ -815,7 +536,7 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
     }
     subir(): void {
 
-        for ( let i = 0; i< 50; i++) {
+        for (let i = 0; i < 50; i++) {
             this.up();
         }
         // this.getPointA().setY(this.getPointA().getY() - 1);
@@ -845,10 +566,10 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
     }
     izquierda(): void {
 
-        for ( let i = 0 ; i < 50; i++) {
+        for (let i = 0; i < 50; i++) {
             this.left()
         }
-        
+
 
         // this.getPointA().setX(this.getPointA().getX() - 1);
         // this.getPointB().setX(this.getPointB().getX() - 1);
@@ -857,7 +578,7 @@ dibujarMatriz(matriz: {state: number, color: string}[][]): void {
         // this.izquierdaCubos();
     }
     derecha(): void {
-        for ( let i = 0 ; i < 50; i++) {
+        for (let i = 0; i < 50; i++) {
             this.right();
         }
         // this.getPointA().setX(this.getPointA().getX() + 1);

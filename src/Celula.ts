@@ -55,6 +55,7 @@ export class Celula implements Nodo {
         } else if ( this.getAutomata().densidad() >= umbralInferior && this.getAutomata().densidad() < umbralSuperior) {
             return JUEGO.WARNING_COLOR;
         } 
+
         return JUEGO.OK_COLOR;
     }
     setState(state: string): void {

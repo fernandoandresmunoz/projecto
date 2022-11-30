@@ -25,6 +25,10 @@ export class AppComponent implements OnInit  {
   fontColor = JUEGO.FONT_COLOR;
   showTree = JUEGO.SHOW_TREE;
   showTitle = JUEGO.SHOW_TITLE;
+  showArbol= JUEGO.ELEMENTOS.ARBOL;
+  showCurva = JUEGO.ELEMENTOS.CURVA;
+  showTabla= JUEGO.ELEMENTOS.TABLA
+  showBarras = JUEGO.ELEMENTOS.BARRAS;
   
 
   raiz: Nodo;

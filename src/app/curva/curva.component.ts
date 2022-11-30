@@ -18,6 +18,7 @@ export class CurvaComponent implements OnInit, OnChanges {
   @Input() generacion: number;
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;
   puntoAnterior: [number, number];
+  anchoLienzo = 500;
   alturaLienzo = 500;
 
   public context: CanvasRenderingContext2D;
@@ -70,7 +71,7 @@ export class CurvaComponent implements OnInit, OnChanges {
   }
 
   draw() {
-    this.context.clearRect(0, 0, 800, this.alturaLienzo);
+    this.context.clearRect(0, 0, this.anchoLienzo, this.alturaLienzo);
     this.context.strokeStyle = 'Black'
     this.context.fillStyle = 'Black';
 
