@@ -36,7 +36,7 @@
     {{ cube.getGeneration() }}
             </p>
             <!-- <canvas style='border: 1px solid gray' #myCanvas (keypress)='keyLeft()'></canvas> -->
-            <canvas  #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
+            <canvas style='border: 1px solid gray'  #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
         </div>
     </div>
 </div>
@@ -81,9 +81,9 @@
             </div> -->
                 <!-- <button (click)='clean()'>clean</button> -->
 
-        <!-- <div *ngIf='showAuxiliaryLines()'>
+        <!-- <div>
             <div>
-                BC = {{ getLineBC().ecuacionRecta() }}
+                BC = {{ cube.getLineBC().ecuacionRecta() }}
             </div>
             
             <div>

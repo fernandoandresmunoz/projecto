@@ -46,7 +46,7 @@ export class AppComponent implements OnInit  {
 
     this.raiz.setAutomatas();
 
-
+    let counter = 1;
 
     setInterval(() => {
       this.raiz.avanzarUnaGeneracion()
@@ -63,14 +63,8 @@ export class AppComponent implements OnInit  {
       this.generacion += 1;
 
 
-      if (this.generacion > 100 && this.generacion <= 150 && this.raiz.average() > 0.71) {
-        // this.raiz.allDiamoeba()
-      } else if (this.generacion > 100 && this.raiz.average() < 0.64) {
-        // this.raiz.replicator();
-      }
-      else if ( this.generacion > 150 && this.raiz.average() > 0.74) {
-        // this.raiz.allDiamoeba();
-      }
+      counter += 1;
+
     },JUEGO.INTERVALO_GENERACION)
 
 

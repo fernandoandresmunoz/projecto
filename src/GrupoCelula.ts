@@ -4,6 +4,9 @@ import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 
 export class GrupoCelulas implements Nodo {
+    totalBloques(): number {
+        throw new Error("Method not implemented.");
+    }
     getColor(): string {
         throw new Error("Method not implemented.");
     }

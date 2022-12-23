@@ -1,4 +1,4 @@
-import { Cube as IAutomata } from "cube";
+import { Cube as AutomataInterface } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
@@ -17,9 +17,11 @@ import { DrawingStrategy } from "src/app/DrawingStrategy";
 import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
 import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
 import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStrategy";
+import { NextGenStrategy } from "src/app/NextGenStrategy";
+import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 
 
-export default class Automata implements IAutomata {
+export default class Automata implements AutomataInterface {
 
 
     shapeFactory: ShapeFactory = new ConcreteShapeFactory();
@@ -247,6 +249,7 @@ export default class Automata implements IAutomata {
     randomMatrixStrategy: RandomMatrixStrategy = new ConcreteRandomMatrixStrategy();
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
+    nextGenStrategy: NextGenStrategy = new ConcreteNextGenStrategy();
 
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
@@ -274,68 +277,14 @@ export default class Automata implements IAutomata {
 
     }
     avanzarUnaGeneracion(): void {
-
-        if (!this.getPause()) {
-
-            this.setGeneration(this.getGeneration() + 1);
-
-
-            if (this.getGeneration() === 1) {
-                this.setBrownRule(this.shapeFactory.createReplicatorRule());
-                this.setBlueRule(this.shapeFactory.createReplicatorRule());
-            }
-
-            if (this.getGeneration() === 2) {
-
-            }
-
-            if (this.getGeneration() === 5) {
-
-                this.setBlueRule(this.shapeFactory.createAnnealRule());
-                this.setGreenRule(this.shapeFactory.createCoralRule());
-                this.setRedRule(this.shapeFactory.MazeWithMice());
-                this.setGrayRule(this.shapeFactory.createWalledCityRule())
-            }
-
-            if (this.getGeneration() === 50) {
-
-                this.setBrownRule(this.shapeFactory.createAnnealRule())
-                this.setBrownRule(this.shapeFactory.createDayAndNightRule())
-            }
-
-            if (this.getGeneration() === 20) {
-
-            }
-            else if (this.getGeneration() === 25) {
-                //   this.setRedRule(this.shapeFactory.MazeWithMice())
-                //   this.setGrayRule(this.shapeFactory.createLifeRule())
-                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
-                //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
-                //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
-                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
-                this.setBrownRule(this.shapeFactory.createDiamoebaRule())
-                //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
-            }
-
-            else if (this.getGeneration() === 630) {
-                //   this.setGrayRule(this.shapeFactory.createWalledCityRule())
-                //   this.setRedRule(this.shapeFactory.MazectricWithMice());
-                //   this.setGreenRule(this.shapeFactory.createCoralRule());
-                //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
-
-            }
-            this.dibujarMatriz(this.getMatrizActiva())
-
-            // tthis.matrizSiguiente(this.cube.getMatrizActiva())
-            this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
-        }
-
-
-
+        this.nextGenStrategy.nextGeneration(this);
     }
     densidad(): number {
         return this.getBloques().length / (this.getFilas() * this.getColumnas());
     }
+
+
+
     changeRule(element: string, rule: string): void {
         switch (element) {
             case 'RED':
@@ -523,6 +472,7 @@ export default class Automata implements IAutomata {
     crearBloque(data: { state: number, color: string }, altura: number = 2): void {
         this.blockCreationStrategy.create(data, altura);
     }
+
     upMilitary(): void {
         this.getPointA().setY(this.getPointA().getY() + 1);
         this.getPointB().setY(this.getPointB().getY() - 1);
@@ -661,9 +611,6 @@ export default class Automata implements IAutomata {
             bloque.getPointP2().setY(bloque.getPointP2().getY() + this.getAvance() * pendiente)
             bloque.getPointP3().setX(bloque.getPointP3().getX() + this.getAvance());
             bloque.getPointP3().setY(bloque.getPointP3().getY() + this.getAvance() * pendiente)
-
-
-
         })
     }
 

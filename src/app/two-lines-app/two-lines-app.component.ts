@@ -307,11 +307,11 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
 
     // draw points
-    this.context.font = "12px Arial";
-    this.context.fillText(`p0 `, p0.getX() * this.getScale(), p0.getY() * this.getScale() + 20);
-    this.context.fillText(`p2 `, p2.getX() * this.getScale(), p2.getY() * this.getScale() + 20);
-    this.context.fillText(`p1 `, p1.getX() * this.getScale(), p1.getY() * this.getScale() + 20);
-    this.context.fillText(`p3 `, p3.getX() * this.getScale(), p3.getY() * this.getScale() - 10);
+    // this.context.font = "12px Arial";
+    // this.context.fillText(`p0 `, p0.getX() * this.getScale(), p0.getY() * this.getScale() + 20);
+    // this.context.fillText(`p2 `, p2.getX() * this.getScale(), p2.getY() * this.getScale() + 20);
+    // this.context.fillText(`p1 `, p1.getX() * this.getScale(), p1.getY() * this.getScale() + 20);
+    // this.context.fillText(`p3 `, p3.getX() * this.getScale(), p3.getY() * this.getScale() - 10);
 
 
 
@@ -326,15 +326,17 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     //   this.context.closePath()
     //   this.context.fill()
 
-    // this.drawLine(p0, p4);
-    // this.drawLine(p1, p5);
-    // this.drawLine(p2, p6);
+    // importante
+    this.drawLine(p0, p4);
+    this.drawLine(p1, p5);
+    this.drawLine(p2, p6);
 
-    // this.drawLine(p4, p6);
-    // this.drawLine(p4, p5)
-    // this.drawLine(p7, p5)
-    // this.drawLine(p6, p7)
+    this.drawLine(p4, p6);
+    this.drawLine(p4, p5)
+    this.drawLine(p7, p5)
+    this.drawLine(p6, p7)
 
+    // importante
     this.drawLine(p0, p1)
     this.drawLine(p0, p2)
     this.drawLine(p3, p1)
@@ -590,13 +592,18 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'h') {
-      this.left();
+      // this.left();
+      this.izquierda();
     } else if (event.key === 'j') {
-      this.down();
+      this.bajar();
+      // this.down();
+      // this.bajarCubos();
     } else if (event.key === 'k') {
-      this.up();
+      // this.up();
+      this.subir()
     } else if (event.key === 'l') {
-      this.right();
+      this.derecha();
+      // this.right();
     } else if (event.key === '+') {
       this.setScale(this.getScale() + 1);
     } else if (event.key === '-') {

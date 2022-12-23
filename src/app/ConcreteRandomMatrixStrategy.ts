@@ -1,8 +1,8 @@
 import { Cube  as Automata} from "cube";
-import { RandomMatrixStrategy } from "./RandomMatrixStrategy";
+import { MatrixCreationStrategy } from "./RandomMatrixStrategy";
 
 
-export class ConcreteRandomMatrixStrategy implements RandomMatrixStrategy {
+export class ConcreteRandomMatrixStrategy implements MatrixCreationStrategy {
     create(automata: Automata): { state: number; color: string; }[][] {
 
         let filas = automata.getFilas();

@@ -1,6 +1,6 @@
 import { Cube as Automata } from "cube";
 
 
-export interface RandomMatrixStrategy {
+export interface MatrixCreationStrategy {
     create(automata: Automata) : { state: number, color: string }[][];
 }

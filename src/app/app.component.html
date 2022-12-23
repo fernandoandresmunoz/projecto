@@ -1,5 +1,7 @@
 
     {{ raiz.average()}}
+<br>
+    <!-- <button (click)='raiz.operation()'>operation()</button> -->
 <div [ngStyle]="{ 'background-color': backgroundColor,  'margin': '0px', color: fontColor}" >
     
   <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1>
@@ -11,6 +13,7 @@
             [root]='raiz'></app-nodo>
         </ul>
     </div>
+
     <div >
         
         <h4>{{ umbralInferior }}</h4><button (click)='umbralInferior = umbralInferior - step'>-</button>

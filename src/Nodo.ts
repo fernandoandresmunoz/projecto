@@ -17,6 +17,8 @@ export interface Nodo {
     agregarHijos(): void;
     agregarHojas(): void;
 
+    totalBloques(): number;
+
     azules(): number;
     cafes(): number;
     grises(): number;

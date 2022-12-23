@@ -338,75 +338,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
         //     cube.down();
         // }
 
-        for (let i = 0; i < 14; i++) {
-            cube.right();
-        }
-
         for (let i = 0; i < 20; i++) {
             cube.upMilitary();
         }
+
+        cube.derecha()
 
         cube.clean();
         localStorage.clear()
 
         
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
-        cube.down();
         cube.down();
         cube.setFilas(JUEGO.CELULA.FILAS);
         cube.setColumnas(JUEGO.CELULA.COLUMNAS);
@@ -449,7 +390,6 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
                     // cube.crearBloque();
                 }
-                cube.left();
             }
             for (let i = 0; i < ancho; i++) {
                 cube.right();

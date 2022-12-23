@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Celula, Nodo } from '../ifaces/game';
+import { Nodo } from 'src/Nodo';
 
 @Component({
   selector: 'app-nodo',

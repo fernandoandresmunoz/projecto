@@ -55,13 +55,8 @@ export class Factory {
 
         a.addChild(e1)
         a.addChild(e2)
-        // a.addChild(e3)
-        // a.addChild(e4)
-        // a.addChild(e5)
-        // a.addChild(e6)
-        // a.addChild(e7)
-        // a.addChild(e8)
-
+        a.addChild(e3)
+        a.addChild(e4)
         a.agregarHojas();
 
         return a;

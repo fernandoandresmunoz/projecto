@@ -9,6 +9,9 @@ export class Celula implements Nodo {
     factory = new ConcreteShapeFactory();
     constructor() {
     }
+    totalBloques(): number {
+        return this.getAutomata().getBloques().length 
+    }
     getColor(): string {
         throw new Error("Method not implemented.");
     }
@@ -55,7 +58,6 @@ export class Celula implements Nodo {
         } else if ( this.getAutomata().densidad() >= umbralInferior && this.getAutomata().densidad() < umbralSuperior) {
             return JUEGO.WARNING_COLOR;
         } 
-
         return JUEGO.OK_COLOR;
     }
     setState(state: string): void {
@@ -82,7 +84,11 @@ export class Celula implements Nodo {
         return []
     }
     operation(): void {
-            console.log('automata ', this.getAutomata().densidad())
+        if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
+
+            console.log('verde ', this.automata.densidad())
+        }
+        localStorage.setItem('sdf', this.automata.getMatrizActiva().toString())
     }
     setAutomata(automata: Automata): void {
         this.automata = automata;
