@@ -35,6 +35,8 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
             if (automata.getGeneration() === 50) {
 
                 // automata.setBrownRule(this.shapeFactory.createAnnealRule())
+                
+                  automata.setRedRule(this.shapeFactory.MazectricWithMice());
             }
 
             if (automata.getGeneration() === 35) {

@@ -11,7 +11,6 @@ import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 import { ConcreteAliveNeighborsStrategy } from "src/app/ConcreteAliveNeighborsStrategy";
 import { AliveNeighborsStrategy } from "src/app/AliveNeighborsStrategy";
-import { RandomMatrixStrategy } from "src/app/RandomMatrixStrategy";
 import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
 import { DrawingStrategy } from "src/app/DrawingStrategy";
 import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
@@ -19,6 +18,7 @@ import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
 import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStrategy";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
+import { JUEGO } from "src/JUEGO";
 
 
 export default class Automata implements AutomataInterface {
@@ -75,7 +75,7 @@ export default class Automata implements AutomataInterface {
     altoCelula = 2;
     anchoCelula = 5;
     largoCelula = 5;
-    auxiliaryLines = false;
+    auxiliaryLines = true
 
     anchoLienzo = 1500;
     altoLienzo = 800;
@@ -246,7 +246,7 @@ export default class Automata implements AutomataInterface {
 
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
     aliveNeighborsStrategy: AliveNeighborsStrategy = new ConcreteAliveNeighborsStrategy();
-    randomMatrixStrategy: RandomMatrixStrategy = new ConcreteRandomMatrixStrategy();
+    randomMatrixStrategy: any = new ConcreteRandomMatrixStrategy();
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
     nextGenStrategy: NextGenStrategy = new ConcreteNextGenStrategy();
@@ -486,7 +486,7 @@ export default class Automata implements AutomataInterface {
     }
     subir(): void {
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.up();
         }
         // this.getPointA().setY(this.getPointA().getY() - 1);
@@ -497,7 +497,7 @@ export default class Automata implements AutomataInterface {
 
     }
     bajar(): void {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.down()
         }
 
@@ -516,7 +516,7 @@ export default class Automata implements AutomataInterface {
     }
     izquierda(): void {
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.left()
         }
 
@@ -528,7 +528,7 @@ export default class Automata implements AutomataInterface {
         // this.izquierdaCubos();
     }
     derecha(): void {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.right();
         }
         // this.getPointA().setX(this.getPointA().getX() + 1);

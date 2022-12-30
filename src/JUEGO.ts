@@ -7,16 +7,16 @@ export const JUEGO = {
     ALTO_LIENZO: 100,
     ANCHO_LIENZO: 100,
     CELULA: {
-        FILAS: 40,
-        COLUMNAS: 40,
+        FILAS: 25,
+        COLUMNAS: 25,
         ALTO_LIENZO: 200,
         ANCHO_LIENZO: 200,
         SCALE: 1,
         PROJECTION: 1,
         BACKGROUND_COLOR: 'darkgray',
-        ALTO: 4,
-        ANCHO: 4,
-        LARGO: 4,
+        ALTO: 2,
+        ANCHO: 2,
+        LARGO: 2,
     },
     ELEMENTOS: {
         ARBOL: true,
@@ -31,7 +31,7 @@ export const JUEGO = {
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
     PISOS: 1,
-    HOJAS_POR_RAMA: 2 ,
+    HOJAS_POR_RAMA: 8 ,
     MOSTRAR_TABLA: false,
     MOSTRAR_GRAFICO: true,
     BACKGROUND_COLOR: 'darkgray' ,
@@ -39,6 +39,10 @@ export const JUEGO = {
     FONT_COLOR: 'lightgray',
     SHOW_TREE: false,
     SHOW_TITLE: false,
+    AVANCE: 1,
+    ANCHO_BARRA: 1300,
+    ALTO_BARRA: 50,
+    AUXILIAR_LINES: true,
 
         // cube.setFilas(50);
         // cube.setColumnas(30);

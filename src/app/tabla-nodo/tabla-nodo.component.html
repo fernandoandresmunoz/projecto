@@ -4,7 +4,7 @@
         <div>
             <div *ngFor='let child of nodo.getChildren()' style='margin-bottom: 2em;'>
                 <div *ngFor='let x of child.getChildren()'>
-                    <div [ngStyle]="{ 'background-color': x.getState(umbralInferior, umbralSuperior), 'height': '5px', 'width': 200 * x.average() + 'px', 'border': '1px solid gray' }"></div>
+                    <div [ngStyle]="{ 'background-color': x.getState(umbralInferior, umbralSuperior), 'height': ALTO_BARRA +  'px', 'width': ANCHO_BARRA * x.average() + 'px', 'border': '1px solid gray' }"></div>
                 </div>
             </div>
         </div>
@@ -13,22 +13,17 @@
                 <tr>
                     <th>name</th>
                     <th colspan="2">state</th>
-                    <th colspan="2">agua</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor='let x of child.getChildren(); let i = index'>
-                    <td>Equipo {{ i + 1 }}</td>
+                    <td>Equipo {{ i }}</td>
                     <td [ngStyle]="{'background-color': x.getState(umbralInferior, umbralSuperior), 'width': '10px'}">
                     </td>
 
 
                     <td>{{ x.average().toFixed(2) }}</td>
-                    <td [ngStyle]="{'background-color': x.getState(umbralInferior, umbralSuperior), 'width': '10px'}">
-                    </td>
 
-
-                    <td>{{ x.azules().toFixed(2) }}</td>
                 </tr>
             </tbody>
         </table>

@@ -14,6 +14,8 @@ export class TablaNodoComponent implements OnInit {
   @Input() umbralSuperior: number;
 
 
+  ANCHO_BARRA = JUEGO.ANCHO_BARRA
+  ALTO_BARRA = JUEGO.ALTO_BARRA;
   constructor() { }
 
   ngOnInit(): void {

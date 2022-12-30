@@ -209,18 +209,22 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   }
   subir(): void {
     this.cube.subir();
+    this.cube.derecha();
     this.draw();
   }
   bajar(): void {
     this.cube.bajar();
+    this.cube.izquierda();
     this.draw();
   }
   izquierda(): void {
     this.cube.izquierda();
+    this.cube.subir();
     this.draw();
   }
   derecha(): void {
     this.cube.derecha();
+    this.cube.bajar();
     this.draw();
   }
   subirCubos(): void {
@@ -835,10 +839,6 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
       this.drawLine(point1, point2);
       // this.context.fillRect(point.getX() * this.getScale(), point.getY() * this.getScale(), 10, 10) }
     }
-
-
-
-
   }
   drawFilas(line1: Line, line2: Line): void {
     this.context.beginPath();
