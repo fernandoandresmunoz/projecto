@@ -19,9 +19,9 @@ export const JUEGO = {
         LARGO: 2,
     },
     ELEMENTOS: {
-        ARBOL: true,
-        CURVA: true,
-        BARRAS: true,
+        ARBOL: false,
+        CURVA: false,
+        BARRAS: false,
         TABLA: true
 
     },
@@ -31,7 +31,7 @@ export const JUEGO = {
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
     PISOS: 1,
-    HOJAS_POR_RAMA: 8 ,
+    HOJAS_POR_RAMA: 25 ,
     MOSTRAR_TABLA: false,
     MOSTRAR_GRAFICO: true,
     BACKGROUND_COLOR: 'darkgray' ,
