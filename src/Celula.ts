@@ -3,6 +3,17 @@ import { ConcreteShapeFactory } from "concreteShapeFactory";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 
+function makeid(length: number) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
 export class Celula implements Nodo {
 
     automata: Automata;
@@ -84,11 +95,20 @@ export class Celula implements Nodo {
         return []
     }
     operation(): void {
+
+        console.log(console.log(makeid(5)), 'aqui comienza una celula ***** ***** ***** ***** ***** *********** ')
+        let id = makeid(5);
         if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
 
-            console.log('verde ', this.automata.densidad())
         }
-        localStorage.setItem('sdf', this.automata.getMatrizActiva().toString())
+        console.log('value ', this.automata.densidad())
+        let counter = 1;
+        for (let i = 0; i < this.getAutomata().getMatrizActiva().length; i++) {
+            console.log('fila-', counter, this.getAutomata().getMatrizActiva()[i])
+            counter += 1;
+        }
+        localStorage.setItem('celula+' + id, JSON.stringify( this.getAutomata().getBloques() ))
+        console.log(" aqui termina **************************************************************** ")
     }
     setAutomata(automata: Automata): void {
         this.automata = automata;

@@ -4,13 +4,13 @@ export const JUEGO = {
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
     UNKWON_STATE_COLOR: 'gray',
-    ALTO_LIENZO: 100,
-    ANCHO_LIENZO: 100,
+    ALTO_LIENZO: 200,
+    ANCHO_LIENZO: 200,
     CELULA: {
-        FILAS: 25,
-        COLUMNAS: 25,
-        ALTO_LIENZO: 200,
-        ANCHO_LIENZO: 200,
+        FILAS: 40,
+        COLUMNAS: 40,
+        ALTO_LIENZO: 300,
+        ANCHO_LIENZO: 300,
         SCALE: 1,
         PROJECTION: 1,
         BACKGROUND_COLOR: 'darkgray',
@@ -19,9 +19,9 @@ export const JUEGO = {
         LARGO: 2,
     },
     ELEMENTOS: {
-        ARBOL: false,
-        CURVA: false,
-        BARRAS: false,
+        ARBOL: true,
+        CURVA: true,
+        BARRAS: true,
         TABLA: true
 
     },
@@ -30,9 +30,10 @@ export const JUEGO = {
     UMBRAL_STEP: 0.01,
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
-    PISOS: 1,
-    HOJAS_POR_RAMA: 25 ,
-    MOSTRAR_TABLA: false,
+    PISOS: 4,
+    SHOW_DRAWING: false,
+    HOJAS_POR_RAMA: 2 , // RACK
+    MOSTRAR_TABLA: true,
     MOSTRAR_GRAFICO: true,
     BACKGROUND_COLOR: 'darkgray' ,
     TITLE: 'Automaton',
@@ -40,8 +41,8 @@ export const JUEGO = {
     SHOW_TREE: false,
     SHOW_TITLE: false,
     AVANCE: 1,
-    ANCHO_BARRA: 1300,
-    ALTO_BARRA: 50,
+    ANCHO_BARRA: 800,
+    ALTO_BARRA: 15,
     AUXILIAR_LINES: true,
 
         // cube.setFilas(50);

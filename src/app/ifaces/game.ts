@@ -4,6 +4,8 @@ import { JUEGO } from "src/JUEGO";
 import { Nodo } from "src/Nodo";
 
 
+
+
 export class Factory {
     crearCelula(): Nodo {
         return new Celula();
@@ -55,14 +57,31 @@ export class Factory {
 
         a.addChild(e1)
         a.addChild(e2)
-        a.addChild(e3)
-        a.addChild(e4)
+
+        e1.addChild(e3);
+        e1.addChild(e4);
+
+        e2.addChild(e5)
+        e2.addChild(e6)
         a.agregarHojas();
 
         return a;
     }
 
+    superPlanta() : Nodo {
 
+        let a = this.crearGrupoCelula();
+        a.addChild(this.crearPlanta())
+        a.addChild(this.crearPlanta())
+        return a ;
+    }
+
+    megaPlanta() : Nodo {
+        let a = this.crearGrupoCelula();
+        a.addChild(this.superPlanta()) 
+        a.addChild(this.superPlanta()) 
+        return a;
+    }
 
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 
 @Component({
@@ -12,6 +13,7 @@ export class NodoComponent implements OnInit {
   @Input() umbralInferior: number;
   @Input() umbralSuperior: number;
 
+  showDrawing = JUEGO.SHOW_DRAWING;
 
   constructor() { }
 

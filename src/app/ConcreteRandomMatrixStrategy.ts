@@ -2,6 +2,7 @@ import { Cube  as Automata} from "cube";
 import { MatrixCreationStrategy } from "./RandomMatrixStrategy";
 
 
+const RUINA = { state: 1, color: 'Red'}
 export class ConcreteRandomMatrixStrategy implements MatrixCreationStrategy {
     create(automata: Automata): { state: number; color: string; }[][] {
 
@@ -25,11 +26,11 @@ export class ConcreteRandomMatrixStrategy implements MatrixCreationStrategy {
                     }
                     else if (x % 3 === 0) {
 
-                        salida[fila][columna] = { state: 1, color: 'Green' }
+                        salida[fila][columna] = { state: 1, color: 'Brown' }
                     }
                     else if (x % 2 === 0) {
 
-                        salida[fila][columna] = { state: 1, color: 'Brown' }
+                        salida[fila][columna] = { state: 1, color: 'Green' }
                     }
                     else if (x % 5 === 0) {
 

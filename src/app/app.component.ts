@@ -42,7 +42,7 @@ export class AppComponent implements OnInit  {
 
   constructor() {
 
-    this.raiz = this.factory.crearPlanta();
+    this.raiz = this.factory.megaPlanta();
 
     this.raiz.setAutomatas();
 
