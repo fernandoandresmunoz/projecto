@@ -30,20 +30,20 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     azules(): number {
-        return  this.getAutomata().totalAzules() / ( this.getAutomata().getFilas() * this.getAutomata().getColumnas() )
+        return this.getAutomata()?.totalAzules() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     cafes(): number {
 
-        return  this.getAutomata().totalCafes() / ( this.getAutomata().getFilas() * this.getAutomata().getColumnas() )
+        return  this.getAutomata()?.totalCafes() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     grises(): number {
-        return  this.getAutomata().totalGrises() / ( this.getAutomata().getFilas() * this.getAutomata().getColumnas() )
+        return  this.getAutomata()?.totalGrises() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     rojos(): number {
-        return  this.getAutomata().totalRojos() / ( this.getAutomata().getFilas() * this.getAutomata().getColumnas() )
+        return  this.getAutomata()?.totalRojos() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     verdes(): number {
-        return  this.getAutomata().totalVerdes() / ( this.getAutomata().getFilas() * this.getAutomata().getColumnas() )
+        return  this.getAutomata()?.totalVerdes() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     agregarHojas(): void {
         throw new Error("Method not implemented.");
@@ -55,7 +55,7 @@ export class Celula implements Nodo {
         this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2() : this.factory.createMilitaryCube())
     }
     avanzarUnaGeneracion(): void {
-        this.getAutomata().avanzarUnaGeneracion();
+        this.getAutomata()?.avanzarUnaGeneracion();
     }
     initialize(): void {
         
@@ -64,9 +64,9 @@ export class Celula implements Nodo {
     }
     getState(umbralInferior: number, umbralSuperior: number): string {
 
-        if ( this.getAutomata().densidad() < umbralInferior) {
+        if ( this.getAutomata()?.densidad() < umbralInferior) {
             return JUEGO.DANGER_COLOR;
-        } else if ( this.getAutomata().densidad() >= umbralInferior && this.getAutomata().densidad() < umbralSuperior) {
+        } else if ( this.getAutomata()?.densidad() >= umbralInferior && this.getAutomata().densidad() < umbralSuperior) {
             return JUEGO.WARNING_COLOR;
         } 
         return JUEGO.OK_COLOR;
@@ -86,7 +86,7 @@ export class Celula implements Nodo {
         // this.automata.setBrownRule(this.factory.createDiademaRule())
     }
     average(): number {
-        return this.getAutomata().densidad();
+        return this.getAutomata()?.densidad();
     }
     addChild(nodo: Nodo): void {
         throw new Error("Method not implemented.");

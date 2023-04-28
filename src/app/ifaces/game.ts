@@ -76,10 +76,12 @@ export class Factory {
         return a ;
     }
 
-    megaPlanta() : Nodo {
+    megaPlanta(): Nodo {
         let a = this.crearGrupoCelula();
-        a.addChild(this.superPlanta()) 
-        a.addChild(this.superPlanta()) 
+        a.addChild(this.superPlanta())
+        a.addChild(this.superPlanta())
+
+        a.setAutomatas();
         return a;
     }
 

@@ -4,16 +4,13 @@ import { Nodo } from 'src/Nodo';
 import { Factory } from './ifaces/game';
 
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.styl']
 })
-export class AppComponent implements OnInit  {
+export class AppComponent  {
   factory = new Factory();
-
 
   umbralInferior = JUEGO.UMBRAL_INFERIOR;
   umbralSuperior = JUEGO.UMBRAL_SUPERIOR;
@@ -29,7 +26,6 @@ export class AppComponent implements OnInit  {
   showCurva = JUEGO.ELEMENTOS.CURVA;
   showTabla= JUEGO.ELEMENTOS.TABLA
   showBarras = JUEGO.ELEMENTOS.BARRAS;
-  
 
   raiz: Nodo;
   generacion: number = 0;
@@ -44,14 +40,8 @@ export class AppComponent implements OnInit  {
 
     this.raiz = this.factory.megaPlanta();
 
-    this.raiz.setAutomatas();
-
-    let counter = 1;
-
     setInterval(() => {
       this.raiz.avanzarUnaGeneracion()
-
-
 
       this.points.push([this.generacion, this.raiz.average() ])
       this.azules.push([this.generacion, this.raiz.azules() ])
@@ -62,22 +52,8 @@ export class AppComponent implements OnInit  {
 
       this.generacion += 1;
 
-
-      counter += 1;
-
     },JUEGO.INTERVALO_GENERACION)
 
-
-
   }
-
-
-
-  ngOnInit(): void {
-
-  }
-
-
-
 }
 
