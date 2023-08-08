@@ -38,6 +38,9 @@ import { CorrosionOfConformity } from "rules/CorrosionOfConformity";
 import { SnowLife } from "rules/SnowLife";
 import { JUEGO } from "src/JUEGO";
 import Automata from "concreteCube";
+import { Serviettes } from "rules/Serviettes";
+import { EmptyRule } from "rules/Empty";
+import { Geology } from "rules/Geology";
 
 
 
@@ -67,8 +70,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
     LiveFreeOrDie(): Rule {
         throw new Error("Method not implemented.");
     }
-    Serviettes(): Rule {
-        throw new Error("Method not implemented.");
+    serviettes(): Rule {
+        return new Serviettes()
+    }
+
+    geologyRule(): Rule {
+        return new Geology();
+    }
+
+    emptyRule() : Rule {
+        return new EmptyRule();
     }
     Iceballs(): Rule {
         throw new Error("Method not implemented.");
@@ -295,11 +306,11 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     createMilitaryCube(): IAutomata {
 
-        let pointA = this.createPoint(40, 50);
-        let pointB = this.createPoint(40, 30);
+        let pointA = this.createPoint(240, 50);
+        let pointB = this.createPoint(240, 30);
 
-        let pointC = this.createPoint(80, 40);
-        let pointD = this.createPoint(0, 40);
+        let pointC = this.createPoint(280, 40);
+        let pointD = this.createPoint(200, 40);
 
         let cube = this.createCube(pointA, pointB, pointC, pointD);
 
@@ -341,7 +352,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
         for (let i = 0; i < 20; i++) {
             cube.upMilitary();
         }
+        for (let i = 0; i < 120; i++) {
+        cube.bajar();
+        }
+        for (let i = 0; i < 130; i++) {
+        cube.derecha()
+        }
 
+
+
+    
         cube.derecha()
 
         cube.clean();

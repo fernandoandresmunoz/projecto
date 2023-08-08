@@ -54,5 +54,8 @@ export interface ShapeFactory {
     createMilitaryCube(): Cube;
     createMilitary2(): Cube;
     createMilitary3(): Cube;
+    serviettes(): Rule;
+    emptyRule(): Rule;
+    geologyRule(): Rule;
 
 }

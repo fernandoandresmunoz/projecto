@@ -42,7 +42,23 @@ export class ConcreteBlockCreationStrategy implements BlockCreationStrategy {
 
         //   this.addBloque(new BloqueConcreto(p2, p0, p1, p3,  Math.floor(Math.random() * 20) + 1 ));
 
-        this.automata.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, this.automata.getAltoCelula()));
+        let h;
+        if (data.color === 'Green') {
+            h = 6
+        } else if (data.color === 'Brown') {
+            h = 6
+        }
+        else if (data.color === 'Red') {
+            h = 6
+        }
+        else if (data.color === 'Gray') {
+            h = 6
+        }
+        else {
+            h = this.automata.getAltoCelula();
+        }
+
+        this.automata.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, h));
         //   localStorage.setItem('data', JSON.stringify({ 'points': this.getPuntos() }));
         // this.addPunto([this.puntoCelula.getX(), p0.getY()]);
 

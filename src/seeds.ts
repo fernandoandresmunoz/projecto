@@ -2,14 +2,15 @@ import { Rule } from "rule";
 
 
 
-export class Serviettes implements Rule {
+export class Seeds implements Rule {
     surviveCondition(vivas: number): boolean {
         return false;
     }
     liveCondition(vivas: number): boolean {
-         if ( vivas === 2 || vivas == 3 || vivas === 4  ) {
+        if ( vivas === 2 ) {
             return true;
-        }
-        return false;       
+        } 
+        return false;
     }
+
 }

@@ -39,6 +39,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
   constructor() {
         setInterval(() => {
+          this.cube.avanzarUnaGeneracion();
           this.draw();
     }, 500)
   }
@@ -596,18 +597,18 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'h') {
-      // this.left();
-      this.izquierda();
+      this.left();
+      // this.izquierda();
     } else if (event.key === 'j') {
-      this.bajar();
-      // this.down();
+      // this.bajar();
+      this.down();
       // this.bajarCubos();
     } else if (event.key === 'k') {
-      // this.up();
-      this.subir()
+      this.up();
+      // this.subir()
     } else if (event.key === 'l') {
-      this.derecha();
-      // this.right();
+      // this.derecha();
+      this.right();
     } else if (event.key === '+') {
       this.setScale(this.getScale() + 1);
     } else if (event.key === '-') {
@@ -1104,3 +1105,4 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   }
 
 }
+

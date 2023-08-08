@@ -1,5 +1,6 @@
 
 export const JUEGO = {
+    SINGLE_MODE : 'OFF',
     WARNING_COLOR: 'yellow',
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
@@ -7,14 +8,14 @@ export const JUEGO = {
     ALTO_LIENZO: 200,
     ANCHO_LIENZO: 200,
     CELULA: {
-        FILAS: 40,
-        COLUMNAS: 40,
-        ALTO_LIENZO: 300,
-        ANCHO_LIENZO: 300,
-        SCALE: 1,
-        PROJECTION: 1,
+        FILAS: 100,
+        COLUMNAS: 100,
+        ALTO_LIENZO: 800,
+        ANCHO_LIENZO: 1500,
+        SCALE: 2,
+        PROJECTION: 2,
         BACKGROUND_COLOR: 'darkgray',
-        ALTO: 2,
+        ALTO: 4,
         ANCHO: 2,
         LARGO: 2,
     },
@@ -30,9 +31,9 @@ export const JUEGO = {
     UMBRAL_STEP: 0.01,
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
-    PISOS: 4,
-    SHOW_DRAWING: false,
-    HOJAS_POR_RAMA: 2 , // RACK
+    PISOS: 1,
+    SHOW_DRAWING: true,
+    HOJAS_POR_RAMA: 1 , // RACK
     MOSTRAR_TABLA: true,
     MOSTRAR_GRAFICO: true,
     BACKGROUND_COLOR: 'darkgray' ,
@@ -43,7 +44,7 @@ export const JUEGO = {
     AVANCE: 1,
     ANCHO_BARRA: 800,
     ALTO_BARRA: 15,
-    AUXILIAR_LINES: true,
+    AUXILIAR_LINES: false,
 
         // cube.setFilas(50);
         // cube.setColumnas(30);

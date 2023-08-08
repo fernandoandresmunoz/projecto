@@ -38,22 +38,8 @@ export class AppComponent  {
 
   constructor() {
 
-    this.raiz = this.factory.megaPlanta();
-
-    setInterval(() => {
-      this.raiz.avanzarUnaGeneracion()
-
-      this.points.push([this.generacion, this.raiz.average() ])
-      this.azules.push([this.generacion, this.raiz.azules() ])
-      this.rojos.push([this.generacion, this.raiz.rojos() ])
-      this.verdes.push([this.generacion, this.raiz.verdes() ])
-      this.cafes.push([this.generacion, this.raiz.cafes() ])
-      this.grises.push([this.generacion, this.raiz.grises() ])
-
-      this.generacion += 1;
-
-    },JUEGO.INTERVALO_GENERACION)
-
+    // this.raiz = this.factory.megaPlanta();
+    this.raiz = this.factory.crearPlanta()
   }
 }
 

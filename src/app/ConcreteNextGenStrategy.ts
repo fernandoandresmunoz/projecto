@@ -28,21 +28,22 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
             if (automata.getGeneration() === 5) {
 
-                automata.setBrownRule(this.shapeFactory.createAnnealRule());
-                // automata.setGrayRule(this.shapeFactory.createWalledCityRule())
+                automata.setGrayRule(this.shapeFactory.createWalledCityRule())
             }
 
-            if (automata.getGeneration() === 50) {
+            if (automata.getGeneration() === 25) {
 
                 // automata.setBrownRule(this.shapeFactory.createAnnealRule())
                 
                   automata.setRedRule(this.shapeFactory.MazectricWithMice());
             }
 
-            if (automata.getGeneration() === 35) {
+            if (automata.getGeneration() === 30) {
+                //   automata.setRedRule(this.shapeFactory.MazectricWithMice());
+                  automata.setRedRule(this.shapeFactory.createLifeWithoutDeathRule());
 
             }
-            else if (automata.getGeneration() === 120) {
+            else if (automata.getGeneration() === 25) {
                   automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
                 //   automata.setGrayRule(this.shapeFactory.createLifeRule())
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
@@ -52,8 +53,11 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
             }
 
-            else if (automata.getGeneration() === 45) {
+            else if (automata.getGeneration() === 15) {
                 automata.setGreenRule(this.shapeFactory.createCoralRule());
+                automata.setBrownRule(this.shapeFactory.createAnnealRule());
+                automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+                // automata.setBrownRule(this.shapeFactory.createAnnealRule());
                 //   this.setGrayRule(this.shapeFactory.createWalledCityRule())
                 //   this.setRedRule(this.shapeFactory.MazectricWithMice());
                 //   this.setGreenRule(this.shapeFactory.createCoralRule());

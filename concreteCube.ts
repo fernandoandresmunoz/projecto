@@ -17,8 +17,8 @@ import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
 import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
 import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStrategy";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
-import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 import { JUEGO } from "src/JUEGO";
+import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 
 
 export default class Automata implements AutomataInterface {
@@ -206,6 +206,21 @@ export default class Automata implements AutomataInterface {
         {
             name: 'snow',
             rule: this.shapeFactory.SnowLife(),
+            notation: ''
+        },
+        {
+            name: 'serviettes',
+            rule: this.shapeFactory.serviettes(),
+            notation: ''
+        },
+{
+            name: 'empty',
+            rule: this.shapeFactory.emptyRule(),
+            notation: ''
+        },
+        {
+            name: 'geology',
+            rule: this.shapeFactory.geologyRule(),
             notation: ''
         }
     ]
