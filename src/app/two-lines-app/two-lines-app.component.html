@@ -37,7 +37,7 @@
         {{ cube.getGeneration() }}
                 </p>
                 <!-- <canvas style='border: 1px solid gray' #myCanvas (keypress)='keyLeft()'></canvas> -->
-                <canvas style='border: 1px solid gray'  #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
+                <canvas #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
                     largo celula <button (click)='setLargoCelula(getLargoCelula() - 1); draw()'>-</button>
                     <button (click)='setLargoCelula(getLargoCelula() + 1); draw()'>+</button> {{ getLargoCelula() }}
                 </div>
-                <div style='border: 1px solid gray'>
+                <div style=''>
                     <button (click)='left(); draw()'>Left</button>
                     <button (click)='right(); draw()'>Right</button>
                     <button (click)='up(); draw()'>Up</button>

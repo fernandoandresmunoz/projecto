@@ -30,12 +30,29 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
                 automata.setGrayRule(this.shapeFactory.createWalledCityRule())
             }
+            if (automata.getGeneration() === 42) {
 
-            if (automata.getGeneration() === 25) {
+                
+                automata.setGrayRule(this.shapeFactory.createDayAndNightRule())
+                  automata.setBlueRule(this.shapeFactory.createReplicatorRule());
+                  automata.setBrownRule(this.shapeFactory.createWalledCityRule());
+            }
+            if (automata.getGeneration() === 65) {
+
+                
+                automata.setBrownRule(this.shapeFactory.createAnnealRule());
+                  automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+            }
+
+
+
+
+            if (automata.getGeneration() === 30) {
 
                 // automata.setBrownRule(this.shapeFactory.createAnnealRule())
                 
                   automata.setRedRule(this.shapeFactory.MazectricWithMice());
+                  automata.setBlueRule(this.shapeFactory.createWalledCityRule());
             }
 
             if (automata.getGeneration() === 30) {
@@ -51,11 +68,11 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                 //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
+                automata.setBrownRule(this.shapeFactory.createAnnealRule());
             }
 
             else if (automata.getGeneration() === 15) {
                 automata.setGreenRule(this.shapeFactory.createCoralRule());
-                automata.setBrownRule(this.shapeFactory.createAnnealRule());
                 automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
                 // automata.setBrownRule(this.shapeFactory.createAnnealRule());
                 //   this.setGrayRule(this.shapeFactory.createWalledCityRule())

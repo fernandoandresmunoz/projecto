@@ -314,30 +314,17 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         let cube = this.createCube(pointA, pointB, pointC, pointD);
 
-
-
-        // let pointA = this.createPoint(13, 58);
-        // let pointB = this.createPoint(91, 9);
-
-        // let pointC = this.createPoint(116, 55);
-        // let pointD = this.createPoint(2,11);
-        // let cube = this.createCube(pointA, pointB, pointC, pointD) ;
-
-
-
-
         cube.setSelectedProjection('military');
-        cube.setHeight(5);
-        // cube.setColumnas(25);
+
         cube.setAltoCelula(JUEGO.CELULA.ALTO);
         cube.setAnchoCelula(JUEGO.CELULA.ANCHO);
         cube.setLargoCelula(JUEGO.CELULA.LARGO)
 
         cube.setPoint(this.createPoint(0, 40));
         cube.setPoint1(this.createPoint(0, 40));
-        // cube.setPoint2(this.createPoint( 0, cube.getRectaBC().calcularPendiente() * 0 + cube.getRectaBC().intereseccionEnEjeY().getY()  ))
         cube.setPoint2(this.createPoint(40, 30))
         cube.setPoint3(this.createPoint(40, 50))
+
         this.configureCube(cube);
 
         cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
@@ -349,15 +336,15 @@ export class ConcreteShapeFactory implements ShapeFactory {
         //     cube.down();
         // }
 
-        for (let i = 0; i < 20; i++) {
-            cube.upMilitary();
-        }
-        for (let i = 0; i < 120; i++) {
-        cube.bajar();
-        }
-        for (let i = 0; i < 130; i++) {
-        cube.derecha()
-        }
+        // for (let i = 0; i < 25; i++) {
+        //     cube.upMilitary();
+        // }
+        // for (let i = 0; i < 120; i++) {
+        // cube.bajar();
+        // }
+        // for (let i = 0; i < 130; i++) {
+        // cube.derecha()
+        // }
 
 
 
@@ -449,21 +436,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
     createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
-
-
-        // let pointA = this.createPoint(42, 44);
-        // let pointB = this.createPoint(37, 32);
-        // let pointC = this.createPoint(66, 33);
-        // let pointD = this.createPoint(10,43);
-
-
         let cube = new Automata(pointA, pointB, pointC, pointD);
-        cube.setScale(10);
-        cube.setHeight(27)
-        // cube.setSelectedProjection('isometric');
-        // cube.setLine1(this.createLine(this.createPoint(56, 50), this.createPoint(51, 51)));
-        // cube.setLine2(this.createLine(this.createPoint(91, 17), this.createPoint(14, 20)));
-
         return cube;
     }
     createCircle(center: Point, radius: number): Circle {

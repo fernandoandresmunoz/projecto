@@ -46,7 +46,7 @@ export class ConcreteRandomMatrixStrategy implements MatrixCreationStrategy {
                     }
                     else if (x % 5 === 0) {
 
-                        // salida[fila][columna] = { state: 1, color: 'Gray' }
+                        salida[fila][columna] = { state: 1, color: 'Gray' }
                     }
                     else {
 
