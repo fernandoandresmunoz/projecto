@@ -52,8 +52,8 @@ export class Factory {
 
         let b = this.crearCelula();
         let c = this.crearCelula();
-        // let d = this.crearCelula();
-        // let e = this.crearCelula();
+        let d = this.crearCelula();
+        let e = this.crearCelula();
         // let f = this.crearCelula();
 
         a.addChild(b);
