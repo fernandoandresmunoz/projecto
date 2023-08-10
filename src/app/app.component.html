@@ -22,7 +22,7 @@
     </div>
 
     <h2>{{ generacion }}</h2>
-    <div *ngIf='showCurva'>
+    <div *ngIf='false && showCurva'>
         <app-curva *ngIf='mostrarGrafica' [generacion]='generacion' [points]='points' [azules]='azules'
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
     </div>

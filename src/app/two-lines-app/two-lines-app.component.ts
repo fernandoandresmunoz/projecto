@@ -25,6 +25,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     'RED',
 
   ]
+  MILITAR_STEP = JUEGO.MILITAR_STEP
 
 
   shapeFactory: ShapeFactory = new ConcreteShapeFactory();
@@ -199,8 +200,8 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   crearTableroAleatorio(): void {
     this.cube.crearTableroAleatorio();
   }
-  upMilitary(): void {
-    this.cube.upMilitary();
+  upMilitary(size: number): void {
+    this.cube.upMilitary(size);
   }
   downMilitary(): void {
     this.cube.downMilitary();

@@ -1,26 +1,29 @@
 <div style='font-size: 20px'>
-    generation : {{ getGeneration() }}
+    <!-- generation : {{ getGeneration() }} -->
     <!--  -->
     
-    <div>
+    <div *ngIf="false">
         <p>azules {{ totalAzules() }} | {{ 100 * totalAzules() / getBloques().length }} </p>
         <p>verdes {{ totalVerdes() }} |  {{ 100 * totalVerdes() / getBloques().length }}</p>
         <p>cafes {{ totalCafes() }} |  {{ 100 * totalCafes() / getBloques().length }}</p>
         <p>rojos {{ totalRojos() }} |  {{ 100 * totalRojos() / getBloques().length }}</p>
         <p>grises {{ totalGrises() }} |  {{ 100 * totalGrises() / getBloques().length }}</p>
     </div>
-    <p>{{ getBloques().length}}</p>
-    <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
-    
-        <button (click)='setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
-    
-    <table>
+    <div *ngIf="false">
+        <p>{{ getBloques().length}}</p>
+        <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
+        
+            <button (click)='setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
+        
+    </div>
+    <table *ngIf="false">
         <tr *ngFor='let elemento of ELEMENTS'>
             <td style='font-size: 20px'>
                 {{ elemento }}
             </td>
             <td>
-    <select (change)='changeRule(elemento, $event.target.value)' name="" id="" >
+    <!-- <select (change)='changeRule(elemento, $event.target.value)' name="" id="" > -->
+    <select  name="" id="" >
             <option [value]='rule.name'
             *ngFor='let rule of getRules().sort()'>{{ rule.name }} ( {{ rule.notation }} )</option>
         </select>
@@ -41,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="false">
     
         <table>
             <tr>
@@ -82,7 +85,7 @@
                 </div>
                     <button (click)='clean()'>clean</button>
     
-            <div style='font-size: 16px'>
+            <div *ngIf='false' style='font-size: 16px'>
                 <div>
                     BC = {{ cube.getLineBC().ecuacionRecta() }}
                 </div>
@@ -104,7 +107,7 @@
                     <br>
                     militar <button (click)='downMilitary(); draw()
                     '>-</button>
-                    <button (click)='upMilitary(); draw()
+                    <button (click)='upMilitary(MILITAR_STEP); draw()
                     '>+</button>
                 </div>
     
@@ -204,7 +207,7 @@
     
     
     
-                <div *ngIf='showAuxiliaryLines()'>
+                <div *ngIf=' false && showAuxiliaryLines()'>
                     <div style='border: 1px solid gray'>
                         <ul>
                             <li *ngFor='let projection of getProjections()'>
@@ -224,10 +227,12 @@
                         </p>
     
                     </div>
-                </div>
                         Scale: {{ getScale() }}
                         <br>
                         <button (click)='setScale(getScale() - 1); draw()'> - </button>
                         <button (click)='setScale(getScale() + 1); draw()'>+</button>
+                </div>
+
+
 </div>
 

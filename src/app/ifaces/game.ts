@@ -45,25 +45,25 @@ export class Factory {
 
         let a = this.crearGrupoCelula();
 
-        let e1 = this.crearGrupoCelula();
-        let e2 = this.crearGrupoCelula();
-        let e3 = this.crearGrupoCelula();
-        let e4 = this.crearGrupoCelula();
-        let e5 = this.crearGrupoCelula();
-        let e6 = this.crearGrupoCelula();
-        let e7 = this.crearGrupoCelula();
-        let e8 = this.crearGrupoCelula();
+        // let e1 = this.crearGrupoCelula();
+        // let e2 = this.crearGrupoCelula();
+        // let e3 = this.crearGrupoCelula();
+        // let e4 = this.crearGrupoCelula();
 
+        let b = this.crearCelula();
+        let c = this.crearCelula();
 
+        a.addChild(b);
+        a.addChild(c);
         // a.addChild(e1)
         // a.addChild(e2)
 
-        // e1.addChild(e3);
-        // e1.addChild(e4);
+        // a.addChild(e3);
+        // a.addChild(e4);
 
         // e2.addChild(e5)
         // e2.addChild(e6)
-        a.agregarHojas();
+        // a.agregarHojas();
         a.setAutomatas()
 
 

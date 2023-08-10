@@ -488,9 +488,9 @@ export default class Automata implements AutomataInterface {
         this.blockCreationStrategy.create(data, altura);
     }
 
-    upMilitary(): void {
-        this.getPointA().setY(this.getPointA().getY() + 1);
-        this.getPointB().setY(this.getPointB().getY() - 1);
+    upMilitary(size: number): void {
+        this.getPointA().setY(this.getPointA().getY() + size);
+        this.getPointB().setY(this.getPointB().getY() - size);
     }
     downMilitary(): void {
         this.getPointA().setY(this.getPointA().getY() - 1);

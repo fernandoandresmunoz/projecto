@@ -17,7 +17,7 @@
 </li>
 
 <!-- si soy una hoja -->
-<span *ngIf='root.getChildren().length === 0 ' class='tf-nc nodo' (click)='console.log("soy una hoja")'
+<span *ngIf='root.getChildren().length === 0 ' class='tf-nc nodo' 
     [ngStyle]="{
     'background-color': root.getState(umbralInferior, umbralSuperior), 
     'font-size': '14px',

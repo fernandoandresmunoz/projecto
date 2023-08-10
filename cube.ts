@@ -184,5 +184,5 @@ export interface Cube  {
     totalVerdes(): number;
 
     up(): void;
-    upMilitary(): void;
+    upMilitary(size: number): void;
 }

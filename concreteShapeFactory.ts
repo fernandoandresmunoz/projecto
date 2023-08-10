@@ -330,54 +330,38 @@ export class ConcreteShapeFactory implements ShapeFactory {
         cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
         cube.setAltoLienzo(JUEGO.ALTO_LIENZO);
         cube.setAvance(50);
-        cube.setShowAuxiliaryLines(false);
+        cube.setShowAuxiliaryLines(JUEGO.AUXILIARY_LINES);
 
-        // for (let i = 0; i < 50; i++) {
-        //     cube.down();
-        // }
+        cube.upMilitary(JUEGO.MILITAR_DEFAULT);
 
-        // for (let i = 0; i < 25; i++) {
-        //     cube.upMilitary();
-        // }
-        // for (let i = 0; i < 120; i++) {
-        // cube.bajar();
-        // }
-        // for (let i = 0; i < 130; i++) {
-        // cube.derecha()
-        // }
+        for (let i = 0; i < 80; i++) {
+            cube.down();
+        }
+        for (let i = 0; i < 60; i++) {
+            cube.derecha()
+        }
 
-
-
-    
-        cube.derecha()
-
-        cube.clean();
-        localStorage.clear()
-
+        cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ?
         
-        cube.down();
-        cube.setFilas(JUEGO.CELULA.FILAS);
-        cube.setColumnas(JUEGO.CELULA.COLUMNAS);
-        cube.setAltoLienzo(JUEGO.CELULA.ALTO_LIENZO); 
-        cube.setAnchoLienzo(JUEGO.CELULA.ANCHO_LIENZO); 
+
         cube.setScale(JUEGO.CELULA.SCALE);
 
         
 
         cube.setMatrizActiva(cube.createRandomMatriz())
         cube.setRule(this.createLifeRule());
-        cube.setGreenRule(this.createLifeRule());
 
         cube.addElement(this.crearMar())
         cube.addElement(this.crearTierra());
         cube.addElement(this.crearVegetacion())
         cube.addElement(this.crearCiudad());
 
+        cube.setGreenRule(this.createLifeRule());
         cube.setGrayRule(this.createLifeRule());
         cube.setBrownRule(this.createLifeRule());
         cube.setBlueRule(this.createLifeRule())
 
-        // cube.setRule(this.createDiamoebaRule());
+        cube.setRule(this.createDiamoebaRule());
 
         return cube;
 
@@ -437,6 +421,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
         let cube = new Automata(pointA, pointB, pointC, pointD);
+        cube.setFilas(JUEGO.FILAS);
+        cube.setColumnas(JUEGO.COLUMNAS);
         return cube;
     }
     createCircle(center: Point, radius: number): Circle {

@@ -1,17 +1,20 @@
 
 export const JUEGO = {
-    SINGLE_MODE : 'OFF',
+    SINGLE_MODE: 'ON',
+    AUXILIARY_LINES: false,
     WARNING_COLOR: 'yellow',
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
     UNKWON_STATE_COLOR: 'gray',
-    ALTO_LIENZO: 200,
-    ANCHO_LIENZO: 200,
+    MILITAR_DEFAULT: 25, 
+    MILITAR_STEP: 1,
+    ALTO_LIENZO: 500,
+    ANCHO_LIENZO: 300,
+        FILAS: 32,
+        COLUMNAS: 32,
     CELULA: {
-        FILAS: 128,
-        COLUMNAS: 64,
-        ALTO_LIENZO: 1200,
-        ANCHO_LIENZO: 1500,
+
+
         SCALE: 2,
         PROJECTION: 2,
         BACKGROUND_COLOR: 'darkgray',
@@ -26,17 +29,17 @@ export const JUEGO = {
         TABLA: true
 
     },
-    UMBRAL_INFERIOR: 0.54,
-    UMBRAL_SUPERIOR: 0.7,
+    UMBRAL_INFERIOR: 0.74,
+    UMBRAL_SUPERIOR: 0.78,
     UMBRAL_STEP: 0.01,
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
     PISOS: 1,
     SHOW_DRAWING: true,
-    HOJAS_POR_RAMA: 1 , // RACK
+    HOJAS_POR_RAMA: 1, // RACK
     MOSTRAR_TABLA: true,
     MOSTRAR_GRAFICO: true,
-    BACKGROUND_COLOR: 'darkgray' ,
+    BACKGROUND_COLOR: 'darkgray',
     TITLE: 'Automaton',
     FONT_COLOR: 'lightgray',
     SHOW_TREE: false,
@@ -44,13 +47,13 @@ export const JUEGO = {
     AVANCE: 1,
     ANCHO_BARRA: 800,
     ALTO_BARRA: 15,
-    AUXILIAR_LINES: false,
+    AUXILIAR_LINES: true,
 
-        // cube.setFilas(50);
-        // cube.setColumnas(30);
-        // cube.setAltoLienzo(160); 
-        // cube.setAnchoLienzo(240); 
-        // cube.setScale(1)
+    // cube.setFilas(50);
+    // cube.setColumnas(30);
+    // cube.setAltoLienzo(160); 
+    // cube.setAnchoLienzo(240); 
+    // cube.setScale(1)
 
 
 
