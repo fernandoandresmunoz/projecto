@@ -2,12 +2,35 @@
     <!-- generation : {{ getGeneration() }} -->
     <!--  -->
     
-    <div *ngIf="false">
-        <p>azules {{ totalAzules() }} | {{ 100 * totalAzules() / getBloques().length }} </p>
-        <p>verdes {{ totalVerdes() }} |  {{ 100 * totalVerdes() / getBloques().length }}</p>
-        <p>cafes {{ totalCafes() }} |  {{ 100 * totalCafes() / getBloques().length }}</p>
-        <p>rojos {{ totalRojos() }} |  {{ 100 * totalRojos() / getBloques().length }}</p>
-        <p>grises {{ totalGrises() }} |  {{ 100 * totalGrises() / getBloques().length }}</p>
+
+    <div *ngIf="true">
+        <table border=1>
+            <tr>
+                <td>azules</td>
+                <!-- <td>{{  totalAzules() }}</td> -->
+                <td> {{ 100 * totalAzules() / getBloques().length | number : '.2-2'  }}</td>
+            </tr>
+            <tr>
+                <td>verdes</td>
+                <!-- <td>{{  totalVerdes() }}</td> -->
+                <td> {{ 100 * totalVerdes() / getBloques().length | number : '.2-2'  }}</td>
+            </tr>
+            <tr>
+                <td>cafes</td>
+                <!-- <td>{{  totalCafes() }}</td> -->
+                <td> {{ 100 * totalCafes() / getBloques().length | number : '.2-2'  }}</td>
+            </tr><tr>
+                <td>rojos</td>
+                <!-- <td>{{  totalRojos() }}</td> -->
+                <td> {{ 100 * totalRojos() / getBloques().length | number : '.2-2'  }}</td>
+            </tr><tr>
+                <td>grises</td>
+                <!-- <td>{{  totalGrises() }}</td> -->
+                <td> {{ 100 * totalGrises() / getBloques().length | number : '.2-2'  }}</td>
+            </tr>
+            
+            
+        </table>
     </div>
     <div *ngIf="false">
         <p>{{ getBloques().length}}</p>

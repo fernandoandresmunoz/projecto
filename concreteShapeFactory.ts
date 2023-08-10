@@ -337,7 +337,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         for (let i = 0; i < 80; i++) {
             cube.down();
         }
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 80; i++) {
             cube.derecha()
         }
 

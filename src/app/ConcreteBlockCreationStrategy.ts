@@ -49,10 +49,10 @@ export class ConcreteBlockCreationStrategy implements BlockCreationStrategy {
             h = this.automata.getAltoCelula() + 2 
         }
         else if (data.color === 'Red') {
-            h = this.automata.getAltoCelula() + 6 
+            h = this.automata.getAltoCelula() + 8 
         }
         else if (data.color === 'Gray') {
-            h = this.automata.getAltoCelula() + 6 
+            h = this.automata.getAltoCelula() + 8 
         }
         else {
             h = this.automata.getAltoCelula();

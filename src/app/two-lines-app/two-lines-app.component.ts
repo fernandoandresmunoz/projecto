@@ -365,7 +365,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
   parseColors(color: string) {
     if (color === "Red") {
 
-      // return ["Brown", "SandyBrown", "SaddleBrown"]
+      return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Crimson", "LightCoral", "DarkRed"]
     } else if (color === "Green") {
       return ["Green", "DarkseaGreen", "DarkGreen"]
