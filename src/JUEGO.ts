@@ -6,10 +6,10 @@ export const JUEGO = {
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
     UNKWON_STATE_COLOR: 'gray',
-    MILITAR_DEFAULT: 25, 
+    MILITAR_DEFAULT: 10, 
     MILITAR_STEP: 1,
     ALTO_LIENZO: 1000,
-    ANCHO_LIENZO: 640,
+    ANCHO_LIENZO: 480,
         FILAS: 50,
         COLUMNAS: 50,
     CELULA: {

@@ -1,3 +1,4 @@
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 import { Celula } from "src/Celula";
 import { GrupoCelulas } from "src/GrupoCelula";
 import { JUEGO } from "src/JUEGO";
@@ -58,7 +59,8 @@ export class Factory {
 
         a.addChild(b);
         a.addChild(c);
-        // a.addChild(d);
+        a.addChild(d);
+        a.addChild(e)
         // a.addChild(e);
         // a.addChild(f);
         // a.addChild(e1)
@@ -70,7 +72,12 @@ export class Factory {
         // e2.addChild(e5)
         // e2.addChild(e6)
         // a.agregarHojas();
-        a.setAutomatas()
+        
+        const f = new ConcreteShapeFactory();
+        b.setAutomata(f.createMilitaryCube())
+        c.setAutomata(f.ecosistema())
+        d.setAutomata(f.ecosistema2())
+        e.setAutomata(f.coagulation())
 
 
     // setInterval(() => {

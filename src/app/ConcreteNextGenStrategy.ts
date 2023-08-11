@@ -12,7 +12,6 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
         if (!automata.getPause()) {
 
-            automata.setGeneration(automata.getGeneration() + 1);
 
 
             if (automata.getGeneration() === 1) {
@@ -37,7 +36,7 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                   automata.setBlueRule(this.shapeFactory.createReplicatorRule());
                   automata.setBrownRule(this.shapeFactory.createWalledCityRule());
             }
-            if (automata.getGeneration() === 65) {
+            if (automata.getGeneration() === 60) {
 
                 
                 automata.setBrownRule(this.shapeFactory.createAnnealRule());
@@ -81,10 +80,6 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                 //   this.setBrownRule(this.shapeFactory.createDiamoebaRule());
 
             }
-            automata.dibujarMatriz(automata.getMatrizActiva())
-
-            // tthis.matrizSiguiente(this.cube.getMatrizActiva())
-            automata.setMatrizActiva(automata.matrizSiguiente(automata.getMatrizActiva()))
         }
 
 

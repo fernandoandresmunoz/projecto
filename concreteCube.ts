@@ -286,13 +286,20 @@ export default class Automata implements AutomataInterface {
         this.setRectaAD(ad);
         this.setRectaBC(bc);
         this.setRectaBD(bd);
-        this.setActiveRule(this.shapeFactory.createLifeRule());
+        // this.setActiveRule(this.shapeFactory.createLifeRule());
 
-        this.setGreenRule(this.shapeFactory.createCoralRule());
+        // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
+        this.nextGenStrategy = nextGenStrategy;
+    }
     avanzarUnaGeneracion(): void {
+            this.setGeneration(this.getGeneration() + 1);
         this.nextGenStrategy.nextGeneration(this);
+            this.dibujarMatriz(this.getMatrizActiva())
+
+            this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
     }
     densidad(): number {
         return this.getBloques().length / (this.getFilas() * this.getColumnas());

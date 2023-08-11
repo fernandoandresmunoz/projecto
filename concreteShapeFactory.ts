@@ -41,6 +41,8 @@ import Automata from "concreteCube";
 import { Serviettes } from "rules/Serviettes";
 import { EmptyRule } from "rules/Empty";
 import { Geology } from "rules/Geology";
+import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
+import { Life } from "src/app/Life";
 
 
 
@@ -304,6 +306,70 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return cube;
     }
 
+    crearEcosistema(): IAutomata {
+        let pointA = this.createPoint(240, 50);
+        let pointB = this.createPoint(240, 30);
+        let pointC = this.createPoint(280, 40);
+        let pointD = this.createPoint(200, 40);
+
+        let cube = this.createCube(pointA, pointB, pointC, pointD);
+
+        cube.addElement(this.crearMar())
+        cube.addElement(this.crearTierra());
+        cube.addElement(this.crearVegetacion())
+        cube.addElement(this.crearCiudad());
+
+        cube.setGreenRule(this.createLifeRule());
+        cube.setGrayRule(this.createLifeRule());
+        cube.setBrownRule(this.createLifeRule());
+        cube.setBlueRule(this.createLifeRule())
+
+        cube.setRule(this.createDiamoebaRule());
+
+        return cube;
+
+
+    }
+
+    ecosistema() : IAutomata {
+        let cube = this.createMilitaryCube();
+        cube.setNextGenStrategy(new Life())
+        cube.setGreenRule(this.MazectricWithMice());
+        cube.setBrownRule(this.MazeWithMice())
+        cube.setBlueRule(this.createReplicatorRule())
+        cube
+
+        return cube;
+
+
+    }
+    ecosistema2() : IAutomata {
+        let cube = this.createMilitaryCube();
+        cube.setNextGenStrategy(new Life())
+        // cube.setGreenRule(this.createLifeRule());
+        cube.setBrownRule(this.createLifeRule())
+        // cube.setBlueRule(this.createLifeRule())
+        cube
+
+        return cube;
+
+
+    }
+
+    coagulation() : IAutomata {
+        let cube = this.createMilitaryCube();
+        cube.setNextGenStrategy(new Life())
+        // cube.setGreenRule(this.createLifeRule());
+        cube.setGreenRule(this.createCoralRule())
+        cube.setBrownRule(this.createReplicatorRule());
+        // cube.setBlueRule(this.createLifeRule())
+        cube
+
+        return cube;
+
+
+    }
+
     createMilitaryCube(): IAutomata {
 
         let pointA = this.createPoint(240, 50);
@@ -349,20 +415,6 @@ export class ConcreteShapeFactory implements ShapeFactory {
         
 
         cube.setMatrizActiva(cube.createRandomMatriz())
-        cube.setRule(this.createLifeRule());
-
-        cube.addElement(this.crearMar())
-        cube.addElement(this.crearTierra());
-        cube.addElement(this.crearVegetacion())
-        cube.addElement(this.crearCiudad());
-
-        cube.setGreenRule(this.createLifeRule());
-        cube.setGrayRule(this.createLifeRule());
-        cube.setBrownRule(this.createLifeRule());
-        cube.setBlueRule(this.createLifeRule())
-
-        cube.setRule(this.createDiamoebaRule());
-
         return cube;
 
     }
@@ -421,8 +473,52 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
         let cube = new Automata(pointA, pointB, pointC, pointD);
+
+        cube.setPoint(this.createPoint(0, 40));
+        cube.setPoint1(this.createPoint(0, 40));
+        cube.setPoint2(this.createPoint(40, 30))
+        cube.setPoint3(this.createPoint(40, 50))
+
+
+        this.configureCube(cube);
+
         cube.setFilas(JUEGO.FILAS);
         cube.setColumnas(JUEGO.COLUMNAS);
+        cube.setSelectedProjection('military');
+
+        cube.setAltoCelula(JUEGO.CELULA.ALTO);
+        cube.setAnchoCelula(JUEGO.CELULA.ANCHO);
+        cube.setLargoCelula(JUEGO.CELULA.LARGO)
+
+
+        cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
+        cube.setAltoLienzo(JUEGO.ALTO_LIENZO);
+        cube.setAvance(50);
+        cube.setShowAuxiliaryLines(JUEGO.AUXILIARY_LINES);
+
+        cube.upMilitary(JUEGO.MILITAR_DEFAULT);
+
+        for (let i = 0; i < 80; i++) {
+            cube.down();
+        }
+        for (let i = 0; i < 80; i++) {
+            cube.derecha()
+        }
+
+        cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ?
+        
+
+        cube.setScale(JUEGO.CELULA.SCALE);
+
+        
+
+        cube.setMatrizActiva(cube.createRandomMatriz())
+        cube.setRule(this.createLifeRule());
+
+
+
+
+
         return cube;
     }
     createCircle(center: Point, radius: number): Circle {

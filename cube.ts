@@ -2,6 +2,7 @@ import { Bloque } from "bloque";
 import { Line } from "line";
 import { Point } from "point";
 import { Rule } from "rule";
+import { NextGenStrategy } from "src/app/NextGenStrategy";
 import {Element } from "./rules/element";
 
 
@@ -185,4 +186,5 @@ export interface Cube  {
 
     up(): void;
     upMilitary(size: number): void;
+    setNextGenStrategy(nextGenStrategy: NextGenStrategy): void;
 }

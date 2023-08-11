@@ -9,6 +9,7 @@ import { Rule } from 'rule';
 import { Element } from 'rules/element';
 import { ShapeFactory } from 'shapeFactory';
 import { JUEGO } from 'src/JUEGO';
+import { NextGenStrategy } from '../NextGenStrategy';
 
 @Component({
   selector: 'app-two-lines-app',
@@ -42,7 +43,10 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
         setInterval(() => {
           this.cube.avanzarUnaGeneracion();
           this.draw();
-    }, 500)
+    }, 200)
+  }
+  setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
+    throw new Error('Method not implemented.');
   }
   ngOnChanges(changes: SimpleChanges): void {
     // this.draw();
@@ -785,7 +789,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     // interseccion = this.shapeFactory.createLine(this.cube.getPoint(), this.cube.getPoint2()).calcularInterseccionRecta(this.shapeFactory.createLine(this.cube.getPoint1(), this.cube.getPoint3()));
 
     this.drawCubes();
-    this.drawCelula();
+    // this.drawCelula();
 
 
     this.context.font = "20px Arial";
