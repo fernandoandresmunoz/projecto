@@ -46,8 +46,8 @@ export class Factory {
 
         let a = this.crearGrupoCelula();
 
-        // let e1 = this.crearGrupoCelula();
-        // let e2 = this.crearGrupoCelula();
+        let e1 = this.crearGrupoCelula();
+        let e2 = this.crearGrupoCelula();
         // let e3 = this.crearGrupoCelula();
         // let e4 = this.crearGrupoCelula();
 
@@ -57,10 +57,10 @@ export class Factory {
         let e = this.crearCelula();
         // let f = this.crearCelula();
 
-        a.addChild(b);
-        a.addChild(c);
-        a.addChild(d);
-        a.addChild(e)
+        e1.addChild(b);
+        e1.addChild(c);
+        e2.addChild(d);
+        e2.addChild(e)
         // a.addChild(e);
         // a.addChild(f);
         // a.addChild(e1)
@@ -82,6 +82,8 @@ export class Factory {
         // d.setAutomata(f.ecosistema2())
         // e.setAutomata(f.coagulation())
 
+        a.addChild(e1);
+        a.addChild(e2)
 
     // setInterval(() => {
     // a.avanzarUnaGeneracion()
