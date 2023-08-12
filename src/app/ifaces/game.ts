@@ -75,9 +75,12 @@ export class Factory {
         
         const f = new ConcreteShapeFactory();
         b.setAutomata(f.createMilitaryCube())
-        c.setAutomata(f.ecosistema())
-        d.setAutomata(f.ecosistema2())
-        e.setAutomata(f.coagulation())
+        c.setAutomata(f.createMilitaryCube())
+        d.setAutomata(f.createMilitaryCube())
+        e.setAutomata(f.createMilitaryCube())
+        // c.setAutomata(f.ecosistema())
+        // d.setAutomata(f.ecosistema2())
+        // e.setAutomata(f.coagulation())
 
 
     // setInterval(() => {

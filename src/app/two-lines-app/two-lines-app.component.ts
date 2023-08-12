@@ -39,11 +39,18 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
   public context: CanvasRenderingContext2D;
 
+  sentido: boolean = false;
   constructor() {
         setInterval(() => {
           this.cube.avanzarUnaGeneracion();
           this.draw();
+
+          
+
     }, 200)
+  }
+  totales() {
+    return this.cube.totales();
   }
   setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
     throw new Error('Method not implemented.');

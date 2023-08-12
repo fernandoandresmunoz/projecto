@@ -291,6 +291,35 @@ export default class Automata implements AutomataInterface {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    totales(): any {
+        let d = [
+            {
+                name: 'azul',
+                total: 100 * this.totalAzules() / this.getBloques().length,
+                color: 'blue'
+            },
+            {
+                name: 'cafe',
+                total:100 *  this.totalCafes() / this.getBloques().length,
+                color: 'brown'
+            }, {
+                name: 'verdes',
+                total: 100 * this.totalVerdes() / this.getBloques().length,
+                color: 'green'
+            }, {
+                name: 'rojos',
+                total: 100 * this.totalRojos() / this.getBloques().length,
+                color: 'red'
+            }, {
+                name: 'grises',
+                total: 100 * this.totalGrises() / this.getBloques().length,
+                color: 'gray'
+            },
+        ]
+        d.sort((a, b) => { return b.total - a.total})
+
+        return d
+    }
     setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
         this.nextGenStrategy = nextGenStrategy;
     }

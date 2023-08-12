@@ -347,6 +347,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let cube = this.createMilitaryCube();
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
+        cube.setBlueRule(this.create34LifeRule())
         cube.setBrownRule(this.createLifeRule())
         // cube.setBlueRule(this.createLifeRule())
         cube

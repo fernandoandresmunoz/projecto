@@ -155,6 +155,7 @@ export interface Cube  {
     getGreenRule(): Rule;
     setBlueRule(rule: Rule): void;
     setBrownRule(rule: Rule): void;
+    totales(): any;
     setRedRule(rule: Rule): void;
     changeRule(element: string, rule: string): void;
     getActiveRule(): Rule;

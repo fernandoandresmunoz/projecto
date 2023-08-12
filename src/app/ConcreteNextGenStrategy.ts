@@ -19,20 +19,21 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                 automata.setBlueRule(this.shapeFactory.createReplicatorRule());
                 automata.setGreenRule(this.shapeFactory.createReplicatorRule());
                 automata.setRedRule(this.shapeFactory.createReplicatorRule());
+                automata.setGrayRule(this.shapeFactory.createReplicatorRule());
             }
 
             if (automata.getGeneration() === 2) {
 
+                automata.setGrayRule(this.shapeFactory.createWalledCityRule())
             }
 
             if (automata.getGeneration() === 5) {
 
-                automata.setGrayRule(this.shapeFactory.createWalledCityRule())
+                automata.setGrayRule(this.shapeFactory.createDayAndNightRule())
             }
             if (automata.getGeneration() === 42) {
 
                 
-                automata.setGrayRule(this.shapeFactory.createDayAndNightRule())
                   automata.setBlueRule(this.shapeFactory.createReplicatorRule());
                   automata.setBrownRule(this.shapeFactory.createWalledCityRule());
             }
