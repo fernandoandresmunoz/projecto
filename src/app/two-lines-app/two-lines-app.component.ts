@@ -47,7 +47,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
           
 
-    }, 200)
+    }, 250)
   }
   totales() {
     return this.cube.totales();

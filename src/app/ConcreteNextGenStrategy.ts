@@ -57,7 +57,7 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
             if (automata.getGeneration() === 30) {
                 //   automata.setRedRule(this.shapeFactory.MazectricWithMice());
-                  automata.setRedRule(this.shapeFactory.createLifeWithoutDeathRule());
+                  automata.setRedRule(this.shapeFactory.createMazeRule());
 
             }
             else if (automata.getGeneration() === 25) {
