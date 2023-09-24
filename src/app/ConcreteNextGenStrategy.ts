@@ -40,7 +40,7 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
             if (automata.getGeneration() === 60) {
 
                 
-                automata.setBrownRule(this.shapeFactory.createAnnealRule());
+                automata.setBrownRule(this.shapeFactory.createDayAndNightRule());
                   automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
             }
 

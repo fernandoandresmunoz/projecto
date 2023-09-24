@@ -324,11 +324,11 @@ export default class Automata implements AutomataInterface {
         this.nextGenStrategy = nextGenStrategy;
     }
     avanzarUnaGeneracion(): void {
-            this.setGeneration(this.getGeneration() + 1);
+        this.setGeneration(this.getGeneration() + 1);
         this.nextGenStrategy.nextGeneration(this);
-            this.dibujarMatriz(this.getMatrizActiva())
+        this.dibujarMatriz(this.getMatrizActiva())
 
-            this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
+        this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
     }
     densidad(): number {
         return this.getBloques().length / (this.getFilas() * this.getColumnas());

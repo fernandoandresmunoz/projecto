@@ -1,4 +1,4 @@
-import Automata from "concreteCube";
+import Automata from "concreteAutomata";
 import { Factory } from "./app/ifaces/game";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
@@ -105,7 +105,8 @@ export class GrupoCelulas implements Nodo {
             return JUEGO.DANGER_COLOR;
         } else {
 
-            const warnings = this.getChildren().filter(obj => obj.getState(umbralInferior, umbralSuperior) ===JUEGO.WARNING_COLOR).length > 0; if (warnings) {
+            const warnings = this.getChildren().filter(obj => obj.getState(umbralInferior, umbralSuperior) ===JUEGO.WARNING_COLOR).length > 0;
+            if (warnings) {
                 return JUEGO.WARNING_COLOR;
             } else {
                 return JUEGO.OK_COLOR;

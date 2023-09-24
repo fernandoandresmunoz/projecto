@@ -1,4 +1,4 @@
-import Automata from "concreteCube";
+import Automata from "concreteAutomata";
 import { ConcreteShapeFactory } from "concreteShapeFactory";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
