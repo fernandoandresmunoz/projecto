@@ -498,27 +498,27 @@ export default class Automata implements AutomataInterface {
         this.drawingStrategy.draw(this, matriz );
     }
     crearTableroAleatorio(): void {
-        this.clean();
-        for (let j = 0; j < this.getFilas(); j++) {
-            for (let i = 0; i < this.getColumnas(); i++) {
+        // this.clean();
+        // for (let j = 0; j < this.getFilas(); j++) {
+        //     for (let i = 0; i < this.getColumnas(); i++) {
 
 
-                const n = Math.floor(Math.random() * 10);
-                if (n % 2 == 0) {
+        //         const n = Math.floor(Math.random() * 10);
+        //         if (n % 2 == 0) {
 
 
-                    this.crearBloque({ state: 0, color: 'red' });
-                }
-                this.left();
-            }
-            for (let i = 0; i < this.getColumnas(); i++) {
-                this.right();
-            }
-            this.down();
-        }
-        for (let i = 0; i < this.getFilas(); i++) {
-            this.up();
-        }
+        //             this.crearBloque({ state: 0, color: 'red' });
+        //         }
+        //         this.left();
+        //     }
+        //     for (let i = 0; i < this.getColumnas(); i++) {
+        //         this.right();
+        //     }
+        //     this.down();
+        // }
+        // for (let i = 0; i < this.getFilas(); i++) {
+        //     this.up();
+        // }
     }
     crearBloque(data: { state: number, color: string }, altura: number = 2): void {
         this.blockCreationStrategy.create(data, altura);

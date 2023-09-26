@@ -509,16 +509,16 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     return this.cube.getInterseccion(line1, line2);
   }
   getPoint4(): Point {
-    throw new Error('Method not implemented.');
+    return this.cube.getPoint4();
   }
   getPoint5(): Point {
-    throw new Error('Method not implemented.');
+    return this.cube.getPoint5();
   }
   getPoint6(): Point {
-    throw new Error('Method not implemented.');
+    return this.cube.getPoint6();
   }
   getPoint7(): Point {
-    throw new Error('Method not implemented.');
+    return this.cube.getPoint7();
   }
   setPoint4(point: Point): void {
     throw new Error('Method not implemented.');
@@ -668,6 +668,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     // linea 1
     // this.context.stroke()
 
+    this.drawCubes();
     if (this.showAuxiliaryLines()) {
 
       this.drawLine(puntoA, puntoC);
@@ -795,7 +796,6 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
     // interseccion = this.shapeFactory.createLine(this.cube.getPoint(), this.cube.getPoint2()).calcularInterseccionRecta(this.shapeFactory.createLine(this.cube.getPoint1(), this.cube.getPoint3()));
 
-    this.drawCubes();
     // this.drawCelula();
 
 

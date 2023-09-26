@@ -1,7 +1,7 @@
 
 export const JUEGO = {
     SINGLE_MODE: 'ON',
-    AUXILIARY_LINES: false,
+    AUXILIARY_LINES: true,
     WARNING_COLOR: 'yellow',
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
