@@ -1,5 +1,5 @@
 import { BloqueConcreto } from "bloque-concreto";
-import { Cube as Automata } from "cube";
+import { Automata } from "cube";
 import { ShapeFactory } from "shapeFactory";
 import { BlockCreationStrategy } from "./BlockCreationStrategy";
 
@@ -27,21 +27,6 @@ export class ConcreteBlockCreationStrategy implements BlockCreationStrategy {
         let p2 = this.automata.getInterseccion(lineP1P3, lineP0P2);
         let p3 = this.automata.getInterseccion(lineP0P2, lineP6P7);
 
-        //   let p4 = this.shapeFactory.createPoint(p0.getX(), p0.getY() - 5)
-        //   let p5 = this.shapeFactory.createPoint(p1.getX(), p1.getY() - 5)
-        //   let p6 = this.shapeFactory.createPoint(p2.getX(), p2.getY() - 5)
-        //   let p7 = this.shapeFactory.createPoint(p3.getX(), p3.getY() - 5)
-
-        this.automata.addPunto([
-            [p2.getX(), p2.getY()],
-            [p0.getX(), p0.getY()],
-            [p1.getX(), p1.getY()],
-            [p3.getX(), p3.getY()],
-
-        ])
-
-        //   this.addBloque(new BloqueConcreto(p2, p0, p1, p3,  Math.floor(Math.random() * 20) + 1 ));
-
         let h;
         if (data.color === 'Green') {
             h = this.automata.getAltoCelula() + 4 
@@ -52,15 +37,13 @@ export class ConcreteBlockCreationStrategy implements BlockCreationStrategy {
             h = this.automata.getAltoCelula() + 8 
         }
         else if (data.color === 'Gray') {
-            h = this.automata.getAltoCelula() + 8 
+            h = this.automata.getAltoCelula() + 7 
         }
         else {
             h = this.automata.getAltoCelula();
         }
 
         this.automata.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, h));
-        //   localStorage.setItem('data', JSON.stringify({ 'points': this.getPuntos() }));
-        // this.addPunto([this.puntoCelula.getX(), p0.getY()]);
 
 
     }

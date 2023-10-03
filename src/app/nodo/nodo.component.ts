@@ -12,6 +12,7 @@ export class NodoComponent implements OnInit {
   @Input() root: Nodo;
   @Input() umbralInferior: number;
   @Input() umbralSuperior: number;
+  @Input() showDraw: number;
 
   showDrawing = JUEGO.SHOW_DRAWING;
 

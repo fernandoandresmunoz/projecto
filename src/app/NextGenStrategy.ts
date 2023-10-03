@@ -1,4 +1,4 @@
-import { Cube as Automata } from "cube";
+import {  Automata } from "cube";
 
 
 export interface NextGenStrategy {

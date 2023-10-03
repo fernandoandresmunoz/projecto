@@ -1,5 +1,5 @@
 
-import  { Cube as IAutomata} from 'cube';
+import  { Automata } from 'cube';
 
 
 export interface NextMatrixStrategy {

@@ -1,4 +1,4 @@
-import Automata from "concreteAutomata";
+import { Automata } from "cube";
 
 export interface Nodo {
     addChild(nodo: Nodo): void;

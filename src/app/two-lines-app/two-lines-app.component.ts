@@ -2,7 +2,7 @@ import { ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Bloque } from 'bloque';
 import { ConcreteShapeFactory } from 'concreteShapeFactory';
-import { Cube } from 'cube';
+import { Automata } from 'cube';
 import { Line } from 'line';
 import { Point } from 'point';
 import { Rule } from 'rule';
@@ -16,7 +16,7 @@ import { NextGenStrategy } from '../NextGenStrategy';
   templateUrl: './two-lines-app.component.html',
   styleUrls: ['./two-lines-app.component.styl']
 })
-export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
+export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   ELEMENTS = [
     'GREEN',
@@ -31,7 +31,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
   shapeFactory: ShapeFactory = new ConcreteShapeFactory();
   // cube: Cube;
-  @Input() cube: Cube;
+  @Input() cube: Automata;
 
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;
 
@@ -41,12 +41,8 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
   sentido: boolean = false;
   constructor() {
-        setInterval(() => {
-          this.cube.avanzarUnaGeneracion();
-          this.draw();
-
-          
-
+    setInterval(() => {
+      this.draw();
     }, 250)
   }
   totales() {
@@ -697,9 +693,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
     if (this.showAuxiliaryLines()) {
 
 
-      let pointE = this.shapeFactory.createPoint(puntoA.getX(), puntoA.getY() + this.getHeight())
-      let pointF = this.shapeFactory.createPoint(puntoD.getX(), puntoD.getY() + this.getHeight())
-      let pointG = this.shapeFactory.createPoint(puntoC.getX(), puntoC.getY() + this.getHeight())
+      let pointE = this.shapeFactory.createPoint(puntoA.getX(), puntoA.getY() + 20+ this.getHeight())
+      let pointF = this.shapeFactory.createPoint(puntoD.getX(), puntoD.getY() +20+  this.getHeight())
+      let pointG = this.shapeFactory.createPoint(puntoC.getX(), puntoC.getY() +20+  this.getHeight())
 
       this.drawLine(puntoA, pointE);
       this.drawLine(puntoD, pointF);
@@ -713,7 +709,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
 
 
-    // this.paintCube(puntoA, puntoB, puntoC, puntoD)
+    this.paintCube(puntoA, puntoB, puntoC, puntoD)
     this.context.strokeStyle = 'Red';
     // this.drawLine(this.getPointA(), this.getPointC());
 
@@ -770,18 +766,20 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
     if (this.showAuxiliaryLines()) {
 
+      const ANCHO_CUADRADO = 5 
+
       this.context.fillStyle = 'Red'
-      this.context.fillRect(this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale(), 10, 10)
-      this.context.fillRect(this.getPoint1().getX() * this.getScale(), this.getPoint1().getY() * this.getScale(), 10, 10)
-      this.context.fillRect(this.cube.getPoint2().getX() * this.getScale(), this.cube.getPoint2().getY() * this.getScale(), 10, 10)
-      this.context.fillRect(this.cube.getPoint3().getX() * this.getScale(), this.cube.getPoint3().getY() * this.getScale(), 10, 10)
+      this.context.fillRect(this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.getPoint1().getX() * this.getScale(), this.getPoint1().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.cube.getPoint2().getX() * this.getScale(), this.cube.getPoint2().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.cube.getPoint3().getX() * this.getScale(), this.cube.getPoint3().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint4().getX() * this.getScale(), this.cube.getPoint4().getY() * this.getScale(), 10, 10)
+      this.context.fillRect(this.cube.getPoint4().getX() * this.getScale(), this.cube.getPoint4().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint5().getX() * this.getScale(), this.cube.getPoint5().getY() * this.getScale(), 10, 10)
+      this.context.fillRect(this.cube.getPoint5().getX() * this.getScale(), this.cube.getPoint5().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint6().getX() * this.getScale(), this.cube.getPoint6().getY() * this.getScale(), 10, 10)
-      this.context.fillRect(this.cube.getPoint7().getX() * this.getScale(), this.cube.getPoint7().getY() * this.getScale(), 10, 10)
+      this.context.fillRect(this.cube.getPoint6().getX() * this.getScale(), this.cube.getPoint6().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.cube.getPoint7().getX() * this.getScale(), this.cube.getPoint7().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
 
     }
@@ -796,7 +794,6 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
 
     // interseccion = this.shapeFactory.createLine(this.cube.getPoint(), this.cube.getPoint2()).calcularInterseccionRecta(this.shapeFactory.createLine(this.cube.getPoint1(), this.cube.getPoint3()));
 
-    // this.drawCelula();
 
 
     this.context.font = "20px Arial";
@@ -821,6 +818,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges, Cube {
       this.context.fillText('7', this.getPoint7().getX() * this.getScale(), this.getPoint7().getY() * this.getScale())
     }
 
+    this.drawCelula();
 
 
   }

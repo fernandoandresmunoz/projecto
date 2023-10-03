@@ -1,4 +1,4 @@
-import { Cube as AutomataInterface } from "cube";
+import { Automata  } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
@@ -21,7 +21,7 @@ import { JUEGO } from "src/JUEGO";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 
 
-export default class Automata implements AutomataInterface {
+export default class ConcreteAutomata implements Automata {
 
 
     shapeFactory: ShapeFactory = new ConcreteShapeFactory();
@@ -324,11 +324,14 @@ export default class Automata implements AutomataInterface {
         this.nextGenStrategy = nextGenStrategy;
     }
     avanzarUnaGeneracion(): void {
-        this.setGeneration(this.getGeneration() + 1);
-        this.nextGenStrategy.nextGeneration(this);
-        this.dibujarMatriz(this.getMatrizActiva())
+        if (!this.getPause()) {
 
-        this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
+            this.setGeneration(this.getGeneration() + 1);
+            this.nextGenStrategy.nextGeneration(this);
+            this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
+            this.dibujarMatriz(this.getMatrizActiva())
+        }
+
     }
     densidad(): number {
         return this.getBloques().length / (this.getFilas() * this.getColumnas());
@@ -457,7 +460,7 @@ export default class Automata implements AutomataInterface {
         return this.randomMatrixStrategy.create(this);
     }
     matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][] {
-        return this.nextMatrixStrategy.nextMatrix(matriz)
+        return this.nextMatrixStrategy.nextMatrix(this.getMatrizActiva())
     }
     getMatrizActiva(): { state: number, color: string }[][] {
         return this.matrizActiva;
@@ -495,7 +498,7 @@ export default class Automata implements AutomataInterface {
     }
 
     dibujarMatriz(matriz: { state: number, color: string }[][]): void {
-        this.drawingStrategy.draw(this, matriz );
+        this.drawingStrategy.draw(this, this.getMatrizActiva() );
     }
     crearTableroAleatorio(): void {
         // this.clean();

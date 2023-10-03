@@ -42,63 +42,61 @@ export class Factory {
         return x;
     }
 
+    crearDosRama(): Nodo {
+        let a = this.crearGrupoCelula();
+        a.addChild(this.crearCelula())
+        a.addChild(this.crearCelula())
+        return a
+    }
+
+    crearCadenaLarga() :Nodo{
+        let a = this.crearGrupoCelula();
+        let b = this.crearGrupoCelula();
+        let c = this.crearGrupoCelula();
+        let d = this.crearGrupoCelula();
+        let e = this.crearGrupoCelula();
+        let f = this.crearGrupoCelula();
+
+        a.addChild(b);
+        a.addChild(c);
+        a.agregarHojas();
+        // a.addChild(b)
+        // // ddChild(c)
+        // c.addChild(d);
+        // d.addChild(e)
+        // e.addChild(f);
+
+        // c.addChild(this.crearDosRama())
+
+        // b.addChild(this.crearDosRama())
+        // e.addChild(this.crearDosRama());
+
+        // f.addChild(this.crearCelula())
+
+        return a;
+    }
+
+    crearSingle() : Nodo{
+        let a = this.crearGrupoCelula();
+        let b = this.crearCelula()
+
+        a.addChild(b);
+        return a;
+    
+    }
+
     crearPlanta(): Nodo {
 
         let a = this.crearGrupoCelula();
 
-        let e1 = this.crearGrupoCelula();
-        let e2 = this.crearGrupoCelula();
-        // let e3 = this.crearGrupoCelula();
-        // let e4 = this.crearGrupoCelula();
 
-        let b = this.crearCelula();
-        let c = this.crearCelula();
-        let d = this.crearCelula();
-        let e = this.crearCelula();
-        // let f = this.crearCelula();
 
-        e1.addChild(b);
-        e1.addChild(c);
-        e2.addChild(d);
-        e2.addChild(e)
-        // a.addChild(e);
-        // a.addChild(f);
-        // a.addChild(e1)
-        // a.addChild(e2)
-
-        // a.addChild(e3);
-        // a.addChild(e4);
-
-        // e2.addChild(e5)
-        // e2.addChild(e6)
-        // a.agregarHojas();
+        a.addChild(this.superPlanta())
+        a.addChild(this.superPlanta())
+        // a.addChild(this.megaPlanta2())
+        a.agregarHojas()
+        a.setAutomatas()
         
-        const f = new ConcreteShapeFactory();
-        b.setAutomata(f.createMilitaryCube())
-        c.setAutomata(f.createMilitaryCube())
-        d.setAutomata(f.createMilitaryCube())
-        e.setAutomata(f.createMilitaryCube())
-        // c.setAutomata(f.ecosistema())
-        // d.setAutomata(f.ecosistema2())
-        // e.setAutomata(f.coagulation())
-
-        a.addChild(e1);
-        a.addChild(e2)
-
-    // setInterval(() => {
-    // a.avanzarUnaGeneracion()
-
-    //   points.push([this.generacion, this.raiz.average() ])
-    //   this.azules.push([this.generacion, this.raiz.azules() ])
-    //   this.rojos.push([this.generacion, this.raiz.rojos() ])
-    //   this.verdes.push([this.generacion, this.raiz.verdes() ])
-    //   this.cafes.push([this.generacion, this.raiz.cafes() ])
-    //   this.grises.push([this.generacion, this.raiz.grises() ])
-
-    //   a.generacion += 1;
-
-    // },JUEGO.INTERVALO_GENERACION)
-
 
 
         return a;
@@ -107,9 +105,21 @@ export class Factory {
     superPlanta() : Nodo {
 
         let a = this.crearGrupoCelula();
-        a.addChild(this.crearPlanta())
-        a.addChild(this.crearPlanta())
-        a.setAutomatas();
+
+        let b= this.crearGrupoCelula();
+        let c = this.crearGrupoCelula();
+
+        b.addChild(this.crearGrupoCelula())
+        b.addChild(this.crearGrupoCelula())
+
+        c.addChild(this.crearGrupoCelula())
+        c.addChild(this.crearGrupoCelula())
+
+
+
+        a.addChild(b)
+        a.addChild(c)
+        // a.setAutomatas();
         return a ;
     }
 
@@ -117,8 +127,9 @@ export class Factory {
         let a = this.crearGrupoCelula();
         a.addChild(this.superPlanta())
         a.addChild(this.superPlanta())
+        a.agregarHojas()
 
-        a.setAutomatas();
+        // a.setAutomatas();
         return a;
     }
 
@@ -127,7 +138,7 @@ export class Factory {
 
         a.addChild(this.megaPlanta())
         a.addChild(this.megaPlanta())
-        a.setAutomatas();
+        a.agregarHojas()
         return a;
     }
 

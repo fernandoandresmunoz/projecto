@@ -1,12 +1,12 @@
-import { Cube as IAutomata } from "cube";
+import { Automata } from "cube";
 import { NextMatrixStrategy } from "./NextMatrixStrategy";
 
 
 export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
 
-    automata: IAutomata;
+    automata: Automata;
 
-    constructor(automata: IAutomata) {
+    constructor(automata: Automata) {
         this.automata = automata;
     }
 

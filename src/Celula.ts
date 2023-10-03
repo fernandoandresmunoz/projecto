@@ -1,7 +1,8 @@
-import Automata from "concreteAutomata";
 import { ConcreteShapeFactory } from "concreteShapeFactory";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
+import { Automata } from "cube";
+import ConcreteAutomata from "concreteAutomata";
 
 function makeid(length: number) {
     let result = '';

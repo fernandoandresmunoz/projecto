@@ -1,4 +1,4 @@
-import { Cube  as Automata} from "cube";
+import { Automata } from "cube";
 import { MatrixCreationStrategy } from "./RandomMatrixStrategy";
 
 
@@ -18,10 +18,6 @@ export class ConcreteRandomMatrixStrategy implements MatrixCreationStrategy {
                     salida[fila][columna] = { state: 0, color: '' };
             }
         }
-
-
-
-
 
         for (let fila = 0; fila  < filas; fila++) {
             // salida.push([])

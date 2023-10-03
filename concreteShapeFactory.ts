@@ -6,8 +6,8 @@ import { Bloque } from "bloque";
 import { BloqueConcreto } from "bloque-concreto";
 import { ConcreteLine } from "concrete-line";
 import { ConcretePoint } from "concrete-point";
-import IAutomata from "concreteAutomata";
-import { Cube } from "cube";
+import ConcreteAutomata from "concreteAutomata";
+import { Automata } from "cube";
 import { DayAndNight } from "day-and-night";
 import { Diamoeba } from "diamoeba";
 import { HighLife } from "highlife";
@@ -37,7 +37,6 @@ import { PedestrianLife } from "rules/PedestrianLife";
 import { CorrosionOfConformity } from "rules/CorrosionOfConformity";
 import { SnowLife } from "rules/SnowLife";
 import { JUEGO } from "src/JUEGO";
-import Automata from "concreteAutomata";
 import { Serviettes } from "rules/Serviettes";
 import { EmptyRule } from "rules/Empty";
 import { Geology } from "rules/Geology";
@@ -50,7 +49,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
 
-    createMilitary3(): Cube {
+    createMilitary3(): Automata {
         let cube = this.createMilitaryCube();
         for (let i = 0 ;  i< 20; i++) {
             cube.downMilitary();
@@ -270,11 +269,11 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    createCavalier(): Cube {
+    createCavalier(): Automata {
         throw new Error("Method not implemented.");
     }
 
-    configureCube(cube: Cube): void {
+    configureCube(cube: Automata): void {
         cube.setPoint4(
             this.createPoint(
                 cube.getPoint().getX() + cube.getLargoCelula(),
@@ -298,7 +297,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
     }
 
 
-    createMilitary2(): IAutomata {
+    createMilitary2(): Automata {
         let cube = this.createMilitaryCube();
         for (let i = 0 ;  i< 10; i++) {
             cube.downMilitary();
@@ -306,7 +305,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return cube;
     }
 
-    crearEcosistema(): IAutomata {
+    crearEcosistema(): Automata {
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
         let pointC = this.createPoint(280, 40);
@@ -331,7 +330,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    ecosistema() : IAutomata {
+    ecosistema() : Automata {
         let cube = this.createMilitaryCube();
         cube.setNextGenStrategy(new Life())
         cube.setGreenRule(this.MazectricWithMice());
@@ -343,7 +342,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
     }
-    ecosistema2() : IAutomata {
+    ecosistema2() : Automata {
         let cube = this.createMilitaryCube();
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
@@ -357,7 +356,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    coagulation() : IAutomata {
+    coagulation() : Automata {
         let cube = this.createMilitaryCube();
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
@@ -371,7 +370,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    createMilitaryCube(): IAutomata {
+    createMilitaryCube(): Automata {
 
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
@@ -423,7 +422,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
     createDiamoebaRule() {
         return new Diamoeba();
     }
-    crearTablero(cube: Cube, largo: number, ancho: number ) {
+    crearTablero(cube: Automata, largo: number, ancho: number ) {
         for (let j = 0; j < largo; j++) {
             for (let i = 0; i < ancho; i++) {
 
@@ -444,7 +443,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
             cube.up();
         }
     }
-    createTrimetricCube(): Cube {
+    createTrimetricCube(): Automata {
         throw new Error("Method not implemented.");
     }
 
@@ -452,7 +451,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return new LifeRule();
     }
 
-    createCavalierCube(): Cube {
+    createCavalierCube(): Automata {
 
         let pointA = this.createPoint(13, 58);
         let pointB = this.createPoint(91, 9);
@@ -467,13 +466,13 @@ export class ConcreteShapeFactory implements ShapeFactory {
     }
 
 
-    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube {
+    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
         return this.createCube(pointA, pointB, pointC, pointD);
     }
 
 
     createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
-        let cube = new Automata(pointA, pointB, pointC, pointD);
+        let cube = new ConcreteAutomata(pointA, pointB, pointC, pointD);
 
         cube.setPoint(this.createPoint(0, 40));
         cube.setPoint1(this.createPoint(0, 40));

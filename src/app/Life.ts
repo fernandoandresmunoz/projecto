@@ -1,5 +1,5 @@
 import { ConcreteShapeFactory } from "concreteShapeFactory";
-import { Cube } from "cube";
+import { Automata } from "cube";
 import { ShapeFactory } from "shapeFactory";
 import { NextGenStrategy } from "./NextGenStrategy";
 
@@ -8,7 +8,7 @@ export class Life implements NextGenStrategy {
 
     shapeFactory: ShapeFactory = new ConcreteShapeFactory();
 
-    nextGeneration(automata: Cube): void {
+    nextGeneration(automata: Automata): void {
         if (automata.getGeneration() === 1) {
             automata.setBrownRule(this.shapeFactory.createReplicatorRule())
             automata.setGreenRule(this.shapeFactory.createReplicatorRule())

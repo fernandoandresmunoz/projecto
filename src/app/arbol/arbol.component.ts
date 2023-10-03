@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Cube } from 'cube';
+import { Automata } from 'cube';
 import { Nodo } from 'src/Nodo';
 
 @Component({

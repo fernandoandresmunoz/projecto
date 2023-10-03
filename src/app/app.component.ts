@@ -28,6 +28,9 @@ export class AppComponent  {
   showBarras = JUEGO.ELEMENTOS.BARRAS;
 
   raiz: Nodo;
+  raiz2: Nodo;
+  raiz3: Nodo;
+  raiz4: Nodo;
   generacion: number = 0;
   points: [number, number][] = []
   azules: [number, number][] = []
@@ -37,9 +40,26 @@ export class AppComponent  {
   verdes: [number, number][] = []
 
   constructor() {
+        setInterval(() => {
+          this.raiz.avanzarUnaGeneracion();
+          this.raiz2.avanzarUnaGeneracion()
+          this.raiz3.avanzarUnaGeneracion()
+          this.raiz4.avanzarUnaGeneracion()
 
-    // this.raiz = this.factory.megaPlanta();
+          
+
+    }, 250)
+
+
     this.raiz = this.factory.crearPlanta()
+    this.raiz2 = this.factory.crearSingle()
+    this.raiz3 = this.factory.megaPlanta()
+    this.raiz.setAutomatas()
+    this.raiz2.setAutomatas()
+    this.raiz3.setAutomatas()
+    // this.raiz = this.factory.megaPlanta();
+    // this.raiz.agregarHojas()
+    // this.raiz = this.factory.crearPlanta()
   }
 }
 

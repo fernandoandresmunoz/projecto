@@ -1,4 +1,27 @@
 {{ raiz.average()}}
+<table border="1">
+    <tr>
+        <td>rojos</td>
+        <td>{{ raiz.rojos() }}</td>
+    </tr>
+<tr>
+        <td>azules</td>
+        <td>{{ raiz.azules() }}</td>
+    </tr>
+<tr>
+        <td>verdes</td>
+        <td>{{ raiz.verdes() }}</td>
+    </tr>
+<tr>
+        <td>cafes</td>
+        <td>{{ raiz.cafes() }}</td>
+    </tr>
+<tr>
+        <td>blancos</td>
+        <td>{{ raiz.grises() }}</td>
+    </tr>
+</table>
+
 
 <br>
 <button (click)='raiz.operation()'>operation!</button>
@@ -7,17 +30,23 @@
 
     <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1>
     <div *ngIf='showArbol' class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
-        <ul>
-            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz'></app-nodo>
-        </ul>
-    </div>
 
+            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz2' [showDraw]='1'></app-nodo>
+            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz' [showDraw]='0'></app-nodo>
+            <br><br>
+            <div style="margin-top: 25em;">
+
+            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz3' [showDraw]='0'></app-nodo>
+            </div>
+
+    </div>
     <div>
 
-        <h4>{{ umbralInferior }}</h4><button (click)='umbralInferior = umbralInferior - step'>-</button>
-        <button (click)='umbralInferior = umbralInferior +  step '>+</button> <br>
-        <h4>{{ umbralSuperior }}</h4>
-        <button (click)='umbralSuperior = umbralSuperior - step'>-</button><button
+        <h1>{{ umbralInferior }}</h1><button style="height: 50px; width: 200px" (click)='umbralInferior = umbralInferior - step'>-</button>
+        <button  style="height: 50px; width: 200px"(click)='umbralInferior = umbralInferior +  step '>+</button> <br>
+        <h1>{{ umbralSuperior }}</h1>
+        <button  style="height: 50px; width: 200px"(click)='umbralSuperior = umbralSuperior - step'>-</button><button
+ style="height: 50px; width: 200px"
             (click)='umbralSuperior = umbralSuperior + step'>+</button><br>
     </div>
 

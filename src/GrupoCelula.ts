@@ -24,7 +24,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.azules();
         })
 
-        return suma / children.length
+        return Number((  suma / children.length  ).toFixed(2))
     }
     cafes(): number {
         let suma = 0;
@@ -33,7 +33,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.cafes();
         })
 
-        return suma / children.length
+        return Number( ( suma / children.length ).toFixed(2) )
     }
     grises(): number {
         let suma = 0;
@@ -42,7 +42,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.grises();
         })
 
-        return suma / children.length
+        return Number(( suma / children.length ).toFixed(2))
     }
     rojos(): number {
         let suma = 0;
@@ -51,7 +51,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.rojos();
         })
 
-        return suma / children.length
+        return Number( ( suma / children.length ).toFixed(2) )
     }
     verdes(): number {
         let suma = 0;
@@ -60,16 +60,19 @@ export class GrupoCelulas implements Nodo {
             suma += obj.verdes();
         })
 
-        return suma / children.length
+        return Number(( suma / children.length ).toFixed(2))
     }
     factory = new Factory();
     agregarHojas(): void {
 
         if (this.getChildren().length === 0) {
             for (let i = 0; i < JUEGO.HOJAS_POR_RAMA; i++) {
-                let celula = this.factory.crearCelula()
-                this.hojas.push(celula)
-                this.addChild(celula);
+                let celula1 = this.factory.crearCelula()
+                let celula2 = this.factory.crearCelula()
+                this.hojas.push(celula1)
+                this.hojas.push(celula2)
+                this.addChild(celula1);
+                this.addChild(celula2);
             }
         } else {
             this.getChildren().map(obj => obj.agregarHojas());
@@ -87,6 +90,7 @@ export class GrupoCelulas implements Nodo {
     }
     setAutomatas(): void {
         this.getChildren().map( obj => obj.setAutomatas());
+
     }
     avanzarUnaGeneracion(): void {
         this.getChildren().map( obj => obj.avanzarUnaGeneracion());

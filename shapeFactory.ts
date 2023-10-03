@@ -1,5 +1,5 @@
 import { Bloque } from "bloque";
-import { Cube } from "cube";
+import { Automata } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { Rule } from "rule";
@@ -12,12 +12,12 @@ export interface ShapeFactory {
     createQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Quadrilateral;
     createTriangle(pointA: Point, pointB: Point, pointC: Point): Triangle;
     createCircle(center: Point, radius: number): Circle;
-    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube;
+    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata;
 
-    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Cube;
-    createTrimetricCube(): Cube;
-    createCavalier(): Cube;
-    createCavalierCube(): Cube;
+    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata;
+    createTrimetricCube(): Automata;
+    createCavalier(): Automata;
+    createCavalierCube(): Automata;
     createBloque(p0: Point, p1: Point, p2: Point, p3: Point): Bloque; 
 
     createDiamoebaRule(): Rule;
@@ -51,9 +51,10 @@ export interface ShapeFactory {
     crearCiudad(): Element;
     crearVegetacion(): Element;
 
-    createMilitaryCube(): Cube;
-    createMilitary2(): Cube;
-    createMilitary3(): Cube;
+    // todos devuelven un automata pero con diferentes vistas. no debería estar anclado al modelo
+    createMilitaryCube(): Automata;
+    createMilitary2(): Automata;
+    createMilitary3(): Automata;
     serviettes(): Rule;
     emptyRule(): Rule;
     geologyRule(): Rule;

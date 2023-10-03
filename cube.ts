@@ -8,7 +8,7 @@ import {Element } from "./rules/element";
 
 
 // deberia ser "export interface Automata"
-export interface Cube  {
+export interface Automata  {
     
     
     // estos puntos deberian generarse automáticamente ?
