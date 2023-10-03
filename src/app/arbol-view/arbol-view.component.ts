@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Nodo } from 'src/Nodo';
 
 @Component({
   selector: 'app-arbol-view',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArbolViewComponent implements OnInit {
 
-  constructor() { }
+  @Input() root: Nodo;
+  @Input() umbralInferior: number;
+  @Input() umbralSuperior: number;
 
   ngOnInit(): void {
   }
