@@ -1,9 +1,12 @@
 <!-- si tengo hijos, o sea si soy un composite-->
 <li *ngIf='root.getChildren().length > 0'>
 
-<div  [ngStyle]="{ 'width': '30px',
-'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div>
-    <span>
+<!-- <div  [ngStyle]="{ 'width': '30px',
+'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
+    <span class="tf-nc" [ngStyle]="{
+        'width': '70px',
+        'background': root.getState(umbralInferior, umbralSuperior)
+    }">
         {{ root.average() | number}}
     </span>
     <ul>
@@ -14,10 +17,14 @@
 </li>
 
 <li *ngIf='root.getChildren().length === 0 '>
-<div  [ngStyle]="{ 'width': '30px',
-'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div>
+<!-- <div  [ngStyle]="{ 'width': '30px',
+'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
  
-    <span >
+    <span [ngStyle]='{"width": "70px",
+
+        "background": root.getState(umbralInferior, umbralSuperior)
+}' class="tf-nc">
+
         {{ root.average() | number}}
     </span>
 </li>
