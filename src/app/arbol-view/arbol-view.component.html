@@ -1,5 +1,5 @@
 <!-- si tengo hijos, o sea si soy un composite-->
-<li *ngIf='root.getChildren().length > 0'>
+<li *ngIf='!root.isLeaf()'>
 
 <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
@@ -7,8 +7,17 @@
         'width': '70px',
         'background': root.getState(umbralInferior, umbralSuperior)
     }">
+    <div>
+
         {{ root.average() | number}}
+    </div>
+    <div>
+
+    <button (click)='agregarGrupoCelula(root)' [ngStyle]="{ 'width': '20px' }">+</button>
+    <button  (click)='agregarHijos(root)'[ngStyle]="{ 'width': '20px' }">+</button>
+    </div>
     </span>
+
     <ul>
         <li *ngFor='let child of root.getChildren()'>
             <app-arbol-view [root]="child"  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'></app-arbol-view>
@@ -16,7 +25,7 @@
     </ul>
 </li>
 
-<li *ngIf='root.getChildren().length === 0 '>
+<li *ngIf='root.isLeaf()'>
 <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
  

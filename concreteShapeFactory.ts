@@ -49,8 +49,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
 
-    createMilitary3(): Automata {
-        let cube = this.createMilitaryCube();
+    createMilitary3(filas: number, columnas: number): Automata {
+        let cube = this.createMilitaryCube(filas, columnas);
         for (let i = 0 ;  i< 20; i++) {
             cube.downMilitary();
         }
@@ -296,22 +296,13 @@ export class ConcreteShapeFactory implements ShapeFactory {
         )
     }
 
-
-    createMilitary2(): Automata {
-        let cube = this.createMilitaryCube();
-        for (let i = 0 ;  i< 10; i++) {
-            cube.downMilitary();
-        }
-        return cube;
-    }
-
-    crearEcosistema(): Automata {
+    crearEcosistema(filas: number, columnas: number): Automata {
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
         let pointC = this.createPoint(280, 40);
         let pointD = this.createPoint(200, 40);
 
-        let cube = this.createCube(pointA, pointB, pointC, pointD);
+        let cube = this.createCube(pointA, pointB, pointC, pointD, filas, columnas);
 
         cube.addElement(this.crearMar())
         cube.addElement(this.crearTierra());
@@ -330,8 +321,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    ecosistema() : Automata {
-        let cube = this.createMilitaryCube();
+    ecosistema(filas: number, columnas: number) : Automata {
+        let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         cube.setGreenRule(this.MazectricWithMice());
         cube.setBrownRule(this.MazeWithMice())
@@ -342,8 +333,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
     }
-    ecosistema2() : Automata {
-        let cube = this.createMilitaryCube();
+    ecosistema2(filas: number, columnas: number) : Automata {
+        let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
         cube.setBlueRule(this.create34LifeRule())
@@ -356,8 +347,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    coagulation() : Automata {
-        let cube = this.createMilitaryCube();
+    coagulation(filas: number, columnas: number) : Automata {
+        let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
         cube.setGreenRule(this.createCoralRule())
@@ -370,7 +361,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    createMilitaryCube(): Automata {
+    createMilitary2(filas: number, columnas: number): Automata {
+        let cube = this.createMilitaryCube(filas, columnas);
+        for (let i = 0 ;  i< 10; i++) {
+            cube.downMilitary();
+        }
+        return cube;
+    }
+
+
+    createMilitaryCube(filas: number, columnas: number): Automata {
 
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
@@ -378,7 +378,11 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let pointC = this.createPoint(280, 40);
         let pointD = this.createPoint(200, 40);
 
-        let cube = this.createCube(pointA, pointB, pointC, pointD);
+
+
+        let cube = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
+    
+
 
         cube.setSelectedProjection('military');
 
@@ -395,7 +399,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
         cube.setAltoLienzo(JUEGO.ALTO_LIENZO);
-        cube.setAvance(50);
+        cube.setAvance(60);
         cube.setShowAuxiliaryLines(JUEGO.AUXILIARY_LINES);
 
         cube.upMilitary(JUEGO.MILITAR_DEFAULT);
@@ -407,14 +411,14 @@ export class ConcreteShapeFactory implements ShapeFactory {
             cube.derecha()
         }
 
-        cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ?
+        // cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ? // creo que no se usa para nada
         
 
         cube.setScale(JUEGO.CELULA.SCALE);
 
         
 
-        cube.setMatrizActiva(cube.createRandomMatriz())
+        // cube.setMatrizActiva(cube.createRandomMatriz())
         return cube;
 
     }
@@ -451,13 +455,13 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return new LifeRule();
     }
 
-    createCavalierCube(): Automata {
+    createCavalierCube(filas: number, columnas: number): Automata {
 
         let pointA = this.createPoint(13, 58);
         let pointB = this.createPoint(91, 9);
         let pointC = this.createPoint(116, 55);
         let pointD = this.createPoint(2,11);
-        let cube = this.createCube(pointA, pointB, pointC, pointD) ;
+        let cube = this.createCube(pointA, pointB, pointC, pointD, filas, columnas) ;
         cube.setSelectedProjection('cavalier');
         cube.setHeight(4)
         cube.setFilas(100);
@@ -466,12 +470,12 @@ export class ConcreteShapeFactory implements ShapeFactory {
     }
 
 
-    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
-        return this.createCube(pointA, pointB, pointC, pointD);
+    createCabinetCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point, filas: number, columnas: number): Automata {
+        return this.createCube(pointA, pointB, pointC, pointD, filas, columnas);
     }
 
 
-    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): Automata {
+    createCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point, filas: number, columnas: number): Automata {
         let cube = new ConcreteAutomata(pointA, pointB, pointC, pointD);
 
         cube.setPoint(this.createPoint(0, 40));
@@ -482,8 +486,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         this.configureCube(cube);
 
-        cube.setFilas(JUEGO.FILAS);
-        cube.setColumnas(JUEGO.COLUMNAS);
+        cube.setFilas(filas);
+        cube.setColumnas(columnas);
         cube.setSelectedProjection('military');
 
         cube.setAltoCelula(JUEGO.CELULA.ALTO);

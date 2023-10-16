@@ -1,32 +1,53 @@
-{{ raiz.average()}}
-<table border="1">
-    <tr>
-        <td>rojos</td>
-        <td>{{ raiz.rojos() }}</td>
-    </tr>
-<tr>
-        <td>azules</td>
-        <td>{{ raiz.azules() }}</td>
-    </tr>
-<tr>
-        <td>verdes</td>
-        <td>{{ raiz.verdes() }}</td>
-    </tr>
-<tr>
-        <td>cafes</td>
-        <td>{{ raiz.cafes() }}</td>
-    </tr>
-<tr>
-        <td>blancos</td>
-        <td>{{ raiz.grises() }}</td>
-    </tr>
-</table>
 
-<div class="tf-tree tf-ancestor-tree">
+
+
+<table border=1 style='width: 300px'>
+            <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of automata1.totales()'>
+                <td>{{  v.name  }}</td>
+                <td>{{ v.total | number: '.2-2' }}</td>
+            </tr>
+        </table>
+
+    
+<app-tabla [automata]="automata1"></app-tabla>
+<app-two-lines-app [automata]="automata1"></app-two-lines-app>
+<app-two-lines-app [automata]="automata2" ></app-two-lines-app>
+<app-two-lines-app [automata]="automata3" ></app-two-lines-app>
+
+
+
+<div>
+
+{{ raiz.average()}}
+</div>
+<div>
+<!-- total bloques promedio = {{ raiz.totalBloques() }} -->
+</div>
+<table border=1 style='width: 300px'>
+            <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of raiz.totales()'>
+                <td>{{  v.name  }}</td>
+                <td>{{ v.total | number: '.2-2' }}</td>
+            </tr>
+        </table>
+
+    
+
+
+<div class="tf-tree tf-ancestor-tree" style="font-size: 14px">
 
     <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="raiz"></app-arbol-view>
 
 </div>
+<div>
+
+    <h1>{{ umbralInferior }}</h1><button style="height: 50px; width: 200px"
+        (click)='umbralInferior = umbralInferior - step'>-</button>
+    <button style="height: 50px; width: 200px" (click)='umbralInferior = umbralInferior +  step '>+</button> <br>
+    <h1>{{ umbralSuperior }}</h1>
+    <button style="height: 50px; width: 200px" (click)='umbralSuperior = umbralSuperior - step'>-</button><button
+        style="height: 50px; width: 200px" (click)='umbralSuperior = umbralSuperior + step'>+</button><br>
+</div>
+    <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>  
 <br>
 <button (click)='raiz.operation()'>operation!</button>
 <br>
@@ -50,15 +71,7 @@
             </div>
 
     </div>
-    <div>
-
-        <h1>{{ umbralInferior }}</h1><button style="height: 50px; width: 200px" (click)='umbralInferior = umbralInferior - step'>-</button>
-        <button  style="height: 50px; width: 200px"(click)='umbralInferior = umbralInferior +  step '>+</button> <br>
-        <h1>{{ umbralSuperior }}</h1>
-        <button  style="height: 50px; width: 200px"(click)='umbralSuperior = umbralSuperior - step'>-</button><button
- style="height: 50px; width: 200px"
-            (click)='umbralSuperior = umbralSuperior + step'>+</button><br>
-    </div>
+    <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>  
 
     <h2>{{ generacion }}</h2>
     <div *ngIf='false && showCurva'>

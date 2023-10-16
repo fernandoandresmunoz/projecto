@@ -12,6 +12,8 @@ import { NodoComponent } from './nodo/nodo.component';
 import { CurvaComponent } from './curva/curva.component';
 import { TablaNodoComponent } from './tabla-nodo/tabla-nodo.component';
 import { ArbolViewComponent } from './arbol-view/arbol-view.component';
+import { ControladorUmbralesComponent } from './controlador-umbrales/controlador-umbrales.component';
+import { TablaComponent } from './tabla/tabla.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ArbolViewComponent } from './arbol-view/arbol-view.component';
     NodoComponent,
     CurvaComponent,
     TablaNodoComponent,
-    ArbolViewComponent
+    ArbolViewComponent,
+    ControladorUmbralesComponent,
+    TablaComponent
   ],
   imports: [
     BrowserModule,

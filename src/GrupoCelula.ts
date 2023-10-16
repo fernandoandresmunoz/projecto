@@ -4,8 +4,55 @@ import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 
 export class GrupoCelulas implements Nodo {
-    totalBloques(): number {
+    isLeaf(): boolean {
+        return false;
+    }
+    totales() {
+        let d = [
+            {
+                name: 'azul',
+                total:  this.azules() * 100,
+                color: 'blue'
+            },
+            {
+                name: 'cafe',
+                total: this.cafes() * 100,
+                color: 'brown'
+            }, {
+                name: 'verdes',
+                total: this.verdes() * 100,
+                color: 'green'
+            }, {
+                name: 'rojos',
+                total: this.rojos() * 100,
+                color: 'red'
+            }, {
+                name: 'grises',
+                total: this.grises() * 100,
+                color: 'gray'
+            },
+        ]
+        d.sort((a, b) => { return b.total - a.total})
+
+        return d
+
+    }
+    getUmbralInferior(): number {
         throw new Error("Method not implemented.");
+    }
+    getUmbralSuperior(): number {
+        throw new Error("Method not implemented.");
+    }
+    getStateColor(): string {
+        throw new Error("Method not implemented.");
+    }
+    setearUmbrales(umbralInferior: number, umbralSuperior: number): void {
+        this.getChildren().map( obj => obj.setearUmbrales(umbralInferior, umbralSuperior))
+    }
+    totalBloques(): number {
+        let total = 0 
+        this.getChildren().map( obj => total += obj.totalBloques())
+        return total;
     }
     getColor(): string {
         throw new Error("Method not implemented.");
@@ -24,7 +71,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.azules();
         })
 
-        return Number((  suma / children.length  ).toFixed(2))
+        return Number(  suma / children.length  )
     }
     cafes(): number {
         let suma = 0;
@@ -33,7 +80,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.cafes();
         })
 
-        return Number( ( suma / children.length ).toFixed(2) )
+        return Number( suma / children.length  )
     }
     grises(): number {
         let suma = 0;
@@ -42,7 +89,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.grises();
         })
 
-        return Number(( suma / children.length ).toFixed(2))
+        return Number( suma / children.length )
     }
     rojos(): number {
         let suma = 0;
@@ -51,7 +98,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.rojos();
         })
 
-        return Number( ( suma / children.length ).toFixed(2) )
+        return Number(  suma / children.length  )
     }
     verdes(): number {
         let suma = 0;
@@ -60,7 +107,7 @@ export class GrupoCelulas implements Nodo {
             suma += obj.verdes();
         })
 
-        return Number(( suma / children.length ).toFixed(2))
+        return Number( suma / children.length )
     }
     factory = new Factory();
     agregarHojas(): void {

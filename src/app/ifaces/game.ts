@@ -89,14 +89,23 @@ export class Factory {
 
         let a = this.crearGrupoCelula();
 
+        // let b = this.crearGrupoCelula()
+        // let c = this.crearGrupoCelula()
 
 
-        a.addChild(this.superPlanta())
-        a.addChild(this.superPlanta())
-        // a.addChild(this.megaPlanta2())
-        a.agregarHojas()
-        a.setAutomatas()
-        
+        // a.addChild(b)
+        // a.addChild(c)
+        // b.addChild(this.crearGrupoCelula())
+        // b.addChild(this.crearGrupoCelula())
+
+        // c.addChild(this.crearGrupoCelula())
+        // c.addChild(this.crearGrupoCelula())
+
+
+        // // a.addChild(this.superPlanta())
+        // // a.addChild(this.megaPlanta2())
+        // a.agregarHojas()
+        // a.setAutomatas()
 
 
         return a;

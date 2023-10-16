@@ -4,12 +4,12 @@
     
 
     <div *ngIf="true">
-        <table border=1 style='width: 300px'>
-            <tr  [ngStyle]='{ "background-color": v.color }' *ngFor='let v of totales()'>
+        <!-- <table border=1 style='width: 300px'>
+            <tr  [ngStyle]='{ "background-color": v.color }' *ngFor='let v of automata.totales()'>
                 <td>{{  v.name  }}</td>
                 <td>{{ v.total | number: '.2-2' }}</td>
             </tr>
-        </table>
+        </table> -->
         <!-- <table border=1>
             <tr>
                 <td>azules</td>
@@ -37,7 +37,7 @@
         <!-- <p>{{ getBloques().length}}</p> -->
         <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
         
-            <button (click)='setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
+            <button (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
         
     </div>
     <table *ngIf="false">
@@ -61,7 +61,7 @@
     
                 <p style='font-size: 18px;'>
     
-        {{ cube.getGeneration() }}
+        {{ automata.getGeneration() }}
                 </p>
                 <!-- <canvas style='border: 1px solid gray' #myCanvas (keypress)='keyLeft()'></canvas> -->
                 <canvas #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
@@ -111,7 +111,7 @@
     
             <div *ngIf='false' style='font-size: 16px'>
                 <div>
-                    BC = {{ cube.getLineBC().ecuacionRecta() }}
+                    BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>
     
                 <div>
@@ -154,7 +154,7 @@
                     <button (click)='down(); draw()'>Down</button>
                 </div>
                 <div style='border: 1px solid gray'>
-                    AC = {{ cube.getRectaAC().ecuacionRecta() }}
+                    AC = {{ automata.getRectaAC().ecuacionRecta() }}
                     <br>
                     BD = {{ getLineBD().ecuacionRecta()}}
                     <br>

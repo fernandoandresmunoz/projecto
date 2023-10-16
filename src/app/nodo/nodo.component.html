@@ -33,5 +33,5 @@
 </li>
 <!-- si soy una hoja y quiero mostrar el automata-->
 <span *ngIf='showDraw == 1' class=''>
-    <app-two-lines-app *ngIf='root.getChildren().length === 0' [cube]='root.getAutomata()' ></app-two-lines-app>
+    <app-two-lines-app *ngIf='root.getChildren().length === 0' [automata]='root.getAutomata()' ></app-two-lines-app>
 </span>

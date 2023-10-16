@@ -17,6 +17,8 @@ export interface Nodo {
     agregarHijos(): void;
     agregarHojas(): void;
 
+    setearUmbrales(umbralInferior: number, umbralSuperior: number): void;
+
     totalBloques(): number;
 
     azules(): number;
@@ -28,5 +30,10 @@ export interface Nodo {
 
     getHojas(): Nodo[];
     getColor(): string;
+    getStateColor(): string;
+    getUmbralInferior(): number;
+    getUmbralSuperior(): number;
+    totales(): any;
+    isLeaf(): boolean;
 
 }

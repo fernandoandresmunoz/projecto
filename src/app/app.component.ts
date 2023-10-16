@@ -2,6 +2,9 @@ import { Component,  OnInit } from '@angular/core';
 import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 import { Factory } from './ifaces/game';
+import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { Celula } from 'src/Celula';
+import { Automata } from 'cube';
 
 
 @Component({
@@ -31,6 +34,10 @@ export class AppComponent  {
   raiz2: Nodo;
   raiz3: Nodo;
   raiz4: Nodo;
+    factory2 = new ConcreteShapeFactory()
+    automata1 = this.factory2.createMilitary2(64, 64)
+    automata2 = this.factory2.createMilitaryCube(50,50)
+    automata3 = this.factory2.createMilitary2(40, 60)
   generacion: number = 0;
   points: [number, number][] = []
   azules: [number, number][] = []
@@ -40,11 +47,19 @@ export class AppComponent  {
   verdes: [number, number][] = []
 
   constructor() {
+
+    this.automata1.setAnchoLienzo(1000)
+    this.automata1.setAltoLienzo(700)
+    this.automata1.setScale(3)
+
         setInterval(() => {
           this.raiz.avanzarUnaGeneracion();
           this.raiz2.avanzarUnaGeneracion()
           this.raiz3.avanzarUnaGeneracion()
-          this.raiz4.avanzarUnaGeneracion()
+          // this.raiz4.avanzarUnaGeneracion()
+          this.automata1.avanzarUnaGeneracion()
+          this.automata2.avanzarUnaGeneracion()
+          this.automata3.avanzarUnaGeneracion()
 
           
 
@@ -57,6 +72,8 @@ export class AppComponent  {
     this.raiz.setAutomatas()
     this.raiz2.setAutomatas()
     this.raiz3.setAutomatas()
+
+    // this.automata =  factory.createMilitary2()
     // this.raiz = this.factory.megaPlanta();
     // this.raiz.agregarHojas()
     // this.raiz = this.factory.crearPlanta()

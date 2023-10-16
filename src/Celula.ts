@@ -19,7 +19,30 @@ export class Celula implements Nodo {
 
     automata: Automata;
     factory = new ConcreteShapeFactory();
+    umbralInferior: number;
+    umbralSuperior: number;
+
+
     constructor() {
+    }
+    isLeaf(): boolean {
+        return true;
+    }
+    totales() {
+        return this.automata.totales()
+    }
+    getUmbralInferior(): number {
+        return this.umbralInferior;
+    }
+    getUmbralSuperior(): number {
+        return this.umbralSuperior;
+    }
+    getStateColor(): string {
+        return this.getState(this.umbralInferior, this.umbralSuperior);
+    }
+    setearUmbrales(umbralInferior: number, umbralSuperior: number): void {
+        this.umbralInferior = umbralInferior;
+        this.umbralSuperior = umbralSuperior;
     }
     totalBloques(): number {
         return this.getAutomata().getBloques().length 
@@ -53,14 +76,14 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     setAutomatas(): void { // deberia ser set automata
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2() : this.factory.createMilitaryCube())
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(70, 70) : this.factory.createMilitaryCube(70, 70))
     }
     avanzarUnaGeneracion(): void {
         this.getAutomata()?.avanzarUnaGeneracion();
     }
     initialize(): void {
         
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2() : this.factory.createMilitaryCube())
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(70, 70) : this.factory.createMilitaryCube(70, 70))
         
     }
     getState(umbralInferior: number, umbralSuperior: number): string {

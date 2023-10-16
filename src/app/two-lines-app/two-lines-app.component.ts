@@ -31,7 +31,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   shapeFactory: ShapeFactory = new ConcreteShapeFactory();
   // cube: Cube;
-  @Input() cube: Automata;
+  @Input() automata: Automata;
+  @Input() filas:  number;
+  @Input() columnas: number;
 
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;
 
@@ -39,14 +41,16 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   public context: CanvasRenderingContext2D;
 
+    factory2 = new ConcreteShapeFactory()
   sentido: boolean = false;
   constructor() {
+
     setInterval(() => {
       this.draw();
     }, 250)
   }
   totales() {
-    return this.cube.totales();
+    return this.automata.totales();
   }
   setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
     throw new Error('Method not implemented.');
@@ -55,52 +59,52 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     // this.draw();
   }
   avanzarUnaGeneracion(): void {
-    this.cube.avanzarUnaGeneracion();
+    this.automata.avanzarUnaGeneracion();
   }
   densidad(): number {
-    return this.cube.densidad();
+    return this.automata.densidad();
   }
   changeRule(element: string, rule: string): void {
-    this.cube.changeRule(element, rule);
+    this.automata.changeRule(element, rule);
   }
   getBlueRule(): Rule {
-    return this.cube.getBlueRule();
+    return this.automata.getBlueRule();
   }
   setBlueRule(rule: Rule): void {
-    this.cube.setBlueRule(rule);
+    this.automata.setBlueRule(rule);
   }
   getBrownRule(): Rule {
-    return this.cube.getBrownRule();
+    return this.automata.getBrownRule();
   }
   setBrownRule(rule: Rule): void {
-    this.cube.setBrownRule(rule);
+    this.automata.setBrownRule(rule);
   }
   getGrayRule(): Rule {
-    return this.cube.getGrayRule();
+    return this.automata.getGrayRule();
   }
   setGrayRule(rule: Rule): void {
-    this.cube.setGrayRule(rule);
+    this.automata.setGrayRule(rule);
   }
   getColorSchema(): {} {
-    return this.cube.getColorSchema();
+    return this.automata.getColorSchema();
   }
   totalAzules(): number {
-    return this.cube.totalAzules();
+    return this.automata.totalAzules();
   }
   totalVerdes(): number {
-    return this.cube.totalVerdes();
+    return this.automata.totalVerdes();
   }
   totalCafes(): number {
-    return this.cube.totalCafes();
+    return this.automata.totalCafes();
   }
   totalRojos(): number {
-    return this.cube.totalRojos();
+    return this.automata.totalRojos();
   }
   totalGrises(): number {
-    return this.cube.totalGrises();
+    return this.automata.totalGrises();
   }
   getElements(): Element[] {
-    return this.cube.getElements();
+    return this.automata.getElements();
   }
   setElements(elements: Element[]): void {
     throw new Error('Method not implemented.');
@@ -113,42 +117,42 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   }
 
   getGreenRule(): Rule {
-    return this.cube.getGreenRule();
+    return this.automata.getGreenRule();
   }
 
   getRedRule(): Rule {
-    return this.cube.getRedRule();
+    return this.automata.getRedRule();
   }
 
   setGreenRule(rule: Rule): void {
-    this.cube.setGreenRule(rule);
+    this.automata.setGreenRule(rule);
   }
 
   setRedRule(rule: Rule): void {
-    this.cube.setRedRule(rule);
+    this.automata.setRedRule(rule);
   }
 
   getPause(): boolean {
-    return this.cube.getPause();
+    return this.automata.getPause();
   }
 
   setPause(pause: boolean): void {
-    this.cube.setPause(pause);
+    this.automata.setPause(pause);
   }
   crearBloque(data: { state: number, color: string }, altura: number): void {
     this.crearBloque(data, altura);
   }
   getRules(): { name: string; rule: Rule; notation: string; }[] {
-    return this.cube.getRules();
+    return this.automata.getRules();
   }
   setRules(rules: { name: string; rule: Rule; notation: string; }[]): void {
-    this.cube.setRules(rules);
+    this.automata.setRules(rules);
   }
   setActiveRule(rule: Rule): void {
-    this.cube.setActiveRule(rule);
+    this.automata.setActiveRule(rule);
   }
   getActiveRule(): Rule {
-    return this.cube.getActiveRule();
+    return this.automata.getActiveRule();
   }
   setDiamoeba(): void {
     this.setRule(this.shapeFactory.createDiamoebaRule())
@@ -157,31 +161,31 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.setRule(this.shapeFactory.createLifeRule())
   }
   getRule(): Rule {
-    return this.cube.getRule();
+    return this.automata.getRule();
   }
   setRule(rule: Rule): void {
-    this.cube.setRule(rule);
+    this.automata.setRule(rule);
   }
   createRandomMatriz(): { state: number, color: string }[][] {
-    return this.cube.createRandomMatriz();
+    return this.automata.createRandomMatriz();
   }
   matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][] {
     return this.matrizSiguiente(matriz);
   }
   getMatrizActiva(): { state: number, color: string }[][] {
-    return this.cube.getMatrizActiva();
+    return this.automata.getMatrizActiva();
   }
   setMatrizActiva(matrizActiva: { state: number, color: string }[][]): void {
-    return this.cube.setMatrizActiva(matrizActiva);
+    return this.automata.setMatrizActiva(matrizActiva);
   }
   getGeneration(): number {
-    return this.cube.getGeneration();
+    return this.automata.getGeneration();
   }
   setGeneration(generation: number): void {
-    this.cube.setGeneration(generation);
+    this.automata.setGeneration(generation);
   }
   dibujarMatriz(matriz: { state: number, color: string }[][]): void {
-    this.cube.dibujarMatriz(matriz);
+    this.automata.dibujarMatriz(matriz);
   }
   getAvance(): number {
     throw new Error('Method not implemented.');
@@ -190,81 +194,81 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     throw new Error('Method not implemented.');
   }
   setShowAuxiliaryLines(showAuxiliaryLines: boolean): void {
-    this.cube.setShowAuxiliaryLines(showAuxiliaryLines);
+    this.automata.setShowAuxiliaryLines(showAuxiliaryLines);
   }
   getAnchoLienzo(): number {
-    return this.cube.getAnchoLienzo();
+    return this.automata.getAnchoLienzo();
   }
   setAnchoLienzo(anchoLienzo: number): void {
-    this.cube.setAnchoLienzo(anchoLienzo);
+    this.automata.setAnchoLienzo(anchoLienzo);
   }
   getAltoLienzo(): number {
-    return this.cube.getAltoLienzo();
+    return this.automata.getAltoLienzo();
   }
   setAltoLienzo(altoLienzo: number): void {
     throw new Error('Method not implemented.');
   }
   crearTableroAleatorio(): void {
-    this.cube.crearTableroAleatorio();
+    this.automata.crearTableroAleatorio();
   }
   upMilitary(size: number): void {
-    this.cube.upMilitary(size);
+    this.automata.upMilitary(size);
   }
   downMilitary(): void {
-    this.cube.downMilitary();
+    this.automata.downMilitary();
   }
   showAuxiliaryLines(): boolean {
-    return this.cube.showAuxiliaryLines();
+    return this.automata.showAuxiliaryLines();
   }
   subir(): void {
-    this.cube.subir();
-    this.cube.derecha();
+    this.automata.subir();
+    this.automata.derecha();
     this.draw();
   }
   bajar(): void {
-    this.cube.bajar();
-    this.cube.izquierda();
+    this.automata.bajar();
+    this.automata.izquierda();
     this.draw();
   }
   izquierda(): void {
-    this.cube.izquierda();
-    this.cube.subir();
+    this.automata.izquierda();
+    this.automata.subir();
     this.draw();
   }
   derecha(): void {
-    this.cube.derecha();
-    this.cube.bajar();
+    this.automata.derecha();
+    this.automata.bajar();
     this.draw();
   }
   subirCubos(): void {
-    this.cube.subirCubos();
+    this.automata.subirCubos();
   }
   bajarCubos(): void {
-    this.cube.bajarCubos();
+    this.automata.bajarCubos();
   }
   izquierdaCubos(): void {
-    this.cube.izquierdaCubos();
+    this.automata.izquierdaCubos();
   }
   derechaCubos(): void {
-    this.cube.derechaCubos();
+    this.automata.derechaCubos();
   }
   setAnchoCelula(anchoCelula: number): void {
-    this.cube.setAnchoCelula(anchoCelula);
+    this.automata.setAnchoCelula(anchoCelula);
   }
   getAnchoCelula(): number {
-    return this.cube.getAnchoCelula();
+    return this.automata.getAnchoCelula();
   }
   setLargoCelula(largoCelula: number): void {
-    this.cube.setLargoCelula(largoCelula)
+    this.automata.setLargoCelula(largoCelula)
   }
   getLargoCelula(): number {
-    return this.cube.getLargoCelula();
+    return this.automata.getLargoCelula();
   }
   setAltoCelula(altoCelula: number): void {
-    this.cube.setAltoCelula(altoCelula);
+    this.automata.setAltoCelula(altoCelula);
   }
   getAltoCelula(): number {
-    return this.cube.getAltoCelula();
+    return this.automata.getAltoCelula();
   }
   drawCelula(): void {
     let interseccion = this.puntoCelula();
@@ -282,11 +286,11 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.context.strokeStyle = 'Red'
     this.context.fillText(`${String(interseccion.getX())}, ${String(interseccion.getY())} `, 10, 20);
 
-    let lineP4P5 = this.shapeFactory.createLine(this.cube.getPoint4(), this.cube.getPoint5());
-    let lineP1P3 = this.shapeFactory.createLine(this.cube.getPoint1(), this.cube.getPoint3());
+    let lineP4P5 = this.shapeFactory.createLine(this.automata.getPoint4(), this.automata.getPoint5());
+    let lineP1P3 = this.shapeFactory.createLine(this.automata.getPoint1(), this.automata.getPoint3());
 
-    let lineP6P7 = this.shapeFactory.createLine(this.cube.getPoint6(), this.cube.getPoint7());
-    let lineP0P2 = this.shapeFactory.createLine(this.cube.getPoint(), this.cube.getPoint2());
+    let lineP6P7 = this.shapeFactory.createLine(this.automata.getPoint6(), this.automata.getPoint7());
+    let lineP0P2 = this.shapeFactory.createLine(this.automata.getPoint(), this.automata.getPoint2());
 
     let p0 = this.getInterseccion(lineP4P5, lineP1P3);
     let p2 = this.getInterseccion(lineP1P3, lineP0P2);
@@ -477,44 +481,44 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   }
 
   clean(): void {
-    this.cube.clean();
+    this.automata.clean();
     localStorage.clear()
     this.draw()
   }
 
   setPuntos(puntos: number[][][]): void {
-    this.cube.setPuntos(puntos);
+    this.automata.setPuntos(puntos);
   }
 
   puntoCelula(): Point {
-    return this.cube.puntoCelula();
+    return this.automata.puntoCelula();
   }
   getPuntos(): number[][][] {
-    return this.cube.getPuntos();
+    return this.automata.getPuntos();
   }
   addPunto(punto: number[][]): void {
-    this.cube.addPunto(punto);
+    this.automata.addPunto(punto);
   }
   getBloques(): Bloque[] {
-    return this.cube.getBloques();
+    return this.automata.getBloques();
   }
   addBloque(bloque: Bloque): void {
-    this.cube.addBloque(bloque);
+    this.automata.addBloque(bloque);
   }
   getInterseccion(line1: Line, line2: Line): Point {
-    return this.cube.getInterseccion(line1, line2);
+    return this.automata.getInterseccion(line1, line2);
   }
   getPoint4(): Point {
-    return this.cube.getPoint4();
+    return this.automata.getPoint4();
   }
   getPoint5(): Point {
-    return this.cube.getPoint5();
+    return this.automata.getPoint5();
   }
   getPoint6(): Point {
-    return this.cube.getPoint6();
+    return this.automata.getPoint6();
   }
   getPoint7(): Point {
-    return this.cube.getPoint7();
+    return this.automata.getPoint7();
   }
   setPoint4(point: Point): void {
     throw new Error('Method not implemented.');
@@ -529,16 +533,16 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     throw new Error('Method not implemented.');
   }
   getPoint1(): Point {
-    return this.cube.getPoint1();
+    return this.automata.getPoint1();
   }
   getPoint2(): Point {
-    return this.cube.getPoint2();
+    return this.automata.getPoint2();
   }
   getPoint3(): Point {
-    return this.cube.getPoint3();
+    return this.automata.getPoint3();
   }
   setPoint1(point: Point): void {
-    this.cube.setPoint1(point);
+    this.automata.setPoint1(point);
   }
   setPoint2(point: Point): void {
     throw new Error('Method not implemented.');
@@ -547,13 +551,13 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     throw new Error('Method not implemented.');
   }
   getPoint(): Point {
-    return this.cube.getPoint();
+    return this.automata.getPoint();
   }
   setPoint(point: Point): void {
-    this.cube.setPoint(point);
+    this.automata.setPoint(point);
   }
   getRectaAD(): Line {
-    return this.cube.getRectaAD();
+    return this.automata.getRectaAD();
   }
   getRectaBC(): Line {
     throw new Error('Method not implemented.');
@@ -578,29 +582,29 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   }
 
   getFilas(): number {
-    return this.cube.getFilas();
+    return this.automata.getFilas();
   }
   getColumnas(): number {
-    return this.cube.getColumnas();
+    return this.automata.getColumnas();
   }
   setFilas(filas: number): void {
-    this.cube.setFilas(filas);
+    this.automata.setFilas(filas);
   }
   setColumnas(columnas: number): void {
-    this.cube.setColumnas(columnas);
+    this.automata.setColumnas(columnas);
   }
 
   getLineAC(): Line {
-    return this.cube.getLineAC();
+    return this.automata.getLineAC();
   }
   getLineBD(): Line {
-    return this.cube.getLineBD();
+    return this.automata.getLineBD();
   }
   getLineAD(): Line {
-    return this.cube.getLineAD();
+    return this.automata.getLineAD();
   }
   getLineBC(): Line {
-    return this.cube.getLineBC();
+    return this.automata.getLineBC();
   }
 
   @HostListener('document:keypress', ['$event'])
@@ -640,13 +644,13 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     if ( this.context === undefined ) {
       return
     }
-    this.context.clearRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    this.context.clearRect(0, 0, this.automata.getAnchoLienzo(), this.automata.getAltoLienzo());
 
     this.context.strokeStyle = JUEGO.CELULA.BACKGROUND_COLOR;
     // this.context.fillStyle = '#595447';
     this.context.fillStyle = JUEGO.CELULA.BACKGROUND_COLOR;
 
-    this.context.fillRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
+    this.context.fillRect(0, 0, this.automata.getAnchoLienzo(), this.automata.getAltoLienzo());
     // this.context.fillRect(0, 0, 200, 200);
 
     let puntoA = this.getPointA();
@@ -709,7 +713,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
 
 
-    this.paintCube(puntoA, puntoB, puntoC, puntoD)
+    // this.paintCube(puntoA, puntoB, puntoC, puntoD)
     this.context.strokeStyle = 'Red';
     // this.drawLine(this.getPointA(), this.getPointC());
 
@@ -754,10 +758,10 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
     if (this.showAuxiliaryLines()) {
 
-      this.dibujarRectaCompleta(this.cube.getRectaAC());
-      this.dibujarRectaCompleta(this.cube.getRectaBC());
-      this.dibujarRectaCompleta(this.cube.getRectaBD());
-      this.dibujarRectaCompleta(this.cube.getRectaAD());
+      this.dibujarRectaCompleta(this.automata.getRectaAC());
+      this.dibujarRectaCompleta(this.automata.getRectaBC());
+      this.dibujarRectaCompleta(this.automata.getRectaBD());
+      this.dibujarRectaCompleta(this.automata.getRectaAD());
 
       this.drawSplitLine(this.getLineBC());
       this.drawSplitLine(this.getLineAD());
@@ -771,15 +775,15 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
       this.context.fillStyle = 'Red'
       this.context.fillRect(this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
       this.context.fillRect(this.getPoint1().getX() * this.getScale(), this.getPoint1().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
-      this.context.fillRect(this.cube.getPoint2().getX() * this.getScale(), this.cube.getPoint2().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
-      this.context.fillRect(this.cube.getPoint3().getX() * this.getScale(), this.cube.getPoint3().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint2().getX() * this.getScale(), this.automata.getPoint2().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint3().getX() * this.getScale(), this.automata.getPoint3().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint4().getX() * this.getScale(), this.cube.getPoint4().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint4().getX() * this.getScale(), this.automata.getPoint4().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint5().getX() * this.getScale(), this.cube.getPoint5().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint5().getX() * this.getScale(), this.automata.getPoint5().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
-      this.context.fillRect(this.cube.getPoint6().getX() * this.getScale(), this.cube.getPoint6().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
-      this.context.fillRect(this.cube.getPoint7().getX() * this.getScale(), this.cube.getPoint7().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint6().getX() * this.getScale(), this.automata.getPoint6().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
+      this.context.fillRect(this.automata.getPoint7().getX() * this.getScale(), this.automata.getPoint7().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
 
 
     }
@@ -897,16 +901,16 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
 
   setPointA(point: Point): void {
-    this.cube.setPointA(point);
+    this.automata.setPointA(point);
   }
   setPointB(point: Point): void {
-    this.cube.setPointB(point);
+    this.automata.setPointB(point);
   }
   setPointC(point: Point): void {
-    this.cube.setPointC(point);
+    this.automata.setPointC(point);
   }
   setPointD(point: Point): void {
-    this.cube.setPointD(point);
+    this.automata.setPointD(point);
   }
 
 
@@ -951,19 +955,19 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   }
   keyLeft(): void {
-    this.cube.keyLeft();
+    this.automata.keyLeft();
   }
   keyRight(): void {
-    this.cube.keyRight();
+    this.automata.keyRight();
   }
   setSelectedProjection(selectedProjection: string): void {
-    this.cube.setSelectedProjection(selectedProjection);
+    this.automata.setSelectedProjection(selectedProjection);
   }
   getSelectedProjection(): string {
-    return this.cube.getSelectedProjection();
+    return this.automata.getSelectedProjection();
   }
   getProjections(): string[] {
-    return this.cube.getProjections();
+    return this.automata.getProjections();
   }
   drawRoof(puntoA: Point, puntoB: Point, puntoC: Point, puntoD: Point): void {
 
@@ -1035,16 +1039,16 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   }
   getPointE(): Point {
-    return this.cube.getPointE();
+    return this.automata.getPointE();
   }
   getPointF(): Point {
-    return this.cube.getPointF();
+    return this.automata.getPointF();
   }
   getPointG(): Point {
-    return this.cube.getPointG();
+    return this.automata.getPointG();
   }
   getPointH(): Point {
-    return this.cube.getPointH();
+    return this.automata.getPointH();
   }
   drawLine(pointA: Point, pointB: Point): void {
     if (pointA === undefined || pointB === undefined) {
@@ -1059,56 +1063,56 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   }
   getPointA(): Point {
-    return this.cube.getPointA();
+    return this.automata.getPointA();
   }
   getPointB(): Point {
-    return this.cube.getPointB();
+    return this.automata.getPointB();
   }
   getPointC(): Point {
-    return this.cube.getPointC();
+    return this.automata.getPointC();
   }
   getPointD(): Point {
-    return this.cube.getPointD();
+    return this.automata.getPointD();
   }
 
   getHeight(): number {
-    return this.cube.getHeight();
+    return this.automata.getHeight();
   }
   setHeight(height: number): void {
-    this.cube.setHeight(height);
+    this.automata.setHeight(height);
   }
   up(): void {
-    this.cube.up();
+    this.automata.up();
   }
   down(): void {
-    this.cube.down();
+    this.automata.down();
   }
   left(): void {
-    this.cube.left();
+    this.automata.left();
   }
   right(): void {
-    this.cube.right();
+    this.automata.right();
   }
   getLine1(): Line {
-    return this.cube.getLine1();
+    return this.automata.getLine1();
   }
   setLine1(line: Line): void {
-    this.cube.setLine1(line);
+    this.automata.setLine1(line);
   }
   getLine2(): Line {
-    return this.cube.getLine2();
+    return this.automata.getLine2();
   }
   setLine2(line: Line): void {
-    this.cube.setLine2(line);
+    this.automata.setLine2(line);
   }
   getIntersectionPoint(): Point {
-    return this.cube.getIntersectionPoint();
+    return this.automata.getIntersectionPoint();
   }
   setScale(scale: number): void {
-    this.cube.setScale(scale);
+    this.automata.setScale(scale);
   }
   getScale(): number {
-    return this.cube.getScale();
+    return this.automata.getScale();
   }
 
   ngOnInit(): void {
