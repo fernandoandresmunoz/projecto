@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Automata } from 'cube';
 import { JUEGO } from 'src/JUEGO';
 
 @Component({
@@ -14,6 +15,7 @@ export class CurvaComponent implements OnInit, OnChanges {
   @Input() rojos: [number, number][];
   @Input() cafes: [number, number][];
   @Input() grises: [number, number][];
+  @Input() automata: Automata;
 
   @Input() generacion: number;
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;

@@ -40,9 +40,24 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
             if (automata.getGeneration() === 60) {
 
                 
-                automata.setBrownRule(this.shapeFactory.createDayAndNightRule());
-                  automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+                //   automata.setBlueRule(this.shapeFactory.createCoralRule());
             }
+
+            if (automata.getGeneration() === 60) {
+
+                
+                //   automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+            }
+            if (automata.getGeneration() === 90) {
+
+                  automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+                automata.setBrownRule(this.shapeFactory.createDayAndNightRule());
+                
+                //   automata.setBrownRule(this.shapeFactory.createAnnealRule())
+            } if (automata.getGeneration() === 100) {
+                // automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule()u)
+            }
+
 
 
 
@@ -57,8 +72,10 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
             if (automata.getGeneration() === 30) {
                 //   automata.setRedRule(this.shapeFactory.MazectricWithMice());
-                  automata.setRedRule(this.shapeFactory.createMazeRule());
+                  automata.setRedRule(this.shapeFactory.createWalledCityRule());
+                  automata.setBrownRule(this.shapeFactory.createAnnealRule())
 
+                // automata.setBrownRule(this.shapeFactory.createAnnealRule());
             }
             else if (automata.getGeneration() === 25) {
                   automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
@@ -68,8 +85,21 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
                 //   this.setGreenRule(this.shapeFactory.MazectricWithMice());
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule());
                 //   this.setBlueRule(this.shapeFactory.createDiamoebaRule())
-                automata.setBrownRule(this.shapeFactory.createAnnealRule());
             }
+
+            else if ( automata.getGeneration() === 60) {
+                // automata.setGrayRule(this.shapeFactory.createWalledCityRule())
+                // automata.setRedRule(this.shapeFactory.Mazectric())
+                automata.setRedRule(this.shapeFactory.createDayAndNightRule())
+                // automata.setBlueRule(this.shapeFactory.createCoagulationRule());
+                // automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
+            }
+            else if ( automata.getGeneration() === 150) {
+                // automata.seeenayRule(this.shapeFactory.creaDiWalledCityRule())
+                // automata.setRedRule(this.shapeFactory.Mazectric())
+                // automata.setBlueRule(this.shapeFactory.createDiamoebaRule());
+            }
+
 
             else if (automata.getGeneration() === 15) {
                 automata.setGreenRule(this.shapeFactory.createCoralRule());

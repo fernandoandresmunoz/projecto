@@ -1,13 +1,13 @@
 
 <div>
     <div >
-        <div>
+        <!-- <div>
             <div *ngFor='let child of nodo.getChildren()' style='margin-bottom: 2em;'>
                 <div *ngFor='let x of child.getChildren()'>
                     <div [ngStyle]="{ 'background-color': x.getState(umbralInferior, umbralSuperior), 'height': ALTO_BARRA +  'px', 'width': ANCHO_BARRA * x.average() + 'px', 'border': '1px solid gray' }"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <table style='display: inline-block; margin-right: 1em ' border=1 *ngFor='let child of nodo.getChildren()'>
             <thead>
                 <tr>

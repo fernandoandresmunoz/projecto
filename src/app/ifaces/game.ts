@@ -8,6 +8,28 @@ import { Nodo } from "src/Nodo";
 
 
 export class Factory {
+
+    crearRack() : Nodo {
+        let raiz = new GrupoCelulas();
+
+        for ( let i = 0 ; i < 4; i++) {
+            raiz.addChild(new GrupoCelulas())
+        }
+
+        for ( let i = 0 ; i < raiz.getChildren().length ; i ++) {
+            // cel.setAutomatas()
+            for ( let j = 0 ; j < 10; j ++) {
+
+                let cel = new Celula()
+                raiz.getChildren()[i].addChild(cel)
+            }
+        }
+        raiz.setAutomatas()
+        
+        return raiz;
+
+    }
+
     crearCelula(): Nodo {
         return new Celula();
     }
@@ -81,6 +103,7 @@ export class Factory {
         let b = this.crearCelula()
 
         a.addChild(b);
+        a.setAutomatas()
         return a;
     
     }
@@ -107,6 +130,7 @@ export class Factory {
         // a.agregarHojas()
         // a.setAutomatas()
 
+        a.setAutomatas()
 
         return a;
     }
@@ -138,7 +162,7 @@ export class Factory {
         a.addChild(this.superPlanta())
         a.agregarHojas()
 
-        // a.setAutomatas();
+        a.setAutomatas();
         return a;
     }
 

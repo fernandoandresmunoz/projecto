@@ -12,7 +12,7 @@ import { Automata } from 'cube';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.styl']
 })
-export class AppComponent  {
+export class AppComponent {
   factory = new Factory();
 
   umbralInferior = JUEGO.UMBRAL_INFERIOR;
@@ -21,23 +21,25 @@ export class AppComponent  {
   mostrarGrafica = JUEGO.MOSTRAR_GRAFICO;
   mostrarTabla = JUEGO.MOSTRAR_TABLA;
   backgroundColor = JUEGO.BACKGROUND_COLOR;
-  title= JUEGO.TITLE;
+  title = JUEGO.TITLE;
   fontColor = JUEGO.FONT_COLOR;
   showTree = JUEGO.SHOW_TREE;
   showTitle = JUEGO.SHOW_TITLE;
-  showArbol= JUEGO.ELEMENTOS.ARBOL;
+  showArbol = JUEGO.ELEMENTOS.ARBOL;
   showCurva = JUEGO.ELEMENTOS.CURVA;
-  showTabla= JUEGO.ELEMENTOS.TABLA
+  showTabla = JUEGO.ELEMENTOS.TABLA
   showBarras = JUEGO.ELEMENTOS.BARRAS;
 
   raiz: Nodo;
   raiz2: Nodo;
   raiz3: Nodo;
   raiz4: Nodo;
-    factory2 = new ConcreteShapeFactory()
-    automata1 = this.factory2.createMilitary2(64, 64)
-    automata2 = this.factory2.createMilitaryCube(50,50)
-    automata3 = this.factory2.createMilitary2(40, 60)
+
+  rack: Nodo;
+  factory2 = new ConcreteShapeFactory()
+  automata1 = this.factory2.createMilitaryCube(140, 60)
+  automata2 = this.factory2.createMilitaryCube(50, 50)
+  automata3 = this.factory2.createMilitary2(40, 60)
   generacion: number = 0;
   points: [number, number][] = []
   azules: [number, number][] = []
@@ -50,18 +52,22 @@ export class AppComponent  {
 
     this.automata1.setAnchoLienzo(1000)
     this.automata1.setAltoLienzo(700)
-    this.automata1.setScale(3)
+    this.automata1.setScale(2)
 
-        setInterval(() => {
-          this.raiz.avanzarUnaGeneracion();
-          this.raiz2.avanzarUnaGeneracion()
-          this.raiz3.avanzarUnaGeneracion()
-          // this.raiz4.avanzarUnaGeneracion()
-          this.automata1.avanzarUnaGeneracion()
-          this.automata2.avanzarUnaGeneracion()
-          this.automata3.avanzarUnaGeneracion()
+    setInterval(() => {
 
-          
+      // tengo cuatro arboles y 3 automatas 
+
+      // estos son arboles 
+      this.raiz.avanzarUnaGeneracion();
+      this.raiz2.avanzarUnaGeneracion()
+      this.raiz3.avanzarUnaGeneracion()
+      this.rack.avanzarUnaGeneracion()
+
+      // estos son automatas sueltos 
+      this.automata1.avanzarUnaGeneracion()
+      this.automata2.avanzarUnaGeneracion()
+      this.automata3.avanzarUnaGeneracion()
 
     }, 250)
 
@@ -69,14 +75,8 @@ export class AppComponent  {
     this.raiz = this.factory.crearPlanta()
     this.raiz2 = this.factory.crearSingle()
     this.raiz3 = this.factory.megaPlanta()
-    this.raiz.setAutomatas()
-    this.raiz2.setAutomatas()
-    this.raiz3.setAutomatas()
+    this.rack = this.factory.crearRack();
 
-    // this.automata =  factory.createMilitary2()
-    // this.raiz = this.factory.megaPlanta();
-    // this.raiz.agregarHojas()
-    // this.raiz = this.factory.crearPlanta()
   }
 }
 

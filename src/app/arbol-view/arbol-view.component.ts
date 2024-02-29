@@ -22,9 +22,9 @@ export class ArbolViewComponent implements OnInit {
     console.log('agregando grupo celula', root)
     // let gc = new GrupoCelulas();
     let h = new GrupoCelulas();
-    let h1 = new GrupoCelulas();
+    // let h1 = new GrupoCelulas();
     root.addChild(h)
-    root.addChild(h1)
+    // root.addChild(h1)
     // gc.setAutomatas()
     // root.addChild(gc);
     

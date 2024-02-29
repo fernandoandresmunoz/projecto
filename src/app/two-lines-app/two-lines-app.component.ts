@@ -376,6 +376,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   parseColors(color: string) {
     if (color === "Red") {
 
+      // return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Crimson", "LightCoral", "DarkRed"]
     } else if (color === "Green") {
@@ -385,6 +386,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
       return ["CornflowerBlue", "LightBlue", "Blue"]
     } else if (color === "Brown") {
 
+      return ["Crimson", "LightCoral", "DarkRed"]
       return ["Brown", "SandyBrown", "SaddleBrown"]
     }
     else if (color === "Gray") {
