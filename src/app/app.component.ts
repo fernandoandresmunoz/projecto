@@ -37,7 +37,7 @@ export class AppComponent {
 
   rack: Nodo;
   factory2 = new ConcreteShapeFactory()
-  automata1 = this.factory2.createMilitaryCube(140, 60)
+  automata1 = this.factory2.createMilitaryCube(128, 128)
   automata2 = this.factory2.createMilitaryCube(50, 50)
   automata3 = this.factory2.createMilitary2(40, 60)
   generacion: number = 0;
@@ -59,15 +59,15 @@ export class AppComponent {
       // tengo cuatro arboles y 3 automatas 
 
       // estos son arboles 
-      this.raiz.avanzarUnaGeneracion();
-      this.raiz2.avanzarUnaGeneracion()
-      this.raiz3.avanzarUnaGeneracion()
-      this.rack.avanzarUnaGeneracion()
+      // this.raiz.avanzarUnaGeneracion();
+      // this.raiz2.avanzarUnaGeneracion()
+      // this.raiz3.avanzarUnaGeneracion()
+      // this.rack.avanzarUnaGeneracion()
 
       // estos son automatas sueltos 
       this.automata1.avanzarUnaGeneracion()
-      this.automata2.avanzarUnaGeneracion()
-      this.automata3.avanzarUnaGeneracion()
+      // this.automata2.avanzarUnaGeneracion()
+      // this.automata3.avanzarUnaGeneracion()
 
     }, 250)
 

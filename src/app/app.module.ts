@@ -14,6 +14,11 @@ import { TablaNodoComponent } from './tabla-nodo/tabla-nodo.component';
 import { ArbolViewComponent } from './arbol-view/arbol-view.component';
 import { ControladorUmbralesComponent } from './controlador-umbrales/controlador-umbrales.component';
 import { TablaComponent } from './tabla/tabla.component';
+import { TestappComponent } from './testapp/testapp.component';
+import { HomeComponent } from './home/home.component';
+import { VoidComponent } from './void/void.component';
+import { TreeComponent } from './tree/tree.component';
+import { Automata1Component } from './automata1/automata1.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,12 @@ import { TablaComponent } from './tabla/tabla.component';
     TablaNodoComponent,
     ArbolViewComponent,
     ControladorUmbralesComponent,
-    TablaComponent
+    TablaComponent,
+    TestappComponent,
+    HomeComponent,
+    VoidComponent,
+    TreeComponent,
+    Automata1Component
   ],
   imports: [
     BrowserModule,

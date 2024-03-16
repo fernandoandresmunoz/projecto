@@ -91,6 +91,9 @@ export default class ConcreteAutomata implements Automata {
 
     greenRule: Rule = this.shapeFactory.createLifeRule();
     redRule: Rule = this.shapeFactory.createLifeRule();
+    brownRule: Rule = this.shapeFactory.createLifeRule();
+    blueRule: Rule = this.shapeFactory.createLifeRule();
+    grayRule: Rule = this.shapeFactory.createLifeRule();
 
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
@@ -255,9 +258,6 @@ export default class ConcreteAutomata implements Automata {
         }
     }
 
-    blueRule: Rule;
-    brownRule: Rule;
-    grayRule: Rule;
 
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
     aliveNeighborsStrategy: AliveNeighborsStrategy = new ConcreteAliveNeighborsStrategy();
@@ -473,6 +473,13 @@ export default class ConcreteAutomata implements Automata {
     }
     setGeneration(generation: number): void {
         this.generation = generation
+        if (this.generation === 0 ) {
+            this.setBlueRule(this.shapeFactory.createLifeRule())
+            this.setGreenRule(this.shapeFactory.createLifeRule())
+            this.setRedRule(this.shapeFactory.createLifeRule())
+            this.setBrownRule(this.shapeFactory.createLifeRule())
+            this.setGrayRule(this.shapeFactory.createLifeRule())
+        }
     }
 
     getAvance(): number {

@@ -8,16 +8,16 @@ export const JUEGO = {
     UNKWON_STATE_COLOR: 'gray',
     MILITAR_DEFAULT: 10, 
     MILITAR_STEP: 1,
-    ALTO_LIENZO: 500,
-    ANCHO_LIENZO: 500,
+    ALTO_LIENZO: 800,
+    ANCHO_LIENZO: 1200,
     FILAS: 64,
     COLUMNAS: 64,
     CELULA: {
 
 
-        SCALE: 2,
+        SCALE: 1,
         PROJECTION: 2,
-        BACKGROUND_COLOR: 'darkgray',
+        BACKGROUND_COLOR: 'white',
         ALTO: 2,
         ANCHO: 2,
         LARGO: 2,

@@ -1,23 +1,33 @@
 
 
+<ul>
+    <li> <a [routerLink]="['/']">home</a></li>
+    <li> <a [routerLink]="['/test-path']">test path</a></li>
+    <li> <a [routerLink]="['/tree']">tree</a></li>
+    <li> <a [routerLink]="['/automata-1']">automata 1</a></li>
+    <li> <a [routerLink]="['/void']">void</a></li>
+    <li> <a [routerLink]="['/void']">void</a></li>
+</ul>
 
-<h2>automata 1</h2>
+<router-outlet></router-outlet>
+
+
+<!-- <h2>automata 1</h2>
 <table border=1 style='width: 300px'>
     <tr [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of automata1.totales()'>
         <td>{{ v.name }}</td>
         <td>{{ v.total | number: '.2-2' }}</td>
     </tr>
-</table>
+</table> -->
 
 <!-- dos vistas para un automata -->
-<app-tabla [automata]="automata1"></app-tabla>
-<app-two-lines-app [automata]="automata1"></app-two-lines-app>
+<!-- <app-tabla [automata]="automata1"></app-tabla>
+<app-two-lines-app [automata]="automata1"></app-two-lines-app> -->
 
 
 <hr>
 
-<h2>Automata 2</h2>
-<!-- dos vistas para un automata -->
+<!-- <h2>Automata 2</h2>
 <app-two-lines-app [automata]="automata2" ></app-two-lines-app>
 <app-tabla [automata]="automata2"></app-tabla>
 <hr>
@@ -32,7 +42,6 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 {{ raiz.average()}}
 </div>
 <div>
-<!-- total bloques promedio = {{ raiz.totalBloques() }} -->
 </div>
 <table border=1 style='width: 300px'>
             <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of raiz.totales()'>
@@ -48,8 +57,8 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
     <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="raiz"></app-arbol-view>
 
-</div>
-<div>
+</div> -->
+<!-- <div>
 
     <h1>{{ umbralInferior }}</h1><button style="height: 50px; width: 200px"
         (click)='umbralInferior = umbralInferior - step'>-</button>
@@ -62,7 +71,7 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 <br>
 <button (click)='raiz.operation()'>operation!</button>
 <br>
-<div [ngStyle]="{ 'background-color': backgroundColor,  'margin': '0px', color: fontColor}">
+<div [ngStyle]="{ 'background-color': backgroundColor,  'margin': '0px', color: fontColor}"> -->
 
 
 
@@ -70,8 +79,8 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
 
 
-    <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1>
-    <div *ngIf='showArbol' class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
+    <!-- <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1> -->
+    <!-- <div *ngIf='showArbol' class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
             <h2>Árbol 1</h2>
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz' [showDraw]='0'></app-nodo>
             <hr>
@@ -85,25 +94,23 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz3' [showDraw]='0'></app-nodo>
             </div>
 
-    </div>
-    <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>  
+    </div> -->
+    <!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
 
-    <h2>{{ generacion }}</h2>
+    <!-- <h2>{{ generacion }}</h2>
     <div *ngIf=' showCurva'>
         <app-curva *ngIf='mostrarGrafica' [automata]="automata1" [generacion]='generacion' [points]='points' [azules]='azules'
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
     </div>
 
-    {{ raiz.getHojas().length}}
+    {{ raiz.getHojas().length}} -->
 
-    <div *ngIf='showTabla'>
+    <!-- <div *ngIf='showTabla'>
         <h2>Rack </h2>
 
-        <!-- <app-arbol-view  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="rack"></app-arbol-view> -->
-        <!-- esto es la vista de rack  -->
 
         <app-tabla-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [nodo]='rack'>
         </app-tabla-nodo>
 
-    </div>
-</div>
+    </div> 
+</div>--> 

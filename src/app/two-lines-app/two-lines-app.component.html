@@ -40,7 +40,7 @@
             <button (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
         
     </div>
-    <table *ngIf="false">
+    <table *ngIf="true">
         <tr *ngFor='let elemento of ELEMENTS'>
             <td style='font-size: 20px'>
                 {{ elemento }}
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="false">
+    <div *ngIf="">
     
         <table>
             <tr>
@@ -109,7 +109,7 @@
                 </div>
                     <button (click)='clean()'>clean</button>
     
-            <div *ngIf='false' style='font-size: 16px'>
+            <div *ngIf=''style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>
@@ -231,7 +231,7 @@
     
     
     
-                <div *ngIf=' false && showAuxiliaryLines()'>
+                <div *ngIf=' showAuxiliaryLines()'>
                     <div style='border: 1px solid gray'>
                         <ul>
                             <li *ngFor='let projection of getProjections()'>

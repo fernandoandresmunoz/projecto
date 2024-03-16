@@ -1,7 +1,7 @@
 filas: {{ automata.getMatrizActiva().length}}
 columnas : {{ automata.getMatrizActiva()[0].length}}
 
-<table border="1" cellspacing="0">
+<table  cellspacing="0">
     <tr *ngFor="let fila of automata.getMatrizActiva()">
         <td *ngFor="let columna of fila"  [ngStyle]="{ 'background': columna.state === 1 ?  columna?.color : 'white' , 'width': '4px', 'height': '4px'}"  ><div > </div></td>
     </tr>
