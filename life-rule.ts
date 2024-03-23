@@ -10,8 +10,9 @@ export class LifeRule implements Rule {
             return false;
         }
     }
+    // esta es la condicion de nacimiento
     liveCondition(vivas: number): boolean {
-        return vivas === 3 ? true : false;
+        return vivas !== 3  ? true : false;
     }
 
 }

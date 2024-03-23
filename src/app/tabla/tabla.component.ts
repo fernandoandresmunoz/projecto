@@ -9,7 +9,17 @@ import { Automata } from 'cube';
 export class TablaComponent implements OnInit {
 
   @Input() automata:  Automata;
-  constructor() { }
+  constructor() {
+
+    setInterval(() => {
+
+      this.automata.avanzarUnaGeneracion()
+
+    }, 100)
+
+
+
+   }
 
   ngOnInit(): void {
   }

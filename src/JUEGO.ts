@@ -1,7 +1,7 @@
 
 export const JUEGO = {
     SINGLE_MODE: 'ON',
-    AUXILIARY_LINES:false,
+    AUXILIARY_LINES: true,
     WARNING_COLOR: 'yellow',
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
@@ -15,12 +15,12 @@ export const JUEGO = {
     CELULA: {
 
 
-        SCALE: 1,
-        PROJECTION: 2,
+        SCALE: 3,
+        PROJECTION: 1,
         BACKGROUND_COLOR: 'white',
         ALTO: 2,
-        ANCHO: 2,
-        LARGO: 2,
+        ANCHO: 1,
+        LARGO: 1,
     },
     ELEMENTOS: {
         ARBOL: true,

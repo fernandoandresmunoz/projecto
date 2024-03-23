@@ -369,6 +369,61 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return cube;
     }
 
+    createGlider(filas: number, columnas: number): Automata {
+
+        let pointA = this.createPoint(240, 50);
+        let pointB = this.createPoint(240, 30);
+
+        let pointC = this.createPoint(280, 40);
+        let pointD = this.createPoint(200, 40);
+
+
+
+        let automata = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
+    
+        automata.setMatrizActiva(automata.createRandomMatriz())
+
+
+        automata.setSelectedProjection('military');
+
+        automata.setAltoCelula(JUEGO.CELULA.ALTO);
+        automata.setAnchoCelula(JUEGO.CELULA.ANCHO);
+        automata.setLargoCelula(JUEGO.CELULA.LARGO)
+
+        automata.setPoint(this.createPoint(0, 40));
+        automata.setPoint1(this.createPoint(0, 40));
+        automata.setPoint2(this.createPoint(40, 30))
+        automata.setPoint3(this.createPoint(40, 50))
+
+        this.configureCube(automata);
+
+        automata.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
+        automata.setAltoLienzo(JUEGO.ALTO_LIENZO);
+        automata.setAvance(60);
+        automata.setShowAuxiliaryLines(JUEGO.AUXILIARY_LINES);
+
+        automata.upMilitary(JUEGO.MILITAR_DEFAULT);
+
+        for (let i = 0; i < 180; i++) {
+            automata.down();
+        }
+        for (let i = 0; i < 180; i++) {
+            automata.derecha()
+        }
+
+        // cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ? // creo que no se usa para nada
+        
+
+        automata.setScale(JUEGO.CELULA.SCALE);
+
+        
+
+        // cube.setMatrizActiva(cube.createRandomMatriz())
+        return automata;
+
+
+    }
+
 
     createMilitaryCube(filas: number, columnas: number): Automata {
 
@@ -381,7 +436,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
         let cube = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
-    
+        cube.setMatrizActiva(cube.createRandomMatriz())
 
 
         cube.setSelectedProjection('military');
@@ -404,10 +459,10 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         cube.upMilitary(JUEGO.MILITAR_DEFAULT);
 
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 100; i++) {
             cube.down();
         }
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 180; i++) {
             cube.derecha()
         }
 
@@ -516,7 +571,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         
 
-        cube.setMatrizActiva(cube.createRandomMatriz())
+        // cube.setMatrizActiva(cube.createRandomMatriz())
         cube.setRule(this.createLifeRule());
 
 

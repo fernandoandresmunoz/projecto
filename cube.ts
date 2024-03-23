@@ -25,6 +25,7 @@ export interface Automata  {
     crearBloque(data: {state: number, color: string}, altura: number): void;
     crearTableroAleatorio(): void;
     createRandomMatriz(): {state: number, color: string}[][];
+    createGlider(): {state: number, color: string}[][];
     densidad(): number;
     dibujarMatriz(matriz: {state: number, color: string}[][]): void;
     dibujarRectaCompleta(line: Line): void;

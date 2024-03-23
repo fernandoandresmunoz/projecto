@@ -1,0 +1,12 @@
+<p>pause-reset works!</p>
+<div>
+    <div>
+
+             <span *ngIf='automata.getPause()'>pausado</span> 
+    </div>
+
+            <button (click)='automata.setPause(!automata.getPause())'> pause</button>
+        
+            <button (click)='automata.setGeneration(0); automata.setMatrizActiva(automata.createRandomMatriz()); '>reset</button>
+        
+    </div>

@@ -1,37 +1,21 @@
 <div style='font-size: 20px'>
-    generation : {{ getGeneration() }}
-    <!--  -->
-    
 
+
+
+    <!--  hasta esto debería estar en su propio componente y solamente pasarle el automata como parametro
+        cuantos componentes se podrian crear pasando solamente el automata como parametro.
+    -->
     <div *ngIf="true">
-        <!-- <table border=1 style='width: 300px'>
-            <tr  [ngStyle]='{ "background-color": v.color }' *ngFor='let v of automata.totales()'>
+
+        <h1>tabla refactorizada </h1>
+        <table border=1 style='width: 300px'>
+            <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of automata.totales()'>
                 <td>{{  v.name  }}</td>
                 <td>{{ v.total | number: '.2-2' }}</td>
             </tr>
-        </table> -->
-        <!-- <table border=1>
-            <tr>
-                <td>azules</td>
-                <td> {{ 100 * totalAzules() / getBloques().length | number : '.2-2'  }}</td>
-            </tr>
-            <tr>
-                <td>verdes</td>
-                <td> {{ 100 * totalVerdes() / getBloques().length | number : '.2-2'  }}</td>
-            </tr>
-            <tr>
-                <td>cafes</td>
-                <td> {{ 100 * totalCafes() / getBloques().length | number : '.2-2'  }}</td>
-            </tr><tr>
-                <td>rojos</td>
-                <td> {{ 100 * totalRojos() / getBloques().length | number : '.2-2'  }}</td>
-            </tr><tr>
-                <td>grises</td>
-                <td> {{ 100 * totalGrises() / getBloques().length | number : '.2-2'  }}</td>
-            </tr>
-            
-            
-        </table> -->
+        </table>
+
+        
     </div>
     <div>
         <!-- <p>{{ getBloques().length}}</p> -->
@@ -46,29 +30,27 @@
                 {{ elemento }}
             </td>
             <td>
-    <!-- <select (change)='changeRule(elemento, $event.target.value)' name="" id="" > -->
-    <select  name="" id="" >
-            <option [value]='rule.name'
-            *ngFor='let rule of getRules().sort()'>{{ rule.name }} ( {{ rule.notation }} )</option>
-        </select>
+                <select name="" id="">
+    <!-- <select (change)='changeRule(elemento, $event.target.value)' name="" id=""> -->
+        <option [value]='rule.name' *ngFor='let rule of getRules().sort()'>{{ rule.name }} ( {{ rule.notation }} )</option>
+    </select>
             </td>
         </tr>
-    
     </table>
     <div>
         <div>
             <div>
     
-                <p style='font-size: 18px;'>
+                <!-- <p style='font-size: 18px;'>
     
         {{ automata.getGeneration() }}
-                </p>
-                <!-- <canvas style='border: 1px solid gray' #myCanvas (keypress)='keyLeft()'></canvas> -->
-                <canvas #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
+                </p> -->
+                <!-- <canvas  #myCanvas (keypress)='keyLeft()'></canvas> -->
+                <canvas style='border: 1px solid gray' #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
             </div>
         </div>
     </div>
-    <div *ngIf="">
+    <div *ngIf="true">
     
         <table>
             <tr>
@@ -109,7 +91,7 @@
                 </div>
                     <button (click)='clean()'>clean</button>
     
-            <div *ngIf=''style='font-size: 16px'>
+            <div *ngIf='true'style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>

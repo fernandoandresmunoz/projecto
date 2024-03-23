@@ -19,6 +19,13 @@ import { HomeComponent } from './home/home.component';
 import { VoidComponent } from './void/void.component';
 import { TreeComponent } from './tree/tree.component';
 import { Automata1Component } from './automata1/automata1.component';
+import { AutomataComponent } from './automata/automata.component';
+import { PruebaComponent } from './prueba/prueba.component';
+import { Automata2Component } from './automata2/automata2.component';
+import { GenerationWidgetComponent } from './generation-widget/generation-widget.component';
+import { Automata3Component } from './automata3/automata3.component';
+import { GliderComponent } from './glider/glider.component';
+import { PauseResetComponent } from './pause-reset/pause-reset.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,14 @@ import { Automata1Component } from './automata1/automata1.component';
     HomeComponent,
     VoidComponent,
     TreeComponent,
-    Automata1Component
+    Automata1Component,
+    AutomataComponent,
+    PruebaComponent,
+    Automata2Component,
+    GenerationWidgetComponent,
+    Automata3Component,
+    GliderComponent,
+    PauseResetComponent
   ],
   imports: [
     BrowserModule,

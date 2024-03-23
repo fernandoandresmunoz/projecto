@@ -19,6 +19,7 @@ import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStra
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { JUEGO } from "src/JUEGO";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
+import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 
 
 export default class ConcreteAutomata implements Automata {
@@ -261,7 +262,11 @@ export default class ConcreteAutomata implements Automata {
 
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
     aliveNeighborsStrategy: AliveNeighborsStrategy = new ConcreteAliveNeighborsStrategy();
-    randomMatrixStrategy: any = new ConcreteRandomMatrixStrategy();
+
+    // randomMatrixStrategy: any = new ConcreteRandomMatrixStrategy();
+    randomMatrixStrategy: any =   new GliderCreationStrategy()
+
+
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
     nextGenStrategy: NextGenStrategy = new ConcreteNextGenStrategy();
@@ -291,6 +296,7 @@ export default class ConcreteAutomata implements Automata {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+
     totales(): any {
         let d = [
             {
@@ -459,6 +465,9 @@ export default class ConcreteAutomata implements Automata {
     createRandomMatriz(): { state: number, color: string }[][] {
         return this.randomMatrixStrategy.create(this);
     }
+    createGlider(): { state: number; color: string; }[][] {
+        throw new Error("Method not implemented.");
+    }
     matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][] {
         return this.nextMatrixStrategy.nextMatrix(this.getMatrizActiva())
     }
@@ -474,10 +483,10 @@ export default class ConcreteAutomata implements Automata {
     setGeneration(generation: number): void {
         this.generation = generation
         if (this.generation === 0 ) {
-            this.setBlueRule(this.shapeFactory.createLifeRule())
-            this.setGreenRule(this.shapeFactory.createLifeRule())
-            this.setRedRule(this.shapeFactory.createLifeRule())
-            this.setBrownRule(this.shapeFactory.createLifeRule())
+            this.setBlueRule(this.shapeFactory.createCoralRule())
+            this.setGreenRule(this.shapeFactory.createCoralRule())
+            this.setRedRule(this.shapeFactory.createCoralRule())
+            this.setBrownRule(this.shapeFactory.createCoralRule())
             this.setGrayRule(this.shapeFactory.createLifeRule())
         }
     }

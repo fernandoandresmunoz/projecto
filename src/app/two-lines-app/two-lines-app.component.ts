@@ -34,6 +34,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   @Input() automata: Automata;
   @Input() filas:  number;
   @Input() columnas: number;
+  @Input() auxiliaryLines: boolean;
 
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;
 
@@ -47,6 +48,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
     setInterval(() => {
       this.draw();
+      this.avanzarUnaGeneracion()
     }, 250)
   }
   totales() {
@@ -218,6 +220,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.automata.downMilitary();
   }
   showAuxiliaryLines(): boolean {
+    return this.auxiliaryLines;
     return this.automata.showAuxiliaryLines();
   }
   subir(): void {
@@ -812,15 +815,17 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     }
 
 
+
+    // esto es para mostrar los puntos, los puntos debería sabermelos de memoria . 
     if (this.showAuxiliaryLines()) {
       this.context.fillStyle = 'Black'
       this.context.fillText('0', this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale())
-      this.context.fillText('1', this.getPoint1().getX() * this.getScale(), this.getPoint1().getY() * this.getScale())
+      this.context.fillText('1', this.getPoint1().getX() * this.getScale() - 10, this.getPoint1().getY() * this.getScale())
       this.context.fillText('2', this.getPoint2().getX() * this.getScale(), this.getPoint2().getY() * this.getScale())
       this.context.fillText('3', this.getPoint3().getX() * this.getScale(), this.getPoint3().getY() * this.getScale())
       this.context.fillText('4', this.getPoint4().getX() * this.getScale(), this.getPoint4().getY() * this.getScale())
       this.context.fillText('5', this.getPoint5().getX() * this.getScale(), this.getPoint5().getY() * this.getScale())
-      this.context.fillText('6', this.getPoint6().getX() * this.getScale(), this.getPoint6().getY() * this.getScale())
+      this.context.fillText('6', this.getPoint6().getX() * this.getScale() + 10 , this.getPoint6().getY() * this.getScale())
       this.context.fillText('7', this.getPoint7().getX() * this.getScale(), this.getPoint7().getY() * this.getScale())
     }
 

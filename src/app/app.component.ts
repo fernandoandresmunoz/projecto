@@ -39,7 +39,7 @@ export class AppComponent {
   factory2 = new ConcreteShapeFactory()
   automata1 = this.factory2.createMilitaryCube(128, 128)
   automata2 = this.factory2.createMilitaryCube(50, 50)
-  automata3 = this.factory2.createMilitary2(40, 60)
+automata3 = this.factory2.createMilitary2(40, 60)
   generacion: number = 0;
   points: [number, number][] = []
   azules: [number, number][] = []
@@ -65,7 +65,7 @@ export class AppComponent {
       // this.rack.avanzarUnaGeneracion()
 
       // estos son automatas sueltos 
-      this.automata1.avanzarUnaGeneracion()
+      // this.automata1.avanzarUnaGeneracion()
       // this.automata2.avanzarUnaGeneracion()
       // this.automata3.avanzarUnaGeneracion()
 
