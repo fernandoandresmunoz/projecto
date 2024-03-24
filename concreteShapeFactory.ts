@@ -44,6 +44,8 @@ import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 import { Life } from "src/app/Life";
 import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
 import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
+import { GliderNextGenStrategy } from "src/app/GliderNextGenStrategy";
+import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 
 
 
@@ -463,10 +465,10 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         cube.upMilitary(JUEGO.MILITAR_DEFAULT);
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 240; i++) {
             cube.down();
         }
-        for (let i = 0; i < 180; i++) {
+        for (let i = 0; i < 340; i++) {
             cube.derecha()
         }
 
@@ -498,6 +500,9 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let automata = this.configureIsometricSettings(filas, columnas)
 
         automata.setMatrixCreationStrategy(new GliderCreationStrategy())
+        // automata.setNextMatrixStrategy(new ConcreteNextMatrixStrategy(automata))
+        automata.setNextGenStrategy(new GliderNextGenStrategy())
+//= new ConcreteNextMatrixStrategy(this);
         automata.setMatrizActiva(automata.createRandomMatriz())
 
         return automata;

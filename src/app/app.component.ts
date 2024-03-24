@@ -2,7 +2,7 @@ import { Component,  OnInit } from '@angular/core';
 import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 import { Factory } from './ifaces/game';
-import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Celula } from 'src/Celula';
 import { Automata } from 'cube';
 

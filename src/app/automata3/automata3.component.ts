@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 @Component({
   selector: 'app-automata3',

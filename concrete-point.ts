@@ -1,4 +1,4 @@
-import { ConcreteShapeFactory } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Line } from "line";
 import { Point } from "point";
 

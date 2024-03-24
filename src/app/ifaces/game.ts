@@ -1,4 +1,4 @@
-import { ConcreteShapeFactory } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Celula } from "src/Celula";
 import { GrupoCelulas } from "src/GrupoCelula";
 import { JUEGO } from "src/JUEGO";

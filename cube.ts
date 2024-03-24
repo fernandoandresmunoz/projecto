@@ -5,6 +5,7 @@ import { Rule } from "rule";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import {Element } from "./rules/element";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
+import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 
 
 
@@ -194,4 +195,7 @@ export interface Automata  {
 
     setMatrixCreationStrategy(strategy: MatrixCreationStrategy) : void;
     getMatrixCreationStrategy(): MatrixCreationStrategy;
+
+    setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void;
+    getNextMatrixStrategy(): NextMatrixStrategy;
 }

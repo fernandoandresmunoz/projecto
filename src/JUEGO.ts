@@ -15,7 +15,7 @@ export const JUEGO = {
     CELULA: {
 
 
-        SCALE: 3,
+        SCALE: 1,
         PROJECTION: 1,
         BACKGROUND_COLOR: 'white',
         ALTO: 2,

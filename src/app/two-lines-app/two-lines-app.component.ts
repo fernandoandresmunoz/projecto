@@ -1,7 +1,7 @@
 import { ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Bloque } from 'bloque';
-import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Automata } from 'cube';
 import { Line } from 'line';
 import { Point } from 'point';

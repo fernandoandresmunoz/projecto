@@ -2,7 +2,7 @@ import { Automata  } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
-import { ConcreteShapeFactory } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Bloque } from "bloque";
 import { BloqueConcreto } from "bloque-concreto";
 import { Rule } from "rule";
@@ -96,7 +96,7 @@ export default class ConcreteAutomata implements Automata {
     redRule: Rule = this.shapeFactory.createLifeRule();
     brownRule: Rule = this.shapeFactory.createLifeRule();
     blueRule: Rule = this.shapeFactory.createLifeRule();
-    grayRule: Rule = this.shapeFactory.createLifeRule();
+    grayRule: Rule = this.shapeFactory.PedestrianLife();
 
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
@@ -270,7 +270,7 @@ export default class ConcreteAutomata implements Automata {
 
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
-    nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
+    nextGenStrategy: NextGenStrategy; 
 
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
@@ -296,6 +296,12 @@ export default class ConcreteAutomata implements Automata {
 
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
+    }
+    setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void {
+        this.nextMatrixStrategy = nextMatrixStrategy;
+    }
+    getNextMatrixStrategy(): NextMatrixStrategy {
+        return this.nextMatrixStrategy;
     }
 
     setMatrixCreationStrategy(strategy: MatrixCreationStrategy): void {

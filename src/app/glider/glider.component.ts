@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConcreteShapeFactory } from 'concreteShapeFactory';
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 @Component({
   selector: 'app-glider',
@@ -9,7 +9,7 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 export class GliderComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
-  glider = this.factory2.createGliderStrategy(100, 100)
+  glider = this.factory2.createGliderStrategy(400, 400)
   // auxiliaryLines = true;
 
 

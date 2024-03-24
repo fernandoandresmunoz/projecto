@@ -1,4 +1,4 @@
-import { ConcreteShapeFactory } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Automata } from "cube";
 import { ShapeFactory } from "shapeFactory";
 import { NextGenStrategy } from "./NextGenStrategy";

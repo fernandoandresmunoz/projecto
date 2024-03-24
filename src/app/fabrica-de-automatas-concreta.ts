@@ -1,7 +1,7 @@
 import { Automata } from "cube";
 import { FabricaDeAutomatas } from "./fabrica-de-automatas";
 import ConcreteAutomata from "concreteAutomata";
-import { ConcreteShapeFactory } from "concreteShapeFactory";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { ConcreteRandomMatrixStrategy } from "./ConcreteRandomMatrixStrategy";
 
 

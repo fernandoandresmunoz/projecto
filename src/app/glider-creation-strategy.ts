@@ -13,11 +13,20 @@ export class GliderCreationStrategy implements MatrixCreationStrategy{
         for (let fila = 0; fila < filas; fila++) {
             salida.push([])
             for (let columna = 0; columna < columnas; columna++) {
+
+
+                if (fila < filas && filas > 100   && columna > 100 && columna < columnas / 2) { 
+
+                    salida[fila][columna] = { state: 1, color: 'Gray' };
+                } else { 
+
                     salida[fila][columna] = { state: 0, color: '' };
-            //     if ( fila < 10 && columna < 10  ){
-            //         // salida[fila][columna] = { state: 1, color: 'Gray' };
-            //         // salida[fila][columna] = { state: 1, color: 'Green' };
-            //     }
+                }
+
+                // if ( fila < 10 && columna < 10  ){
+                //     salida[fila][columna] = { state: 1, color: 'Gray' };
+                //     salida[fila][columna] = { state: 1, color: 'Gray' };
+                // }
             // else {
 
             //         salida[fila][columna] = { state: 0, color: '' };
@@ -26,26 +35,26 @@ export class GliderCreationStrategy implements MatrixCreationStrategy{
            }
         }
 
-        // salida[0][0] = { state: 1 , color: 'Gray'}
-        // salida[0][1] = { state: 1 , color: 'Gray'}
-        // salida[0][2] = { state: 1 , color: 'Gray'}
-        // salida[1][1] = { state: 1 , color: 'Gray'}
+        salida[1][0] = { state: 1 , color: 'Gray'}
+        salida[1][2] = { state: 1 , color: 'Gray'}
+        salida[2][0] = { state: 1 , color: 'Gray'}
+        salida[2][1] = { state: 1 , color: 'Gray'}
 
-        // salida[1][1] = { state: 1 , color: 'gray'}
-        salida[11][12] = { state: 1 , color: 'Gray'}
-        // salida[1][3] = { state: 1 , color: 'gray'}
+        salida[2][2] = { state: 1 , color: 'Gray'}
+        // salida[11][12] = { state: 1 , color: 'Gray'}
+        // salida[11][13] = { state: 1 , color: 'Gray'}
 
-        // salida[2][1] = { state: 1 , color: 'gray'}
-        // salida[2][2] = { state: 1 , color: 'gray'}
-        salida[12][13] = { state: 1 , color: 'Gray'}
+        // salida[12][11] = { state: 1 , color: 'Gray'}
+        // salida[12][12] = { state: 1 , color: 'Gray'}
+        // salida[12][13] = { state: 1 , color: 'Gray'}
 
-        salida[13][11] = { state: 1 , color: 'Gray'}
-        salida[13][12] = { state: 1 , color: 'Gray'}
-        salida[13][13] = { state: 1 , color: 'Gray'}
+        // salida[13][11] = { state: 1 , color: 'Gray'}
+        // salida[13][12] = { state: 1 , color: 'Gray'}
+        // salida[13][13] = { state: 1 , color: 'Gray'}
 
 
-        // salida[1][4] = { state: 1 , color: 'Gray'}
-        // salida[1][5] = { state: 1 , color: 'Gray'}
+        // salida[11][14] = { state: 1 , color: 'Gray'}
+        // salida[11][15] = { state: 1 , color: 'Gray'}
 
         // salida[3][0] = { state: 1 , color: 'Gray'}
         // salida[3][1] = { state: 1 , color: 'Gray'}
