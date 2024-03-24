@@ -21,6 +21,7 @@ import { JUEGO } from "src/JUEGO";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 import { throwError } from "rxjs";
+import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
 
 
 export default class ConcreteAutomata implements Automata {
@@ -264,13 +265,12 @@ export default class ConcreteAutomata implements Automata {
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
     aliveNeighborsStrategy: AliveNeighborsStrategy = new ConcreteAliveNeighborsStrategy();
 
-    // randomMatrixStrategy: any = new ConcreteRandomMatrixStrategy();
-    randomMatrixStrategy: any =   new GliderCreationStrategy()
+    matrixCreationStrategy: MatrixCreationStrategy;
 
 
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
-    nextGenStrategy: NextGenStrategy = new ConcreteNextGenStrategy();
+    nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
 
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
@@ -296,6 +296,13 @@ export default class ConcreteAutomata implements Automata {
 
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
+    }
+
+    setMatrixCreationStrategy(strategy: MatrixCreationStrategy): void {
+        this.matrixCreationStrategy = strategy;
+    }
+    getMatrixCreationStrategy(): MatrixCreationStrategy {
+        return this.matrixCreationStrategy;
     }
 
     totales(): any {
@@ -326,6 +333,9 @@ export default class ConcreteAutomata implements Automata {
         d.sort((a, b) => { return b.total - a.total})
 
         return d
+    }
+    getNexGenStategy(): NextGenStrategy {
+        return this.nextGenStrategy;
     }
     setNextGenStrategy(nextGenStrategy: NextGenStrategy): void {
         this.nextGenStrategy = nextGenStrategy;
@@ -465,7 +475,7 @@ export default class ConcreteAutomata implements Automata {
         this.rule = rule;
     }
     createRandomMatriz(): { state: number, color: string }[][] {
-        return this.randomMatrixStrategy.create(this);
+        return this.matrixCreationStrategy.create(this);
     }
     createGlider(): { state: number; color: string; }[][] {
         throw new Error("Method not implemented.");

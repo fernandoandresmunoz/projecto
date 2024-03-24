@@ -42,6 +42,8 @@ import { EmptyRule } from "rules/Empty";
 import { Geology } from "rules/Geology";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 import { Life } from "src/app/Life";
+import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
+import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 
 
 
@@ -424,9 +426,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-
-    createMilitaryCube(filas: number, columnas: number): Automata {
-
+    configureIsometricSettings(filas:number, columnas: number): Automata { 
+        // esto aplica solo para la vista isometrica 
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
 
@@ -435,21 +436,24 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
 
+        // creo que tambien aplica solo para la vista isometrica 
         let cube = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
-        cube.setMatrizActiva(cube.createRandomMatriz())
 
 
+        // esto tambien aplica solo para la vista isometrica 
         cube.setSelectedProjection('military');
 
         cube.setAltoCelula(JUEGO.CELULA.ALTO);
         cube.setAnchoCelula(JUEGO.CELULA.ANCHO);
         cube.setLargoCelula(JUEGO.CELULA.LARGO)
 
+        // esto aplica solo para la vista isometrica
         cube.setPoint(this.createPoint(0, 40));
         cube.setPoint1(this.createPoint(0, 40));
         cube.setPoint2(this.createPoint(40, 30))
         cube.setPoint3(this.createPoint(40, 50))
 
+        // todo esto aplica solo para la vista isometrica 
         this.configureCube(cube);
 
         cube.setAnchoLienzo(JUEGO.ANCHO_LIENZO);
@@ -469,12 +473,35 @@ export class ConcreteShapeFactory implements ShapeFactory {
         // cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ? // creo que no se usa para nada
         
 
+        //isometrica 
         cube.setScale(JUEGO.CELULA.SCALE);
 
-        
-
-        // cube.setMatrizActiva(cube.createRandomMatriz())
         return cube;
+
+    }
+
+    createMilitaryCube(filas: number, columnas: number): Automata {
+
+        let automata = this.configureIsometricSettings(filas, columnas)
+        // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+    // nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
+        automata.setNextGenStrategy(new ConcreteNextGenStrategy())
+
+        automata.setMatrizActiva(automata.createRandomMatriz())
+        return automata;
+    }
+
+    createGliderStrategy(filas:number, columnas: number): Automata {
+
+        let automata = this.configureIsometricSettings(filas, columnas)
+
+        automata.setMatrixCreationStrategy(new GliderCreationStrategy())
+        automata.setMatrizActiva(automata.createRandomMatriz())
+
+        return automata;
+
 
     }
 

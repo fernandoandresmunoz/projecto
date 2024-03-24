@@ -4,6 +4,7 @@ import { Point } from "point";
 import { Rule } from "rule";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import {Element } from "./rules/element";
+import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
 
 
 
@@ -189,4 +190,8 @@ export interface Automata  {
     up(): void;
     upMilitary(size: number): void;
     setNextGenStrategy(nextGenStrategy: NextGenStrategy): void;
+    getNexGenStategy(): NextGenStrategy;
+
+    setMatrixCreationStrategy(strategy: MatrixCreationStrategy) : void;
+    getMatrixCreationStrategy(): MatrixCreationStrategy;
 }

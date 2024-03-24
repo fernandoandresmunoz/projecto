@@ -9,7 +9,7 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 export class GliderComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
-  glider = this.factory2.createGlider(100, 100)
+  glider = this.factory2.createGliderStrategy(100, 100)
   // auxiliaryLines = true;
 
 

@@ -1,6 +1,7 @@
 import { Automata } from "cube";
+import { MatrixCreationStrategy } from "./matrix-creation-strategy";
 
-export class GliderCreationStrategy {
+export class GliderCreationStrategy implements MatrixCreationStrategy{
     create(automata: Automata): { state: number; color: string; }[][] {
 
         let filas = automata.getFilas();

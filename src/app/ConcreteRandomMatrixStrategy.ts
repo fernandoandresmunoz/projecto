@@ -1,5 +1,5 @@
 import { Automata } from "cube";
-import { MatrixCreationStrategy } from "./RandomMatrixStrategy";
+import { MatrixCreationStrategy } from "./matrix-creation-strategy";
 
 
 const RUINA = { state: 1, color: 'Red'}
