@@ -20,6 +20,7 @@ import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { JUEGO } from "src/JUEGO";
 import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
 import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
+import { throwError } from "rxjs";
 
 
 export default class ConcreteAutomata implements Automata {
@@ -332,10 +333,10 @@ export default class ConcreteAutomata implements Automata {
     avanzarUnaGeneracion(): void {
         if (!this.getPause()) {
 
-            this.setGeneration(this.getGeneration() + 1);
             this.nextGenStrategy.nextGeneration(this);
             this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
             this.dibujarMatriz(this.getMatrizActiva())
+            this.setGeneration(this.getGeneration() + 1);
         }
 
     }
@@ -439,6 +440,7 @@ export default class ConcreteAutomata implements Automata {
         return this.aliveNeighborsStrategy.calculate(nuevaMatriz, fila, columna);
     }
     getRules(): { name: string; rule: Rule; notation: string; }[] {
+        
         return this.rules;
     }
     setRules(rules: { name: string; rule: Rule; notation: string; }[]): void {

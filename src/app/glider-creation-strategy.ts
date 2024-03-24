@@ -31,16 +31,16 @@ export class GliderCreationStrategy {
         // salida[1][1] = { state: 1 , color: 'Gray'}
 
         // salida[1][1] = { state: 1 , color: 'gray'}
-        salida[1][2] = { state: 1 , color: 'Gray'}
+        salida[11][12] = { state: 1 , color: 'Gray'}
         // salida[1][3] = { state: 1 , color: 'gray'}
 
         // salida[2][1] = { state: 1 , color: 'gray'}
         // salida[2][2] = { state: 1 , color: 'gray'}
-        salida[2][3] = { state: 1 , color: 'Gray'}
+        salida[12][13] = { state: 1 , color: 'Gray'}
 
-        salida[3][1] = { state: 1 , color: 'Gray'}
-        salida[3][2] = { state: 1 , color: 'Gray'}
-        salida[3][3] = { state: 1 , color: 'Gray'}
+        salida[13][11] = { state: 1 , color: 'Gray'}
+        salida[13][12] = { state: 1 , color: 'Gray'}
+        salida[13][13] = { state: 1 , color: 'Gray'}
 
 
         // salida[1][4] = { state: 1 , color: 'Gray'}

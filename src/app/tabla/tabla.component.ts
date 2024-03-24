@@ -15,7 +15,7 @@ export class TablaComponent implements OnInit {
 
       this.automata.avanzarUnaGeneracion()
 
-    }, 100)
+    }, 250)
 
 
 
