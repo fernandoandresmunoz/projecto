@@ -380,15 +380,17 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     if (color === "Red") {
 
       // return ["Brown", "SandyBrown", "SaddleBrown"]
-      return ["Brown", "SandyBrown", "SaddleBrown"]
+      // return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Crimson", "LightCoral", "DarkRed"]
     } else if (color === "Green") {
+      return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Green", "DarkseaGreen", "DarkGreen"]
     } else if (color === "Blue") {
 
       return ["CornflowerBlue", "LightBlue", "Blue"]
     } else if (color === "Brown") {
 
+      return ["Brown", "SandyBrown", "SaddleBrown"]
       return ["Crimson", "LightCoral", "DarkRed"]
       return ["Brown", "SandyBrown", "SaddleBrown"]
     }

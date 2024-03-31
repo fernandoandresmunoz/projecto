@@ -4,7 +4,6 @@ import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
 import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Bloque } from "bloque";
-import { BloqueConcreto } from "bloque-concreto";
 import { Rule } from "rule";
 import { Element } from './rules/element';
 import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
@@ -18,9 +17,6 @@ import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
 import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStrategy";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { JUEGO } from "src/JUEGO";
-import { ConcreteNextGenStrategy } from "src/app/ConcreteNextGenStrategy";
-import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
-import { throwError } from "rxjs";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
 
 
@@ -96,7 +92,7 @@ export default class ConcreteAutomata implements Automata {
     redRule: Rule = this.shapeFactory.createLifeRule();
     brownRule: Rule = this.shapeFactory.createLifeRule();
     blueRule: Rule = this.shapeFactory.createLifeRule();
-    grayRule: Rule = this.shapeFactory.PedestrianLife();
+    grayRule: Rule = this.shapeFactory.geologyRule();
 
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
@@ -233,7 +229,7 @@ export default class ConcreteAutomata implements Automata {
 
     elements: Element[] = [];
 
-    colorSchema = {
+    colorSchema: any = {
         'Red': {
             primary: 'Red',
             secondary: 'Coral',
@@ -296,6 +292,9 @@ export default class ConcreteAutomata implements Automata {
 
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
+    }
+    setColorSchema(colorSchema: any): void {
+        this.colorSchema = colorSchema;
     }
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void {
         this.nextMatrixStrategy = nextMatrixStrategy;
@@ -390,7 +389,7 @@ export default class ConcreteAutomata implements Automata {
         }
     }
     getColorSchema(): any {
-        throw new Error("Method not implemented.");
+        return this.colorSchema;
     }
     getBlueRule(): Rule {
         return this.blueRule;

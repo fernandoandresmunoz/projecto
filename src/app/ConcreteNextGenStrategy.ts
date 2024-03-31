@@ -26,14 +26,14 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
 
             case 100:
                 automata.setGreenRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.MazeWithMice())
                 automata.setBrownRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createMazeRule())
+                automata.setBrownRule(this.shapeFactory.createAnnealRule())
+                // automata.setBrownRule(this.shapeFactory.createMazeRule())
                 break;
 
             case 120:
                 automata.setGrayRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createAnnealRule())
+                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 automata.setGreenRule(this.shapeFactory.createDayAndNightRule())
                 automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
                 break;
@@ -41,6 +41,13 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
             case 140:
                 automata.setGreenRule(this.shapeFactory.createCoagulationRule())
                 automata.setBlueRule(this.shapeFactory.createAnnealRule())
+                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+                break;
+
+             case 160:
+                automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
+                automata.setBlueRule(this.shapeFactory.createLifeWithoutDeathRule())
+                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 break;
         
             default:

@@ -50,6 +50,7 @@ export interface Automata  {
     getAvance(): number;
     getBloques(): Bloque[];
     getColorSchema(): {} ;
+    setColorSchema(colorSchema: any): void;
 
     getColumnas(): number;
     getFilas(): number;

@@ -488,6 +488,12 @@ export class ConcreteShapeFactory implements ShapeFactory {
         automata.setNextMatrixStrategy(new ConcreteNextMatrixStrategy(automata));
 
         automata.setMatrizActiva(automata.createRandomMatriz());
+        automata.setScale(4)
+
+for (let i = 0; i < 150; i++) {
+            automata.left();
+            
+        }
         return automata;
     }
 
