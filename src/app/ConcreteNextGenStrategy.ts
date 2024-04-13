@@ -34,17 +34,17 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
             case 120:
                 automata.setGrayRule(this.shapeFactory.createAnnealRule())
                 automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
-                automata.setGreenRule(this.shapeFactory.createDayAndNightRule())
+                // automata.setGreenRule(this.shapeFactory.createDayAndNightRule())
                 automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
                 break;
             
-            case 140:
+            case 200:
                 automata.setGreenRule(this.shapeFactory.createCoagulationRule())
                 automata.setBlueRule(this.shapeFactory.createAnnealRule())
                 automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 break;
 
-             case 160:
+             case 280:
                 automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
                 automata.setBlueRule(this.shapeFactory.createLifeWithoutDeathRule())
                 automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())

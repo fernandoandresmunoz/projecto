@@ -9,10 +9,13 @@ import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 export class Automata2Component implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
-  automata2 = this.factory2.createMilitaryCube(100, 100)
+  automata2 = this.factory2.createMilitaryCube(256, 128)
   auxiliaryLines = true;
 
-  constructor() { }
+  constructor() {
+
+    this.automata2.setScale(2)
+   }
 
   ngOnInit(): void {
   }
