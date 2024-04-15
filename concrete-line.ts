@@ -17,6 +17,10 @@ export class ConcreteLine implements Line {
         this.pointB = pointB;
         this.pointB.setScale(this.scale);
     }
+    puntoPerpendicular(point: Point): Point {
+        throw new Error("Method not implemented.");
+    }
+   
     getSplitPoints(quantity: number): Point[] {
         
         let diferencia = this.getPointB().getX() - this.getPointA().getX();
@@ -49,7 +53,14 @@ export class ConcreteLine implements Line {
     ecuacionRecta(): string {
         return `y = ${ this.calcularPendiente() !== 0 ? ( this.calcularPendiente() !== 1 ? this.calcularPendiente() : "" )  + 'x '
         + ( this.intereseccionEnEjeY().getY() > 0 ? '+' : '' ):  ''}    ${this.intereseccionEnEjeY().getY()}`; 
+
     }
+
+
+    funcion(x: number): number {
+        return this.calcularPendiente() * x + this.intereseccionEnEjeY().getY();
+    }
+
     intereseccionEnEjeY(): Point {
         return new ConcretePoint(0, this.calcularPendiente() * 0 - this.calcularPendiente() * this.getPointA().getX() 
         + this.getPointA().getY());

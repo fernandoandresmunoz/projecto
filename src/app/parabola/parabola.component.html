@@ -1,0 +1,60 @@
+
+
+<div>
+    <button (click)="disminuirX()">disminuir</button>
+    <button (click)="aumentarX()">aumentar</button>
+    <div>
+        derivada : {{ pendiente }}
+    </div>
+    <!-- <div>
+        <h2>
+
+        {{ derivada?.ecuacionRecta() }}
+        </h2>
+    </div> -->
+
+    <!-- <table border="1">
+        <thead>
+            <tr>
+                <th>x</th>
+                <th>f(x)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{{ usuarioX | number : '1.2-2' }}</td>
+            <td>{{ funcion(usuarioX)| number : '1.2-2' }}</td>
+        </tr>
+        <tr>
+            <td>{{ usuarioX + 0.0001 }}</td>
+            <td>{{ funcion( usuarioX + 0.0001 )| number : '1.2-2' }}</td>
+        </tr>
+        </tbody>
+    </table> -->
+    <p>
+
+        
+    </p>
+</div>
+
+<canvas style="border: '1px solid gray'" #myCanvas [width]="800" [height]="800" ></canvas>
+<!-- <table border="1">
+    <thead>
+        <tr>
+            <th>x</th>
+            <th>f(x)</th>
+            <th>x ( transformado )</th>
+            <th>f(x) ( transformado )</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <tr  *ngFor="let point of getPoints(-2, 2 ) ">
+        <td> {{ point.getX() }}</td>
+        <td> {{ point.getY() }}</td>
+        <td> {{ transformadorDePuntos.transformarPunto(point).getX() }}</td>
+        <td> {{ transformadorDePuntos.transformarPunto(point).getY() }}</td>
+    </tr>
+    </tbody>
+</table> -->

@@ -46,6 +46,9 @@ export class LineComponent implements OnInit, Line {
 
 
   constructor() { }
+  puntoPerpendicular(point: Point): Point {
+    throw new Error('Method not implemented.');
+  }
   getSplitPoints(quantity: number): Point[] {
     throw new Error('Method not implemented.');
   }

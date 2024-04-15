@@ -6,6 +6,7 @@ export interface Line extends Drawable {
   setPointB(point: Point): void;
   getPointA(): Point;
   getPointB(): Point;
+
   calcularDistancia(): number;
   calcularPendiente(): number;
 
@@ -26,4 +27,7 @@ export interface Line extends Drawable {
   getScale(): number;
   setScale(scale: number): void;
   getSplitPoints(quantity: number): Point[];
+
+  puntoPerpendicular(point: Point): Point;
+  funcion(x: number): number;
 }

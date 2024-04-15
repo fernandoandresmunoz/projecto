@@ -26,6 +26,7 @@ import { GenerationWidgetComponent } from './generation-widget/generation-widget
 import { Automata3Component } from './automata3/automata3.component';
 import { GliderComponent } from './glider/glider.component';
 import { PauseResetComponent } from './pause-reset/pause-reset.component';
+import { ParabolaComponent } from './parabola/parabola.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PauseResetComponent } from './pause-reset/pause-reset.component';
     GenerationWidgetComponent,
     Automata3Component,
     GliderComponent,
-    PauseResetComponent
+    PauseResetComponent,
+    ParabolaComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { AutomataComponent } from './automata/automata.component';
 import { Automata2Component } from './automata2/automata2.component';
 import { Automata3Component } from './automata3/automata3.component';
 import { GliderComponent } from './glider/glider.component';
+import { ParabolaComponent } from './parabola/parabola.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   { 
     path: 'automata-1',
     component: Automata1Component
+  },
+{ 
+    path: 'parabola',
+    component: ParabolaComponent
   }
 ];
 

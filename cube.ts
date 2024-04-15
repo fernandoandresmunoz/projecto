@@ -88,7 +88,8 @@ export interface Automata  {
     getPointG(): Point;
     getPointH(): Point;
 
-    getProjections(): string[];
+    getProjections(): string[]; // soy capaz de dibujar un cubo en diferentes perspectivas 
+    // pienso que una interface que se llame geometría sería bueno para desarrollar 
     getPuntos(): number[][][];
     getRectaAC(): Line;
     getRectaAD(): Line;
