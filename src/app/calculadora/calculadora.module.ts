@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ParabolaComponent } from '../parabola/parabola.component';
 
 
 
@@ -8,8 +7,6 @@ import { ParabolaComponent } from '../parabola/parabola.component';
   declarations: [],
   imports: [
     CommonModule
-  ],
-  exports: [
   ]
 })
-export class GeometryModule { }
+export class CalculadoraModule { }

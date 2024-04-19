@@ -5,7 +5,7 @@
         "type": "pwa-chrome",
         "request": "launch",
         "name": "Launch Chrome against localhost",
-        "url": "http://localhost:4200/parabola",
+        "url": "http://localhost:4200/funcion-seno",
         "webRoot": "${workspaceFolder}"
        }
     ]

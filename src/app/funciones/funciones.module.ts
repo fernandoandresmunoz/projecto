@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SenoComponent } from './seno/seno.component';
 import { ParabolaComponent } from '../parabola/parabola.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SenoComponent],
   imports: [
-    CommonModule
-  ],
-  exports: [
+    CommonModule,
+    ParabolaComponent
   ]
 })
-export class GeometryModule { }
+export class FuncionesModule { }

@@ -10,6 +10,13 @@ import { Automata2Component } from './automata2/automata2.component';
 import { Automata3Component } from './automata3/automata3.component';
 import { GliderComponent } from './glider/glider.component';
 import { ParabolaComponent } from './parabola/parabola.component';
+import { SenoComponent } from './funciones/seno/seno.component';
+import { FuncionSenoComponent } from './funcion-seno/funcion-seno.component';
+import { GaussComponent } from './gauss/gauss.component';
+import { FuncionPolinomicaComponent } from './funcion-polinomica/funcion-polinomica.component';
+import { FuncionLogaritmicaComponent } from './funcion-logaritmica/funcion-logaritmica.component';
+import { FuncionExponencialComponent } from './funcion-exponencial/funcion-exponencial.component';
+import { FuncionCuadraticaComponent } from './funcion-cuadratica/funcion-cuadratica.component';
 
 const routes: Routes = [
   {
@@ -49,11 +56,42 @@ const routes: Routes = [
     component: Automata1Component
   },
 { 
-    path: 'parabola',
-    component: ParabolaComponent
-  }
-];
+    path: 'gauss',
+    component: GaussComponent
+  },
+{ 
+    path: 'funcion-seno',
+    component: FuncionSenoComponent
+  },
+{ 
+    path: 'funcion-cuadratica',
+    component: FuncionCuadraticaComponent
+  },
 
+{ 
+    path: 'funcion-exponencial',
+    component: FuncionExponencialComponent
+  },
+
+{ 
+    path: 'funcion-logaritmica',
+    component: FuncionLogaritmicaComponent
+  },
+
+{ 
+    path: 'funcion-polinomica',
+    component: FuncionPolinomicaComponent
+  },
+
+
+];
+    // <li> <a [routerLink]="['/gauss']">gauss</a></li>
+    // <li> <a [routerLink]="['/funcion-seno']">función seno</a></li>
+    // <li> <a [routerLink]="['/funcion-cuadratica']">función cuadrática</a></li>
+    // <li> <a [routerLink]="['/funcion-exponencial']">función exponencial</a></li>
+    // <li> <a [routerLink]="['/funcion-logaritmica']">función logarítmica</a></li>
+    // <li> <a [routerLink]="['/funcion-polinomica']">función polinómica</a></li>
+ 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

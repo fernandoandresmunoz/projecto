@@ -27,6 +27,12 @@ import { Automata3Component } from './automata3/automata3.component';
 import { GliderComponent } from './glider/glider.component';
 import { PauseResetComponent } from './pause-reset/pause-reset.component';
 import { ParabolaComponent } from './parabola/parabola.component';
+import { FuncionSenoComponent } from './funcion-seno/funcion-seno.component';
+import { GaussComponent } from './gauss/gauss.component';
+import { FuncionPolinomicaComponent } from './funcion-polinomica/funcion-polinomica.component';
+import { FuncionLogaritmicaComponent } from './funcion-logaritmica/funcion-logaritmica.component';
+import { FuncionExponencialComponent } from './funcion-exponencial/funcion-exponencial.component';
+import { FuncionCuadraticaComponent } from './funcion-cuadratica/funcion-cuadratica.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +60,13 @@ import { ParabolaComponent } from './parabola/parabola.component';
     Automata3Component,
     GliderComponent,
     PauseResetComponent,
-    ParabolaComponent
+    ParabolaComponent,
+    FuncionSenoComponent,
+    GaussComponent,
+    FuncionPolinomicaComponent,
+    FuncionLogaritmicaComponent,
+    FuncionExponencialComponent,
+    FuncionCuadraticaComponent
   ],
   imports: [
     BrowserModule,

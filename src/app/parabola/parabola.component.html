@@ -1,11 +1,73 @@
 
-
+<div>
+        tipo: {{ tipo }}
+    </div>
 <div>
     <button (click)="disminuirX()">disminuir</button>
     <button (click)="aumentarX()">aumentar</button>
+    
     <div>
         derivada : {{ pendiente }}
     </div>
+    <hr>
+    <div>
+        <button (click)="disminuirInicio()">-</button><button (click)="aumentarInicio()">+</button>
+        {{ inicio}} 
+    </div>
+<div>
+        <button (click)="disminuirFin()">-</button><button (click)="aumentarFin()">+</button>
+        {{ fin }} 
+    </div>
+    <p>
+        <button (click)="disminuirAnchoRectangulo()">-</button>
+        <button (click)="aumentarAnchoRectangulo()">+</button>
+        ANCHO RECTANGULO  = {{ anchoRectangulo }}
+    </p>
+<p>
+        <button (click)="disminuirCantidadRectangulos()">-</button>
+        <button (click)="aumentarCantidadRectangulos()">+</button>
+        CANTIDAD RECTANGULO  = {{ cantidadRectangulos }}
+    </p>
+<p>
+        <button (click)="alejar()">-</button>
+        <button (click)="acercar()">+</button>
+        ANCHO EJE X  = {{ ANCHO_EJE_X }}
+    </p>
+    <!-- <p>
+        <input type="color" name="" id="" 
+        (change)="cambiarColorFondoLienzo($event.target.value)"
+        ngModel [(ngModel)]="colorFondoLienzo" [value]="colorFondoLienzo"
+
+        > COLOR FONDO CALCULADORA {{ colorFondoLienzo }}
+    </p>
+<p>
+        <input type="color" name="" id="" 
+        (change)="cambiarColorCurva($event.target.value)"
+        ngModel [(ngModel)]="colorCurva" [value]="colorCurva"
+
+        > COLOR CURVA {{ colorCurva }}
+    </p>
+<p>
+        <input type="color" name="" id="" 
+        (change)="cambiarColorIntegral($event.target.value)"
+        ngModel [(ngModel)]="colorIntegral" [value]="colorIntegral"
+
+        > COLOR INTEGRAL {{ colorIntegral }}
+    </p>
+    <p>
+        <input type="number" name="" id="" 
+        (change)="cambiarAnchoCurva($event.target.value)"
+        ngModel [(ngModel)]="anchoCurva" [value]="anchoCurva">
+ANCHO CURVA 
+
+    </p>
+<p>
+        <input type="number" name="" id="" 
+        (change)="cambiarAnchoDerivada($event.target.value)"
+        ngModel [(ngModel)]="anchoDerivada" [value]="anchoDerivada">
+ANCHO  DERIVADA
+
+    </p> -->
     <!-- <div>
         <h2>
 
@@ -38,6 +100,19 @@
     </p>
 </div>
 
+<button (click)="aumentarAnchoLienzo()">aument ancho lienzo</button>
+<button (click)="disminuirAnchoLienzo()">dism ancho lienzo</button>
+<br>
+
+<button (click)="aumentarLargoLienzo()">aument largo lienzo</button>
+<button (click)="disminuirLargoLienzo()">dism largo lienzo</button>
+<br>
+<button (click)="aumentarCenterX()">left</button>
+<button (click)="disminuirCenterX()">right</button>
+<br>
+<button (click)="aumentarCenterY()">up</button>
+<button (click)="disminuirCenterY()">down</button>
+<br>
 <canvas style="border: '1px solid gray'" #myCanvas [width]="800" [height]="800" ></canvas>
 <!-- <table border="1">
     <thead>

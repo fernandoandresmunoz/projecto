@@ -5,6 +5,16 @@ import { FabricaDePuntos } from "./fabrica-de-puntos";
 import { ConcretePoint } from "concrete-point";
 import { ConcreteLine } from "concrete-line";
 export class ParabolaConcreta  implements Parabola {
+
+    DISTANCIA_PUNTOS_DERIVADAS = 0.001
+
+    tipo: string;
+
+    constructor(tipo: string) {
+        this.tipo = tipo;
+
+    }
+
     draw(): void {
         throw new Error("Method not implemented.");
     }
@@ -19,13 +29,30 @@ export class ParabolaConcreta  implements Parabola {
     funcion(x: number): number {
         // return  - Math.pow(Math.E, x )  + 3 ;
         // return Math.pow(x, 3)
-        return Math.sin(x * 3)
-        return - Math.pow(x, 2) + 1.5  
+
+        switch (this.tipo) {
+            case "GAUSS":
+                return this.gaussianBellCurve(x)
+
+            case "SENO":
+                return Math.sin(x) + 2.5; 
+
+            case "LOGARITMICA":
+
+                return Math.log(x +1) 
+            case "EXPONENCIAL":
+                return Math.pow(Math.E, x) -1
+            case "CUADRATICA":
+                return -Math.pow(x, 2) + 3
+
+            case "POLINOMICA":
+                return x**3 - 2 * x ** 2 - 3 * x + 2
+            default:
+                return + Math.pow(x, 2)
+                break;
+        }
         return Math.cos(Math.pow(x, 2 ) * 4) * 1
-        return Math.log(x)
-        return this.gaussianBellCurve(x)
         return  Math.pow(x, 2) //- x - 2;
-        return (1/16) * Math.pow(x, 4 ) - (5/4) * Math.pow(x , 2 ) + 4
         return 3 * Math.pow(x, 5) - 25 * Math.pow(x, 3) + 60 * x 
         return   x*x*x - 2 * x * x  - 3 * x + 2      ;
     }
@@ -55,7 +82,8 @@ export class ParabolaConcreta  implements Parabola {
 
     calcularDerivada(valorEnX: number): number {
         const punto1 = new ConcretePoint(valorEnX, this.funcion(valorEnX));
-        const punto2 = new ConcretePoint(valorEnX + 0.001, this.funcion(valorEnX + 0.001));
+        const punto2 = new ConcretePoint(valorEnX + this.DISTANCIA_PUNTOS_DERIVADAS ,
+            this.funcion(valorEnX + this.DISTANCIA_PUNTOS_DERIVADAS));
 
         const recta = new ConcreteLine(punto1, punto2);
 
