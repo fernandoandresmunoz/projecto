@@ -32,7 +32,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   derivada: Line;
 
-  avanceXUsuario = 0.05
+  // esto es lo que avanza el punto que calcula la derivada
+  avanceXUsuario = 0.5
   parabola: Parabola;
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
@@ -42,11 +43,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   dibujarEjes = true;
 
   anchoRectangulo = 0.01
-  cantidadRectangulos = 500
+  cantidadRectangulos = 600
 
   colorIntegral: string = '#0159cb';
   colorCurva: string = '#d71d77';
-  anchoCurva: number = 4;
+  anchoCurva: number = 2;
   anchoDerivada: number = 4;
   colorDerivada: string = 'green';
   tamanoFuenteEjeX: number = 12;
@@ -76,9 +77,19 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
 
+  mostrarDerivada = true;
+
+
+  centrar(): void { 
+    this.centerX = this.anchoLienzo/2;
+    this.centerY = this.largoLienzo/2;
+    this.draw()
+  }
+
   aumentarCenterX() {
     this.centerX += 10
     this.draw()
+
   }
 
   disminuirCenterX() {
@@ -121,6 +132,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   constructor() {
 
+  }
+  cambiarMostrarDerivada(mostrar: boolean): void {
+    this.mostrarDerivada = Boolean( mostrar );
+    this.draw()
   }
 
 
@@ -328,6 +343,17 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     this.pendiente = linea.calcularPendiente()
 
 
+    this.drawLine(
+      this.transformadorDePuntos.transformarPunto(new ConcretePoint(-this.ANCHO_EJE_X / 2, this.derivada.funcion(-this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
+
+      this.transformadorDePuntos.transformarPunto(new ConcretePoint(this.ANCHO_EJE_X / 2, this.derivada.funcion(this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
+      'green',
+      this.anchoDerivada);
+
+
+
+
+      // aqui dibuja los puntos que se usan para calcular la derivada 
     this.context.fillRect(
 
       this.transformadorDePuntos.transformarPunto(punto1, this.centerX, this.centerY).getX() - this.ANCHO_PUNTO_DERIVADA / 2,
@@ -344,16 +370,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
       this.ANCHO_PUNTO_DERIVADA,
     )
 
-    this.context.stroke()
 
-    this.drawLine(
-      this.transformadorDePuntos.transformarPunto(new ConcretePoint(-this.ANCHO_EJE_X / 2, this.derivada.funcion(-this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
-
-      this.transformadorDePuntos.transformarPunto(new ConcretePoint(this.ANCHO_EJE_X / 2, this.derivada.funcion(this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
-      'green',
-      this.anchoDerivada);
-
-    this.context.stroke()
 
 
   }
@@ -363,6 +380,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     // // eje x
     const p1 = new ConcretePoint(0, this.centerY);
     const p2 = new ConcretePoint(this.anchoLienzo, this.centerY);
+
 
     this.drawLine(p1, p2, 'gray', 1)
 
@@ -489,7 +507,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   dibujarNumerosEjes() {
 
-    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i++) {
+    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeX) {
       this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'black')
       this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'black', 1)
     }
@@ -506,10 +524,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
 
-    this.context.clearRect(0, 0, 800, 800);
+    this.context.clearRect(0, 0, this.anchoLienzo, this.largoLienzo);
 
     this.context.fillStyle = this.colorFondoLienzo;
-    this.context.fillRect(0,0, 800, 800, )
+    this.context.fillRect(0, 0, this.anchoLienzo, this.largoLienzo,)
 
 
     this.dibujarIntegral()
@@ -525,11 +543,14 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     try {
 
-    this.dibujarCurva()
+      this.dibujarCurva()
     } catch (error) {
 
     }
-    this.dibujarDerivada()
+    if (this.mostrarDerivada) {
+
+      this.dibujarDerivada()
+    }
 
 
 
@@ -576,37 +597,12 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     this.dibujarLinea(point4, point1, 'purple', 1);
   }
 
-
-  dibujarCuadradosSobreCurva(inicio: number, fin: number): void {
-    const { context } = this; // Assuming reference to the canvas context
-
-    context.beginPath();
-    context.fillStyle = 'rgba(0, 0, 255, 0.2)'; // Set a semi-transparent blue fill color (adjust as needed)
-
-    // Calculate canvas dimensions and midpoint
-    const canvasWidth = this.myCanvas.nativeElement.width;
-    const canvasMidY = canvasWidth / 2;
-
-    for (let x = inicio; x <= fin; x += 10) {
-      const y = this.funcion(x); // Get the y-value on the parabola at x
-
-      // Calculate square coordinates
-      const squareX = x * (canvasWidth / (fin - inicio)); // Map x-value to canvas coordinates
-      const squareY = canvasMidY - Math.abs(y - canvasMidY) - 10; // Position above parabola midpoint with 10px buffer
-
-      // Draw the square with a semi-transparent blue fill
-      context.fillRect(squareX, squareY, 10, 10); // Square size is 10 pixels
-    }
-
-    context.fill(); // Fill the squares
-  }
-
   dibujarTexto(texto: string, x: number, y: number, color: string = 'gray') {
 
     this.context.font = "25px Arial";
     this.context.fillStyle = color;
     const point = new ConcretePoint(x, y)
-    const newPoint = this.transformadorDePuntos.transformarPunto(point)
+    const newPoint = this.transformadorDePuntos.transformarPunto(point, this.centerX, this.centerY)
     this.context.fillText(texto, newPoint.getX(), newPoint.getY());
   }
 

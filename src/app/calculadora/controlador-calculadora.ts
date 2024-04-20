@@ -29,6 +29,8 @@ export interface ControladorCalculadora {
     setPosicionNumerosEjeX(left: number, right: number): void;
     setPosicionNumerosEjeY(left: number, right: number): void;
 
+    cambiarMostrarDerivada(mostrar: boolean): void;
+
 
 
 }

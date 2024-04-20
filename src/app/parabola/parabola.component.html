@@ -33,13 +33,17 @@
         <button (click)="acercar()">+</button>
         ANCHO EJE X  = {{ ANCHO_EJE_X }}
     </p>
-    <!-- <p>
+
+<p>
         <input type="color" name="" id="" 
         (change)="cambiarColorFondoLienzo($event.target.value)"
-        ngModel [(ngModel)]="colorFondoLienzo" [value]="colorFondoLienzo"
+         ngModel [(ngModel)]="colorFondoLienzo" [value]="colorFondoLienzo"
 
         > COLOR FONDO CALCULADORA {{ colorFondoLienzo }}
     </p>
+
+
+    
 <p>
         <input type="color" name="" id="" 
         (change)="cambiarColorCurva($event.target.value)"
@@ -67,13 +71,20 @@ ANCHO CURVA
         ngModel [(ngModel)]="anchoDerivada" [value]="anchoDerivada">
 ANCHO  DERIVADA
 
-    </p> -->
-    <!-- <div>
+    </p>
+<p>
+        <input type="checkbox" name="" id="" 
+        (change)="cambiarMostrarDerivada($event.target.value)"
+        ngModel [(ngModel)]="mostrarDerivada" [value]="mostrarDerivada">
+MOSTRAR DERIVADA
+
+    </p>
+    <div>
         <h2>
 
         {{ derivada?.ecuacionRecta() }}
         </h2>
-    </div> -->
+    </div>
 
     <!-- <table border="1">
         <thead>
@@ -86,11 +97,11 @@ ANCHO  DERIVADA
 
         <tr>
             <td>{{ usuarioX | number : '1.2-2' }}</td>
-            <td>{{ funcion(usuarioX)| number : '1.2-2' }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>{{ usuarioX + 0.0001 }}</td>
-            <td>{{ funcion( usuarioX + 0.0001 )| number : '1.2-2' }}</td>
+            <td></td>
         </tr>
         </tbody>
     </table> -->
@@ -112,6 +123,8 @@ ANCHO  DERIVADA
 <br>
 <button (click)="aumentarCenterY()">up</button>
 <button (click)="disminuirCenterY()">down</button>
+<br>
+<button (click)="centrar()">centrar</button>
 <br>
 <canvas style="border: '1px solid gray'" #myCanvas [width]="800" [height]="800" ></canvas>
 <!-- <table border="1">
