@@ -42,8 +42,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   fin = 2.2
   dibujarEjes = true;
 
-  anchoRectangulo = 0.01
-  cantidadRectangulos = 600
+  anchoRectangulo = 0.1
+  cantidadRectangulos = 50
 
   colorIntegral: string = '#0159cb';
   colorCurva: string = '#d71d77';
@@ -77,7 +77,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
 
-  mostrarDerivada = true;
+  fillRectangles = false;
+
+  @Input() mostrarDerivada = true ;
+
+  @Input() showOptions: boolean;
 
 
   centrar(): void { 
@@ -134,9 +138,17 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   }
   cambiarMostrarDerivada(mostrar: boolean): void {
-    this.mostrarDerivada = Boolean( mostrar );
+    this.mostrarDerivada = !this.mostrarDerivada;
     this.draw()
   }
+
+  cambiarFillRectangles(): void {
+
+
+    this.fillRectangles = !this.fillRectangles;
+    this.draw()
+  }
+
 
 
   cambiandoColor(asd: string) {
@@ -455,8 +467,15 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
       let puntoF = new ConcretePoint(puntoA.getX() + (i + 1) * this.anchoRectangulo, 0)
       let puntoG = new ConcretePoint(puntoA.getX() + (i + 1) * this.anchoRectangulo, this.funcion(puntoA.getX() + i * this.anchoRectangulo))
       let puntoH = new ConcretePoint(puntoA.getX() + i * this.anchoRectangulo, this.funcion(puntoA.getX() + i * this.anchoRectangulo))
-      // this.dibujarRectangulo(puntoE, puntoF, puntoG, puntoH);
+
+      if (this.fillRectangles) {
+
       this.dibujarFillRectangulo(puntoE, puntoF, puntoG, puntoH);
+      }
+      else {
+
+        this.dibujarRectangulo(puntoE, puntoF, puntoG, puntoH);
+      } 
 
 
 

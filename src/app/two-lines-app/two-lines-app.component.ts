@@ -18,6 +18,9 @@ import { NextGenStrategy } from '../NextGenStrategy';
 })
 export class TwoLinesAppComponent implements OnInit, OnChanges{
 
+  @Input() showStats: boolean;
+  @Input() showController: boolean;
+
   ELEMENTS = [
     'GREEN',
     'BLUE',
@@ -35,6 +38,11 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   @Input() filas:  number;
   @Input() columnas: number;
   @Input() auxiliaryLines: boolean;
+  @Input() coloresRegla1: string[];
+  @Input() coloresRegla2: string[];
+  @Input() coloresRegla3: string[];
+  @Input() coloresRegla4: string[];
+  @Input() coloresRegla5: string[];
 
   @ViewChild('myCanvas', { static: false }) myCanvas: ElementRef;
 
@@ -378,25 +386,17 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   parseColors(color: string) {
     if (color === "Red") {
-
-      // return ["Brown", "SandyBrown", "SaddleBrown"]
-      // return ["Brown", "SandyBrown", "SaddleBrown"]
-      return ["Crimson", "LightCoral", "DarkRed"]
+      return [this.coloresRegla2[0],this.coloresRegla2[1],this.coloresRegla2[2],]
     } else if (color === "Green") {
-      return ["Brown", "SandyBrown", "SaddleBrown"]
-      return ["Green", "DarkseaGreen", "DarkGreen"]
+      return [this.coloresRegla1[0], this.coloresRegla1[1], this.coloresRegla1[2]]
     } else if (color === "Blue") {
 
-      return ["CornflowerBlue", "LightBlue", "Blue"]
+      return [this.coloresRegla3[0], this.coloresRegla3[1], this.coloresRegla3[2]]
     } else if (color === "Brown") {
-
-      return ["Brown", "SandyBrown", "SaddleBrown"]
-      return ["Crimson", "LightCoral", "DarkRed"]
-      return ["Brown", "SandyBrown", "SaddleBrown"]
+      return [this.coloresRegla4[0], this.coloresRegla4[1], this.coloresRegla4[2]]
     }
     else if (color === "Gray") {
-
-      return ["DarkGray", "LightGray", "Gray"]
+      return [this.coloresRegla5[0], this.coloresRegla5[1], this.coloresRegla5[2]]
     }
     return ["", "", ""]
   }

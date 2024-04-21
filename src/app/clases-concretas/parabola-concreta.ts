@@ -50,7 +50,7 @@ export class ParabolaConcreta implements Parabola {
                 return this.gaussianBellCurve(x)
 
             case "SENO":
-                return this.weierstrass(x);
+                // return this.weierstrass(x);
                 return Math.tanh(x) + 2.5;
 
             case "LOGARITMICA":

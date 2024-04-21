@@ -1,4 +1,146 @@
 <p>Autómata 1: Es el automata que quiero usar para crear un escenario en roblox. Debería recuperar la funcionalidad que tenia antes tal cual como estaba 
     sin afectar los demás autómatas. </p>
-<app-automata [automata]="automata1" [auxiliaryLines]="false" ></app-automata>
+
+
+    
+
+    <ul>
+        <li>{{ coloresRegla1[0] }}</li>
+        <li>{{ coloresRegla1[1] }}</li>
+        <li>{{ coloresRegla1[2] }}</li>
+    </ul>
+    <ul>
+        <li>{{ coloresRegla2[0] }}</li>
+        <li>{{ coloresRegla2[1] }}</li>
+        <li>{{ coloresRegla2[2] }}</li>
+    </ul>
+    <ul>
+        <li>{{ coloresRegla3[0] }}</li>
+        <li>{{ coloresRegla3[1] }}</li>
+        <li>{{ coloresRegla3[2] }}</li>
+    </ul>
+    <ul>
+        <li>{{ coloresRegla4[0] }}</li>
+        <li>{{ coloresRegla4[1] }}</li>
+        <li>{{ coloresRegla4[2] }}</li>
+    </ul>
+
+    <ul>
+        <li>{{ coloresRegla5[0] }}</li>
+        <li>{{ coloresRegla5[1] }}</li>
+        <li>{{ coloresRegla5[2] }}</li>
+    </ul>
+
+
+
+
+
+    <table border=1>
+        <thead>
+<tr>
+            <th>Regla</th>
+            <th>color 1</th>
+            <th>color 2</th>
+            <th>color 3</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> Regla 1 ( Green ) </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla1(0, $event.target.value)"
+                        [value]="coloresRegla1[0]">
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla1(1, $event.target.value)"
+                        [value]="coloresRegla1[1]">
+        
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla1(2, $event.target.value)"
+                        [value]="coloresRegla1[2]">
+                </td>
+            </tr>
+            <tr>
+                <td> Regla 2 (Red ) </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla2(0, $event.target.value)"
+                        [value]="coloresRegla2[0]">
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla2(1, $event.target.value)"
+                        [value]="coloresRegla2[1]">
+        
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla2(2, $event.target.value)"
+                        [value]="coloresRegla2[2]">
+                </td>
+            </tr>
+            <tr>
+                <td> Regla 3 ( Blue ) </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla3(0, $event.target.value)"
+                        [value]="coloresRegla3[0]">
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla3(1, $event.target.value)"
+                        [value]="coloresRegla3[1]">
+        
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla3(2, $event.target.value)"
+                        [value]="coloresRegla3[2]">
+                </td>
+            </tr>
+            <tr>
+                <td> Regla 4 ( Brown ) </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla4(0, $event.target.value)"
+                        [value]="coloresRegla4[0]">
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla4(1, $event.target.value)"
+                        [value]="coloresRegla4[1]">
+        
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla4(2, $event.target.value)"
+                        [value]="coloresRegla4[2]">
+                </td>
+            </tr>
+<tr>
+                <td> Regla 5 (Gray) </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla5(0, $event.target.value)"
+                        [value]="coloresRegla5[0]">
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla5(1, $event.target.value)"
+                        [value]="coloresRegla5[1]">
+        
+                </td>
+                <td>
+                    <input type="color" name="" id="" (change)="cambiarRegla5(2, $event.target.value)"
+                        [value]="coloresRegla5[2]">
+                </td>
+            </tr>
+
+        </tbody>
+        
+    </table>
+
+
+<app-automata
+[automata]="automata1"
+[auxiliaryLines]="false"
+[showStats]="false"
+[showController]="false"
+[coloresRegla1]="coloresRegla1"
+[coloresRegla2]="coloresRegla2"
+[coloresRegla3]="coloresRegla3"
+[coloresRegla4]="coloresRegla4"
+[coloresRegla5]="coloresRegla5"
+>
+</app-automata>
 <!-- <app-tabla [automata]="automata1"></app-tabla> -->

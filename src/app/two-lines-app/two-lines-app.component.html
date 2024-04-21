@@ -1,3 +1,8 @@
+
+
+{{ coloresRegla1[0]}}
+{{ coloresRegla1[1]}}
+{{ coloresRegla1[2]}}
 <div style='font-size: 20px'>
 
 
@@ -5,7 +10,8 @@
     <!--  hasta esto debería estar en su propio componente y solamente pasarle el automata como parametro
         cuantos componentes se podrian crear pasando solamente el automata como parametro.
     -->
-    <div *ngIf="true">
+    {{ showStats ? 'si': 'no'}}
+    <div *ngIf="showStats">
 
         <h1>tabla refactorizada </h1>
         <table border=1 style='width: 300px'>
@@ -17,14 +23,14 @@
 
         
     </div>
-    <div>
+    <div *ngIf="true">
         <!-- <p>{{ getBloques().length}}</p> -->
         <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
         
             <button (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
         
     </div>
-    <table *ngIf="true">
+    <table *ngIf="showController">
         <tr *ngFor='let elemento of ELEMENTS'>
             <td style='font-size: 20px'>
                 {{ elemento }}
@@ -50,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="true">
+    <div *ngIf="showController">
     
         <table>
             <tr>
@@ -91,7 +97,7 @@
                 </div>
                     <button (click)='clean()'>clean</button>
     
-            <div *ngIf='true'style='font-size: 16px'>
+            <div *ngIf='showController'style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>

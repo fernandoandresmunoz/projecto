@@ -1,4 +1,4 @@
-
+<div *ngIf="showOptions">
 <div>
         tipo: {{ tipo }}
     </div>
@@ -75,8 +75,15 @@ ANCHO  DERIVADA
 <p>
         <input type="checkbox" name="" id="" 
         (change)="cambiarMostrarDerivada($event.target.value)"
-        ngModel [(ngModel)]="mostrarDerivada" [value]="mostrarDerivada">
+        ngModel  [value]="mostrarDerivada">
 MOSTRAR DERIVADA
+
+    </p>
+<p>
+        <input type="checkbox" name="" id="" 
+        (change)="cambiarFillRectangles(event)"
+          [value]="fillRectangles">
+FILL RECTANGLES 
 
     </p>
     <div>
@@ -126,6 +133,7 @@ MOSTRAR DERIVADA
 <br>
 <button (click)="centrar()">centrar</button>
 <br>
+</div>
 <canvas style="border: '1px solid gray'" #myCanvas [width]="800" [height]="800" ></canvas>
 <!-- <table border="1">
     <thead>
