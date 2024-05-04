@@ -14,40 +14,46 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
         switch (GENERATION) {
             case 50:
                 automata.setBlueRule(this.shapeFactory.createReplicatorRule())
-                automata.setBrownRule(this.shapeFactory.createMazeRule())
-                automata.setRedRule(this.shapeFactory.createAnnealRule())
+                automata.setBrownRule(this.shapeFactory.createReplicatorRule())
+                automata.setRedRule(this.shapeFactory.createReplicatorRule())
                 automata.setGrayRule(this.shapeFactory.createReplicatorRule())
-                automata.setGreenRule(this.shapeFactory.createMazeRule())
+                automata.setGreenRule(this.shapeFactory.createCoralRule())
+                automata.setGrayRule(this.shapeFactory.createWalledCityRule())
                 break;
             case 70:
-                automata.setBlueRule(this.shapeFactory.createAnnealRule())
+                automata.setBlueRule(this.shapeFactory.createReplicatorRule())
+                automata.setRedRule(this.shapeFactory.createAnnealRule())
                 
                 break;
 
             case 100:
-                automata.setGreenRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createAnnealRule())
+                // automata.setGreenRule(this.shapeFactory.createAnnealRule())
+                automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
+                automata.setBrownRule(this.shapeFactory.MazeWithMice())
+                automata.setRedRule(this.shapeFactory.createMazeRule())
+                automata.setGrayRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setBrownRule(this.shapeFactory.createAnnealRule())
                 // automata.setBrownRule(this.shapeFactory.createMazeRule())
+                automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
                 break;
 
             case 120:
-                automata.setGrayRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setGrayRule(this.shapeFactory.createWalledCityRule())
+                // automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 // automata.setGreenRule(this.shapeFactory.createDayAndNightRule())
-                automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
+                // automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
                 break;
             
             case 200:
-                automata.setGreenRule(this.shapeFactory.createCoagulationRule())
-                automata.setBlueRule(this.shapeFactory.createAnnealRule())
-                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setGreenRule(this.shapeFactory.createCoagulationRule())
+                // automata.setBlueRule(this.shapeFactory.createAnnealRule())
+                // automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 break;
 
              case 280:
-                automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
-                automata.setBlueRule(this.shapeFactory.createLifeWithoutDeathRule())
-                automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setBlueRule(this.shapeFactory.createLifeWithoutDeathRule())
+                // automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
                 break;
         
             default:

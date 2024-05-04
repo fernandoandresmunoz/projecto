@@ -59,7 +59,7 @@ export class ParabolaConcreta implements Parabola {
             case "EXPONENCIAL":
                 return Math.pow(Math.E, x) - 1
             case "CUADRATICA":
-                return -Math.pow(x, 2) + 3
+                return Math.pow(x, 2) 
 
             case "POLINOMICA":
                 return x ** 3 - 2 * x ** 2 - 3 * x + 2

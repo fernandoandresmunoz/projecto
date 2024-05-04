@@ -39,16 +39,17 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   distanciaPuntosDerivada: number;
   ANCHO_EJE_X = 10  ;
   inicio = -3;
-  fin = 2.2
+  fin = 3;   
   dibujarEjes = true;
 
-  anchoRectangulo = 0.1
-  cantidadRectangulos = 50
+  anchoRectangulo = 0.01
+  // cantidadRectangulos = 50
+  cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
 
   colorIntegral: string = '#0159cb';
   colorCurva: string = '#d71d77';
   anchoCurva: number = 2;
-  anchoDerivada: number = 4;
+  anchoDerivada: number = 2;
   colorDerivada: string = 'green';
   tamanoFuenteEjeX: number = 12;
   tamanoFuenteEjeY: number = 12;
@@ -77,9 +78,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
 
-  fillRectangles = false;
+  fillRectangles = true;
+  valorIntegral: number = 0;
 
-  @Input() mostrarDerivada = true ;
+  @Input() mostrarDerivada: boolean  ;
 
   @Input() showOptions: boolean;
 
@@ -281,25 +283,30 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   aumentarInicio() {
     this.inicio += 0.2
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()
   }
   aumentarFin() {
     this.fin += 0.2
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()
   }
 
   disminuirInicio() {
     this.inicio -= 0.2
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()
   }
   disminuirFin() {
     this.fin -= 0.2
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()
   }
 
   aumentarAnchoRectangulo() {
 
     this.anchoRectangulo += 0.02;
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw();
 
   }
@@ -307,6 +314,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   disminuirAnchoRectangulo() {
     if (this.anchoRectangulo >= 0.02) {
       this.anchoRectangulo -= 0.02;
+  this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
       this.draw();
     }
   }
@@ -398,16 +406,16 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
     // eje y 
-    // const q1 = new ConcretePoint(400, 0);
-    // const q2 = new ConcretePoint(400, 800);
-    // this.drawLine(q1, q2, 'gray', 1)
+    const q1 = new ConcretePoint(this.anchoLienzo / 2, 0);
+    const q2 = new ConcretePoint(this.anchoLienzo/ 2, this.largoLienzo);
+    this.drawLine(q1, q2, 'gray', 1)
   }
 
 
   dibujarCurva(): void {
     const puntos = this.getPoints(-this.transformadorDePuntos.getAnchoCalculadora() / 2,
       this.transformadorDePuntos.getAnchoCalculadora() / 2);
-    for (let i = 0; i < puntos.length; i++) {
+    for (let i = 0; i < puntos.length ; i++) {
       const p = puntos[i];
       const q = puntos[i + 1]
       const x1 = this.transformadorDePuntos.transformarPunto(p, this.centerX, this.centerY).getX();
@@ -461,12 +469,19 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     // this.dibujarRectangulo(puntoA, puntoB, puntoC, puntoD)
 
+    this.valorIntegral = 0
 
     for (let i = 0; i < this.cantidadRectangulos; i++) {
       let puntoE = new ConcretePoint(puntoA.getX() + i * this.anchoRectangulo, 0) // es igual al punto b 
       let puntoF = new ConcretePoint(puntoA.getX() + (i + 1) * this.anchoRectangulo, 0)
       let puntoG = new ConcretePoint(puntoA.getX() + (i + 1) * this.anchoRectangulo, this.funcion(puntoA.getX() + i * this.anchoRectangulo))
       let puntoH = new ConcretePoint(puntoA.getX() + i * this.anchoRectangulo, this.funcion(puntoA.getX() + i * this.anchoRectangulo))
+
+      let diffX = puntoF.getX() - puntoE.getX()
+      let diffY = puntoG.getY() - puntoF.getY();
+
+      this.valorIntegral += (diffX * diffY);
+
 
       if (this.fillRectangles) {
 
@@ -526,10 +541,19 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   dibujarNumerosEjes() {
 
-    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeX) {
+    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i =  i + this.intervaloNumerosEjeX ) {
       this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'black')
       this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'black', 1)
     }
+    // eje y 
+    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeY) {
+      if ( i !== 0 ) {
+
+      this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'black'  )
+      this.dibujarLinea(new ConcretePoint( 0.1, i), new ConcretePoint( -0.1, i), 'black', 1)
+      }
+    }
+
 
   }
 

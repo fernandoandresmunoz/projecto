@@ -17,6 +17,7 @@ import { FuncionPolinomicaComponent } from './funcion-polinomica/funcion-polinom
 import { FuncionLogaritmicaComponent } from './funcion-logaritmica/funcion-logaritmica.component';
 import { FuncionExponencialComponent } from './funcion-exponencial/funcion-exponencial.component';
 import { FuncionCuadraticaComponent } from './funcion-cuadratica/funcion-cuadratica.component';
+import { LienzoComponent } from './lienzos/lienzo/lienzo.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,11 @@ const routes: Routes = [
     path: 'funcion-polinomica',
     component: FuncionPolinomicaComponent
   },
+{ 
+    path: 'nueva-calculadora',
+    component: LienzoComponent
+  },
+
 
 
 ];

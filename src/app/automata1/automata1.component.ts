@@ -16,7 +16,7 @@ export class Automata1Component implements OnInit, ControladorColores {
   factory2 = new ConcreteShapeFactory()
   // fabricaDeAutomatas: FabricaDeAutomatas = new FabricaDeAutomatasConcreta();
   // automata1: Automata = this.factory2.createGliderStrategy(256, 64)
-  automata1: Automata = this.factory2.createMilitaryCube(128, 128);
+  automata1: Automata = this.factory2.createMilitaryCube(256, 128);
 
 
       // return ["Green", "DarkseaGreen", "DarkGreen"]
@@ -34,7 +34,7 @@ export class Automata1Component implements OnInit, ControladorColores {
 
   coloresRegla3: string[] = [ "#04099a", "#5266ff", "#082fa6" ]
 
-  coloresRegla4: string[] = [ "#453b07", "#a56f12", "#453b07" ]
+  coloresRegla4: string[] = [ "#453b07", "#a47e3d", "#453b07" ]
   coloresRegla5 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
   coloresRegla6 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
   coloresRegla7 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
