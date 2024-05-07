@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Lienzo } from '../lienzo';
 import { Function as Funcion } from '../function';
 import { FabricaDeLienzos } from '../fabrica-de-lienzos';
@@ -20,20 +20,22 @@ export class LienzoComponent implements OnInit, Lienzo {
 
   ANCHO_PUNTO_DERIVADA = 5;
   colorIntegral: string = '#0159cb';
-  anchoLienzo =800;
-  largoLienzo = 800;
-
     distanciaPuntosDerivada = 0.001
-  intervaloNumerosEjeX: number = 1;
   intervaloNumerosEjeY: number = 1;
-  ANCHO_EJE_X = 10  ;
+  ANCHO_EJE_X = 20  ;
+  DESDE_X=0;
+  HASTA_X=250;
+  DESDE_Y=-3.5
+  HASTA_Y=3.5
+  intervaloNumerosEjeX: number = 50;
   transformadorDePuntos: TransformadorDePuntos;
 
   fabrica: FabricaDeLienzos = new FabricaDeLienzosConcreta()
-  lienzo: Lienzo = this.fabrica.crear();
+  @Input() lienzo: Lienzo ;
+  // lienzo: Lienzo = this.fabrica.crear();
 
-  centerX = this.getAncho() / 2;
-  centerY = this.getLargo() / 2;
+  centerX : number;
+  centerY : number;
 
   dibujarEjes = true;
 
@@ -44,6 +46,42 @@ export class LienzoComponent implements OnInit, Lienzo {
   public context: CanvasRenderingContext2D;
 
   constructor() { }
+  setDesdeX(desdeX: number): void {
+    throw new Error('Method not implemented.');
+  }
+  setHastaX(hastaX: number): void {
+    throw new Error('Method not implemented.');
+  }
+  setDesdeY(desdeY: number): void {
+    throw new Error('Method not implemented.');
+  }
+  setHastaY(hastaY: number): void {
+    throw new Error('Method not implemented.');
+  }
+  getDesdeX(): number {
+    return this.lienzo.getDesdeX()
+  }
+  getHastaX(): number {
+    return this.lienzo.getHastaX()
+  }
+  getDesdeY(): number {
+    return this.lienzo.getDesdeY()
+  }
+  getHastaY(): number {
+    return this.lienzo.getHastaY()
+  }
+  setBackground(color: string): void {
+    throw new Error('Method not implemented.');
+  }
+  getBackground(): string {
+    return this.lienzo.getBackground()
+  }
+  getTitle(): string {
+    return this.lienzo.getTitle()
+  }
+  setTitle(title: string): void {
+    throw new Error('Method not implemented.');
+  }
   getAncho(): number {
     return this.lienzo.getAncho();
   }
@@ -66,7 +104,7 @@ export class LienzoComponent implements OnInit, Lienzo {
 
   dibujarTexto(texto: string, x: number, y: number, color: string = 'gray') {
 
-    this.context.font = "25px Arial";
+    this.context.font = "18px Arial";
     this.context.fillStyle = color;
     const point = new ConcretePoint(x, y)
     const newPoint = this.transformadorDePuntos.transformarPunto(point, this.centerX, this.centerY)
@@ -124,12 +162,12 @@ export class LienzoComponent implements OnInit, Lienzo {
 
       if (this.fillRectangles) {
 
-      this.dibujarFillRectangulo(puntoE, puntoF, puntoG, puntoH, integral);
+        this.dibujarFillRectangulo(puntoE, puntoF, puntoG, puntoH, integral);
       }
       else {
 
         this.dibujarRectangulo(puntoE, puntoF, puntoG, puntoH);
-      } 
+      }
 
 
 
@@ -187,25 +225,26 @@ export class LienzoComponent implements OnInit, Lienzo {
 
   dibujarNumerosEjes() {
 
-    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i =  i + this.intervaloNumerosEjeX ) {
+    for (let i = this.getDesdeX(); i < (this.getHastaX() ) + 1; i =  i + this.intervaloNumerosEjeX ) {
       this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'black')
       this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'black', 1)
     }
-    // eje y 
-    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeY) {
-      if ( i !== 0 ) {
 
-      this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'black'  )
-      this.dibujarLinea(new ConcretePoint( 0.1, i), new ConcretePoint( -0.1, i), 'black', 1)
-      }
-    }
+    // eje y 
+    // for (let i = this.DESDE_Y ; i < (this.HASTA_Y ) + 1; i = i + this.intervaloNumerosEjeY) {
+    //   if ( i !== 0 ) {
+
+    //   this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'black'  )
+    //   this.dibujarLinea(new ConcretePoint( 0.1, i), new ConcretePoint( -0.1, i), 'black', 1)
+    //   }
+    // }
 
 
   }
 
   draw(): void {
     this.transformadorDePuntos = new TransformadorDePuntosConcretos(this.getAncho(),
-      this.getLargo(), this.ANCHO_EJE_X)
+      this.getLargo(), this.getHastaX() - this.getDesdeX(), this.getHastaY() - this.getDesdeY())
 
     if (this.dibujarEjes) {
       this.dibujarEjesXY()
@@ -234,7 +273,7 @@ export class LienzoComponent implements OnInit, Lienzo {
       this.transformadorDePuntos.transformarPunto(new ConcretePoint(-this.ANCHO_EJE_X / 2, line.funcion(-this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
 
       this.transformadorDePuntos.transformarPunto(new ConcretePoint(this.ANCHO_EJE_X / 2, line.funcion(this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
-      'green',
+      derivada.getColor(),
       2);
 
 
@@ -280,16 +319,21 @@ export class LienzoComponent implements OnInit, Lienzo {
 
     // // eje x
     const p1 = new ConcretePoint(0, this.centerY);
-    const p2 = new ConcretePoint(this.anchoLienzo, this.centerY);
+    const p2 = new ConcretePoint(this.getAncho(), this.centerY);
 
 
-    this.drawLine(p1, p2, 'gray', 1)
+    this.dibujarLinea(new ConcretePoint(this.getDesdeX(), 0), new ConcretePoint(this.getHastaX(), 0))
+
+    // this.drawLine(this.transformadorDePuntos.transformarPunto(p1, this.centerX, this.centerY),
+    // this.transformadorDePuntos.transformarPunto(p2, this.centerX, this.centerY) 
+    // , 'gray', 1)
 
 
     // eje y 
-    const q1 = new ConcretePoint(this.anchoLienzo / 2, 0);
-    const q2 = new ConcretePoint(this.anchoLienzo/ 2, this.largoLienzo);
-    this.drawLine(q1, q2, 'gray', 1)
+    // const q1 = new ConcretePoint(this.anchoLienzo / 2, 0);
+    // const q2 = new ConcretePoint(this.anchoLienzo/ 2, this.largoLienzo);
+    // this.drawLine(q1, q2, 'gray', 1)
+
   }
 
   getColor(): string {
@@ -303,6 +347,14 @@ export class LienzoComponent implements OnInit, Lienzo {
   }
   ngAfterViewInit(): void {
     this.context = this.myCanvas.nativeElement.getContext('2d');
+    // this.centerX = ( this.HASTA_X - this.DESDE_X  )/ 2
+
+    // this.centerX = this.getAncho() / 2;
+    this.centerX = 0
+  this.centerY = this.getLargo() / 2;
+  // this.centerY = this.getLargo() / 2;
+
+
     this.draw();
   }
 
@@ -312,8 +364,9 @@ export class LienzoComponent implements OnInit, Lienzo {
 
 
     this.getFunciones().map(funcion => {
-      const puntos = funcion.getPoints(-this.transformadorDePuntos.getAnchoCalculadora() / 2,
-        this.transformadorDePuntos.getAnchoCalculadora() / 2, 0.01);
+      // const puntos = funcion.getPoints(-this.transformadorDePuntos.getAnchoCalculadora() / 2,
+      //   this.transformadorDePuntos.getAnchoCalculadora() / 2, 0.01);
+      const puntos = funcion.getPoints(this.getDesdeX(), this.getHastaX(), 0.1)
 
 
 

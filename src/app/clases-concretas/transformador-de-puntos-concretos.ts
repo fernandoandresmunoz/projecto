@@ -7,11 +7,13 @@ export class TransformadorDePuntosConcretos implements TransformadorDePuntos{
     anchoLienzo: number ;
     largoLienzo: number;
     anchoCalculadora: number;
+    largoCalculadora: number;
 
-    constructor(anchoLienzo: number, largoLienzo: number, anchoCalculadora: number) {
+    constructor(anchoLienzo: number, largoLienzo: number, anchoCalculadora: number, largoCalculadora: number) {
         this.anchoLienzo = anchoLienzo;
         this.largoLienzo = largoLienzo;
         this.anchoCalculadora = anchoCalculadora;
+        this.largoCalculadora = largoCalculadora;
     }
     transformadorDeNumero(valor: number): number {
    // Ancho y alto del canvas
@@ -35,6 +37,10 @@ export class TransformadorDePuntosConcretos implements TransformadorDePuntos{
         return this.anchoCalculadora;
     }
 
+    getLargoCalculadora(): number {
+        return this.largoCalculadora;
+    }
+
     // siempre el ancho tiene que ser igual al alto, siempre proporcionales
     transformarPunto(punto: Point, centerX: number, centerY: number): Point {
         
@@ -50,7 +56,7 @@ export class TransformadorDePuntosConcretos implements TransformadorDePuntos{
           
             // Escalar las coordenadas de -6 a 6 al rango del canvas
             const scaledX = centerX + (punto.getX() / this.getAnchoCalculadora()) * canvasWidth;
-            const scaledY = centerY - (punto.getY() / this.getAnchoCalculadora()) * canvasHeight;
+            const scaledY = centerY - (punto.getY() / this.getLargoCalculadora()) * canvasHeight;
 
             return new ConcretePoint(scaledX, scaledY);
           

@@ -1,11 +1,10 @@
-import { Point } from "point";
-import { Derivada } from "./derivada";
-import { CalculoFuncion, Function as Funcion } from "./function";
-import { Integral } from "./integral";
 import { ConcretePoint } from "concrete-point";
+import { Point } from "point";
+import { Derivada } from "../derivada";
+import { Integral } from "../integral";
+import { CalculoFuncion, Function as Funcion } from '../function';
 
-
-export class FuncionExponencial implements Funcion {
+export class FuncionExponencialNegativa implements Funcion{
     setCalculoFuncion(calculoFuncion: CalculoFuncion): void {
         throw new Error("Method not implemented.");
     }
@@ -13,7 +12,7 @@ export class FuncionExponencial implements Funcion {
         throw new Error("Method not implemented.");
     }
     funcion(x: number): number {
-        return Math.pow(Math.E, x)
+        return -Math.pow(Math.E, x)
     }
 
     integrales: Integral[] = [];
@@ -53,5 +52,6 @@ export class FuncionExponencial implements Funcion {
         this.ancho = ancho;
     }
     
+
 
 }

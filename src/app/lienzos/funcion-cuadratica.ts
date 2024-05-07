@@ -1,18 +1,32 @@
 import { Point } from "point";
 import { Derivada } from "./derivada";
-import { Function } from "./function";
+import { CalculoFuncion, Function } from "./function";
 import { Integral } from "./integral";
 import { ConcretePoint } from "concrete-point";
 
 export class FuncionCuadratica implements Function{
-    funcion(x: number): number {
-        return x**2 + x + 1
-    }
-
     integrales: Integral[] = [];
     derivadas: Derivada[] = [];
     color: string;
     ancho: number;
+    calculoFuncion: CalculoFuncion;
+    funcionCalculoFuncion: (x: number) => number;
+
+    constructor(funcion: (x: number) => number) {
+        this.funcionCalculoFuncion = funcion;
+    }
+
+    setCalculoFuncion(calculoFuncion: CalculoFuncion): void {
+        this.calculoFuncion = calculoFuncion;
+    }
+    getCalculoFuncion(): CalculoFuncion {
+        return this.calculoFuncion;
+    }
+    funcion(x: number): number {
+        return this.funcionCalculoFuncion(x);
+        // return - 1 * x**2 + x + 4
+    }
+
 
     getPoints(desdeX: number, hastaX: number, step: number = 0.01): Point[] {
         let points: Point[] =  []

@@ -18,6 +18,9 @@ import { FuncionLogaritmicaComponent } from './funcion-logaritmica/funcion-logar
 import { FuncionExponencialComponent } from './funcion-exponencial/funcion-exponencial.component';
 import { FuncionCuadraticaComponent } from './funcion-cuadratica/funcion-cuadratica.component';
 import { LienzoComponent } from './lienzos/lienzo/lienzo.component';
+import { Graficadora2Component } from './lienzos/lienzos/graficadora2/graficadora2.component';
+import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenciales.component';
+import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
 
 const routes: Routes = [
   {
@@ -85,8 +88,18 @@ const routes: Routes = [
   },
 { 
     path: 'nueva-calculadora',
-    component: LienzoComponent
+    component: Graficadora2Component
   },
+{ 
+    path: 'exponenciales',
+    component: ExponencialesComponent
+  },
+{ 
+    path: 'lista-lienzos',
+    component: ListaDeLienzosComponent
+  },
+
+
 
 
 

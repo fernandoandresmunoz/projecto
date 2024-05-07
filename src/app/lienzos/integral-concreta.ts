@@ -7,6 +7,11 @@ export class IntegralConcreta implements Integral {
     anchoRectangulo: number;
     color: string = '#000000';
 
+    constructor(desde: number, hasta: number) {
+        this.inicioX = desde;
+        this.finX = hasta;
+    }
+
     getInicioX(): number {
         return this.inicioX;
     }

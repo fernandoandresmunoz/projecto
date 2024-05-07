@@ -562,7 +562,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     // this.context.beginPath();
     this.parabola = new ParabolaConcreta(this.tipo);
     this.transformadorDePuntos = new TransformadorDePuntosConcretos(this.anchoLienzo,
-      this.largoLienzo, this.ANCHO_EJE_X)
+      this.largoLienzo, this.ANCHO_EJE_X, this.ANCHO_EJE_X)
     this.distanciaPuntosDerivada = 0.001
 
 

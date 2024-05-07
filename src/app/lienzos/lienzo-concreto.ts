@@ -3,17 +3,61 @@ import { Lienzo } from "./lienzo";
 
 
 export class LienzoConcreto implements Lienzo{
+    funciones: Funcion[] = [];
+    ancho: number = 800 ;
+    largo: number = 800;
+    color: string = 'cyan'
+
+    desdeX: number;
+    hastaX: number;
+    desdeY: number;
+    hastaY: number;
+    background: string;
+    title: string;
+
+
+    setDesdeX(desdeX: number): void {
+        this.desdeX = desdeX
+    }
+    setHastaX(hastaX: number): void {
+        this.hastaX = hastaX;
+    }
+    setDesdeY(desdeY: number): void {
+        this.desdeY = desdeY;
+    }
+    setHastaY(hastaY: number): void {
+        this.hastaY = hastaY
+    }
+    getDesdeX(): number {
+        return this.desdeX
+    }
+    getHastaX(): number {
+        return this.hastaX
+    }
+    getDesdeY(): number {
+        return this.desdeY
+    }
+    getHastaY(): number {
+        return this.hastaY
+    }
+    setBackground(color: string): void {
+        this.background = color;
+    }
+    getBackground(): string {
+        return this.background
+    }
+    getTitle(): string {
+        return this.title
+    }
+    setTitle(title: string): void {
+        this.title = title
+    }
     getAncho(): number {
         return this.ancho;
     }
     getLargo(): number {
         return this.largo;
     }
-    funciones: Funcion[] = [];
-    ancho: number = 800 ;
-    largo: number = 800;
-    color: string = 'cyan'
-
     agregarFuncion(funcion: Funcion): void {
         this.funciones.push(funcion);
     }

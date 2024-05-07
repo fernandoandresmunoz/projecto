@@ -2,6 +2,13 @@ import { Point } from "point";
 import { Derivada } from "./derivada";
 import { Integral } from "./integral";
 
+
+
+export interface CalculoFuncion {
+    funcion(x:number): number;
+}
+
+
 export interface Function {
 
     getPoints(desdeX: number, hastaX: number, step: number): Point[];
@@ -14,4 +21,7 @@ export interface Function {
     getAncho(): number;
     setAncho(ancho: number): void;
     funcion(x: number): number;
+    setCalculoFuncion(calculoFuncion: CalculoFuncion): void;
+    getCalculoFuncion(): CalculoFuncion;
+
 }
