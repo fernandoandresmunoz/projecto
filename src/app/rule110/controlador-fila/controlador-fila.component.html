@@ -1,0 +1,167 @@
+<p>controlador-fila works!</p>
+
+
+<br>
+
+<div>
+    <h1>
+
+    Rule: {{ getRegla() }}
+    </h1>
+</div>
+
+
+
+<div>
+
+<button (click)="apagarTodasLasCeldas()" > apagar todas</button>
+<button (click)="encenderTodasLasCeldas()" > encender todas</button>
+<button (click)="toggleCeldas()" >toggle</button>
+
+</div>
+
+<p>
+    columnas = {{ getModel().getCeldas().length }}
+</p>
+<p>
+    {{ getRuleBinary() }}
+</p>
+<div>
+
+    <div>
+        ESATADO SIGUIENTE = {{ getEstadoSiguiente(getModel(), getActiveIndex()) }}
+    </div>
+
+<div>
+    <h2>
+
+    {{ getRuleBinary()}}
+    </h2>
+</div>
+
+<table border="1">
+    <tr>
+        <td>Current Patern</td>
+        <td *ngFor="let t of getNewStateList()">{{ t[0] }}</td>
+    </tr>
+<tr>
+        <td>New state for center cell</td>
+        <td *ngFor="let t of getNewStateList()">{{ t[1] }}</td>
+    </tr>
+</table>
+
+
+    <table>
+
+        <tr>
+<td  [ngStyle]="{'background-color':getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+           'width': '1em',
+           'height': '2em',
+           'border': '1px solid gray'
+        }"></td>
+<td  [ngStyle]="{'background-color': getEstadoCeldaActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+           'width': '2em',
+           'height': '2em',
+           'border': '1px solid gray'
+        }"></td>
+<td  [ngStyle]="{'background-color': getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+           'width': '2em',
+           'height': '2em',
+           'border': '1px solid gray'
+        }"></td>
+        </tr>
+    </table>
+    <!-- <table>
+        <tr>
+            <td  [ngStyle]="{'background-color':  'white',
+           'width': '2em',
+           'height': '2em',
+           'border': '1px solid gray'
+        }"></td>
+            <td [ngStyle]="{'background-color':  'white',
+           'width': '2em',
+           'height': '2em',
+           'border': '1px solid gray',
+           
+        }">{{ getEstadoCeldaSiguienteActiva() }}</td>
+        </tr>
+    </table> -->
+<p>
+    ESTADO CELDA ANTERIOR {{ getEstadoCeldaAnteriorActiva(getModel()) }}
+</p>
+    <p>
+
+    ESTADO CELDA ACTIVA {{ getEstadoCeldaActiva(getModel(), getActiveIndex()) }}
+    </p>
+    <p>
+        ESTADO CELDA SIGUIENTE {{ getEstadoCeldaSiguienteActiva(getModel()) }}
+    </p>
+
+</div>
+<div>
+    <h2>ACTIVE INDEX = {{ getActiveIndex() }}</h2>
+    <button (click)="decrementIndex()">decrement</button>
+    <button (click)="incrementIndex()">increment</button>
+</div>
+<div style="margin-top: '2em'">
+    <table  style="border-collapse: collapse;">
+           <!-- style="width: '2em'; background-color: black;" -->
+        <tr>
+           <td *ngFor="let celda of getModel().getCeldas(); index as i "
+           [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
+           'width': '1em',
+           'height': '1em',
+           'border': (getActiveIndex() === i ) ? '2px solid red': '1px solid gray',
+           'margin': 0,
+           'padding': 0
+         }"
+        
+          (click)="toggleCelda(i)"
+    
+           ></td>
+        </tr>
+    </table>
+
+    <!-- <table >
+        <tr>
+            <td *ngFor="let c of filaSiguiente(getModel()).getCeldas()"
+  [ngStyle]="{'background-color': (c.getState() === 1) ? 'black' : 'white',
+           'width': '1em',
+           'height': '1em'
+        }"
+            >
+            </td>
+        </tr>
+        
+    </table> -->
+<!-- <table border="1">
+        <tr>
+            <td *ngFor="let c of filaSiguiente( filaSiguiente(getModel()) ).getCeldas()"
+  [ngStyle]="{'background-color': (c.getState() === 1) ? 'black' : 'white',
+           'width': '2em',
+           'height': '2em'
+        }"
+            >
+                {{ c.getState() }}
+            </td>
+        </tr>
+        
+    </table> -->
+
+    <table style="border-collapse: collapse; margin-top: 4em">
+        <tr *ngFor="let fila of matrixCompleta()">
+            <td *ngFor="let celda of fila.getCeldas()"
+              [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
+           'width': '0.5em',
+           'height': '0.5em',
+           'margin': 0,
+           'padding': 0
+        }"
+            
+            >
+                
+                <!-- {{ celda.getState() }} -->
+            </td>
+        </tr>
+    </table>
+</div>

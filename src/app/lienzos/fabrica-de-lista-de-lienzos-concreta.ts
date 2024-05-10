@@ -10,15 +10,15 @@ import {Function as Funcion} from './function'
 
 export class FabricaDeListaDeLienzosConcreta  implements FabricaDeListaDeLienzos{
 
-    fabricaRapida(title: string, funcion: Funcion, desdeY: number, hastaY: number): Lienzo {
+    fabricaRapida(title: string, funcion: Funcion, desdeY: number, hastaY: number, desdeX: number=0, hastaX: number=260): Lienzo {
         const fabricaLienzos: FabricaDeLienzos = new FabricaDeLienzosConcreta()
         const fabricaDeFunciones: FabricaDeFunciones = new FabricaDeFuncionesConcreta()
 
 
         const ALTO_RECTANGULO = 300;
         const ANCHO_RECTANGULO = 1600;
-        const HASTA_EJE_X = 260;
-        const DESDE_EJE_X = 0
+        const HASTA_EJE_X = hastaX;
+        const DESDE_EJE_X = desdeX 
 
 
 
@@ -27,8 +27,8 @@ let lienzo = fabricaLienzos.crear( title ,
             ALTO_RECTANGULO,
             DESDE_EJE_X,
             HASTA_EJE_X,
-            -3,
-            3,
+            desdeY,
+            hastaY,
             'blue',
             [
                 funcion
@@ -83,6 +83,8 @@ let lienzo = fabricaLienzos.crear( title ,
                 fabricaDeFunciones.crear(x => {return Math.cos(x) - Math.cos((1 + Math.sqrt(2)) * x)}, 'green'),
                 -2.4,
                 2.4,
+                0,
+                160
             )
 ,
 
@@ -91,6 +93,8 @@ let lienzo = fabricaLienzos.crear( title ,
                 fabricaDeFunciones.crear(x => {return Math.cos(x) - Math.cos((2 + Math.sqrt(5)) * x )}, 'green'),
                 -2.4,
                 2.4,
+                0,
+                120
             )
 
         ]

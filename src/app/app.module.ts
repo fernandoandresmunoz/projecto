@@ -38,6 +38,7 @@ import { LienzoComponent } from './lienzos/lienzo/lienzo.component';
 import { Graficadora2Component } from './lienzos/lienzos/graficadora2/graficadora2.component';
 import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenciales.component';
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
+import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lie
     LienzoComponent,
     Graficadora2Component,
     ExponencialesComponent,
-    ListaDeLienzosComponent
+    ListaDeLienzosComponent,
+    ControladorFilaComponent
   ],
   imports: [
     BrowserModule,

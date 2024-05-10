@@ -21,6 +21,7 @@ import { LienzoComponent } from './lienzos/lienzo/lienzo.component';
 import { Graficadora2Component } from './lienzos/lienzos/graficadora2/graficadora2.component';
 import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenciales.component';
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
+import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
 
 const routes: Routes = [
   {
@@ -98,6 +99,10 @@ const routes: Routes = [
     path: 'lista-lienzos',
     component: ListaDeLienzosComponent
   },
+{ 
+    path: 'rule110',
+    component: ControladorFilaComponent
+  }
 
 
 
