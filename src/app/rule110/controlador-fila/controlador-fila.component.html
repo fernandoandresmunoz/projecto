@@ -87,14 +87,14 @@
         </tr>
     </table> -->
 <p>
-    ESTADO CELDA ANTERIOR {{ getEstadoCeldaAnteriorActiva(getModel()) }}
+    ESTADO CELDA ANTERIOR {{ getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) }}
 </p>
     <p>
 
     ESTADO CELDA ACTIVA {{ getEstadoCeldaActiva(getModel(), getActiveIndex()) }}
     </p>
     <p>
-        ESTADO CELDA SIGUIENTE {{ getEstadoCeldaSiguienteActiva(getModel()) }}
+        ESTADO CELDA SIGUIENTE {{ getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) }}
     </p>
 
 </div>

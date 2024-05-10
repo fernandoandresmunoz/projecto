@@ -11,8 +11,8 @@ const REGLA = 110;
 
 
 
-const FILAS = 256;
-const COLUMNAS = 256 
+const FILAS = 512;
+const COLUMNAS = 128 
 
 export class ControladorFilaConcreto implements ControladorFila {
     matrixCompleta(): Fila[] {
