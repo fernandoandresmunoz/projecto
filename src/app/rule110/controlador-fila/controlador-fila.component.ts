@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ControladorFilaConcreto } from '../controlador-fila-concreto';
 import { ControladorFila } from '../controlador-fila';
 import { Celda } from '../celda';
@@ -12,11 +12,24 @@ import { Fila } from '../fila';
 export class ControladorFilaComponent implements OnInit, ControladorFila {
 
   controlador = new ControladorFilaConcreto()
+  @Input() regla: number;
 
   constructor() {
-    this.init();
+    // this.init(110);
 
    }
+  incrementRule(): void {
+    this.controlador.incrementRule()
+  }
+  decrementRule(): void {
+    this.controlador.decrementRule()
+  }
+  getDebug(): boolean {
+    return this.controlador.getDebug()
+  }
+  setDebug(debug: boolean): void {
+    this.controlador.setDebug(debug);
+  }
   matrixCompleta(): Fila[] {
     return this.controlador.matrixCompleta();
   }
@@ -65,8 +78,8 @@ export class ControladorFilaComponent implements OnInit, ControladorFila {
   toggleCelda(indice: number): void {
     this.controlador.toggleCelda(indice);
   }
-  init(): void {
-    this.controlador.init()
+  init(regla: number): void {
+    this.controlador.init(regla)
   }
   encenderCelda(indice: number): void {
     this.controlador.encenderCelda(indice)
@@ -131,6 +144,8 @@ export class ControladorFilaComponent implements OnInit, ControladorFila {
   }
 
   ngOnInit(): void {
+
+    this.init(this.regla);
   }
 
 }

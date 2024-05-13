@@ -4,7 +4,7 @@ import { Fila } from "./fila";
 
 export interface ControladorFila {
 // encender y apagar celdas 
-    init(): void;
+    init(regla: number): void;
     encenderCelda(indice: number): void;
     apagarCelda(indice: number): void;
     toggleCelda(indice: number): void;
@@ -54,6 +54,12 @@ export interface ControladorFila {
     filaSiguiente(fila: Fila): Fila;
 
     matrixCompleta(): Fila[];
+    getDebug(): boolean;
+    setDebug(debug: boolean): void;
+
+    incrementRule(): void;
+    decrementRule(): void;
+    
 
  
 }

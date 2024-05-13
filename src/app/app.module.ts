@@ -39,6 +39,7 @@ import { Graficadora2Component } from './lienzos/lienzos/graficadora2/graficador
 import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenciales.component';
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
 import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
+import { ReglasComponent } from './reglas/reglas.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ControladorFilaComponent } from './rule110/controlador-fila/controlador
     Graficadora2Component,
     ExponencialesComponent,
     ListaDeLienzosComponent,
-    ControladorFilaComponent
+    ControladorFilaComponent,
+    ReglasComponent
   ],
   imports: [
     BrowserModule,

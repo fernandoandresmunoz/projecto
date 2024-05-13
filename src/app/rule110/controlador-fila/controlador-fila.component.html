@@ -1,76 +1,74 @@
-<p>controlador-fila works!</p>
 
-
-<br>
-
-<div>
+<!-- <div>
     <h1>
 
     Rule: {{ getRegla() }}
     </h1>
-</div>
+</div> -->
 
 
 
-<div>
-
-<button (click)="apagarTodasLasCeldas()" > apagar todas</button>
-<button (click)="encenderTodasLasCeldas()" > encender todas</button>
-<button (click)="toggleCeldas()" >toggle</button>
-
-</div>
-
-<p>
-    columnas = {{ getModel().getCeldas().length }}
-</p>
-<p>
-    {{ getRuleBinary() }}
-</p>
-<div>
-
+<div *ngIf="getDebug()">
     <div>
-        ESATADO SIGUIENTE = {{ getEstadoSiguiente(getModel(), getActiveIndex()) }}
+    
+    <button (click)="apagarTodasLasCeldas()" > apagar todas</button>
+    <button (click)="encenderTodasLasCeldas()" > encender todas</button>
+    <button (click)="toggleCeldas()" >toggle</button>
+    
     </div>
-
-<div>
-    <h2>
-
-    {{ getRuleBinary()}}
-    </h2>
-</div>
-
-<table border="1">
-    <tr>
-        <td>Current Patern</td>
-        <td *ngFor="let t of getNewStateList()">{{ t[0] }}</td>
-    </tr>
-<tr>
-        <td>New state for center cell</td>
-        <td *ngFor="let t of getNewStateList()">{{ t[1] }}</td>
-    </tr>
-</table>
-
-
-    <table>
-
+    
+    <p>
+        columnas = {{ getModel().getCeldas().length }}
+    </p>
+    <p>
+        {{ getRuleBinary() }}
+    </p>
+    <div *ngIf="getDebug()">
+    
+        <div>
+            ESATADO SIGUIENTE = {{ getEstadoSiguiente(getModel(), getActiveIndex()) }}
+        </div>
+    
+    <div>
+        <h2>
+    
+        {{ getRuleBinary()}}
+        </h2>
+    </div>
+    
+    <table border="1">
         <tr>
-<td  [ngStyle]="{'background-color':getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
-           'width': '1em',
-           'height': '2em',
-           'border': '1px solid gray'
-        }"></td>
-<td  [ngStyle]="{'background-color': getEstadoCeldaActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
-           'width': '2em',
-           'height': '2em',
-           'border': '1px solid gray'
-        }"></td>
-<td  [ngStyle]="{'background-color': getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
-           'width': '2em',
-           'height': '2em',
-           'border': '1px solid gray'
-        }"></td>
+            <td>Current Patern</td>
+            <td *ngFor="let t of getNewStateList()">{{ t[0] }}</td>
+        </tr>
+    <tr>
+            <td>New state for center cell</td>
+            <td *ngFor="let t of getNewStateList()">{{ t[1] }}</td>
         </tr>
     </table>
+    
+    
+        <table>
+    
+            <tr>
+    <td  [ngStyle]="{'background-color':getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+               'width': '1em',
+               'height': '2em',
+               'border': '1px solid gray'
+            }"></td>
+    <td  [ngStyle]="{'background-color': getEstadoCeldaActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+               'width': '2em',
+               'height': '2em',
+               'border': '1px solid gray'
+            }"></td>
+    <td  [ngStyle]="{'background-color': getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
+               'width': '2em',
+               'height': '2em',
+               'border': '1px solid gray'
+            }"></td>
+            </tr>
+        </table>
+</div>
     <!-- <table>
         <tr>
             <td  [ngStyle]="{'background-color':  'white',
@@ -98,14 +96,13 @@
     </p>
 
 </div>
-<div>
+<div *ngIf="getDebug()">
     <h2>ACTIVE INDEX = {{ getActiveIndex() }}</h2>
     <button (click)="decrementIndex()">decrement</button>
     <button (click)="incrementIndex()">increment</button>
 </div>
 <div style="margin-top: '2em'">
-    <table  style="border-collapse: collapse;">
-           <!-- style="width: '2em'; background-color: black;" -->
+    <table  *ngIf="getDebug()" style="border-collapse: collapse;">
         <tr>
            <td *ngFor="let celda of getModel().getCeldas(); index as i "
            [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
@@ -148,12 +145,17 @@
         
     </table> -->
 
-    <table style="border-collapse: collapse; margin-top: 4em">
+    
+</div>
+
+<div *ngIf="getDebug()">
+
+<table style="border-collapse: collapse; margin-top: 4em">
         <tr *ngFor="let fila of matrixCompleta()">
             <td *ngFor="let celda of fila.getCeldas()"
               [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
-           'width': '0.5em',
-           'height': '0.5em',
+           'width': '0.25em',
+           'height': '0.25em',
            'margin': 0,
            'padding': 0
         }"
@@ -164,4 +166,19 @@
             </td>
         </tr>
     </table>
+
+    
+    
 </div>
+<div *ngFor="let fila of matrixCompleta()" class="contenedor">
+
+            <span *ngFor="let celda of fila.getCeldas()" class="bloque"
+               [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
+               'width': '4px',
+               'height': '4px',
+               'margin': 0,
+               'padding': 0
+            }"
+            
+            ></span>
+    </div>

@@ -22,6 +22,7 @@ import { Graficadora2Component } from './lienzos/lienzos/graficadora2/graficador
 import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenciales.component';
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
 import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
+import { ReglasComponent } from './reglas/reglas.component';
 
 const routes: Routes = [
   {
@@ -102,7 +103,23 @@ const routes: Routes = [
 { 
     path: 'rule110',
     component: ControladorFilaComponent
+  },
+  {
+    path: 'reglas/:id',
+    component: ReglasComponent
+  },
+  {
+    path: 'rules/:id',
+    component: ReglasComponent
+  },
+  {
+    path: 'rule/:id',
+    component: ReglasComponent
   }
+
+
+
+
 
 
 

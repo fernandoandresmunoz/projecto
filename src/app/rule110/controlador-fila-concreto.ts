@@ -7,14 +7,31 @@ import { FilaConcreta } from "./fila-concreta";
 
 
 
-const REGLA = 110;
+const REGLA = 99;
 
 
 
-const FILAS = 512;
-const COLUMNAS = 128 
+const FILAS = 200;
+const COLUMNAS = 400 
 
 export class ControladorFilaConcreto implements ControladorFila {
+
+
+    incrementRule(): void {
+        this.setearRegla(this.getRegla() + 1)
+    }
+    decrementRule(): void {
+        this.setearRegla(this.getRegla() -1 )
+    }
+
+    debug = false;
+
+    getDebug(): boolean {
+        return this.debug;
+    }
+    setDebug(debug: boolean): void {
+        this.debug = debug
+    }
     matrixCompleta(): Fila[] {
         let matrix: Fila[] = [];
 
@@ -27,7 +44,7 @@ export class ControladorFilaConcreto implements ControladorFila {
         for (let i = 0  ; i < FILAS ; i ++) {
             let c = new ControladorFilaConcreto()
             c.setModel(siguiente)
-            c.setearRegla(REGLA)
+            c.setearRegla(this.getRegla())
             siguiente = c.filaSiguiente(siguiente)
             
             matrix.push(siguiente)
@@ -149,11 +166,11 @@ export class ControladorFilaConcreto implements ControladorFila {
         }
     }
 
-    init(): void {
+    init(regla: number): void {
 
         this.setModel(new FilaConcreta());
         this.inicializar(COLUMNAS)
-        this.setearRegla(REGLA);
+        this.setearRegla(regla);
         this.apagarTodasLasCeldas()
         this.getCeldas()[COLUMNAS/2].setState(1)
 
