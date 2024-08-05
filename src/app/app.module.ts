@@ -40,6 +40,9 @@ import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenc
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
 import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
 import { ReglasComponent } from './reglas/reglas.component';
+import { RedViewComponent } from './red-view/red-view.component';
+import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
+import { GraficasAutomataComponent } from './graficas-automata/graficas-automata.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,10 @@ import { ReglasComponent } from './reglas/reglas.component';
     ExponencialesComponent,
     ListaDeLienzosComponent,
     ControladorFilaComponent,
-    ReglasComponent
+    ReglasComponent,
+    RedViewComponent,
+    NuevoAutomataComponent,
+    GraficasAutomataComponent
   ],
   imports: [
     BrowserModule,

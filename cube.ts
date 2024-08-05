@@ -189,6 +189,26 @@ export interface Automata  {
     totalGrises(): number;
     totalRojos(): number;
     totalVerdes(): number;
+    totalSumadoElementos(): number;
+
+    porcentajeAzules() : number;
+    porcentajeCafes(): number;
+    porcentajeGrises(): number;
+    porcentajeRojos(): number; 
+    porcentajeVerdes(): number;
+    totalPorcentaje(): number;
+    
+    dataAzules() : [ number, number ][];
+    dataCafes() : [ number, number ][];
+    dataGrises() : [ number, number ][];
+    dataRojos() : [ number, number ][];
+    dataVerdes() : [ number, number ][];
+
+    addDataAzul(generation: number, value: number): void;
+    addDataCafe(generation: number, value: number): void;
+    addDataGris(generation: number, value: number): void;
+    addDataRojo(generation: number, value: number): void;
+    addDataVerde(generation: number, value: number): void;
 
     up(): void;
     upMilitary(size: number): void;

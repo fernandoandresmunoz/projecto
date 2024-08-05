@@ -29,8 +29,8 @@ export const JUEGO = {
         TABLA: true
 
     },
-    UMBRAL_INFERIOR: 0.74,
-    UMBRAL_SUPERIOR: 0.80,
+    UMBRAL_INFERIOR: 0.5,
+    UMBRAL_SUPERIOR: 0.7,
     UMBRAL_STEP: 0.01,
     INTERVALO_GENERACION: 400,
     // LEAVES:8,

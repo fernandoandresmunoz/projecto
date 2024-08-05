@@ -56,7 +56,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
 
 
                     try {
-                        let altura = 2;
+                        let altura = 4;
 
 
 
@@ -73,7 +73,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 11)
 
                         ) {
-                            altura = 24
+                            altura = 4
                         }
 
                         else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
@@ -88,7 +88,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 10)
 
                         ) {
-                            altura = 22
+                            altura = 4 
                         }
 
                         else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
@@ -102,7 +102,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 9)
 
                         ) {
-                            altura = 20
+                            altura = 4 
                         }
 
 
@@ -118,7 +118,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 8)
 
                         ) {
-                            altura = 18
+                            altura =4 
                         }
 
                         else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
@@ -130,7 +130,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7)
 
                         ) {
-                            altura = 16
+                            altura =4 
                         }
 
 
@@ -144,7 +144,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6)
 
                         ) {
-                            altura = 14
+                            altura = 4
                         }
 
 
@@ -155,7 +155,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5)
 
                         ) {
-                            altura = 12
+                            altura =4 
                         }
 
 
@@ -166,7 +166,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4)
 
                         ) {
-                            altura = 10
+                            altura = 4 
                         }
 
 
@@ -177,13 +177,13 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3)
 
                         ) {
-                            altura = 8
+                            altura = 4
                         }
 
 
                         else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
                             todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2)) {
-                            altura = 6
+                            altura = 4
                         }
 
                         else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1)) {

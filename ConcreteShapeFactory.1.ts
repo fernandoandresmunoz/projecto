@@ -480,19 +480,16 @@ export class ConcreteShapeFactory implements ShapeFactory {
     createMilitaryCube(filas: number, columnas: number): Automata {
 
         let automata = this.configureIsometricSettings(filas, columnas);
-        // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
-        // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
         automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy());
-        // nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
         automata.setNextGenStrategy(new ConcreteNextGenStrategy());
         automata.setNextMatrixStrategy(new ConcreteNextMatrixStrategy(automata));
-
         automata.setMatrizActiva(automata.createRandomMatriz());
-        automata.setScale(4)
+        automata.setScale(2)
 
-for (let i = 0; i < 150; i++) {
+        //  view not model
+        for (let i = 0; i < 180; i++) {
             automata.left();
-            
+            automata.down();
         }
         return automata;
     }

@@ -1,0 +1,60 @@
+<p>graficas-automata works!</p>
+
+
+totales = 
+filas = {{ automata.getFilas() }}
+columnas = {{ automata.getColumnas() }} 
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>elemento</th>
+            <th>total celulas</th>
+            <th>porcentaje celulas</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> azules </td>
+            <td> {{ automata.totalAzules()}} </td>
+            <td> {{ automata.porcentajeAzules() }} </td>
+        </tr>
+        <tr>
+            <td>verdes</td>
+            <td>{{  automata.totalVerdes() }}</td>
+            <td> {{ automata.porcentajeVerdes() }} </td>
+        </tr>
+        <tr>
+            <td>cafes</td>
+            <td>{{  automata.totalCafes() }}</td>
+            <td>{{  automata.porcentajeCafes() }}</td>
+        </tr>
+        <tr>
+            <td>grises</td>
+            <td>{{  automata.totalGrises() }}</td>
+            <td>{{  automata.porcentajeGrises() }}</td>
+        </tr>
+        <tr>
+            <td>rojos</td>
+            <td>{{  automata.totalRojos() }}</td>
+            <td>{{  automata.porcentajeRojos() }}</td>
+        </tr>
+        <tr>
+            <td>total</td>
+            <td>{{ automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.totalPorcentaje() }}</td>
+        </tr>
+    </tbody>
+    
+</table>
+
+
+<tabla>
+    <tr *ngFor="let data of getValuesToPlot()">
+        <td> {{ data }}</td>
+        <td></td>
+    </tr>
+</tabla>
+
+
+<app-lienzo [lienzo]="lienzo"></app-lienzo>

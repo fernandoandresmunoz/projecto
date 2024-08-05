@@ -1,12 +1,9 @@
-<p>tree works!</p>
+<div class="tf-tree tf-ancestor-tree" style="font-size: 14px">
     <app-arbol-view
     [umbralInferior]='umbralInferior'
     [umbralSuperior]='umbralSuperior'
     [root]="raiz">
-</app-arbol-view>
+    </app-arbol-view>
 
-<div class="tf-tree tf-ancestor-tree" style="font-size: 14px">
-
-    <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="raiz"></app-arbol-view>
-
-</div> 
+    <app-red-view [root]="raiz"></app-red-view>
+</div>

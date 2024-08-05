@@ -27,22 +27,6 @@ export class ConcreteBlockCreationStrategy implements BlockCreationStrategy {
         let p2 = this.automata.getInterseccion(lineP1P3, lineP0P2);
         let p3 = this.automata.getInterseccion(lineP0P2, lineP6P7);
 
-        // let h;
-        // if (data.color === 'Green') {
-        //     h = this.automata.getAltoCelula() + 4 
-        // } else if (data.color === 'Brown') {
-        //     h = this.automata.getAltoCelula() + 2 
-        // }
-        // else if (data.color === 'Red') {
-        //     h = this.automata.getAltoCelula() + 5 
-        // }
-        // else if (data.color === 'Gray') {
-        //     h = this.automata.getAltoCelula() + 2 
-        // }
-        // else {
-        //     h = this.automata.getAltoCelula();
-        // }
-
         this.automata.addBloque(new BloqueConcreto(p2, p0, p1, p3, data, altura));
 
 

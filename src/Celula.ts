@@ -70,7 +70,7 @@ export class Celula implements Nodo {
         return  this.getAutomata()?.totalVerdes() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
     }
     agregarHojas(): void {
-        throw new Error("Method not implemented.");
+        // throw new Error("Method not implemented.");
     }
     agregarHijos(): void {
         throw new Error("Method not implemented.");

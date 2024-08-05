@@ -94,6 +94,7 @@ export default class ConcreteAutomata implements Automata {
     blueRule: Rule = this.shapeFactory.createLifeRule();
     grayRule: Rule = this.shapeFactory.geologyRule();
 
+
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
             name: 'life',
@@ -268,6 +269,13 @@ export default class ConcreteAutomata implements Automata {
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
     nextGenStrategy: NextGenStrategy; 
 
+
+    dataAzul : [ number,number ][] = []
+    dataGris : [ number,number ][] = []
+    dataVerde :[ number,number ][] = []
+    dataRojo : [ number,number ][]= []
+    dataCafe  :  [ number,number ][] = []
+
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
         this.pointB = pointB;
@@ -292,6 +300,60 @@ export default class ConcreteAutomata implements Automata {
 
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
+    }
+    addDataAzul(generation: number, value: number): void {
+        this.dataAzul.push([generation, value])
+    }
+    addDataCafe(generation: number, value: number): void {
+        this.dataCafe.push([generation, value])
+    }
+    addDataGris(generation: number, value: number): void {
+        this.dataGris.push([generation, value])
+    }
+    addDataRojo(generation: number, value: number): void {
+        this.dataRojo.push([generation, value])
+    }
+    addDataVerde(generation: number, value: number): void {
+        this.dataVerde.push([generation, value])
+    }
+    dataAzules(): [ number, number ][] {
+        return this.dataAzul;
+    }
+    dataCafes(): [ number, number ][] {
+        return this.dataCafe;
+    }
+    dataGrises(): [ number, number ][] {
+        return this.dataGris;
+    }
+    dataRojos(): [ number , number][] {
+        return this.dataRojo;
+    }
+    dataVerdes(): [ number , number][] {
+        return this.dataVerde;
+    }
+    porcentajeAzules(): number {
+        return this.totalAzules() / ( this.getFilas() * this.getColumnas() )
+    }
+    porcentajeCafes(): number {
+        return this.totalCafes() / ( this.getFilas() * this.getColumnas() )
+    }
+    porcentajeGrises(): number {
+        return this.totalGrises() / ( this.getFilas() * this.getColumnas() )
+    }
+    porcentajeRojos(): number {
+        return this.totalRojos() / ( this.getFilas() * this.getColumnas() )
+    }
+    porcentajeVerdes(): number {
+        return this.totalVerdes() / ( this.getFilas() * this.getColumnas() )
+    }
+
+    totalPorcentaje(): number {
+        return this.totalSumadoElementos() / (this.getFilas() * this.getColumnas() )
+    }
+
+    
+    totalSumadoElementos(): number {
+        return this.totalAzules() + this.totalCafes() + this.totalVerdes() + this.totalGrises() + this.totalRojos();
     }
     setColorSchema(colorSchema: any): void {
         this.colorSchema = colorSchema;

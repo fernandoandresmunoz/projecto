@@ -23,6 +23,7 @@ import { ExponencialesComponent } from './lienzos/lienzos/exponenciales/exponenc
 import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lienzos.component';
 import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
 import { ReglasComponent } from './reglas/reglas.component';
+import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
 
 const routes: Routes = [
   {
@@ -115,7 +116,12 @@ const routes: Routes = [
   {
     path: 'rule/:id',
     component: ReglasComponent
+  },
+  {
+    path: 'nuevo-automata',
+    component: NuevoAutomataComponent
   }
+
 
 
 

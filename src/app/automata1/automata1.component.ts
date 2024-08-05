@@ -16,33 +16,18 @@ export class Automata1Component implements OnInit, ControladorColores {
   factory2 = new ConcreteShapeFactory()
   // fabricaDeAutomatas: FabricaDeAutomatas = new FabricaDeAutomatasConcreta();
   // automata1: Automata = this.factory2.createGliderStrategy(256, 64)
-  automata1: Automata = this.factory2.createMilitaryCube(256, 128);
+  automata1: Automata = this.factory2.createMilitaryCube(128, 128);
 
 
-      // return ["Green", "DarkseaGreen", "DarkGreen"]
-
-
-      // return ["Crimson", "LightCoral", "DarkRed"]
-      // return ["CornflowerBlue", "LightBlue", "Blue"]
-      // return ["Brown", "SandyBrown", "SaddleBrown"]
-      // return ["DarkGray", "LightGray", "Gray"]
- 
   coloresRegla1: string[] = [ "#0b4b0b", "#2ab22a", "#0c500c", ]
-
-
   coloresRegla2: string[] = [ "#453b07", "#d2a65b", "#453b07" ]
-
   coloresRegla3: string[] = [ "#04099a", "#5266ff", "#082fa6" ]
-
   coloresRegla4: string[] = [ "#453b07", "#a47e3d", "#453b07" ]
   coloresRegla5 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
   coloresRegla6 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
   coloresRegla7 : string[] = ["#DC143C", "#FF7F50", "f08080" ];
 
-  // automata1: Automata = this.fabricaDeAutomatas.crearAutomata(1);
-
   constructor() {  }
-
 
   cambiarRegla1(cara: number, color: string) {
     this.coloresRegla1[cara] = color;

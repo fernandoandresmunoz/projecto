@@ -108,10 +108,82 @@ export class Factory {
     
     }
 
+
+
+
+    crearRed() : Nodo {
+        let red = this.crearGrupoCelula();
+        // capa 1
+        let b = this.crearGrupoCelula();
+        let c = this.crearGrupoCelula();
+        red.addChild(b);
+        red.addChild(c);
+
+
+        // capa 2 
+
+        let d = this.crearGrupoCelula() 
+        let e =  this.crearGrupoCelula()
+        let f = this.crearGrupoCelula()
+
+        b.addChild(d);
+        b.addChild(e);
+        b.addChild(f);
+
+        c.addChild(d);
+        c.addChild(e);
+        c.addChild(f);
+
+        // capa 3 
+        let g = this.crearGrupoCelula() 
+        let h =  this.crearGrupoCelula()
+        let i = this.crearGrupoCelula()
+
+        d.addChild(g);
+        d.addChild(h);
+        d.addChild(i);
+
+        e.addChild(g);
+        e.addChild(h);
+        e.addChild(i);
+
+        f.addChild(g);
+        f.addChild(h);
+        f.addChild(i);
+
+        // capa 4.
+        
+        let j = this.crearCelula();
+        let k = this.crearCelula();
+        let l = this.crearCelula();
+
+        g.addChild(j)
+        g.addChild(k)
+        g.addChild(l)
+
+        h.addChild(j)
+        h.addChild(k)
+        h.addChild(l)
+
+        i.addChild(j)
+        i.addChild(k)
+        i.addChild(l)
+
+
+        // const celulaComun = this.crearCelula()
+        // b.addChild(celulaComun)
+        // c.addChild(celulaComun)
+
+        // red.agregarHojas();
+        red.setAutomatas();
+
+
+        return  red
+    }
+
     crearPlanta(): Nodo {
 
         let a = this.crearGrupoCelula();
-
         // let b = this.crearGrupoCelula()
         // let c = this.crearGrupoCelula()
 
@@ -125,7 +197,9 @@ export class Factory {
         // c.addChild(this.crearGrupoCelula())
 
 
-        // // a.addChild(this.superPlanta())
+        a.addChild(this.superPlanta())
+        a.addChild(this.superPlanta())
+        a.agregarHojas()
         // // a.addChild(this.megaPlanta2())
         // a.agregarHojas()
         // a.setAutomatas()
