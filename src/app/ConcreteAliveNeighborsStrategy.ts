@@ -6,43 +6,63 @@ export class ConcreteAliveNeighborsStrategy implements AliveNeighborsStrategy {
         
         let vecinos : {state: number, color: string}[] = [];
         let vivas = 0;
-        if (fila > 0 && columna > 0 && nuevaMatriz[fila - 1][columna - 1].state === 1) {
+
+        let filaAnterior = fila - 1
+        let filaSiguiente = fila + 1
+
+        let columnaAnterior = columna - 1
+        let columnaSiguiente = columna + 1
+
+        if (filaAnterior < 0) {
+            filaAnterior = nuevaMatriz.length - 1
+        }
+        if (filaSiguiente > nuevaMatriz.length - 1) {
+            filaSiguiente = 0
+        }
+
+        if (columnaAnterior < 0 ) {
+            columnaAnterior = nuevaMatriz[0].length - 1
+        }
+        if (columnaSiguiente > nuevaMatriz[0].length  - 1) {
+            columnaSiguiente = 0
+        }
+
+        if (nuevaMatriz[filaAnterior][columnaAnterior].state === 1) {
             vivas += 1
 
-            vecinos.push(nuevaMatriz[fila-1][columna - 1]);
+            vecinos.push(nuevaMatriz[filaAnterior][columnaAnterior]);
 
         }
-        if (fila > 0 && nuevaMatriz[fila - 1][columna].state == 1) {
+        if ( nuevaMatriz[filaAnterior][columna].state == 1) {
             vivas += 1
 
-            vecinos.push(nuevaMatriz[fila-1][columna])
+            vecinos.push(nuevaMatriz[filaAnterior][columna])
 
         }
-        if (fila > 0 && nuevaMatriz[fila - 1][columna + 1]?.state == 1) {
+        if ( nuevaMatriz[filaAnterior][columnaSiguiente]?.state == 1) {
             vivas += 1
-            vecinos.push(nuevaMatriz[fila - 1][columna + 1])
+            vecinos.push(nuevaMatriz[filaAnterior][columnaSiguiente])
         }
-        if (columna > 0 && nuevaMatriz[fila][columna - 1].state == 1) {
+        if ( nuevaMatriz[fila][columnaAnterior].state == 1) {
             vivas += 1
-            vecinos.push(nuevaMatriz[fila][columna - 1])
+            vecinos.push(nuevaMatriz[fila][columnaAnterior])
         }
-        if (columna < nuevaMatriz[fila].length && nuevaMatriz[fila][columna + 1]?.state == 1) {
+        if (nuevaMatriz[fila][columnaSiguiente]?.state == 1) {
             vivas += 1
-            vecinos.push(nuevaMatriz[fila][columna + 1])
+            vecinos.push(nuevaMatriz[fila][columnaSiguiente])
         }
-        if (fila < nuevaMatriz.length - 1 && columna > 0 && nuevaMatriz[fila + 1][columna - 1].state == 1) {
+        if (nuevaMatriz[filaSiguiente][columnaAnterior].state == 1) {
             vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna - 1])
+            vecinos.push(nuevaMatriz[filaSiguiente][columnaAnterior])
         }
-        if (fila < nuevaMatriz.length - 1 && nuevaMatriz[fila + 1][columna].state == 1) {
+        if (nuevaMatriz[filaSiguiente][columna].state == 1) {
             vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna])
+            vecinos.push(nuevaMatriz[filaSiguiente][columna])
         }
-        if (fila < nuevaMatriz.length - 1 && columna < nuevaMatriz[fila + 1].length &&
-            nuevaMatriz[fila + 1][columna + 1]?.state == 1) {
+        if ( nuevaMatriz[filaSiguiente][columnaSiguiente]?.state == 1) {
 
             vivas += 1
-            vecinos.push(nuevaMatriz[fila + 1][columna + 1])
+            vecinos.push(nuevaMatriz[filaSiguiente][columnaSiguiente])
         }
 
         return vecinos;
