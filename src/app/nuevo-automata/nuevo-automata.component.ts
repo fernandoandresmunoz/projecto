@@ -5,6 +5,8 @@ import { FabricaDeFunciones } from '../lienzos/fabrica-de-funciones';
 import { Lienzo } from '../lienzos/lienzo';
 import { FabricaDeLienzosConcreta } from '../lienzos/fabrica-de-lienzos-concreta';
 import { FabricaDeFuncionesConcreta } from '../lienzos/fabrica-de-funciones-concreta';
+import { JUEGO } from 'src/JUEGO';
+import { Juego } from '../ifaces/game';
 
 
 
@@ -17,7 +19,7 @@ export class NuevoAutomataComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
 
-  automata = this.factory2.createMilitaryCube(100, 100)
+  automata = this.factory2.createMilitaryCube(JUEGO.FILAS, JUEGO.COLUMNAS)
 
   constructor() { }
 

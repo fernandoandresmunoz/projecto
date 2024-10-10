@@ -46,6 +46,12 @@ export class LienzoComponent implements OnInit, Lienzo {
   public context: CanvasRenderingContext2D;
 
   constructor() { }
+  agregarFuncion2(f: (x: number) => number): void {
+    throw new Error('Method not implemented.');
+  }
+  getFunciones2(): ((x: number) => number)[] {
+    throw new Error('Method not implemented.');
+  }
   setDesdeX(desdeX: number): void {
     throw new Error('Method not implemented.');
   }

@@ -4,6 +4,7 @@
 totales = 
 filas = {{ automata.getFilas() }}
 columnas = {{ automata.getColumnas() }} 
+area = {{ automata.getFilas() * automata.getColumnas() | number }} metros cuadrados
 
 <table border="1">
     <thead>
@@ -49,12 +50,12 @@ columnas = {{ automata.getColumnas() }}
 </table>
 
 
-<tabla>
+<table>
     <tr *ngFor="let data of getValuesToPlot()">
         <td> {{ data }}</td>
         <td></td>
     </tr>
-</tabla>
+</table>
 
 
 <app-lienzo [lienzo]="lienzo"></app-lienzo>

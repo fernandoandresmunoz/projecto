@@ -19,7 +19,8 @@ import { NextGenStrategy } from '../NextGenStrategy';
 export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   @Input() showStats: boolean;
-  @Input() showController: boolean;
+  // @Input() showController: boolean;
+  showController: boolean = true;
 
   ELEMENTS = [
     'GREEN',

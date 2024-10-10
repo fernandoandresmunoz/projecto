@@ -9,9 +9,11 @@ export class ParabolaConcreta implements Parabola {
     DISTANCIA_PUNTOS_DERIVADAS = 0.001
 
     tipo: string;
+    f: (x: number) => number;
 
-    constructor(tipo: string) {
+    constructor(tipo: string, f: (x: number) => number) {
         this.tipo = tipo;
+        this.f = f ;
 
     }
 
@@ -88,7 +90,7 @@ export class ParabolaConcreta implements Parabola {
 
         while (x < hasta) {
 
-            points.push(fabricaDePuntos.crear(x, this.funcion(x)))
+            points.push(fabricaDePuntos.crear(x, this.f(x)))
             x += 0.01;
         }
 

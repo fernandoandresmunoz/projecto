@@ -3,6 +3,15 @@ import { Lienzo } from "./lienzo";
 
 
 export class LienzoConcreto implements Lienzo{
+    getFunciones2(): ((x: number) => number)[] {
+        return this.funciones2;
+    }
+    agregarFuncion2(f: (x: number) => number): void {
+        this.funciones.push(f);
+    }
+
+
+    funciones2 : ( (x: number ) => number )[] = []
     funciones: Funcion[] = [];
     ancho: number = 800 ;
     largo: number = 800;

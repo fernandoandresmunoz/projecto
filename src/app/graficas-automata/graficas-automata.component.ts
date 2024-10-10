@@ -23,7 +23,7 @@ export class GraficasAutomataComponent implements OnInit {
   [
     this.fabricaFunciones.crear(x => { return 1  }, 'blue'),
     this.fabricaFunciones.crear(x => { return 2  }, 'blue'),
-    this.fabricaFunciones.crear(x => this.getValuesToPlot().map( x => { return x[1] }), 'red')
+    // this.fabricaFunciones.crear(x => this.getValuesToPlot().map( x => { return x[1] }), 'red')
     // this.fabricaFunciones.crear(x => this.getValuesToPlot())
     // this.fabricaFunciones.crear(x => {return  Math.sin(x) + Math.sin(Math.sqrt(2) * x) + Math.sin(Math.cbrt(3) * x) }, 'red'),
     // this.fabricaFunciones.crear(x => { return Math.sin(x) + Math.sin(Math.sqrt(2) * x)}, 'green')

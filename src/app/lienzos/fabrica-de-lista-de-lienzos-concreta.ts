@@ -10,7 +10,48 @@ import {Function as Funcion} from './function'
 
 export class FabricaDeListaDeLienzosConcreta implements FabricaDeListaDeLienzos {
 
-    fabricaRapida(title: string, funcion: Funcion, desdeY: number, hastaY: number, desdeX: number = 0, hastaX: number = 260): Lienzo {
+    fabricaRapida2(
+        title: string = "",
+         funcion: (x: number) => number,
+         desdeY: number=-3,
+         hastaY: number=3,
+         desdeX: number = -3,
+         hastaX: number =3 
+         ): Lienzo {
+        const fabricaLienzos: FabricaDeLienzos = new FabricaDeLienzosConcreta()
+        const fabricaDeFunciones: FabricaDeFunciones = new FabricaDeFuncionesConcreta()
+
+        const ALTO_RECTANGULO = 800;
+        const ANCHO_RECTANGULO = 800;
+        const HASTA_EJE_X = hastaX;
+        const DESDE_EJE_X = desdeX
+
+        let lienzo = fabricaLienzos.crear(title,
+            ANCHO_RECTANGULO,
+            ALTO_RECTANGULO,
+            desdeX,
+            hastaX,
+            desdeY,
+            hastaY,
+            'blue',
+            [
+
+                fabricaDeFunciones.crear(  funcion , 'red'),
+            ]
+        )
+        return lienzo;
+    }
+
+
+
+    fabricaRapida(
+        title: string = "",
+         funcion: Funcion,
+         desdeY: number,
+         hastaY: number,
+         desdeX: number = 0,
+         hastaX: number = 260
+         ): Lienzo {
         const fabricaLienzos: FabricaDeLienzos = new FabricaDeLienzosConcreta()
         const fabricaDeFunciones: FabricaDeFunciones = new FabricaDeFuncionesConcreta()
 
@@ -46,20 +87,20 @@ export class FabricaDeListaDeLienzosConcreta implements FabricaDeListaDeLienzos 
         let listaDeLienzos: ListaDeLienzos = new ListaDeLienzosConcreta();
 
         let lienzos = [
-            this.fabricaRapida(
-                'sin(x) + sin(x * 3/2)',
-                fabricaDeFunciones.crear(x => { return Math.sin(x) + Math.sin(x * 3 / 2) }, 'red'),
-                -2.2,
-                2.2,
+            this.fabricaRapida2(
+                "f(x) = x**2 ",
+                x => { return x**2} ,
+
+
             ),
 
-            this.fabricaRapida(
-                'sin(x) + sin(x * 10/7)',
-                fabricaDeFunciones.crear(x => { return Math.sin(x) + Math.sin(x * 10 / 7) }, 'green'),
-                -2.2,
-                2.2,
-            )
-            ,
+            // this.fabricaRapida2(
+            //     'sin(x) + sin(x * 10/7)',
+            //     x => { return Math.sin(x) + Math.sin(x * 10 / 7) } ,
+            //     -2.2,
+            //     2.2,
+            // )
+            // ,
 
             this.fabricaRapida(
                 'sen(x) + sen(x  √2 )',
@@ -94,7 +135,16 @@ export class FabricaDeListaDeLienzosConcreta implements FabricaDeListaDeLienzos 
                 0,
                 120
             )
+,
 
+            this.fabricaRapida(
+                '1',
+                fabricaDeFunciones.crear(x => { return 1 }, 'green'),
+                -3,
+                3,
+                -3,
+               3
+            )
         ]
 
         for (let lienzo of lienzos) {

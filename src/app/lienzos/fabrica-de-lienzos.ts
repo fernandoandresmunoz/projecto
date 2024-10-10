@@ -15,5 +15,20 @@ export interface FabricaDeLienzos {
 
         ): Lienzo;
 
+crear2(title: string,
+        anchoLienzo: number,
+        altoLienzo: number,
+        desdeX: number,
+        hastaX: number,
+        desdeY: number,
+        hastaY: number,
+        background: string,
+        funciones: ((x: number) => number)[]
+
+        ): Lienzo;
+
+
+
+
     crearExponenciales(): Lienzo
 }

@@ -21,23 +21,35 @@ function todosMisVecinosSonCafes(i: number, j: number, matrizAuxiliar: {state: n
                         // matrizAuxiliar[i +1][j].state >= 1  &&
                         // matrizAuxiliar[i - 1][j + 1].state >= 1  &&
                         // matrizAuxiliar[i][j + 1].state >= 1  &&
-                        // matrizAuxiliar[i+ 1][j + 1].state >= 1  
-                        
+    // matrizAuxiliar[i+ 1][j + 1].state >= 1  
+
 }
 
 
-function calcularDistancia(i: number, j: number, matriz: {state: number, color: string}[][],distancia:number): number {
+function calcularDistancia(i: number, j: number, matriz: { state: number, color: string }[][], distancia: number): number {
     // return todosMisVecinosSonCafes()
     let salida = 0
-    for( let i = distancia; i <   1; i --) {
-        if (todosMisVecinosSonCafes(i, j, matriz , distancia) ) {
+    for (let i = distancia; i < 1; i--) {
+        if (todosMisVecinosSonCafes(i, j, matriz, distancia)) {
             return distancia
         }
-    } 
+    }
     return 0
 }
 
 export class ConcreteDrawingStrategy implements DrawingStrategy {
+
+    mapa = new Map();
+
+    constructor() {
+
+        this.mapa.set("Green", 5)
+        this.mapa.set("Red", 3)
+        this.mapa.set("Brown", 10)
+        this.mapa.set("Gray", 3)
+        this.mapa.set("Blue", 2)
+    }
+
     draw(automata: Automata, matriz: { state: number; color: string; }[][]): void {
         automata.clean();
         if (matriz === undefined) return
@@ -48,160 +60,15 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
             matrizAuxiliar[x] = matrizAuxiliar[x].slice().reverse();
         }
 
-
         for (let i = 0; i < matrizAuxiliar.length; i++) {
             for (let j = 0; j < matrizAuxiliar[i].length; j++) {
 
-                if (matrizAuxiliar[i][j].state >= 1) {
+                const celda = matrizAuxiliar[i][j]
 
+                if (celda.state >= 1) {
 
-                    try {
-                        let altura = 4;
-
-
-
-                        if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 8) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 9) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 10) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 11)
-
-                        ) {
-                            altura = 4
-                        }
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 8) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 9) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 10)
-
-                        ) {
-                            altura = 4 
-                        }
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 8) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 9)
-
-                        ) {
-                            altura = 4 
-                        }
-
-
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 8)
-
-                        ) {
-                            altura =4 
-                        }
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 7)
-
-                        ) {
-                            altura =4 
-                        }
-
-
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 6)
-
-                        ) {
-                            altura = 4
-                        }
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 5)
-
-                        ) {
-                            altura =4 
-                        }
-
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 4)
-
-                        ) {
-                            altura = 4 
-                        }
-
-
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 3)
-
-                        ) {
-                            altura = 4
-                        }
-
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1) &&
-                            todosMisVecinosSonCafes(i, j, matrizAuxiliar, 2)) {
-                            altura = 4
-                        }
-
-                        else if (todosMisVecinosSonCafes(i, j, matrizAuxiliar, 1)) {
-                            altura = 4
-                        }
-
-                        else if (matrizAuxiliar[i][j].color === 'Green') {
-                            altura = 4
-                        }
-
-                        automata.crearBloque({ state: matrizAuxiliar[i][j].state, color: matrizAuxiliar[i][j].color }, altura);
-
-
-                    } catch (error) {
-
-                        automata.crearBloque({ state: matrizAuxiliar[i][j].state, color: matrizAuxiliar[i][j].color }, 2);
-                    }
-
+                    const altura = this.mapa.get(celda.color);
+                    automata.crearBloque({ state: celda.state, color: celda.color }, altura);
 
                 }
                 automata.left();

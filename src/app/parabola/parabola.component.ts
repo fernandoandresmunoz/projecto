@@ -23,10 +23,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   public context: CanvasRenderingContext2D;
 
   @Input() tipo: string;
+  @Input() f: (x: number) => number = x => x**2;
 
   usuarioX: number = 0
   pendiente: number = 0;
-
+ 
 
   ANCHO_PUNTO_DERIVADA = 5;
 
@@ -37,7 +38,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   parabola: Parabola;
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
-  ANCHO_EJE_X = 10  ;
+  ANCHO_EJE_X = 6  ;
   inicio = -3;
   fin = 3;   
   dibujarEjes = true;
@@ -85,6 +86,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   @Input() showOptions: boolean;
 
+
+
+  constructor() {
+
+  }
 
   centrar(): void { 
     this.centerX = this.anchoLienzo/2;
@@ -136,9 +142,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   selectedValue: string;
 
-  constructor() {
 
-  }
   cambiarMostrarDerivada(mostrar: boolean): void {
     this.mostrarDerivada = !this.mostrarDerivada;
     this.draw()
@@ -339,6 +343,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     throw new Error('Method not implemented.');
   }
   funcion(x: number): number {
+    return this.f(x)
     return this.parabola.funcion(x);
   }
 
@@ -560,7 +565,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   draw(): void {
 
     // this.context.beginPath();
-    this.parabola = new ParabolaConcreta(this.tipo);
+    this.parabola = new ParabolaConcreta(this.tipo, this.f);
     this.transformadorDePuntos = new TransformadorDePuntosConcretos(this.anchoLienzo,
       this.largoLienzo, this.ANCHO_EJE_X, this.ANCHO_EJE_X)
     this.distanciaPuntosDerivada = 0.001

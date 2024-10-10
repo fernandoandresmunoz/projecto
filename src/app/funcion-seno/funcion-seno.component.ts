@@ -12,4 +12,8 @@ export class FuncionSenoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  seno() : (x: number) => number { 
+    return x => Math.sin(x);
+  }
+
 }
