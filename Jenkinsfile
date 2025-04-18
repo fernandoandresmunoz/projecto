@@ -9,6 +9,7 @@ pipeline {
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm install v16.20.2
                     nvm use v16.20.2
+                    npm install -g angular-cli@11
                 '''
             }
         }
