@@ -13,9 +13,7 @@ pipeline {
                     npm install --force
                     ng build --prod
                     ls -l dist/projecto
-                    docker build . -t projecto:latest 
-                    docker stack deploy -c stack.yaml projecto
-                    
+                   
                     
                 '''
             }
@@ -25,7 +23,9 @@ pipeline {
         stage('Use NVM - Step 2') {
             steps {
                 sh '''
-                  echo "test"
+                  docker build . -t projecto:latest 
+                  docker stack deploy -c stack.yaml projecto
+                    
                 '''
             }
         }
