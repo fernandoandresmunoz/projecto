@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+
+    front:
+      image: projecto:latest
+      ports:
+       - 8888:80
+      deploy: # Limitar recursos
+        resources:
+          limits:
+            memory: "512M" # Ajusta según necesidad
+          reservations:
+            memory: "128M" # Ajusta según necesidad
