@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent
+    component: Automata1Component,
   },
   {
     path: 'test-path',
