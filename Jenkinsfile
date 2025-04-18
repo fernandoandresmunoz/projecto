@@ -10,6 +10,7 @@ pipeline {
                     nvm --version
                     nvm install 16
                     nvm use 16
+                    npm test
                 '''
             }
         }
