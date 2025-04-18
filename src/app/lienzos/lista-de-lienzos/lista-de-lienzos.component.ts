@@ -16,6 +16,15 @@ export class ListaDeLienzosComponent implements OnInit, ListaDeLienzos {
   listaDeLienzos: ListaDeLienzos = this.fabricaDeListaDeLienzos.crear()
 
   constructor() { }
+  obtenerLienzos(): Lienzo[] {
+    throw new Error('Method not implemented.');
+  }
+  eliminarLienzo(lienzo: Lienzo): boolean {
+    throw new Error('Method not implemented.');
+  }
+  cargarLienzos(): void {
+    throw new Error('Method not implemented.');
+  }
   agregarLienzo(lienzo: Lienzo): void {
     throw new Error('Method not implemented.');
   }

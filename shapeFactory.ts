@@ -18,7 +18,7 @@ export interface ShapeFactory {
     createTrimetricCube(): Automata;
     createCavalier(): Automata;
     createCavalierCube(filas: number, columnas: number): Automata;
-    createBloque(p0: Point, p1: Point, p2: Point, p3: Point): Bloque; 
+    createBloque(p0: Point, p1: Point, p2: Point, p3: Point): Bloque;
 
     createDiamoebaRule(): Rule;
     createLifeRule(): Rule;

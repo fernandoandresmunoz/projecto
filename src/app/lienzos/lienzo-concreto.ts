@@ -3,11 +3,17 @@ import { Lienzo } from "./lienzo";
 
 
 export class LienzoConcreto implements Lienzo{
+    cargarPuntos(): void {
+        throw new Error("Method not implemented.");
+    }
+    cargarRectas(): void {
+        throw new Error("Method not implemented.");
+    }
     getFunciones2(): ((x: number) => number)[] {
         return this.funciones2;
     }
     agregarFuncion2(f: (x: number) => number): void {
-        this.funciones.push(f);
+        // this.funciones.push(f);
     }
 
 

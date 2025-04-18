@@ -10,8 +10,8 @@ export const JUEGO = {
     MILITAR_STEP: 1,
     ALTO_LIENZO: 1400,
     ANCHO_LIENZO: 1200,
-    FILAS: 256,
-    COLUMNAS: 256,
+    FILAS: 64,
+    COLUMNAS: 64,
     CELULA: {
 
 

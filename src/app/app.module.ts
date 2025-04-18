@@ -43,6 +43,7 @@ import { ReglasComponent } from './reglas/reglas.component';
 import { RedViewComponent } from './red-view/red-view.component';
 import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
 import { GraficasAutomataComponent } from './graficas-automata/graficas-automata.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { GraficasAutomataComponent } from './graficas-automata/graficas-automata
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

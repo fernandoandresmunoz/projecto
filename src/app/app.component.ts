@@ -41,12 +41,12 @@ export class AppComponent {
   automata2 = this.factory2.createMilitaryCube(50, 50)
 automata3 = this.factory2.createMilitary2(40, 60)
   generacion: number = 0;
-  points: [number, number][] = []
-  azules: [number, number][] = []
-  rojos: [number, number][] = []
-  cafes: [number, number][] = []
-  grises: [number, number][] = []
-  verdes: [number, number][] = []
+  points: [number, number][] = [];
+  azules: [number, number][] = [];
+  rojos: [number, number][] = [];
+  cafes: [number, number][] = [];
+  grises: [number, number][] = [];
+  verdes: [number, number][] = [];
 
   constructor() {
 

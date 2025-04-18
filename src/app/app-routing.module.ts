@@ -26,6 +26,10 @@ import { ReglasComponent } from './reglas/reglas.component';
 import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
 
 const routes: Routes = [
+{
+    path: 'grafico',
+    component: FuncionLogaritmicaComponent
+  },
   {
     path: '',
     component: HomeComponent
@@ -57,10 +61,6 @@ const routes: Routes = [
  {
     path: 'void',
     component: VoidComponent
-  },
-  { 
-    path: 'automata-1',
-    component: Automata1Component
   },
 { 
     path: 'gauss',

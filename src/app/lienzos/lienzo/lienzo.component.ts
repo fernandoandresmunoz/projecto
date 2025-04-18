@@ -46,6 +46,12 @@ export class LienzoComponent implements OnInit, Lienzo {
   public context: CanvasRenderingContext2D;
 
   constructor() { }
+  cargarPuntos(): void {
+    throw new Error('Method not implemented.');
+  }
+  cargarRectas(): void {
+    throw new Error('Method not implemented.');
+  }
   agregarFuncion2(f: (x: number) => number): void {
     throw new Error('Method not implemented.');
   }

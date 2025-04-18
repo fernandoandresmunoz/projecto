@@ -1,6 +1,13 @@
+<p>
+    ancho eje x : {{ anchoEjeX }}
+</p>
+
+
+
+
 <div style="display: inline-block;">
 
-<canvas style="border: '1px solid gray'" #myCanvas [width]="800" [height]="800" ></canvas>
+<canvas style="border: '1px solid gray'" #myCanvas [width]="anchoLienzo" [height]="largoLienzo" ></canvas>
 </div>
 <div *ngIf="showOptions" style="display: inline-block; margin-left: 4em; border: 1px solid gray; padding: 2em">
     <div>
@@ -157,4 +164,28 @@
         <td> {{ transformadorDePuntos.transformarPunto(point).getY() }}</td>
     </tr>
     </tbody>
+</table> -->
+
+
+<!-- <table border="1">
+    <tr>
+        <td>ancho ejex </td>
+        <td>{{ ANCHO_EJE_X }}</td>
+    </tr>
+    <tr>
+        <td>desde x</td>
+        <td>{{ - ANCHO_EJE_X / 2 }}</td>
+    </tr>
+    <tr>
+        <td>hasta x</td>
+        <td>{{ ANCHO_EJE_X/ 2 }}</td>
+    </tr>
+<tr>
+        <td>Center X</td>
+        <td>{{ centerX }}</td>
+    </tr>
+<tr>
+        <td>Center Y</td>
+        <td>{{ centerY }}</td>
+    </tr>
 </table> -->

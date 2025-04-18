@@ -8,6 +8,9 @@ import { ConcreteLine } from 'concrete-line';
 import { Line } from 'line';
 import { TransformadorDePuntos } from '../geometry/transformador-de-puntos';
 import { ControladorCalculadora } from '../calculadora/controlador-calculadora';
+import { Perpendicular } from '../funcion-logaritmica/perpendicular';
+import { Geometry } from '../geometry/geometry';
+import { GeometryService } from '../geometry.service';
 
 @Component({
   selector: 'app-parabola',
@@ -24,6 +27,15 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   @Input() tipo: string;
   @Input() f: (x: number) => number = x => x**2;
+  @Input() integral: boolean = true;
+  // @Input() curvas: ((x: number) => number)[] = [ x=> x, x=> 2]
+  @Input() curvas: {color: string, f: (x: number) => number }[] = [{ f: x=> x, color: 'red' }, { f: x=> 2, color: 'green' }];
+  @Input() puntos: {id: number, x: number, y: number}[];
+  @Input() rectas: {x1: number, y1: number, x2: number, y2: number}[];
+  @Input() circunferencias: {x: number, y: number, radio: number}[];
+  @Input() perpendiculares: Perpendicular[];
+
+
 
   usuarioX: number = 0
   pendiente: number = 0;
@@ -38,7 +50,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   parabola: Parabola;
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
-  ANCHO_EJE_X = 6  ;
+  ANCHO_EJE_X = 16  ;
   inicio = -3;
   fin = 3;   
   dibujarEjes = true;
@@ -73,8 +85,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   altoTickEjeX: number;
   anchoTickEjeY: number;
 
-  anchoLienzo =800;
-  largoLienzo = 800;
+  anchoLienzo =1000;
+  largoLienzo = 1000;
 
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
@@ -88,7 +100,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
 
-  constructor() {
+  constructor(private geometry: GeometryService) {
 
   }
 
@@ -344,7 +356,6 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
   funcion(x: number): number {
     return this.f(x)
-    return this.parabola.funcion(x);
   }
 
   ngOnInit(): void {
@@ -411,16 +422,21 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
     // eje y 
-    const q1 = new ConcretePoint(this.anchoLienzo / 2, 0);
-    const q2 = new ConcretePoint(this.anchoLienzo/ 2, this.largoLienzo);
+    const q1 = new ConcretePoint(this.centerX , 0);
+    const q2 = new ConcretePoint(this.centerX, this.largoLienzo);
     this.drawLine(q1, q2, 'gray', 1)
   }
 
 
-  dibujarCurva(): void {
-    const puntos = this.getPoints(-this.transformadorDePuntos.getAnchoCalculadora() / 2,
+  dibujarCurva(parabola: Parabola, color: string): void {
+    const puntos = parabola.getPoints(-this.transformadorDePuntos.getAnchoCalculadora() / 2,
       this.transformadorDePuntos.getAnchoCalculadora() / 2);
-    for (let i = 0; i < puntos.length ; i++) {
+
+
+
+    for (let i = 0; i < puntos.length - 1; i++) {
+
+
       const p = puntos[i];
       const q = puntos[i + 1]
       const x1 = this.transformadorDePuntos.transformarPunto(p, this.centerX, this.centerY).getX();
@@ -429,11 +445,9 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
       const x2 = this.transformadorDePuntos.transformarPunto(q, this.centerX, this.centerY).getX();
       const y2 = this.transformadorDePuntos.transformarPunto(q, this.centerX, this.centerY).getY();
 
-      this.drawLine(new ConcretePoint(x1, y1), new ConcretePoint(x2, y2), this.colorCurva, this.anchoCurva)
+      this.drawLine(new ConcretePoint(x1, y1), new ConcretePoint(x2, y2), color, this.anchoCurva)
 
     }
-
-
   }
 
   dibujarRangoIntegral(): void {
@@ -547,18 +561,70 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   dibujarNumerosEjes() {
 
     for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i =  i + this.intervaloNumerosEjeX ) {
-      this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'black')
-      this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'black', 1)
+      this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'gray')
+      this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'gray', 1)
     }
     // eje y 
     for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeY) {
       if ( i !== 0 ) {
 
-      this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'black'  )
-      this.dibujarLinea(new ConcretePoint( 0.1, i), new ConcretePoint( -0.1, i), 'black', 1)
+      this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'gray'  )
+      this.dibujarLinea(new ConcretePoint( 0.1, i), new ConcretePoint( -0.1, i), 'gray', 1)
       }
     }
 
+
+  }
+
+
+
+  pointFactory(point: {x: number, y: number}): Point  {
+    return new ConcretePoint(point.x, point.y)
+  }
+
+  dibujarRectas() : void { 
+    for (let index = 0; index < this.rectas.length; index++) {
+      const recta: {x1: number, y1: number, x2: number, y2: number} = this.rectas[index];
+      this.dibujarLinea2(recta.x1, recta.y1, recta.x2, recta.y2)
+      
+    }
+
+  }
+
+  dibujarPuntos(): void {
+
+    // no deberia recibir mas de tres puntos 
+
+    for (let index = 0; index < this.puntos.length; index++) {
+      const punto = this.puntos[index];
+      
+      this.dibujarTexto("P"+punto.id, punto.x, punto.y - .5, 'black')
+      let concretePoint = new ConcretePoint(punto.x, punto.y)
+      this.dibujarRectangulo2(concretePoint, 10, 10) 
+    }
+
+  }
+
+  dibujarCircunferencias(): void { 
+    console.log('dibujando circunferencias')
+    
+    for (let index = 0; index < this.circunferencias.length; index++) {
+      this.context.beginPath()
+      const circunferencia = this.circunferencias[index];
+      let point1 = new ConcretePoint(circunferencia.x, circunferencia.y);
+      let point2 = new ConcretePoint(circunferencia.radio, 0);
+
+      let newPoint = this.transformadorDePuntos.transformarPunto(point1, this.centerX, this.centerY)
+      let newPoint2 =this.transformadorDePuntos.transformarPunto(point2, this.centerX, this.centerY)
+
+      this.context.stroke()
+      console.log(newPoint2.getX())
+      console.log(circunferencia.radio)
+      console.log(this.transformadorDePuntos.transformadorDeNumero(circunferencia.radio))
+      this.context.arc(newPoint.getX(), newPoint.getY(), 50 , 0, 2 * Math.PI);
+
+      this.context.stroke()
+    }
 
   }
 
@@ -566,19 +632,30 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     // this.context.beginPath();
     this.parabola = new ParabolaConcreta(this.tipo, this.f);
+    let curva2 = new ParabolaConcreta(this.tipo, (x: number) => x**2 - 2.5)
+
+
     this.transformadorDePuntos = new TransformadorDePuntosConcretos(this.anchoLienzo,
       this.largoLienzo, this.ANCHO_EJE_X, this.ANCHO_EJE_X)
     this.distanciaPuntosDerivada = 0.001
 
 
 
-    this.context.clearRect(0, 0, this.anchoLienzo, this.largoLienzo);
 
     this.context.fillStyle = this.colorFondoLienzo;
+    this.context.clearRect(0, 0, this.anchoLienzo, this.largoLienzo);
     this.context.fillRect(0, 0, this.anchoLienzo, this.largoLienzo,)
+      this.dibujarRectas()
+      this.dibujarPuntos()
+      this.dibujarCircunferencias()
+      this.dibujarPerpendiculares()
 
 
-    this.dibujarIntegral()
+
+    if (this.integral) {
+
+      this.dibujarIntegral()
+    }
     if (this.dibujarEjes) {
       this.dibujarEjesXY()
       this.dibujarNumerosEjes()
@@ -587,20 +664,33 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
 
+    this.curvas.map( curva => {
+      this.dibujarCurva(new ParabolaConcreta(this.tipo , curva.f), curva.color)
+    })
+      // this.dibujarCurva(this.parabola)
+      // this.dibujarCurva(curva2);
 
 
-    try {
 
-      this.dibujarCurva()
-    } catch (error) {
-
-    }
     if (this.mostrarDerivada) {
 
       this.dibujarDerivada()
     }
 
 
+
+  }
+
+  dibujarPerpendiculares(): void {
+    for (let index = 0; index < this.perpendiculares.length; index++) {
+      const element = this.perpendiculares[index];
+      console.log(element)
+      let x1 = this.geometry.puntoPerpendicular(element.x1, element.y1, element.x2, element.y2, element.px, element.py)[0]
+      let y1 = this.geometry.puntoPerpendicular(element.x1, element.y1, element.x2, element.y2, element.px, element.py)[1]
+
+      this.dibujarLinea2(x1, y1, element.px, element.py, 'red')
+      
+    }
 
   }
 
@@ -613,6 +703,25 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     this.context.lineTo(pointB.getX(), pointB.getY());
     this.context.stroke();
   }
+
+
+  dibujarLinea2(x1: number, y1: number, x2: number, y2: number, color: string = 'black', width: number = 2) {
+
+    let point1 = new ConcretePoint(x1, y1);
+    let point2 = new ConcretePoint(x2, y2);
+    const newPoint1 = this.transformadorDePuntos.transformarPunto(point1, this.centerX, this.centerY);
+    const newPoint2 = this.transformadorDePuntos.transformarPunto(point2, this.centerX, this.centerY);
+    this.context.beginPath()
+    this.context.strokeStyle = color;
+    this.context.lineWidth = width;
+
+
+    this.context.moveTo(newPoint1.getX(), newPoint1.getY());
+    this.context.lineTo(newPoint2.getX(), newPoint2.getY());
+    this.context.stroke();
+  }
+
+
 
   dibujarLinea(point1: Point, point2: Point, color: string = 'gray', width: number = 1) {
     const newPoint1 = this.transformadorDePuntos.transformarPunto(point1, this.centerX, this.centerY);
@@ -631,7 +740,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   dibujarRectangulo2(point1: Point, width: number, height: number) {
     const newPoint1 = this.transformadorDePuntos.transformarPunto(point1, this.centerX, this.centerY);
 
-    this.context.fillRect(newPoint1.getX(), newPoint1.getY(),
+    this.context.fillRect(newPoint1.getX() - width/2, newPoint1.getY() -height/2,
       width,
       height
     )

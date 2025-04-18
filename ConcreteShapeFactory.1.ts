@@ -477,6 +477,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
+    // creation of automata.
     createMilitaryCube(filas: number, columnas: number): Automata {
 
         let automata = this.configureIsometricSettings(filas, columnas);

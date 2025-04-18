@@ -3,6 +3,9 @@ import { Function as Funcion } from "./function";
 
 export interface Lienzo extends Coloreable {
 
+    cargarPuntos(): void;
+    cargarRectas(): void;
+
     agregarFuncion(funcion: Funcion): void;
     agregarFuncion2( f : (x: number) => number): void;
 
