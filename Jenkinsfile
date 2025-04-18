@@ -20,7 +20,7 @@ pipeline {
         }
 
 
-        stage('Use NVM - Step 2') {
+        stage('Build & deploy docker image') {
             steps {
                 sh '''
                   docker build . -t projecto:latest 
