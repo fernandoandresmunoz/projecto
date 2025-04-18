@@ -8,6 +8,26 @@ pipeline {
                 sh 'nvm --version' // Verifica la instalación
             }
         }
+
+        stage('Use NVM - Step 1') {
+            steps {
+                sh '''
+                    . "$HOME/.nvm/nvm.sh"
+                    nvm --version
+                '''
+            }
+        }
+        stage('Use NVM - Step 2') {
+            steps {
+                sh '''
+                    . "$HOME/.nvm/nvm.sh"
+                    nvm use 18
+                    node -v
+                '''
+            }
+        }
+
+
     stage('stage') {
       steps {
         sh 'echo "test 1"'
