@@ -14,6 +14,8 @@ pipeline {
     }
     stage('stage 2') {
       steps {
+        sh 'pwd'
+        sh 'whoami'
         sh 'nvm --version'
         sh "npm start"
         sh 'node --version'
