@@ -23,8 +23,9 @@ pipeline {
         stage('Build & deploy docker image') {
             steps {
                 sh '''
-                  docker stack rm projecto
                   docker build . -t projecto:latest 
+                  docker stack rm projecto
+                  sleep 20
                   docker stack deploy -c stack.yaml projecto
                     
                 '''
