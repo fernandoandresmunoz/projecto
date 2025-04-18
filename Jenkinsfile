@@ -17,9 +17,7 @@ pipeline {
         stage('Use NVM - Step 2') {
             steps {
                 sh '''
-                    . "$HOME/.nvm/nvm.sh"
-                    nvm use 18
-                    node -v
+                  echo "test"
                 '''
             }
         }
