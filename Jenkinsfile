@@ -14,11 +14,6 @@ pipeline {
         }
 
 
-            stage('Install NVM') {
-            steps {
-            }
-        }
-
         stage('Use NVM - Step 1') {
             steps {
                 sh '''
