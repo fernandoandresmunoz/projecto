@@ -14,7 +14,9 @@ pipeline {
     }
     stage('stage 2') {
       steps {
+        sh 'nvm --version'
         sh "npm start"
+        sh 'node --version'
       }
     }
   }
