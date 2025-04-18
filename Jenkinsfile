@@ -1,11 +1,16 @@
 pipeline {
   agent any
   stages {
+            stage('Install NVM') {
+            steps {
+                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
+                sh '. "$HOME/.nvm/nvm.sh"' // Carga NVM
+                sh 'nvm --version' // Verifica la instalación
+            }
+        }
     stage('stage') {
       steps {
         sh 'echo "test 1"'
-        sh '''export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf '%s/.nvm' "${HOME}" || printf '%s' "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'''
       }
     }
     stage('test') {
