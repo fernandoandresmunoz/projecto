@@ -5,7 +5,7 @@ services:
     front:
       image: projecto:latest
       ports:
-       - 8888:80
+       - 18888:80
       deploy: # Limitar recursos
         resources:
           limits:
