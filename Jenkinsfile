@@ -10,6 +10,7 @@ pipeline {
                     nvm install v16.20.2
                     nvm use v16.20.2
                     npm i -g  @angular/cli@11.0.0
+                    npm i 
                     npm test
                     
                 '''
