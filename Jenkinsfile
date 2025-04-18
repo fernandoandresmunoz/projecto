@@ -14,16 +14,24 @@ pipeline {
         }
 
 
+            stage('Install NVM') {
+            steps {
+            }
         }
 
         stage('Use NVM - Step 1') {
             steps {
-                sh 'echo "test 1"'
+                sh '''
+                    nvm --version
+                '''
             }
         }
         stage('Use NVM - Step 2') {
             steps {
-                sh ''' echo "hola"
+                sh '''
+                    . "$HOME/.nvm/nvm.sh"
+                    nvm use 18
+                    node -v
                 '''
             }
         }
@@ -50,3 +58,4 @@ pipeline {
       }
     }
   }
+}
