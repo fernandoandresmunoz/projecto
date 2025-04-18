@@ -14,13 +14,6 @@ pipeline {
         }
 
 
-        stage('Use NVM - Step 1') {
-            steps {
-                sh '''
-                    nvm --version
-                '''
-            }
-        }
         stage('Use NVM - Step 2') {
             steps {
                 sh '''
