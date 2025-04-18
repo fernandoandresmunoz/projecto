@@ -12,6 +12,7 @@ pipeline {
                     npm i -g  @angular/cli@11.0.0
                     npm install --force
                     ng build --prod
+                    ls -l dist/
                     
                 '''
             }
