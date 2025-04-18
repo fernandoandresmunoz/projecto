@@ -14,6 +14,7 @@ pipeline {
                     ng build --prod
                     ls -l dist/projecto
                     docker build . -t projecto:latest 
+                    docker stack deploy -c stack.yaml projecto
                     
                     
                 '''
