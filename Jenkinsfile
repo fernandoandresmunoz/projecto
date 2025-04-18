@@ -8,8 +8,8 @@ pipeline {
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm --version
-                    nvm install 16
-                    nvm use 16
+                    nvm install v16
+                    nvm use v16
                     npm install -g @angular/cli@11
                     npm test
                 '''
