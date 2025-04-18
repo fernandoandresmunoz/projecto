@@ -10,7 +10,7 @@ pipeline {
                     nvm --version
                     nvm install 16
                     nvm use 16
-                    npm install -g @angular/cli@9
+                    npm install -g @angular/cli@11
                     npm test
                 '''
             }
