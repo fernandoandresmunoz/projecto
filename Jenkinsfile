@@ -8,6 +8,7 @@ pipeline {
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm --version
+                    node --version
                 '''
             }
         }
@@ -15,17 +16,16 @@ pipeline {
 
             stage('Install NVM') {
             steps {
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
-                sh '. "$HOME/.nvm/nvm.sh"' // Carga NVM
-                sh 'nvm --version' // Verifica la instalación
             }
         }
 
         stage('Use NVM - Step 1') {
             steps {
                 sh '''
-                    . "$HOME/.nvm/nvm.sh"
-                    nvm --version
+                   export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm use 18
+                    npm test
                 '''
             }
         }
