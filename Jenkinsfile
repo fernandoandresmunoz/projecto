@@ -37,9 +37,6 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'whoami'
-        sh 'nvm --version'
-        sh "npm start"
-        sh 'node --version'
       }
     }
   }
