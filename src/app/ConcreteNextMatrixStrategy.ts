@@ -145,14 +145,14 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
         this.counter = this.counter + 1;
 
 
-        if (this.counter % 10 === 0) { 
-            console.log("Counter: " + this.counter);
-            for ( let i = 0; i < nuevaMatriz.length; i++) {
-                for ( let j = 0 ; j < nuevaMatriz[0].length; j++) {
-                    console.log("Matriz[" + i + "][" + j + "] = " + nuevaMatriz[i][j].state + nuevaMatriz[i][j].color);
-                }
-            }
-        }
+        // if (this.counter % 10 === 0) { 
+        //     console.log("Counter: " + this.counter);
+        //     for ( let i = 0; i < nuevaMatriz.length; i++) {
+        //         for ( let j = 0 ; j < nuevaMatriz[0].length; j++) {
+        //             // console.log("Matriz[" + i + "][" + j + "] = " + nuevaMatriz[i][j].state + nuevaMatriz[i][j].color);
+        //         }
+        //     }
+        // }
 
 
 
