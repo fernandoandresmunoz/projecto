@@ -97,17 +97,19 @@ export class MinecraftViewComponent implements OnInit {
   private moveRight = false;
   private canJump = true;
   private isUnderwater = false;
-  private moveSpeed = 400.0;
-  private gravity = 9.8;
+  private moveSpeed = 15.0;
+  private gravity = 30.0;
   private playerHeight = 2.0;
-  private jumpForce = 350;
+  private jumpForce = 10.0;
+  private friction = 5.0;
+  private acceleration = 30.0;
 
   private isLocked = false;
   private prevTime = performance.now();
 
   private readonly colorMap: { [key: string]: number } = {
     'Green': 0x2F5A1C,  // Verde más oscuro para las hojas
-    'Brown': 0x8B6B4F,  // Marrón para tierra
+    'Brown': 0x5C4033,  // Marrón más oscuro para tierra
     'Blue': 0x0F5E9C,   // Azul oscuro para agua
     'Gray': 0x808080,   // Gris para montañas
     'Red': 0x6B4423     // Marrón oscuro para caminos
@@ -115,12 +117,12 @@ export class MinecraftViewComponent implements OnInit {
 
   private readonly geometries = {
     tree: {
-      trunk: new THREE.BoxGeometry(0.3, 2.0, 0.3), // Tronco más delgado y alto
-      leaves: new THREE.ConeGeometry(1.0, 2.5, 8) // Copa cónica con 8 segmentos
+      trunk: new THREE.BoxGeometry(0.3, 2.0, 0.3),
+      leaves: new THREE.ConeGeometry(1.0, 2.5, 8)
     },
     ground: new THREE.BoxGeometry(1, 0.3, 1),
-    water: new THREE.BoxGeometry(1, 0.3, 1),
-    mountain: new THREE.BoxGeometry(1, 1.5, 1),
+    water: new THREE.BoxGeometry(1, 0.2, 1),
+    mountain: new THREE.BoxGeometry(1, 0.3, 1),
     path: new THREE.BoxGeometry(1, 0.3, 1)
   };
 
@@ -139,6 +141,12 @@ export class MinecraftViewComponent implements OnInit {
     minZ: 0,
     maxZ: 0
   };
+
+  private player!: THREE.Group;
+  private cameraOffset = new THREE.Vector3(0, 3, 5);
+  private targetPosition = new THREE.Vector3();
+  private playerRotation = 0;
+  private smoothFactor = 0.1;
 
   ngOnInit() {
     this.loadMatrixFromLocalStorage();
@@ -175,6 +183,21 @@ export class MinecraftViewComponent implements OnInit {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xADD8E6);
 
+    // Configuración básica del renderer
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
+
+    // Luz direccional simple
+    const light = new THREE.DirectionalLight(0xffffff, 1.5);
+    light.position.set(1, 1, 1);
+    this.scene.add(light);
+
+    // Luz ambiental normal
+    const ambientLight = new THREE.AmbientLight(0x404040, 1.2);
+    this.scene.add(ambientLight);
+
     // Calcular los límites del mundo basado en el tamaño de la matriz
     const halfWidth = this.matrix.length / 2;
     const halfDepth = (this.matrix[0]?.length || 0) / 2;
@@ -185,21 +208,12 @@ export class MinecraftViewComponent implements OnInit {
       maxZ: halfDepth - 1
     };
 
+    this.createPlayer();
+    
+    // Ajustar la cámara para vista en tercera persona
     this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.set(0, 10, 20);
-    this.camera.rotation.x = -Math.PI / 6; // Inclina la cámara hacia abajo
-
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
-
-    const light = new THREE.DirectionalLight(0xffffff, 1.5);
-    light.position.set(1, 1, 1);
-    this.scene.add(light);
-
-    const ambientLight = new THREE.AmbientLight(0x404040, 1.2);
-    this.scene.add(ambientLight);
+    this.updateCameraPosition();
 
     // Initialize minimap
     this.initMinimap();
@@ -208,20 +222,12 @@ export class MinecraftViewComponent implements OnInit {
   private initControls() {
     this.controls = new PointerLockControls(this.camera, this.renderer.domElement);
 
-    // Establecer una posición inicial fija
-    const startPosition = new THREE.Vector3(0, 10, 20);
-    const startRotation = new THREE.Euler(-Math.PI / 6, 0, 0);
-
     this.controls.addEventListener('lock', () => {
       this.isLocked = true;
-      this.camera.position.copy(startPosition);
-      this.camera.rotation.copy(startRotation);
     });
 
     this.controls.addEventListener('unlock', () => {
       this.isLocked = false;
-      this.camera.position.copy(startPosition);
-      this.camera.rotation.copy(startRotation);
     });
 
     this.renderer.domElement.addEventListener('click', () => {
@@ -311,9 +317,8 @@ export class MinecraftViewComponent implements OnInit {
           const trunk = new THREE.Mesh(
             this.geometries.tree.trunk,
             new THREE.MeshPhongMaterial({ 
-              color: 0x4A2F10,  // Marrón más oscuro para el tronco
-              shininess: 5,
-              roughness: 1.0
+              color: 0x3D2410,  // Marrón más oscuro para el tronco
+              shininess: 5
             })
           );
           trunk.position.set(pos.x, pos.y + 1.0, pos.z);
@@ -326,18 +331,15 @@ export class MinecraftViewComponent implements OnInit {
             this.geometries.tree.leaves,
             new THREE.MeshPhongMaterial({ 
               color: this.colorMap[color],
-              shininess: 10,
-              flatShading: true, // Sombreado plano para más textura
-              side: THREE.DoubleSide // Visible desde ambos lados
+              shininess: 5,
+              flatShading: true,
+              side: THREE.DoubleSide
             })
           );
-          leaves.position.set(pos.x, pos.y + 2.8, pos.z); // Posicionado más arriba
+          leaves.position.set(pos.x, pos.y + 2.8, pos.z);
           leaves.castShadow = true;
           leaves.receiveShadow = true;
-          
-          // Añadir algo de variación aleatoria a la rotación
           leaves.rotation.y = Math.random() * Math.PI * 2;
-          
           this.scene.add(leaves);
 
           // Añadir una segunda capa de hojas más pequeña
@@ -345,7 +347,7 @@ export class MinecraftViewComponent implements OnInit {
             new THREE.ConeGeometry(0.7, 1.5, 8),
             new THREE.MeshPhongMaterial({ 
               color: this.colorMap[color],
-              shininess: 10,
+              shininess: 5,
               flatShading: true,
               side: THREE.DoubleSide
             })
@@ -355,13 +357,27 @@ export class MinecraftViewComponent implements OnInit {
           leavesTop.castShadow = true;
           leavesTop.receiveShadow = true;
           this.scene.add(leavesTop);
+
+          // Añadir mancha oscura debajo del árbol
+          const shadowSpot = new THREE.Mesh(
+            new THREE.CircleGeometry(1.2, 8),
+            new THREE.MeshBasicMaterial({
+              color: 0x000000,
+              transparent: true,
+              opacity: 0.3,
+              depthWrite: false
+            })
+          );
+          shadowSpot.rotation.x = -Math.PI / 2;
+          shadowSpot.position.set(pos.x, 0.01, pos.z);
+          this.scene.add(shadowSpot);
         });
       } else {
         const material = new THREE.MeshPhongMaterial({ 
           color: group.color,
           transparent: color === 'Blue',
           opacity: color === 'Blue' ? 0.6 : 1,
-          shininess: 10
+          shininess: color === 'Brown' ? 0 : 10
         });
 
         const instancedMesh = new THREE.InstancedMesh(group.geometry, material, group.count);
@@ -370,7 +386,9 @@ export class MinecraftViewComponent implements OnInit {
         
         const matrix = new THREE.Matrix4();
         group.positions.forEach((pos, i) => {
-          matrix.setPosition(pos.x, pos.y, pos.z);
+          // Ajustar la posición Y para los bloques grises
+          const y = color === 'Gray' ? pos.y : pos.y; // Ya no necesitamos añadir altura extra
+          matrix.setPosition(pos.x, y, pos.z);
           instancedMesh.setMatrixAt(i, matrix);
         });
 
@@ -383,13 +401,13 @@ export class MinecraftViewComponent implements OnInit {
   private getBlockHeight(color: string): number {
     switch(color) {
       case 'Green': // Árboles
-        return 0; // La altura se maneja en la generación
+        return 0;
       case 'Brown': // Tierra
         return 0;
       case 'Blue': // Agua
         return -0.2;
       case 'Gray': // Montañas
-        return 1.5;
+        return 0;
       case 'Red': // Caminos
         return 0;
       default:
@@ -403,7 +421,9 @@ export class MinecraftViewComponent implements OnInit {
       this.isUnderwater = isInWater;
       this.updateWaterEffects();
     }
-    this.moveSpeed = this.isUnderwater ? 200.0 : 400.0;
+    this.moveSpeed = this.isUnderwater ? 8.0 : 35.0;
+    this.friction = this.isUnderwater ? 2.0 : 5.0;
+    this.acceleration = this.isUnderwater ? 15.0 : 30.0;
   }
 
   private updateWaterEffects() {
@@ -562,6 +582,103 @@ export class MinecraftViewComponent implements OnInit {
     }
   }
 
+  private createPlayer() {
+    this.player = new THREE.Group();
+    
+    // Cuerpo del personaje
+    const bodyGeometry = new THREE.BoxGeometry(0.6, 1.2, 0.3);
+    const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0x3366ff });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    body.position.y = 1.1;
+    this.player.add(body);
+
+    // Cabeza
+    const headGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+    const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffcc99 });
+    const head = new THREE.Mesh(headGeometry, headMaterial);
+    head.position.y = 1.9;
+    this.player.add(head);
+
+    // Piernas
+    const legGeometry = new THREE.BoxGeometry(0.2, 0.6, 0.2);
+    const legMaterial = new THREE.MeshPhongMaterial({ color: 0x3366ff });
+    
+    const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
+    leftLeg.position.set(-0.15, 0.3, 0);
+    this.player.add(leftLeg);
+    
+    const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
+    rightLeg.position.set(0.15, 0.3, 0);
+    this.player.add(rightLeg);
+
+    // Brazos
+    const armGeometry = new THREE.BoxGeometry(0.2, 0.6, 0.2);
+    const armMaterial = new THREE.MeshPhongMaterial({ color: 0x3366ff });
+    
+    const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+    leftArm.position.set(-0.4, 1.3, 0);
+    this.player.add(leftArm);
+    
+    const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+    rightArm.position.set(0.4, 1.3, 0);
+    this.player.add(rightArm);
+
+    this.player.position.y = this.playerHeight;
+    this.scene.add(this.player);
+  }
+
+  private updatePlayerAnimation() {
+    if (!this.player) return;
+
+    const walkingSpeed = Math.sqrt(this.velocity.x * this.velocity.x + this.velocity.z * this.velocity.z);
+    const walkingCycle = performance.now() * 0.01;
+
+    // Animar piernas mientras camina
+    this.player.children.forEach((child, index) => {
+      if (index >= 2 && index <= 3) { // Piernas
+        if (walkingSpeed > 0.1) {
+          child.position.y = 0.3 + Math.sin(walkingCycle + (index === 2 ? 0 : Math.PI)) * 0.2;
+        } else {
+          child.position.y = 0.3;
+        }
+      }
+      if (index >= 4 && index <= 5) { // Brazos
+        if (walkingSpeed > 0.1) {
+          child.position.y = 1.3 + Math.sin(walkingCycle + (index === 4 ? Math.PI : 0)) * 0.2;
+        } else {
+          child.position.y = 1.3;
+        }
+      }
+    });
+  }
+
+  private updateCameraPosition() {
+    if (!this.player) return;
+
+    // Calcular la rotación del jugador basada en la dirección del movimiento
+    if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
+      const angle = Math.atan2(this.direction.x, this.direction.z);
+      this.playerRotation = angle;
+    }
+    this.player.rotation.y = this.playerRotation;
+
+    // Actualizar la posición del jugador
+    this.player.position.x = this.camera.position.x;
+    this.player.position.z = this.camera.position.z;
+    this.player.position.y = this.camera.position.y - this.playerHeight;
+
+    // Calcular la posición objetivo de la cámara
+    this.targetPosition.copy(this.player.position);
+    this.targetPosition.y += this.cameraOffset.y;
+    
+    // Calcular el offset de la cámara basado en la rotación del jugador
+    const offsetX = Math.sin(this.camera.rotation.y) * this.cameraOffset.z;
+    const offsetZ = Math.cos(this.camera.rotation.y) * this.cameraOffset.z;
+    
+    this.targetPosition.x -= offsetX;
+    this.targetPosition.z -= offsetZ;
+  }
+
   private animate() {
     requestAnimationFrame(() => this.animate());
 
@@ -569,6 +686,7 @@ export class MinecraftViewComponent implements OnInit {
       const time = performance.now();
       const delta = (time - this.prevTime) / 1000;
 
+      // Física de movimiento original
       this.velocity.x -= this.velocity.x * 10.0 * delta;
       this.velocity.z -= this.velocity.z * 10.0 * delta;
       this.velocity.y -= this.gravity * delta;
@@ -599,6 +717,10 @@ export class MinecraftViewComponent implements OnInit {
         this.camera.position.y = 2;
         this.canJump = true;
       }
+
+      // Actualizar animaciones y posición del jugador
+      this.updatePlayerAnimation();
+      this.updateCameraPosition();
 
       this.prevTime = time;
     }

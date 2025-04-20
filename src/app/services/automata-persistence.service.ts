@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Automata } from '../../cube';
+import { Automata } from 'cube';
 
 @Injectable({
   providedIn: 'root'
