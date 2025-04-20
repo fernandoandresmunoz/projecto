@@ -5,14 +5,15 @@ import { Factory } from './ifaces/game';
 import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Celula } from 'src/Celula';
 import { Automata } from 'cube';
-
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.styl']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   factory = new Factory();
 
   umbralInferior = JUEGO.UMBRAL_INFERIOR;
@@ -48,7 +49,10 @@ automata3 = this.factory2.createMilitary2(40, 60)
   grises: [number, number][] = [];
   verdes: [number, number][] = [];
 
-  constructor() {
+  private generationCount = 0;
+  private colorChangeInterval: any;
+
+  constructor(public router: Router) {
 
     this.automata1.setAnchoLienzo(1000)
     this.automata1.setAltoLienzo(700)
@@ -77,6 +81,53 @@ automata3 = this.factory2.createMilitary2(40, 60)
     this.raiz3 = this.factory.megaPlanta()
     this.rack = this.factory.crearRack();
 
+  }
+
+  ngOnInit(): void {
+    // Subscribe to route changes
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (event.url === '/') {
+        this.startBackgroundColorChange();
+      } else {
+        this.stopBackgroundColorChange();
+        this.backgroundColor = '#ffffff'; // Reset to white when leaving home
+      }
+    });
+  }
+
+  private startBackgroundColorChange(): void {
+    // Clear any existing interval
+    this.stopBackgroundColorChange();
+    
+    // Start new interval
+    this.colorChangeInterval = setInterval(() => {
+      this.generationCount++;
+      if (this.generationCount % 5 === 0) {
+        this.changeBackgroundColor();
+      }
+    }, 1000); // Adjust timing as needed
+  }
+
+  private stopBackgroundColorChange(): void {
+    if (this.colorChangeInterval) {
+      clearInterval(this.colorChangeInterval);
+      this.colorChangeInterval = null;
+    }
+  }
+
+  private changeBackgroundColor(): void {
+    // Generate a random pastel color
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 70 + Math.floor(Math.random() * 30); // 70-100%
+    const lightness = 85 + Math.floor(Math.random() * 10); // 85-95%
+    
+    this.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
+  ngOnDestroy(): void {
+    this.stopBackgroundColorChange();
   }
 }
 

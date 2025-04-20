@@ -1,0 +1,21 @@
+<div class="state-manager">
+  <h3>Saved States</h3>
+  
+  <div class="save-section">
+    <input type="text" [(ngModel)]="newStateName" placeholder="State name">
+    <button (click)="saveCurrentState()" [disabled]="!newStateName">Save Current State</button>
+  </div>
+
+  <div class="states-list">
+    <div *ngFor="let state of savedStates" class="state-item">
+      <div class="state-info">
+        <span class="state-name">{{state.name}}</span>
+        <span class="state-time">{{state.timestamp | date:'medium'}}</span>
+      </div>
+      <div class="state-actions">
+        <button (click)="loadState(state.name)">Load</button>
+        <button (click)="deleteState(state.name)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div> 

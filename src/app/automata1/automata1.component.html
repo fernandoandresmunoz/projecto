@@ -1,6 +1,7 @@
 <p>Autómata 1: Es el automata que quiero usar para crear un escenario en roblox. Debería recuperar la funcionalidad que tenia antes tal cual como estaba 
     sin afectar los demás autómatas. </p>
 
+<app-pause-reset [automata]="automata1"></app-pause-reset>
 
     <table border="1">
         <tr>
@@ -144,16 +145,22 @@
     </table>
 
 
-<app-automata
-[automata]="automata1"
-[auxiliaryLines]="false"
-[showStats]="false"
-[showController]="false"
-[coloresRegla1]="coloresRegla1"
-[coloresRegla2]="coloresRegla2"
-[coloresRegla3]="coloresRegla3"
-[coloresRegla4]="coloresRegla4"
-[coloresRegla5]="coloresRegla5"
->
-</app-automata>
+<div class="automata-container">
+  <div class="automata-display">
+    <app-automata 
+      [automata]="automata1"
+      [auxiliaryLines]="false"
+      [showStats]="true"
+      [showController]="true"
+      [coloresRegla1]="coloresRegla1"
+      [coloresRegla2]="coloresRegla2"
+      [coloresRegla3]="coloresRegla3"
+      [coloresRegla4]="coloresRegla4"
+      [coloresRegla5]="coloresRegla5"
+      [coloresRegla6]="coloresRegla6"
+      [coloresRegla7]="coloresRegla7">
+    </app-automata>
+  </div>
+</div>
+
 <!-- <app-tabla [automata]="automata1"></app-tabla> -->

@@ -24,6 +24,7 @@ import { ListaDeLienzosComponent } from './lienzos/lista-de-lienzos/lista-de-lie
 import { ControladorFilaComponent } from './rule110/controlador-fila/controlador-fila.component';
 import { ReglasComponent } from './reglas/reglas.component';
 import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
+import { MinecraftViewComponent } from './minecraft-view/minecraft-view.component';
 
 const routes: Routes = [
 {
@@ -120,6 +121,10 @@ const routes: Routes = [
   {
     path: 'nuevo-automata',
     component: NuevoAutomataComponent
+  },
+  {
+    path: 'vista-cubos-3d',
+    component: MinecraftViewComponent
   }
 
 

@@ -44,6 +44,10 @@ import { RedViewComponent } from './red-view/red-view.component';
 import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
 import { GraficasAutomataComponent } from './graficas-automata/graficas-automata.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StateManagerComponent } from './components/state-manager/state-manager.component';
+import { AutomataPersistenceService } from './services/automata-persistence.service';
+import { AutomataLayoutComponent } from './components/automata-layout/automata-layout.component';
+import { MinecraftViewComponent } from './minecraft-view/minecraft-view.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,10 @@ import { HttpClientModule } from '@angular/common/http';
     ReglasComponent,
     RedViewComponent,
     NuevoAutomataComponent,
-    GraficasAutomataComponent
+    GraficasAutomataComponent,
+    StateManagerComponent,
+    AutomataLayoutComponent,
+    MinecraftViewComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +101,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AutomataPersistenceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
