@@ -26,13 +26,13 @@ interface SavedMatrix {
   template: `
     <div #rendererContainer></div>
     <div #minimapContainer class="minimap"></div>
-    <div class="controls-info" *ngIf="!isLocked">
+    <!-- <div class="controls-info" *ngIf="!isLocked">
       Click to start<br>
       Move: WASD<br>
       Jump: SPACE<br>
       Look: MOUSE
     </div>
-    <div class="water-overlay" [class.visible]="isUnderwater"></div>
+    <div class="water-overlay" [class.visible]="isUnderwater"></div> -->
   `,
   styles: [`
     :host {
