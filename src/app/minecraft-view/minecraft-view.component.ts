@@ -159,9 +159,6 @@ export class MinecraftViewComponent implements OnInit {
 
     const ambientLight = new THREE.AmbientLight(0x404040, 1.2);
     this.scene.add(ambientLight);
-
-    // Add fog to the scene
-    this.scene.fog = new THREE.Fog(0xADD8E6, 20, 100);
   }
 
   private initControls() {
@@ -313,12 +310,10 @@ export class MinecraftViewComponent implements OnInit {
   }
 
   private updateWaterEffects() {
-    if (this.scene.fog) {
-      const targetColor = this.isUnderwater ? this.waterFogColor : this.normalFogColor;
-      this.scene.fog.color.copy(targetColor);
-      this.scene.background = targetColor;
-      this.scene.fog.near = this.isUnderwater ? 0.1 : 20;
-      this.scene.fog.far = this.isUnderwater ? 15 : 100;
+    if (this.isUnderwater) {
+      this.scene.background = this.waterFogColor;
+    } else {
+      this.scene.background = this.normalFogColor;
     }
   }
 
