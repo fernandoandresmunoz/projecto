@@ -85,16 +85,16 @@ automata3 = this.factory2.createMilitary2(40, 60)
 
   ngOnInit(): void {
     // Subscribe to route changes
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      if (event.url === '/') {
-        this.startBackgroundColorChange();
-      } else {
-        this.stopBackgroundColorChange();
-        this.backgroundColor = '#ffffff'; // Reset to white when leaving home
-      }
-    });
+    // this.router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd)
+    // ).subscribe((event: NavigationEnd) => {
+    //   if (event.url === '/') {
+    //     this.startBackgroundColorChange();
+    //   } else {
+    //     this.stopBackgroundColorChange();
+    //     this.backgroundColor = '#ffffff'; // Reset to white when leaving home
+    //   }
+    // });
   }
 
   private startBackgroundColorChange(): void {
