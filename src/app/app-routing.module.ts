@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: Automata1Component,
+    component: MinecraftViewComponent
   },
   {
     path: 'test-path',
