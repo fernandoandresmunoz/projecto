@@ -39,7 +39,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         // o sea si soy verde y tengo vecinos rojos mi condicion depende de los vecinos rojos
                         // tengo que escribir otra vez esta clase como creo que deberia ser pero en una clase nueva
                         if (vecinosRojos > vecinosGrises && vecinosRojos > vecinosVerdes && vecinosRojos > vecinosCafes  && vecinosRojos > vecinosAzules) {
-                            if (this.automata.getRedRule()?.surviveCondition(vivas.length)) {
+                            const redRule = this.automata.getRedRule();
+                            if (redRule && redRule.surviveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
@@ -48,8 +49,9 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         }
 
                         // lo que mas tiene son vecinos cafes
-                        else if (vecinosCafes > vecinosGrises && vecinosCafes > vecinosVerdes && vecinosCafes > vecinosRojos && vecinosCafes > vecinosAzules) {
-                            if (this.automata.getBrownRule()?.surviveCondition(vivas.length)) {
+                        else if (vecinosCafes > vecinosGrises && vecinosCafes > vecinosVerdes && vecinosCafes > vecinosRojos && vecinosCafes > vecinosAzules) {
+                            const brownRule = this.automata.getBrownRule();
+                            if (brownRule && brownRule.surviveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
@@ -60,7 +62,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
 
                         // es decir, lo que mas tiene son vecinos azules
                         else if ( vecinosAzules > vecinosGrises && vecinosAzules > vecinosVerdes ) {
-                            if (this.automata.getBlueRule()?.surviveCondition(vivas.length)) {
+                            const blueRule = this.automata.getBlueRule();
+                            if (blueRule && blueRule.surviveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
@@ -71,7 +74,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         }
                         // es decir , lo que mas tiene son vecinos grises
                         else if ( vecinosGrises > vecinosVerdes) {
-                            if ( this.automata.getGrayRule()?.surviveCondition(vivas.length)) {
+                            const grayRule = this.automata.getGrayRule();
+                            if (grayRule && grayRule.surviveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
@@ -81,7 +85,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
 
                         // es decir lo que mas tiene son vecinos verdes
                         else {
-                            if (this.automata.getGreenRule()?.surviveCondition(vivas.length)) {
+                            const greenRule = this.automata.getGreenRule();
+                            if (greenRule && greenRule.surviveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
@@ -94,8 +99,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                     } else if (nuevaMatriz[fila][columna].state === 0) {
 
                         if (vecinosRojos > vecinosGrises && vecinosRojos > vecinosVerdes && vecinosRojos > vecinosCafes && vecinosRojos > vecinosAzules ) {
-
-                            if (this.automata.getRedRule()?.liveCondition(vivas.length)) {
+                            const redRule = this.automata.getRedRule();
+                            if (redRule && redRule.liveCondition(vivas.length)) {
 
                                 nuevaMatriz[fila][columna].state = 1;
                                 nuevaMatriz[fila][columna].color = 'Red';
@@ -104,14 +109,16 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         }
 
                         else if (vecinosCafes > vecinosGrises && vecinosCafes > vecinosAzules && vecinosCafes > vecinosVerdes  ) {
-                            if (this.automata.getBrownRule()?.liveCondition(vivas.length)) {
+                            const brownRule = this.automata.getBrownRule();
+                            if (brownRule && brownRule.liveCondition(vivas.length)) {
                                 nuevaMatriz[fila][columna].state = 1;
                                 nuevaMatriz[fila][columna].color = 'Brown';
 
 
                             }
                         } else if ( vecinosAzules > vecinosGrises && vecinosAzules > vecinosVerdes) {
-                            if (this.automata.getBlueRule()?.liveCondition(vivas.length)) {
+                            const blueRule = this.automata.getBlueRule();
+                            if (blueRule && blueRule.liveCondition(vivas.length)) {
                                 nuevaMatriz[fila][columna].state = 1;
                                 nuevaMatriz[fila][columna].color = 'Blue';
 
@@ -120,7 +127,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         }
 
                         else if ( vecinosGrises > vecinosVerdes) {
-                            if (this.automata.getGrayRule()?.liveCondition(vivas.length)) {
+                            const grayRule = this.automata.getGrayRule();
+                            if (grayRule && grayRule.liveCondition(vivas.length)) {
                                 nuevaMatriz[fila][columna].state = 1;
                                 nuevaMatriz[fila][columna].color = 'Gray';
 
@@ -129,7 +137,8 @@ export class ConcreteNextMatrixStrategy implements NextMatrixStrategy {
                         }
 
                         else {
-                            if (this.automata.getGreenRule()?.liveCondition(vivas.length)) {
+                            const greenRule = this.automata.getGreenRule();
+                            if (greenRule && greenRule.liveCondition(vivas.length)) {
                                 nuevaMatriz[fila][columna].state = 1;
                                 nuevaMatriz[fila][columna].color = 'Green';
 

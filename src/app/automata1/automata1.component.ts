@@ -255,18 +255,17 @@ export class Automata1Component implements OnInit, ControladorColores {
 
   // Método auxiliar para encontrar el nombre de una regla
   findRuleName(rule: Rule, rules: {name: string, rule: Rule, notation: string}[]): string {
-    const foundRule = rules.find(r => {
-        return r.rule.surviveCondition(3) === rule.surviveCondition(3) && 
-               r.rule.liveCondition(3) === rule.liveCondition(3);
-    });
-    return foundRule?.name || 'life';
+    const foundRule = rules.find(r => 
+        r.rule.liveCondition(3) === rule.liveCondition(3)
+    );
+    return foundRule ? foundRule.name : 'life';
   }
 
   // Método auxiliar para obtener una regla por su nombre
   getRuleByName(ruleName: string): Rule {
     const rules = this.automata1.getRules();
     const foundRule = rules.find(r => r.name.toLowerCase() === ruleName.toLowerCase());
-    return foundRule?.rule || this.factory2.createLifeRule();
+    return foundRule && foundRule.rule ? foundRule.rule : this.factory2.createLifeRule();
   }
 
   getCellState(cell: Cell): number {

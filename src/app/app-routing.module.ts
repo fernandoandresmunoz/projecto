@@ -9,7 +9,7 @@ import { AutomataComponent } from './automata/automata.component';
 import { Automata2Component } from './automata2/automata2.component';
 import { Automata3Component } from './automata3/automata3.component';
 import { GliderComponent } from './glider/glider.component';
-import { ParabolaComponent } from './parabola/parabola.component';
+// import { ParabolaComponent } from './parabola/parabola.component';
 import { SenoComponent } from './funciones/seno/seno.component';
 import { FuncionSenoComponent } from './funcion-seno/funcion-seno.component';
 import { GaussComponent } from './gauss/gauss.component';

@@ -21,6 +21,23 @@ interface SavedMatrix {
   isStabilized: boolean;
 }
 
+interface AnimalColors {
+  body: string;
+  face: string;
+  legs: string;
+}
+
+interface Animal {
+  type: string;
+  position: THREE.Vector3;
+  mesh: THREE.Group;
+  health: number;
+  isAlive: boolean;
+  colors: AnimalColors;
+  lastStateChange: number;
+  targetPosition?: THREE.Vector3;
+}
+
 @Component({
   selector: 'app-minecraft-view',
   template: `
@@ -168,6 +185,27 @@ export class MinecraftViewComponent implements OnInit {
 
   private needsRender = true;
 
+  private ANIMAL_COLORS: { [key: string]: AnimalColors } = {
+    'trex': {
+      body: '#8B4513',
+      face: '#A0522D',
+      legs: '#654321'
+    },
+    'chicken': {
+      body: '#FFFFFF',
+      face: '#FFD700',
+      legs: '#FFA500'
+    },
+    'cow': {
+      body: '#000000',
+      face: '#FFFFFF',
+      legs: '#000000'
+    }
+  };
+
+  private animals: Animal[] = [];
+  private lastAnimalUpdate = 0;
+
   ngOnInit() {
     this.loadMatrixFromLocalStorage();
     this.initScene();
@@ -179,10 +217,13 @@ export class MinecraftViewComponent implements OnInit {
   private loadMatrixFromLocalStorage() {
     try {
       const savedData = localStorage.getItem('automata_matrix');
+      console.log('Attempting to load matrix from localStorage');
+      
       if (savedData) {
         const parsedData: SavedMatrix = JSON.parse(savedData);
         this.matrix = parsedData.matrix;
         console.log('Matrix loaded from localStorage:', this.matrix.length, 'x', this.matrix[0].length);
+        
         // Mostrar algunos ejemplos de colores que existen en la matriz
         const colors = new Set();
         this.matrix.forEach(row => 
@@ -192,10 +233,37 @@ export class MinecraftViewComponent implements OnInit {
         );
         console.log('Colors found in matrix:', Array.from(colors));
       } else {
-        console.log('No saved matrix found in localStorage');
+        console.log('No saved matrix found in localStorage, creating default matrix');
+        // Crear una matriz por defecto de 50x50
+        this.matrix = [];
+        const size = 50;
+        
+        for (let i = 0; i < size; i++) {
+          this.matrix[i] = [];
+          for (let j = 0; j < size; j++) {
+            // Crear un patrón básico de terreno
+            if (i === j || (i + j) % 5 === 0) {
+              this.matrix[i][j] = { state: 1, color: 'Green' }; // Árboles
+            } else if ((i + j) % 7 === 0) {
+              this.matrix[i][j] = { state: 1, color: 'Blue' }; // Agua
+            } else if ((i + j) % 3 === 0) {
+              this.matrix[i][j] = { state: 1, color: 'Brown' }; // Tierra
+            } else if ((i + j) % 11 === 0) {
+              this.matrix[i][j] = { state: 1, color: 'Gray' }; // Montañas
+            } else {
+              this.matrix[i][j] = { state: 0, color: '' }; // Espacio vacío
+            }
+          }
+        }
+        console.log('Default matrix created:', this.matrix.length, 'x', this.matrix[0].length);
       }
     } catch (error) {
       console.error('Error loading matrix from localStorage:', error);
+      // En caso de error, también crear una matriz por defecto
+      this.matrix = Array(50).fill(null).map(() => 
+        Array(50).fill(null).map(() => ({ state: 0, color: '' }))
+      );
+      console.log('Created empty matrix due to error');
     }
   }
 
@@ -233,7 +301,7 @@ export class MinecraftViewComponent implements OnInit {
 
     // Calcular los límites del mundo basado en el tamaño de la matriz
     const halfWidth = this.matrix.length / 2;
-    const halfDepth = (this.matrix[0]?.length || 0) / 2;
+    const halfDepth = this.matrix[0] ? this.matrix[0].length / 2 : 0;
     this.worldBounds = {
       minX: -halfWidth + 1, // +1 para dar un pequeño margen
       maxX: halfWidth - 1,
@@ -362,7 +430,6 @@ export class MinecraftViewComponent implements OnInit {
 
           switch(cell.color) {
             case 'Green':
-              // Guardar posición para colisiones
               this.treePositions.push(new THREE.Vector3(worldX, 0, worldZ));
               
               // Tronco
@@ -466,7 +533,7 @@ export class MinecraftViewComponent implements OnInit {
     // Calculate the aspect ratio and size
     const minimapSize = 200;
     const aspect = 1;
-    const worldSize = Math.max(this.matrix.length, this.matrix[0]?.length || 0);
+    const worldSize = Math.max(this.matrix.length, this.matrix[0] ? this.matrix[0].length : 0);
     const viewSize = worldSize * 1.2; // Slightly larger than the world
 
     // Create orthographic camera for top-down view
@@ -704,80 +771,72 @@ export class MinecraftViewComponent implements OnInit {
   }
 
   private animate() {
-    const currentTime = performance.now();
-    
-    // Usar requestAnimationFrame más eficientemente
-    if (this.isLocked) {
-      const delta = Math.min((currentTime - this.prevTime) / 1000, 0.1);
-      this.updateGameState(delta);
+    if (!this.isLocked) {
+      requestAnimationFrame(() => this.animate());
+      return;
     }
 
-    // Renderizar solo si es necesario
-    if (this.isLocked || this.needsRender) {
-      this.renderer.render(this.scene, this.camera);
-      this.needsRender = false;
-    }
-
-    // Actualizar minimapa con menos frecuencia
-    if (currentTime - this.lastMinimapUpdate > 100) { // cada 100ms
-      this.updateMinimap();
-      this.lastMinimapUpdate = currentTime;
-    }
-
-    this.prevTime = currentTime;
     requestAnimationFrame(() => this.animate());
-  }
 
-  private updateGameState(delta: number) {
-    // Física y movimiento
-    this.velocity.x -= this.velocity.x * this.friction * delta;
-    this.velocity.z -= this.velocity.z * this.friction * delta;
-    this.velocity.y -= this.gravity * delta;
+    const currentTime = performance.now();
+    const delta = (currentTime - this.prevTime) / 1000;
 
-    if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
+    if (this.isLocked) {
+      this.velocity.x -= this.velocity.x * this.friction * delta;
+      this.velocity.z -= this.velocity.z * this.friction * delta;
+      this.velocity.y -= this.gravity * delta;
+
       this.direction.z = Number(this.moveForward) - Number(this.moveBackward);
       this.direction.x = Number(this.moveRight) - Number(this.moveLeft);
       this.direction.normalize();
 
-      this.velocity.z -= this.direction.z * this.moveSpeed * delta;
-      this.velocity.x -= this.direction.x * this.moveSpeed * delta;
+      const speedMultiplier = this.isUnderwater ? 0.5 : 1;
+
+      if (this.moveForward || this.moveBackward) {
+        this.velocity.z -= this.direction.z * this.acceleration * delta * speedMultiplier;
+      }
+      if (this.moveLeft || this.moveRight) {
+        this.velocity.x -= this.direction.x * this.acceleration * delta * speedMultiplier;
+      }
+
+      // Calcular nueva posición
+      const newPosition = this.camera.position.clone();
+      newPosition.x += this.velocity.x * delta;
+      newPosition.z += this.velocity.z * delta;
+
+      if (!this.checkTreeCollisions(newPosition)) {
+        this.controls.moveRight(-this.velocity.x * delta);
+        this.controls.moveForward(-this.velocity.z * delta);
+      } else {
+        this.velocity.x *= -0.5;
+        this.velocity.z *= -0.5;
+      }
+
+      this.camera.position.y += this.velocity.y * delta;
+      this.camera.position.y = Math.max(2, Math.min(100, this.camera.position.y));
+
+      // Actualizaciones de estado
+      this.checkWorldBounds();
+      this.checkWaterCollision();
+      
+      // Solo actualizar chunks si nos movimos lo suficiente
+      if (this.hasMovedSignificantly()) {
+        this.updateChunks();
+      }
+
+      if (this.camera.position.y < 2 && !this.isUnderwater) {
+        this.velocity.y = 0;
+        this.camera.position.y = 2;
+        this.canJump = true;
+      }
+
+      // Actualizar el jugador y el minimapa
+      this.updatePlayerAnimation();
+      this.updateMinimap();
     }
 
-    // Colisiones y movimiento
-    const newPosition = new THREE.Vector3(
-      this.camera.position.x - this.velocity.x * delta,
-      this.camera.position.y,
-      this.camera.position.z - this.velocity.z * delta
-    );
-
-    if (!this.checkTreeCollisions(newPosition)) {
-      this.controls.moveRight(-this.velocity.x * delta);
-      this.controls.moveForward(-this.velocity.z * delta);
-    } else {
-      this.velocity.x *= -0.5;
-      this.velocity.z *= -0.5;
-    }
-
-    this.camera.position.y += this.velocity.y * delta;
-    this.camera.position.y = Math.max(2, Math.min(100, this.camera.position.y));
-
-    // Actualizaciones de estado
-    this.checkWorldBounds();
-    this.checkWaterCollision();
-    
-    // Solo actualizar chunks si nos movimos lo suficiente
-    if (this.hasMovedSignificantly()) {
-      this.updateChunks();
-    }
-
-    if (this.camera.position.y < 2 && !this.isUnderwater) {
-      this.velocity.y = 0;
-      this.camera.position.y = 2;
-      this.canJump = true;
-    }
-
-    this.updatePlayerAnimation();
-    this.updateCameraPosition();
+    this.renderer.render(this.scene, this.camera);
+    this.prevTime = currentTime;
   }
 
   private hasMovedSignificantly(): boolean {
@@ -897,6 +956,8 @@ export class MinecraftViewComponent implements OnInit {
       case 'KeyD':
         this.moveRight = false;
         break;
+      case 'ShiftLeft':
+        break;
     }
   }
 
@@ -905,5 +966,130 @@ export class MinecraftViewComponent implements OnInit {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  private createBlockGeometry(type: string): THREE.BufferGeometry {
+    switch (type) {
+      case 'tree':
+        return new THREE.BoxGeometry(1, 2, 1);
+      case 'water':
+        return new THREE.BoxGeometry(1, 0.5, 1);
+      default:
+        return new THREE.BoxGeometry(1, 1, 1);
+    }
+  }
+
+  private createBlockMaterial(type: string): THREE.Material {
+    switch (type) {
+      case 'tree':
+        return new THREE.MeshPhongMaterial({ color: 0x2ECC71 });
+      case 'water':
+        return new THREE.MeshPhongMaterial({ 
+          color: 0x3498DB,
+          transparent: true,
+          opacity: 0.6
+        });
+      case 'mountain':
+        return new THREE.MeshPhongMaterial({ color: 0xE0E0E0 });
+      case 'path':
+        return new THREE.MeshPhongMaterial({ color: 0xD35400 });
+      default:
+        return new THREE.MeshPhongMaterial({ color: 0xA0522D });
+    }
+  }
+
+  private createAnimal(type: string, position: THREE.Vector3): Animal {
+    const group = new THREE.Group();
+    const colors = this.ANIMAL_COLORS[type];
+    
+    const bodyGeometry = new THREE.BoxGeometry(1, 1, 2);
+    const bodyMaterial = new THREE.MeshPhongMaterial({ color: colors.body });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    group.add(body);
+    
+    group.position.copy(position);
+    this.scene.add(group);
+    
+    return {
+      type,
+      position,
+      mesh: group,
+      health: 100,
+      isAlive: true,
+      colors,
+      lastStateChange: performance.now()
+    };
+  }
+
+  private updateAnimals(currentTime: number): void {
+    if (currentTime - this.lastAnimalUpdate < 5000) return;
+    this.lastAnimalUpdate = currentTime;
+
+    this.animals.forEach(animal => {
+      if (animal && animal.mesh) {
+        // Update animal behavior
+        this.updateAnimalBehavior(animal);
+      }
+    });
+  }
+
+  private moveAnimal(animal: Animal, delta: number): void {
+    if (!animal.targetPosition) return;
+    
+    const speed = animal.type === 'trex' ? 5 : 2;
+    const direction = new THREE.Vector3()
+      .subVectors(animal.targetPosition, animal.position)
+      .normalize();
+    
+    const movement = direction.multiplyScalar(speed * delta);
+    animal.position.add(movement);
+    animal.mesh.position.copy(animal.position);
+    
+    // Rotate to face movement direction
+    const angle = Math.atan2(direction.x, direction.z);
+    animal.mesh.rotation.y = angle;
+  }
+
+  private checkAnimalCollisions(): void {
+    for (let i = 0; i < this.animals.length; i++) {
+      const animal = this.animals[i];
+      if (!animal.isAlive) continue;
+
+      // Check collision with player
+      const playerDistance = this.camera.position.distanceTo(animal.position);
+      if (playerDistance < 2) {
+        if (animal.type === 'trex') {
+          // T-Rex attacks player
+          console.log('T-Rex attacked player!');
+          // Add player damage logic here
+        }
+      }
+
+      // T-Rex hunts other animals
+      if (animal.type === 'trex') {
+        for (let j = 0; j < this.animals.length; j++) {
+          const prey = this.animals[j];
+          if (i !== j && prey.isAlive && prey.type !== 'trex') {
+            const distance = animal.position.distanceTo(prey.position);
+            if (distance < 2) {
+              prey.isAlive = false;
+              this.scene.remove(prey.mesh);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private updateAnimalBehavior(animal: Animal): void {
+    if (!animal.isAlive) return;
+    
+    const currentTime = performance.now();
+    if (currentTime - animal.lastStateChange > 3000) {
+      const randomX = animal.position.x + (Math.random() - 0.5) * 10;
+      const randomZ = animal.position.z + (Math.random() - 0.5) * 10;
+      animal.targetPosition = new THREE.Vector3(randomX, 2, randomZ);
+      animal.lastStateChange = currentTime;
+    }
   }
 } 

@@ -30,8 +30,8 @@ export class LifeNextMatrixStrategy implements NextMatrixStrategy {
                         // lo que mas tiene son vecinos rojos 
                         // o sea si soy verde y tengo vecinos rojos mi condicion depende de los vecinos rojos
                         // tengo que escribir otra vez esta clase como creo que deberia ser pero en una clase nueva 
-                            if (this.automata.getGrayRule()?.surviveCondition(vivas.length)) {
-
+                            const grayRule = this.automata.getGrayRule();
+                            if (grayRule && grayRule.surviveCondition(vivas.length)) {
                                 nuevaMatriz[fila][columna].state = 1;
                             } else {
                                 nuevaMatriz[fila][columna].state = 0;
@@ -41,13 +41,10 @@ export class LifeNextMatrixStrategy implements NextMatrixStrategy {
 
                         // lo que mas tiene son vecinos cafes 
                     } else if (matriz[fila][columna].state === 0) {
-
-
-                        if (this.automata.getGrayRule()?.liveCondition(vivas.length)) {
-
+                        const grayRule = this.automata.getGrayRule();
+                        if (grayRule && grayRule.liveCondition(vivas.length)) {
                             nuevaMatriz[fila][columna].state = 1;
                             nuevaMatriz[fila][columna].color = 'Gray'
-
                         }
                     }
             }

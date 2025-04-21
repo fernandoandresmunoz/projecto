@@ -155,7 +155,8 @@ export class ControladorFilaConcreto implements ControladorFila {
             this.activeIndex -= 1;
     }
     getRuleBinary(): number {
-        return Number(this.getRegla()?.toString(2))
+        const regla = this.getRegla();
+        return regla ? Number(regla.toString(2)) : 0;
     }
     toggleCelda(indice: number): void {
         if (this.getModel().getCeldas()[indice].getState() === 1) {
