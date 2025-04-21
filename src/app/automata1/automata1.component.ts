@@ -75,7 +75,7 @@ export class Automata1Component implements OnInit, ControladorColores {
 
   constructor(private automataStateService: AutomataStateService) {
     this.factory2 = new ConcreteShapeFactory();
-    this.automata1 = this.factory2.createMilitaryCube(500, 500);
+    this.automata1 = this.factory2.createMilitaryCube(200, 200);
     
     // Configuración inicial de reglas
     this.automata1.setGreenRule(this.factory2.createLifeRule());
