@@ -59,7 +59,7 @@
         </p>
 
         <p>
-            <input type="color" name="" id="" (change)="cambiarColorFondoLienzo($event.target.value)" ngModel
+            <input type="color" name="" id="" (change)="cambiarColorFondoLienzo(($event.target as HTMLInputElement).value)" ngModel
                 [(ngModel)]="colorFondoLienzo" [value]="colorFondoLienzo"> COLOR FONDO CALCULADORA {{ colorFondoLienzo
             }}
         </p>
@@ -67,27 +67,27 @@
 
 
         <p>
-            <input type="color" name="" id="" (change)="cambiarColorCurva($event.target.value)" ngModel
+            <input type="color" name="" id="" (change)="cambiarColorCurva(($event.target as HTMLInputElement).value)" ngModel
                 [(ngModel)]="colorCurva" [value]="colorCurva"> COLOR CURVA {{ colorCurva }}
         </p>
         <p>
-            <input type="color" name="" id="" (change)="cambiarColorIntegral($event.target.value)" ngModel
+            <input type="color" name="" id="" (change)="cambiarColorIntegral(($event.target as HTMLInputElement).value)" ngModel
                 [(ngModel)]="colorIntegral" [value]="colorIntegral"> COLOR INTEGRAL {{ colorIntegral }}
         </p>
         <p>
-            <input type="number" name="" id="" (change)="cambiarAnchoCurva($event.target.value)" ngModel
+            <input type="number" name="" id="" (change)="cambiarAnchoCurva(($event.target as HTMLInputElement).value)" ngModel
                 [(ngModel)]="anchoCurva" [value]="anchoCurva">
             ANCHO CURVA
 
         </p>
         <p>
-            <input type="number" name="" id="" (change)="cambiarAnchoDerivada($event.target.value)" ngModel
+            <input type="number" name="" id="" (change)="cambiarAnchoDerivada(($event.target as HTMLInputElement).value)" ngModel
                 [(ngModel)]="anchoDerivada" [value]="anchoDerivada">
             ANCHO DERIVADA
 
         </p>
         <p>
-            <input type="checkbox" name="" id="" (change)="cambiarMostrarDerivada($event.target.value)" ngModel
+            <input type="checkbox" name="" id="" (change)="cambiarMostrarDerivada(($event.target as HTMLInputElement).checked)" ngModel
                 [value]="mostrarDerivada">
             MOSTRAR DERIVADA
 
