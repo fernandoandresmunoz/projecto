@@ -9,7 +9,8 @@
         cuantos componentes se podrian crear pasando solamente el automata como parametro.
     -->
     {{ showStats ? 'si': 'no'}}
-    <div *ngIf="showStats">
+    <div *ngIf="false">
+    <!-- <div *ngIf="showStats"> -->
 
         <h1>tabla refactorizada </h1>
         <table border=1 style='width: 300px'>
@@ -21,7 +22,7 @@
 
         
     </div>
-    <div *ngIf="true">
+    <div *ngIf="false">
         <!-- <p>{{ getBloques().length}}</p> -->
         <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
         
@@ -54,7 +55,8 @@
             </div>
         </div>
     </div>
-    <div *ngIf="showController">
+    <div *ngIf="false">
+    <!-- <div *ngIf="showController"> -->
     
         <table>
             <tr>
@@ -95,7 +97,8 @@
                 </div>
                     <button (click)='clean()'>clean</button>
     
-            <div *ngIf='showController'style='font-size: 16px'>
+            <!-- <div *ngIf='showController'style='font-size: 16px'> -->
+            <div *ngIf='false'style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>
@@ -217,7 +220,7 @@
     
     
     
-                <div *ngIf=' showAuxiliaryLines()'>
+                <!-- <div *ngIf=' showAuxiliaryLines()'>
                     <div style='border: 1px solid gray'>
                         <ul>
                             <li *ngFor='let projection of getProjections()'>
@@ -241,7 +244,7 @@
                         <br>
                         <button (click)='setScale(getScale() - 1); draw()'> - </button>
                         <button (click)='setScale(getScale() + 1); draw()'>+</button>
-                </div>
+                </div> -->
 
 
 </div>

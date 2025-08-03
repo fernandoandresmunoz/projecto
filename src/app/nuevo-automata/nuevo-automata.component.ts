@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConcreteShapeFactory } from 'ConcreteShapeFactory.1';
-import { FabricaDeLienzos } from '../lienzos/fabrica-de-lienzos';
-import { FabricaDeFunciones } from '../lienzos/fabrica-de-funciones';
-import { Lienzo } from '../lienzos/lienzo';
-import { FabricaDeLienzosConcreta } from '../lienzos/fabrica-de-lienzos-concreta';
-import { FabricaDeFuncionesConcreta } from '../lienzos/fabrica-de-funciones-concreta';
-import { JUEGO } from 'src/JUEGO';
-import { Juego } from '../ifaces/game';
 import { Automata } from 'cube';
-
 
 
 @Component({
@@ -24,9 +16,8 @@ export class NuevoAutomataComponent implements OnInit {
 
   constructor() { 
     this.automata.setScale(3)
+    this.automata.setShowAuxiliaryLines(false)
   }
-
   ngOnInit(): void {
   }
-
 }

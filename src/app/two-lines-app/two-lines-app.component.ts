@@ -230,7 +230,6 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.automata.downMilitary();
   }
   showAuxiliaryLines(): boolean {
-    return this.auxiliaryLines;
     return this.automata.showAuxiliaryLines();
   }
   subir(): void {
