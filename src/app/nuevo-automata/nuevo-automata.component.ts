@@ -7,6 +7,7 @@ import { FabricaDeLienzosConcreta } from '../lienzos/fabrica-de-lienzos-concreta
 import { FabricaDeFuncionesConcreta } from '../lienzos/fabrica-de-funciones-concreta';
 import { JUEGO } from 'src/JUEGO';
 import { Juego } from '../ifaces/game';
+import { Automata } from 'cube';
 
 
 
@@ -19,9 +20,11 @@ export class NuevoAutomataComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
 
-  automata = this.factory2.createMilitaryCube(JUEGO.FILAS, JUEGO.COLUMNAS)
+  automata: Automata = this.factory2.createMilitaryCube(30, 240)
 
-  constructor() { }
+  constructor() { 
+    this.automata.setScale(3)
+  }
 
   ngOnInit(): void {
   }
