@@ -1,26 +1,31 @@
-<div class="app-container" [ngStyle]="{'background-color': backgroundColor, 'min-height': '100vh', 'transition': 'background-color 1s ease'}">
+<ul>
+  <li><a [routerLink]="['/']">Home</a></li>
+  <li><a [routerLink]="['/automata-1']" class="nav-link">Automata 1</a></li>
+  <li><a [routerLink]="['/automata-2']" class="nav-link">Automata 2</a></li>
+  <li><a [routerLink]="['/automata-3']" class="nav-link">2D Automata</a></li>
+  <li><a [routerLink]="['/glider']" class="nav-link">Glider</a></li>
+  <li><a [routerLink]="['/nuevo-automata']" class="nav-link">New Automata</a></li>
+  <li><a [routerLink]="['/reglas/110']" class="nav-link">Rules</a></li>
+  <li><a [routerLink]="['/funcion-seno']" class="nav-link">Sine</a></li>
+  <li><a [routerLink]="['/funcion-cuadratica']" class="nav-link">Quadratic</a></li>
+  <li><a [routerLink]="['/funcion-exponencial']" class="nav-link">Exponential</a></li>
+  <li><a [routerLink]="['/funcion-logaritmica']" class="nav-link">Logarithmic</a></li>
+  <li><a [routerLink]="['/funcion-polinomica']" class="nav-link">Polynomial</a></li>
+  <li><a [routerLink]="['/gauss']" class="nav-link">Gauss</a></li>
+  </ul>
+<div
+class="app-container"
+[ngStyle]="
+{'background-color': backgroundColor, 'min-height': '100vh', 'transition': 'background-color 1s ease'}
+"
+>
+  
   <!-- Navigation Menu -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
-        <a [routerLink]="['/']">Home</a>
       </div>
-      <div class="nav-links">
-        <a [routerLink]="['/automata-1']" class="nav-link">Automata 1</a>
-        <a [routerLink]="['/automata-2']" class="nav-link">Automata 2</a>
-        <a [routerLink]="['/automata-3']" class="nav-link">2D Automata</a>
-        <a [routerLink]="['/glider']" class="nav-link">Glider</a>
-        <a [routerLink]="['/nuevo-automata']" class="nav-link">New Automata</a>
-        <a [routerLink]="['/reglas']" class="nav-link">Rules</a>
-      </div>
-      <div class="nav-links">
-        <a [routerLink]="['/funcion-seno']" class="nav-link">Sine</a>
-        <a [routerLink]="['/funcion-cuadratica']" class="nav-link">Quadratic</a>
-        <a [routerLink]="['/funcion-exponencial']" class="nav-link">Exponential</a>
-        <a [routerLink]="['/funcion-logaritmica']" class="nav-link">Logarithmic</a>
-        <a [routerLink]="['/funcion-polinomica']" class="nav-link">Polynomial</a>
-        <a [routerLink]="['/gauss']" class="nav-link">Gauss</a>
-      </div>
+
     </div>
   </nav>
 
@@ -46,7 +51,7 @@
 
 <hr>
 
-<!-- <h2>Automata 2</h2>
+<h2>Automata 2</h2>
 <app-two-lines-app [automata]="automata2" ></app-two-lines-app>
 <app-tabla [automata]="automata2"></app-tabla>
 <hr>
@@ -76,7 +81,7 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
     <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="raiz"></app-arbol-view>
 
-</div> -->
+</div>
 <!-- <div>
 
     <h1>{{ umbralInferior }}</h1><button style="height: 50px; width: 200px"
@@ -116,13 +121,13 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
     </div> -->
     <!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
 
-    <!-- <h2>{{ generacion }}</h2>
+    <h2>{{ generacion }}</h2>
     <div *ngIf=' showCurva'>
         <app-curva *ngIf='mostrarGrafica' [automata]="automata1" [generacion]='generacion' [points]='points' [azules]='azules'
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
     </div>
 
-    {{ raiz.getHojas().length}} -->
+    {{ raiz.getHojas().length}}
 
     <!-- <div *ngIf='showTabla'>
         <h2>Rack </h2>

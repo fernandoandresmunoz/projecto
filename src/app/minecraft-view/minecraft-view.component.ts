@@ -272,7 +272,7 @@ interface SavedGameState {
   template: `
     <div #rendererContainer></div>
     <div #minimapContainer class="minimap"></div>
-    <div class="flight-message" [class.visible]="isFlying">MODO VUELO ACTIVADO</div>
+    <!-- <div class="flight-message" [class.visible]="isFlying">MODO VUELO ACTIVADO</div> -->
     <!-- <div class="controls-info" *ngIf="!isLocked">
       Click to start<br>
       Move: WASD<br>
