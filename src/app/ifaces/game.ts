@@ -42,19 +42,21 @@ export class Factory {
         let b = this.crearGrupoCelula();
         let c = this.crearGrupoCelula();
 
-        if (JUEGO.PISOS !== 1) {
-            a.addChild(b);
-            a.addChild(c)
-        }
-        if (JUEGO.PISOS === 2) {
+        // if (JUEGO.PISOS !== 1) {
+        //     a.addChild(b);
+        //     a.addChild(c)
+        // }
+        // if (JUEGO.PISOS === 2) {
 
-            a.agregarHijos();
-        } else if (JUEGO.PISOS === 3) {
+        //     a.agregarHijos();
+        // } else if (JUEGO.PISOS === 3) {
 
-            a.agregarHijos();
-            a.agregarHijos();
-        }
-        a.agregarHojas();
+        //     a.agregarHijos();
+        //     a.agregarHijos();
+        // }
+        b.agregarHijos();
+        c.agregarHojas();
+        a.setAutomatas()
         return a;
     }
 
@@ -226,7 +228,11 @@ export class Factory {
 
         a.addChild(b)
         a.addChild(c)
-        // a.setAutomatas();
+        a.agregarHijos()
+        a.agregarHijos()
+        a.agregarHijos()
+        a.agregarHojas()
+        a.setAutomatas();
         return a ;
     }
 

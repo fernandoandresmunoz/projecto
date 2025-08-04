@@ -16,8 +16,12 @@ export class TreeComponent implements OnInit {
   raiz : Nodo;
 
   constructor() { 
-    this.raiz = this.factory.crearRed()
-
+    this.raiz = this.factory.superPlanta()
+   
+    setInterval(() => {
+      this.raiz.avanzarUnaGeneracion()
+      // this.draw()
+    }, 100)
     // setInterval(() => {
     //   this.raiz.avanzarUnaGeneracion()
     // }, 250)

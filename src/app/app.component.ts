@@ -76,7 +76,7 @@ automata3 = this.factory2.createMilitary2(40, 60)
     }, 250)
 
 
-    this.raiz = this.factory.crearPlanta()
+    this.raiz = this.factory.crearArbol2()
     this.raiz2 = this.factory.crearSingle()
     this.raiz3 = this.factory.megaPlanta()
     this.rack = this.factory.crearRack();

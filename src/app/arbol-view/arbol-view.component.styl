@@ -1,0 +1,123 @@
+/* arbol-view.component.css (o .scss) */
+
+/* El componente host, para centrar el árbol completo si es la raíz */
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el nodo raíz horizontalmente */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    padding: 20px 0; /* Añade un poco de espacio vertical alrededor del árbol */
+}
+
+/* Estilos para el contenedor de cada nodo (el <li> que tu componente genera) */
+/* Aplica tanto a nodos padre como a nodos hoja */
+li {
+    position: relative;
+    display: flex; /* Usa flexbox para centrar el contenido (el span .tf-nc) */
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    list-style: none; /* Elimina las viñetas por defecto de la lista */
+    margin: 0; /* Elimina los márgenes por defecto */
+    padding: 0; /* Elimina el padding por defecto */
+}
+
+/* El elemento visual del nodo (el <span> con el número y el color) */
+.tf-nc {
+    display: block; /* Asegura que se comporte como un bloque para su tamaño y centrado */
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 70px; /* Ancho mínimo para el número */
+    height: 30px;
+    line-height: 20px; /* Centra el texto verticalmente (30px alto - 2*5px padding = 20px de línea) */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+    z-index: 2; /* Asegura que el nodo esté por encima de las líneas */
+    position: relative; /* Necesario para que z-index funcione */
+    background: #f9f9f9; /* Fondo por defecto, será sobrescrito por ngStyle */
+}
+
+/* Estilos para el <ul> que contiene los hijos de un nodo */
+li > ul {
+    display: flex; /* Organiza los hijos horizontalmente */
+    justify-content: center; /* Centra los hijos si no ocupan todo el ancho */
+    list-style: none; /* Elimina las viñetas por defecto */
+    margin: 0; /* Elimina los márgenes por defecto */
+    padding: 0; /* Elimina el padding por defecto */
+    position: relative;
+    padding-top: 20px; /* Espacio para la línea vertical que baja del nodo padre */
+    width: 100%; /* Permite que la línea horizontal se extienda por debajo */
+}
+
+/* Línea vertical que baja del nodo padre al nivel de los hijos */
+li > ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 20px; /* Coincide con el padding-top del ul */
+    border-left: 1px solid #ccc; /* Color y estilo de la línea */
+    transform: translateX(-50%); /* Centra la línea */
+}
+
+/* Línea horizontal que conecta a todos los hijos */
+li > ul::after {
+    content: '';
+    position: absolute;
+    top: 20px; /* Se alinea con la parte inferior de la línea vertical ul::before */
+    left: 0;
+    right: 0;
+    height: 0; /* No tiene altura propia, solo es una línea de borde */
+    border-top: 1px solid #ccc; /* Color y estilo de la línea */
+    z-index: 1; /* Por debajo de los nodos pero por encima de las líneas verticales de los hijos */
+}
+
+/* Estilos para cada <li> hijo individual */
+li > ul > li {
+    flex-shrink: 0; /* Evita que los hijos se encojan */
+    flex-grow: 1; /* Permite que los hijos crezcan si hay espacio */
+    margin: 0 10px; /* Espaciado horizontal entre hermanos */
+    padding-top: 20px; /* Espacio para la línea vertical que sube desde el hijo hasta la línea horizontal */
+}
+
+/* Línea vertical que sube desde cada hijo hasta la línea horizontal de sus hermanos */
+li > ul > li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 20px; /* Longitud de la línea vertical */
+    border-left: 1px solid #ccc; /* Color y estilo de la línea */
+    transform: translateX(-50%); /* Centra la línea */
+}
+
+/* Ocultar la línea vertical encima de los nodos hoja (que no tienen hijos) */
+li:not(:has(ul))::before {
+    content: none;
+}
+
+/* Estilos de color para los nodos (asumiendo que root.getState() devuelve 'red', 'yellow', 'green') */
+span[ng-reflect-ng-style*='background: red'] {
+    background: #ffcccc !important; /* Rojo claro para Crítico */
+}
+span[ng-reflect-ng-style*='background: yellow'] {
+    background: #ffffcc !important; /* Amarillo claro para Warning */
+}
+span[ng-reflect-ng-style*='background: green'] {
+    background: #ccffcc !important; /* Verde claro para OK */
+}
+
+/* Asegurarse de que no haya estilos de lista por defecto que interfieran */
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+li > ul::after {
+/* ... otras propiedades ... /
+top: 15px; / Ajustar la posición vertical para que se centre mejor en los nodos */
+}

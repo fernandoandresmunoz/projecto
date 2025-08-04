@@ -18,13 +18,13 @@ export class AutomataComponent implements OnInit {
 
 
   @Input() coloresRegla2: string[] = [ "#453b07",	"#d2a65b",	"#453b07" ]
-  @Input() coloresRegla4: string[] = [ "#453b07",	"#d2a65b",	"#453b07" ]
-  @Input() coloresRegla5: string[] = [ "#453b07",	"#d2a65b",	"#453b07" ]
+  // @Input() coloresRegla4: string[] = [ "#453b07",	"#d2a65b",	"#453b07" ]
+  // @Input() coloresRegla5: string[] = [ "#453b07",	"#d2a65b",	"#453b07" ]
 
   // @Input() coloresRegla2: string[] = [ "#453b07",	"#a47e3d",	"#453b07" ]
-  // @Input() coloresRegla4: string[] = [ "#453b07",	"#a47e3d",	"#453b07" ]
+  @Input() coloresRegla4: string[] = [ "#453b07",	"#a47e3d",	"#453b07" ]
   // @Input() coloresReglastring[] = [ "#453b07",	"#a47e3d",	"#453b07" ]
-  // @Input() coloresRegla5: string[] = [ "#DC143C",	"#FF7F50",	"#f08080" ]
+  @Input() coloresRegla5: string[] = [ "#DC143C",	"#FF7F50",	"#f08080" ]
 
 
   constructor() {

@@ -7,6 +7,7 @@
   <li><a [routerLink]="['/nuevo-automata']" class="nav-link">New Automata</a></li>
   <li><a [routerLink]="['/reglas/110']" class="nav-link">Rules</a></li>
   <li><a [routerLink]="['/funcion-seno']" class="nav-link">Sine</a></li>
+  <li><a [routerLink]="['/tree']" class="nav-link">Árbol</a></li>
   <li><a [routerLink]="['/funcion-cuadratica']" class="nav-link">Quadratic</a></li>
   <li><a [routerLink]="['/funcion-exponencial']" class="nav-link">Exponential</a></li>
   <li><a [routerLink]="['/funcion-logaritmica']" class="nav-link">Logarithmic</a></li>
@@ -104,11 +105,16 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
 
     <!-- <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1> -->
-    <div *ngIf='true' class='tf-tree tf-ancestor-tree ' style='font-size: 4px;'>
+    <div *ngIf='true' class='tf-tree tf-ancestor-tree '>
             <h2>Árbol 1</h2>
-            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz' [showDraw]='0'></app-nodo>
+            <app-nodo
+                [umbralInferior]='umbralInferior'
+                [umbralSuperior]='umbralSuperior'
+                [root]='raiz'
+                [showDraw]='0'>
+            </app-nodo>
             <hr>
-            <h2>Árbol 2</h2>
+            <!-- <h2>Árbol 2</h2>
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz2' [showDraw]='1'></app-nodo>
 
             <br><br>
@@ -116,16 +122,16 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
             <h2>Árbol 3</h2>
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz3' [showDraw]='0'></app-nodo>
-            </div>
+            </div> -->
 
     </div>
     <!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
 
-    <h2>{{ generacion }}</h2>
+    <!-- <h2>{{ generacion }}</h2>
     <div *ngIf=' showCurva'>
         <app-curva *ngIf='mostrarGrafica' [automata]="automata1" [generacion]='generacion' [points]='points' [azules]='azules'
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
-    </div>
+    </div> -->
 
     {{ raiz.getHojas().length}}
 

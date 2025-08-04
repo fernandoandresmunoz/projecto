@@ -30,7 +30,7 @@ export const JUEGO = {
 
     },
     UMBRAL_INFERIOR: 0.5,
-    UMBRAL_SUPERIOR: 0.7,
+    UMBRAL_SUPERIOR: 0.75,
     UMBRAL_STEP: 0.01,
     INTERVALO_GENERACION: 400,
     // LEAVES:8,
@@ -39,7 +39,7 @@ export const JUEGO = {
     HOJAS_POR_RAMA: 1, // RACK
     MOSTRAR_TABLA: true,
     MOSTRAR_GRAFICO: true,
-    BACKGROUND_COLOR: 'darkgray',
+    BACKGROUND_COLOR: 'white',
     TITLE: 'Automaton',
     FONT_COLOR: 'lightgray',
     SHOW_TREE: false,

@@ -16,13 +16,7 @@ export class RedViewComponent implements OnInit, OnChanges {
 
   @Input() root: Nodo;
 
-  constructor() {
-   
-    setInterval(() => {
-      this.root.avanzarUnaGeneracion()
-      this.draw()
-    }, 2 )
-  }
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.draw();
     console.log(this.root.average())
