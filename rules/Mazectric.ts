@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class Mazectric implements Rule {
+    name: string = 'mazetric1';
     surviveCondition(vivas: number): boolean {
         if ( 1 <= vivas && vivas <=  4) {
             return true;

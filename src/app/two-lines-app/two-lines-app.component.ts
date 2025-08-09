@@ -55,11 +55,11 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   sentido: boolean = false;
   constructor() {
 
-    setInterval(() => {
-      this.draw();
-      this.avanzarUnaGeneracion()
-      this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    }, 250)
+    // setInterval(() => {
+    //   // this.draw();
+    //   // this.avanzarUnaGeneracion()
+    //   // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
+    // }, 250)
   }
   totales() {
     return this.automata.totales();

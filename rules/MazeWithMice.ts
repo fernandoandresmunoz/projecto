@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class MazeWithMice implements Rule {
+    name: string = 'maze with mice';
     // B37/S12345	
     surviveCondition(vivas: number): boolean {
         if ( vivas >= 1 && vivas <= 5 ) {

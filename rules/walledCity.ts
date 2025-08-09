@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class WalledCity implements Rule {
+    name: string = 'walled city';
     surviveCondition(vivas: number): boolean {
         if ( vivas === 2 || vivas == 3 || vivas === 4 || vivas === 5 ) {
             return true;

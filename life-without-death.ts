@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class LifeWithoutDeath implements Rule {
+    name: string = 'life without death';
     surviveCondition(vivas: number): boolean {
         return true;
     }

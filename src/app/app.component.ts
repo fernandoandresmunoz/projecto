@@ -58,28 +58,28 @@ automata3 = this.factory2.createMilitary2(40, 60)
     this.automata1.setAltoLienzo(700)
     this.automata1.setScale(2)
 
-    setInterval(() => {
+    // setInterval(() => {
 
-      // tengo cuatro arboles y 3 automatas 
+    //   // tengo cuatro arboles y 3 automatas 
 
-      // estos son arboles 
-      // this.raiz.avanzarUnaGeneracion();
-      // this.raiz2.avanzarUnaGeneracion()
-      // this.raiz3.avanzarUnaGeneracion()
-      // this.rack.avanzarUnaGeneracion()
+    //   // estos son arboles 
+    //   // this.raiz.avanzarUnaGeneracion();
+    //   // this.raiz2.avanzarUnaGeneracion()
+    //   // this.raiz3.avanzarUnaGeneracion()
+    //   // this.rack.avanzarUnaGeneracion()
 
-      // estos son automatas sueltos 
-      // this.automata1.avanzarUnaGeneracion()
-      // this.automata2.avanzarUnaGeneracion()
-      // this.automata3.avanzarUnaGeneracion()
+    //   // estos son automatas sueltos 
+    //   // this.automata1.avanzarUnaGeneracion()
+    //   // this.automata2.avanzarUnaGeneracion()
+    //   // this.automata3.avanzarUnaGeneracion()
 
-    }, 250)
+    // }, 250)
 
 
-    this.raiz = this.factory.crearArbol2()
-    this.raiz2 = this.factory.crearSingle()
-    this.raiz3 = this.factory.megaPlanta()
-    this.rack = this.factory.crearRack();
+    // this.raiz = this.factory.crearArbol2()
+    // this.raiz2 = this.factory.crearSingle()
+    // this.raiz3 = this.factory.megaPlanta()
+    // this.rack = this.factory.crearRack();
 
   }
 

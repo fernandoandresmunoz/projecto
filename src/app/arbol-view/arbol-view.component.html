@@ -1,5 +1,5 @@
 <!-- si tengo hijos, o sea si soy un composite-->
-<li *ngIf='!root.isLeaf()'>
+<li *ngIf='root !== undefined && !root?.isLeaf()'>
 
 <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
@@ -25,7 +25,7 @@
     </ul>
 </li>
 
-<li *ngIf='root.isLeaf()'>
+<li *ngIf='root !== undefined && root.isLeaf()'>
 <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
  

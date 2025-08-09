@@ -94,9 +94,9 @@ cargarRectas() {
   }
 
   cargarPerpendiculares() {
-    this.geometry.obtenerPerpendiculares().subscribe(response => {
-      this.perpendiculares = response;
-    })
+    // this.geometry.obtenerPerpendiculares().subscribe(response => {
+    //   this.perpendiculares = response;
+    // })
   }
 
   calcularDistanciaPuntos(x1: number, y1: number, x2: number, y2: number): number {

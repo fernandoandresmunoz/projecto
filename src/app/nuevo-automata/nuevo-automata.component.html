@@ -1,5 +1,36 @@
+<table border="1">
+  <tr>
+    <td>GRAY</td>
+    <td>{{ automata.getGrayRule().name }} </td> 
+    <td>{{ automata.porcentajeGrises() }} </td> 
+  </tr>
+<tr>
+    <td>BROWN</td>
+    <td>{{ automata.getBrownRule().name }} </td> 
+    <td>{{ automata.porcentajeCafes() }} </td> 
+  </tr>
+<tr>
+    <td>BLUE</td>
+    <td>{{ automata.getBlueRule().name }} </td> 
+    <td>{{ automata.porcentajeAzules() }} </td> 
+  </tr>
+<tr>
+    <td>GREEN</td>
+    <td>{{ automata.getGreenRule().name }} </td> 
+    <td>{{ automata.porcentajeVerdes() }} </td> 
+  </tr>
+<tr>
+    <td>RED</td>
+    <td>  {{ automata.getRedRule().name }} </td> 
+    <td>{{ automata.porcentajeRojos() }} </td> 
+  </tr>
+</table>
 <app-automata
 [automata]="automata"
 [showStats]="false"
 ></app-automata>
+
+<p>
+  {{ automata.densidad() }}
+</p>
   <!-- <app-graficas-automata [automata]="automata"></app-graficas-automata> -->

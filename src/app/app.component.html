@@ -22,13 +22,13 @@ class="app-container"
 >
   
   <!-- Navigation Menu -->
-  <nav class="main-nav">
+  <!-- <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
       </div>
 
     </div>
-  </nav>
+  </nav> -->
 
   <!-- Main Content -->
   <main class="main-content">
@@ -50,7 +50,7 @@ class="app-container"
 <app-two-lines-app [automata]="automata1"></app-two-lines-app> -->
 
 
-<hr>
+<!-- <hr>
 
 <h2>Automata 2</h2>
 <app-two-lines-app [automata]="automata2" ></app-two-lines-app>
@@ -58,22 +58,22 @@ class="app-container"
 <hr>
 <h2>Automata 3 </h2>
 filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
-<app-two-lines-app [automata]="automata3" ></app-two-lines-app>
+<app-two-lines-app [automata]="automata3" ></app-two-lines-app> -->
 
 
 
-<div>
-    <h2>Árbol 1</h2>
-{{ raiz.average()}}
-</div>
-<div>
-</div>
-<table border=1 style='width: 300px'>
+<!-- <div> -->
+    <!-- <h2>Árbol 1</h2> -->
+<!-- {{ raiz.average()}} -->
+<!-- </div> -->
+<!-- <div>
+</div> -->
+<!-- <table border=1 style='width: 300px'>
             <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of raiz.totales()'>
                 <td>{{  v.name  }}</td>
                 <td>{{ v.total | number: '.2-2' }}</td>
             </tr>
-        </table>
+        </table> -->
 
     
 
@@ -105,15 +105,15 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
 
     <!-- <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1> -->
-    <div *ngIf='true' class='tf-tree tf-ancestor-tree '>
-            <h2>Árbol 1</h2>
-            <app-nodo
+    <!-- <div *ngIf='true' class='tf-tree tf-ancestor-tree '> -->
+            <!-- <h2>Árbol 1</h2> -->
+            <!-- <app-nodo
                 [umbralInferior]='umbralInferior'
                 [umbralSuperior]='umbralSuperior'
                 [root]='raiz'
                 [showDraw]='0'>
-            </app-nodo>
-            <hr>
+            </app-nodo> -->
+            <!-- <hr> -->
             <!-- <h2>Árbol 2</h2>
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz2' [showDraw]='1'></app-nodo>
 
@@ -124,7 +124,7 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz3' [showDraw]='0'></app-nodo>
             </div> -->
 
-    </div>
+    <!-- </div> -->
     <!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
 
     <!-- <h2>{{ generacion }}</h2>
@@ -133,7 +133,7 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
     </div> -->
 
-    {{ raiz.getHojas().length}}
+    <!-- {{ raiz.getHojas().length}} -->
 
     <!-- <div *ngIf='showTabla'>
         <h2>Rack </h2>

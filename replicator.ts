@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class Replicator implements Rule {
+    name: string = 'replicator';
     // B1357/S1357	
     surviveCondition(vivas: number): boolean {
         if ( vivas === 1 || vivas === 3 || vivas === 5 || vivas === 7 ) {

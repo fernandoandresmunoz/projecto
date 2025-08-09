@@ -44,7 +44,8 @@
         <td>tangente(alfa)</td>
     </tr>
 </table>
-<app-parabola *ngIf="obtenerPuntos().length > 0 && obtenerRectas().length > 0  && obtenerPerpendiculares().length > 0 "
+<app-parabola
+*ngIf="obtenerPuntos().length > 0 && obtenerRectas().length > 0  && obtenerPerpendiculares().length > 0 "
 [tipo]="'LOGARITMICA'"
 [f]="funcion()"
 [showOptions]="false"

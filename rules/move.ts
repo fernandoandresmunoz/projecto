@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class Move implements Rule {
+    name: string = 'move';
     surviveCondition(vivas: number): boolean {
         if (vivas === 2 || vivas === 4 || vivas === 5) {
             return true;

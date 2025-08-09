@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class Geology implements Rule {
+    name: string = 'geology';
     surviveCondition(vivas: number): boolean {
         if ( vivas === 2 || vivas == 4 || vivas === 6 || vivas === 7
             || vivas === 7 ) {

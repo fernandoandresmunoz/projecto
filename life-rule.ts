@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class LifeRule implements Rule {
+    name: string = 'life rule';
     surviveCondition(vivas: number): boolean {
         if ( vivas == 2 || vivas  == 3){
             return true;

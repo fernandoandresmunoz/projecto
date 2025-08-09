@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class Diamoeba implements Rule {
+    name: string = 'diamoeba';
     surviveCondition(vivas: number): boolean {
         // B35678/S5678	
         if ( vivas === 5 || vivas === 6 || vivas === 7 || vivas === 8) {

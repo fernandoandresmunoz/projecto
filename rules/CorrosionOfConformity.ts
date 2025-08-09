@@ -1,6 +1,7 @@
 import { Rule } from "rule";
 
 export class CorrosionOfConformity implements Rule {
+    name: string = 'corrosion of conformity';
     // B3/S124	
     surviveCondition(vivas: number): boolean {
         if ( vivas === 1 || vivas === 2 || vivas === 4) {

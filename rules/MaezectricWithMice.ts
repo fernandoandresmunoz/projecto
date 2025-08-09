@@ -4,6 +4,7 @@ import { Rule } from "rule";
 
 
 export class MazectricWithMice implements Rule {
+    name: string = 'mazectric with mice';
     surviveCondition(vivas: number): boolean {
         if ( 1 <= vivas && 4 >= vivas ) {
             return true;

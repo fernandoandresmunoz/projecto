@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class HighLife implements Rule {
+    name: string = 'high life';
     surviveCondition(vivas: number): boolean {
         if ( vivas === 2 || vivas === 3) {
             return true;

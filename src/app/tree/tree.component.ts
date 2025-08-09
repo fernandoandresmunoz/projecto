@@ -16,15 +16,15 @@ export class TreeComponent implements OnInit {
   raiz : Nodo;
 
   constructor() { 
-    this.raiz = this.factory.superPlanta()
+    this.raiz = this.factory.crearPlanta()
    
-    setInterval(() => {
-      this.raiz.avanzarUnaGeneracion()
-      // this.draw()
-    }, 100)
     // setInterval(() => {
     //   this.raiz.avanzarUnaGeneracion()
-    // }, 250)
+    //   // this.draw()
+    // }, 100)
+    setInterval(() => {
+      this.raiz.avanzarUnaGeneracion()
+    }, 250)
   }
 
   ngOnInit(): void {
