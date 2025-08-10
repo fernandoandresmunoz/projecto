@@ -212,26 +212,7 @@ export class Factory {
     }
 
     superPlanta() : Nodo {
-
         let a = this.crearGrupoCelula();
-
-        let b= this.crearGrupoCelula();
-        let c = this.crearGrupoCelula();
-
-        b.addChild(this.crearGrupoCelula())
-        b.addChild(this.crearGrupoCelula())
-
-        c.addChild(this.crearGrupoCelula())
-        c.addChild(this.crearGrupoCelula())
-
-
-
-        a.addChild(b)
-        a.addChild(c)
-        a.agregarHijos()
-        a.agregarHijos()
-        a.agregarHijos()
-        a.agregarHojas()
         a.setAutomatas();
         return a ;
     }

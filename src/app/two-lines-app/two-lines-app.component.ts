@@ -51,15 +51,15 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   public context: CanvasRenderingContext2D;
 
-    factory2 = new ConcreteShapeFactory()
+  factory2 = new ConcreteShapeFactory()
   sentido: boolean = false;
   constructor() {
 
-    // setInterval(() => {
-    //   // this.draw();
-    //   // this.avanzarUnaGeneracion()
-    //   // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    // }, 250)
+    setInterval(() => {
+      this.draw();
+      this.avanzarUnaGeneracion()
+      // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
+    }, 250)
   }
   totales() {
     return this.automata.totales();

@@ -1,21 +1,21 @@
-<table border="1">
+<table style='display: flexbox; width: 40%' *ngIf="false" >
   <tr>
-    <td>GRAY</td>
+    <td>LAVA</td>
     <td>{{ automata.getGrayRule().name }} </td> 
     <td>{{ automata.porcentajeGrises() }} </td> 
   </tr>
 <tr>
-    <td>BROWN</td>
+    <td>tierra</td>
     <td>{{ automata.getBrownRule().name }} </td> 
     <td>{{ automata.porcentajeCafes() }} </td> 
   </tr>
 <tr>
-    <td>BLUE</td>
+    <td>mar</td>
     <td>{{ automata.getBlueRule().name }} </td> 
     <td>{{ automata.porcentajeAzules() }} </td> 
   </tr>
 <tr>
-    <td>GREEN</td>
+    <td>vegetación</td>
     <td>{{ automata.getGreenRule().name }} </td> 
     <td>{{ automata.porcentajeVerdes() }} </td> 
   </tr>
@@ -25,12 +25,15 @@
     <td>{{ automata.porcentajeRojos() }} </td> 
   </tr>
 </table>
+<p>
+  {{ automata.getGeneration() }}
+</p>
 <app-automata
 [automata]="automata"
 [showStats]="false"
 ></app-automata>
 
-<p>
+<!-- <p>
   {{ automata.densidad() }}
-</p>
+</p> -->
   <!-- <app-graficas-automata [automata]="automata"></app-graficas-automata> -->

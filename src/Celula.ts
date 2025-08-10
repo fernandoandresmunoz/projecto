@@ -85,7 +85,7 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     setAutomatas(): void { // deberia ser set automata
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(100, 100) : this.factory.createMilitaryCube(40, 40))
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitaryCube(50, 280) : this.factory.createMilitaryCube(50, 280))
     }
     avanzarUnaGeneracion(): void {
         const automata = this.getAutomata();

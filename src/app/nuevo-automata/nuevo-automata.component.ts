@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConcreteShapeFactory } from 'ConcreteShapeFactory.1';
 import { Automata } from 'cube';
 
@@ -11,13 +11,22 @@ import { Automata } from 'cube';
 export class NuevoAutomataComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
+  @Input() automata: Automata;
 
-  automata: Automata = this.factory2.createMilitaryCube(30, 240)
+ 
 
   constructor() { 
-    this.automata.setScale(3)
-    this.automata.setShowAuxiliaryLines(false)
+
   }
   ngOnInit(): void {
-  }
+    if (this.automata === undefined) {
+      this.automata = this.factory2.createMilitaryCube(30, 240)
+      
+    }
+    this.automata.setScale(1)
+    this.automata.setShowAuxiliaryLines(false)
+    this.automata.setAnchoLienzo(200);
+    this.automata.setAltoLienzo(400);
+
+    }
 }
