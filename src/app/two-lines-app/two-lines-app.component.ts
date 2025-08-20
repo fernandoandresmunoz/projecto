@@ -54,12 +54,24 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   factory2 = new ConcreteShapeFactory()
   sentido: boolean = false;
   constructor() {
+    // setInterval(() => {
+    //   this.draw();
+    //   // this.avanzarUnaGeneracion()
+    //   this.right()
+    //   // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
+    // }, 00)
+
 
     setInterval(() => {
-      this.draw();
+      if ( !this.getPause()) {
       this.avanzarUnaGeneracion()
+      // this.right()
+      this.draw();
+      }
+      // this.draw();
+
       // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    }, 250)
+    }, 100)
   }
   totales() {
     return this.automata.totales();
@@ -76,8 +88,11 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   densidad(): number {
     return this.automata.densidad();
   }
-  changeRule(element: string, rule: string): void {
-    this.automata.changeRule(element, rule);
+  changeRule(element: string, rule: any ): void {
+    console.log(element);
+    console.log(rule);
+    if (rule)
+      this.automata.changeRule(element, rule.value);
   }
   getBlueRule(): Rule {
     return this.automata.getBlueRule();

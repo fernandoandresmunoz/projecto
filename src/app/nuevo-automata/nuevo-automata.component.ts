@@ -20,13 +20,19 @@ export class NuevoAutomataComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this.automata === undefined) {
-      this.automata = this.factory2.createMilitaryCube(30, 240)
+      this.automata = this.factory2.createMilitaryCube(200, 200)
       
     }
     this.automata.setScale(1)
     this.automata.setShowAuxiliaryLines(false)
-    this.automata.setAnchoLienzo(200);
-    this.automata.setAltoLienzo(400);
+    this.automata.setAnchoLienzo(800);
+    this.automata.setAltoLienzo(600);
+    
+    console.log(this.automata.getColorSchema())
 
+    for ( let i = 0; i < 240; i++ ) {
+      this.automata.up()
+
+    }
     }
 }

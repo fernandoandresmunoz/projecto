@@ -1,4 +1,4 @@
-import { Automata  } from "cube";
+import { Automata, ObservadorAutomata  } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
@@ -10,7 +10,6 @@ import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 import { ConcreteAliveNeighborsStrategy } from "src/app/ConcreteAliveNeighborsStrategy";
 import { AliveNeighborsStrategy } from "src/app/AliveNeighborsStrategy";
-import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
 import { DrawingStrategy } from "src/app/DrawingStrategy";
 import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
 import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
@@ -72,8 +71,8 @@ export default class ConcreteAutomata implements Automata {
     puntos: number[][][] = [];
 
     altoCelula = 2;
-    anchoCelula = 5;
-    largoCelula = 5;
+    anchoCelula = 1;
+    largoCelula = 1;
     auxiliaryLines = true
 
     anchoLienzo = 1500;
@@ -230,33 +229,38 @@ export default class ConcreteAutomata implements Automata {
 
     elements: Element[] = [];
 
-    colorSchema: any = {
-        'Red': {
-            primary: 'Red',
-            secondary: 'Coral',
-            terciary: 'DarkRed'
-        },
-        'Green': {
-            primary: 'Green',
-            secondary: 'Green',
-            terciary: 'Green'
-        },
-        'Blue': {
-            primary: 'Blue',
-            secondary: 'Blue',
-            terciary: 'Blue'
-        },
-        'Brown': {
-            primary: 'Brown',
-            secondary: 'Brown',
-            terciary: 'Brown'
-        },
-        'Gray': {
-            primary: 'Gray',
-            secondary: 'Gray',
-            terciary: 'Gray'
-        }
-    }
+//     colorSchema: any = {
+//         // 'Red': {
+//         //     primary: 'Red',
+//         //     secondary: 'Coral',
+//         //     terciary: 'DarkRed'
+//         // },
+// 'Red': {
+//             primary: 'Brown',
+//             secondary: 'Brown',
+//             terciary: 'Brown'
+//         },
+//         'Green': {
+//             primary: 'Green',
+//             secondary: 'Green',
+//             terciary: 'Green'
+//         },
+//         'Blue': {
+//             primary: 'Blue',
+//             secondary: 'Blue',
+//             terciary: 'Blue'
+//         },
+//         'Brown': {
+//             primary: 'Brown',
+//             secondary: 'Brown',
+//             terciary: 'Brown'
+//         },
+//         'Gray': {
+//             primary: 'Gray',
+//             secondary: 'Gray',
+//             terciary: 'Gray'
+//         }
+//     }
 
 
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
@@ -300,6 +304,15 @@ export default class ConcreteAutomata implements Automata {
 
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
+    }
+    addObserver(observer: ObservadorAutomata): void {
+        throw new Error("Method not implemented.");
+    }
+    removeObserver(observer: ObservadorAutomata): void {
+        throw new Error("Method not implemented.");
+    }
+    notifyObservers(): void {
+        throw new Error("Method not implemented.");
     }
     addDataAzul(generation: number, value: number): void {
         this.dataAzul.push([generation, value])
@@ -356,7 +369,7 @@ export default class ConcreteAutomata implements Automata {
         return this.totalAzules() + this.totalCafes() + this.totalVerdes() + this.totalGrises() + this.totalRojos();
     }
     setColorSchema(colorSchema: any): void {
-        this.colorSchema = colorSchema;
+        // this.colorSchema = colorSchema;
     }
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void {
         this.nextMatrixStrategy = nextMatrixStrategy;
@@ -451,7 +464,7 @@ export default class ConcreteAutomata implements Automata {
         }
     }
     getColorSchema(): any {
-        return this.colorSchema;
+        // return this.colorSchema;
     }
     getBlueRule(): Rule {
         return this.blueRule;

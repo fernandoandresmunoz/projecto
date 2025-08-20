@@ -1,4 +1,9 @@
-<table style='display: flexbox; width: 40%' *ngIf="false" >
+
+<app-pause-reset [automata]="automata"></app-pause-reset>
+<p>
+  {{ automata.getScale() }}
+</p>
+<table style='display: flexbox; width: 40%' *ngIf="true" >
   <tr>
     <td>LAVA</td>
     <td>{{ automata.getGrayRule().name }} </td> 
@@ -28,6 +33,9 @@
 <p>
   {{ automata.getGeneration() }}
 </p>
+
+<button (click)="automata.upMilitary(2)">up</button>
+<button (click)="automata.downMilitary()">down</button>
 <app-automata
 [automata]="automata"
 [showStats]="false"

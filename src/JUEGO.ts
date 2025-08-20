@@ -44,7 +44,7 @@ export const JUEGO = {
     FONT_COLOR: 'lightgray',
     SHOW_TREE: false,
     SHOW_TITLE: false,
-    AVANCE: 1,
+    AVANCE: 0.1,
     ANCHO_BARRA: 800,
     ALTO_BARRA: 15,
     AUXILIAR_LINES: true,

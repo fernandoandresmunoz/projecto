@@ -9,7 +9,7 @@
         cuantos componentes se podrian crear pasando solamente el automata como parametro.
     -->
     {{ showStats ? 'si': 'no'}}
-    <div *ngIf="false">
+    <div *ngIf="true">
     <!-- <div *ngIf="showStats"> -->
 
         <h1>tabla refactorizada </h1>
@@ -22,40 +22,64 @@
 
         
     </div>
-    <div *ngIf="false">
-        <!-- <p>{{ getBloques().length}}</p> -->
+    <div *ngIf="true">
+        <p>{{ getBloques().length}}</p>
         <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
         
-            <button (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>reset</button>
+            <button
+            (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>
+            reset
+        </button>
         
     </div>
-    <!-- <table *ngIf="true">
+    <table *ngIf="true">
         <tr *ngFor='let elemento of ELEMENTS'>
             <td style='font-size: 20px'>
                 {{ elemento }}
             </td>
             <td>
-                <select name="" id="">
-    <select (change)='changeRule(elemento, ($event.target as HTMLSelectElement).value)' name="" id="">
-        <option [value]='rule.name' *ngFor='let rule of getRules().sort()'>{{ rule.name }} ( {{ rule.notation }} )</option>
+<!-- <select    name="" id=""> -->
+<!-- <select  
+(change)="changeRule(elemento, $event.target as HTMLSelectElement).value)"
+name="" id=""> -->
+<!-- <select (change)="changeRule(elemento, $event.target as HTMLSelectElement).value)"> -->
+    <!-- <select (change)="changeRule(elemento, ($event.target as HTMLSelectElement).value)"> -->
+
+        <!-- <select (change)='changeRule(elemento, ($event.target as HTMLSelectElement).value)'> -->
+    <!-- <select (change)='changeRule(elemento, $event.target as HTMLSelectElement)'> -->
+        <!-- <select> -->
+    <select (change)='changeRule(elemento, $event.target )'>
+        <option
+        [value]='rule.name'
+        *ngFor='let rule of getRules().sort()'>
+            {{ rule.name }} ( {{ rule.notation }} )
+        </option>
     </select>
             </td>
-        </tr>
-    </table> -->
+
+            </tr>
+    
+    </table>
     <div>
         <div>
             <div>
     
-                <!-- <p style='font-size: 18px;'>
+                <p style='font-size: 18px;'>
     
         {{ automata.getGeneration() }}
-                </p> -->
+                </p>
                 <!-- <canvas  #myCanvas (keypress)='keyLeft()'></canvas> -->
-                <canvas  style='border: 1px solid gray' #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()" (keypress)='keyLeft()'></canvas>
+                <canvas 
+                style='border: 1px solid gray; '
+                #myCanvas
+                [width]="getAnchoLienzo()"
+                [height]="getAltoLienzo()"
+                (keypress)='keyLeft()'>
+            </canvas>
             </div>
         </div>
     </div>
-    <div *ngIf="false">
+    <div *ngIf="true">
     <!-- <div *ngIf="showController"> -->
     
         <table>
@@ -98,7 +122,7 @@
                     <button (click)='clean()'>clean</button>
     
             <!-- <div *ngIf='showController'style='font-size: 16px'> -->
-            <div *ngIf='false'style='font-size: 16px'>
+            <div *ngIf='true'style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>

@@ -9,8 +9,47 @@ import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 
 
 
+export interface ObserveradorAutomata {
+
+
+}
+
+
+export interface Observable {
+    addObserver(observer: ObservadorAutomata): void;
+    removeObserver(observer: ObservadorAutomata): void;
+    notifyObservers(): void;
+
+}
+
+
+export interface ObservadorAutomata { 
+
+
+
+}
+
+
+
+
+export interface ControladorAutomata {
+    getAutomata(): Automata;
+    setAutomata(automata: Automata): void;
+
+    setAnchoLienzo(anchoLienzo: number): void;
+    setAltoLienzo(altoLienzo: number): void;
+    avanzarUnaGeneracion(): void;
+    subir(): void;
+    bajar(): void;
+    moverALaIzquierda(): void;
+    moverALaDerecha(): void;
+    getRules(): void;
+
+
+}
+
 // deberia ser "export interface Automata"
-export interface Automata  {
+export interface Automata extends Observable{
     
     
     // estos puntos deberian generarse automáticamente ?
