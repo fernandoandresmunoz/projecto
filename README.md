@@ -1,5 +1,12 @@
 # Projecto
 
+<img width="523" height="316" alt="Captura de pantalla 2025-08-19 a la(s) 10 17 16 p m" src="https://github.com/user-attachments/assets/b3993567-da12-4e19-8c3c-761a76c4cab5" />
+
+
+
+https://github.com/user-attachments/assets/2f3e4ebf-f6f3-40e4-a8c0-fd7fc91914c5
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
 
 ## Development server
