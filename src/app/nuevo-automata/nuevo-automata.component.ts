@@ -25,8 +25,8 @@ export class NuevoAutomataComponent implements OnInit {
     }
     this.automata.setScale(1)
     this.automata.setShowAuxiliaryLines(false)
-    this.automata.setAnchoLienzo(800);
-    this.automata.setAltoLienzo(600);
+    this.automata.setAnchoLienzo(400);
+    this.automata.setAltoLienzo(400);
     
     console.log(this.automata.getColorSchema())
 
@@ -34,5 +34,22 @@ export class NuevoAutomataComponent implements OnInit {
       this.automata.up()
 
     }
+
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
     }
 }

@@ -33,17 +33,36 @@ export interface ObservadorAutomata {
 
 
 export interface ControladorAutomata {
+
+    borderColor: string;
+    borderWidth: number;
+    backgroundColor: string;
+    anchoLienzo: number;
+    altoLienzo: number;
+    automata: Automata;
+
     getAutomata(): Automata;
     setAutomata(automata: Automata): void;
 
     setAnchoLienzo(anchoLienzo: number): void;
     setAltoLienzo(altoLienzo: number): void;
+
+    getAnchoLienzo(): number;
+    getAltoLienzo(): number;
+
     avanzarUnaGeneracion(): void;
     subir(): void;
     bajar(): void;
     moverALaIzquierda(): void;
     moverALaDerecha(): void;
     getRules(): void;
+    guardar(): void;
+
+    getBorderWidth(): number;
+    setBorderWidth(borderWidth: number): void;
+
+    getBorderColor(): string;
+    setBorderColor(borderColor: string): void;
 
 
 }

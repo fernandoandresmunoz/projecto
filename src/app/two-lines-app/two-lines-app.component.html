@@ -1,3 +1,8 @@
+
+<div style="display: flex; justify-content: space-between;">
+    
+<div>
+
 {{ coloresRegla1[0]}}
 {{ coloresRegla1[1]}}
 {{ coloresRegla1[2]}}
@@ -12,13 +17,7 @@
     <div *ngIf="true">
     <!-- <div *ngIf="showStats"> -->
 
-        <h1>tabla refactorizada </h1>
-        <table border=1 style='width: 300px'>
-            <tr  [ngStyle]='{ "background-color": v.color, "color": "white" }' *ngFor='let v of automata.totales()'>
-                <td>{{  v.name  }}</td>
-                <td>{{ v.total | number: '.2-2' }}</td>
-            </tr>
-        </table>
+
 
         
     </div>
@@ -69,17 +68,11 @@ name="" id=""> -->
         {{ automata.getGeneration() }}
                 </p>
                 <!-- <canvas  #myCanvas (keypress)='keyLeft()'></canvas> -->
-                <canvas 
-                style='border: 1px solid gray; '
-                #myCanvas
-                [width]="getAnchoLienzo()"
-                [height]="getAltoLienzo()"
-                (keypress)='keyLeft()'>
-            </canvas>
+                
             </div>
         </div>
     </div>
-    <div *ngIf="true">
+    <div *ngIf="true" border="1">
     <!-- <div *ngIf="showController"> -->
     
         <table>
@@ -185,7 +178,7 @@ name="" id=""> -->
                 </div>
                 <div style='width: 80%'>
                     <div style='display: inline-flex;'>
-                        <div style='border: 1px solid gray; width: 700px; '>
+                        <div>
                             <div>
                                 <h3>Sur (Punto A) </h3>
                                 <p>
@@ -244,7 +237,7 @@ name="" id=""> -->
     
     
     
-                <!-- <div *ngIf=' showAuxiliaryLines()'>
+                <div *ngIf=' showAuxiliaryLines()'>
                     <div style='border: 1px solid gray'>
                         <ul>
                             <li *ngFor='let projection of getProjections()'>
@@ -268,8 +261,22 @@ name="" id=""> -->
                         <br>
                         <button (click)='setScale(getScale() - 1); draw()'> - </button>
                         <button (click)='setScale(getScale() + 1); draw()'>+</button>
-                </div> -->
+                </div>
 
 
+</div>
+
+
+
+</div>
+<div>
+        <canvas 
+                    style='border: 1px solid gray; '
+                    #myCanvas
+                    [width]="getAnchoLienzo()"
+                    [height]="getAltoLienzo()"
+                    (keypress)='keyLeft()'>
+                </canvas>
+    </div>
 </div>
 

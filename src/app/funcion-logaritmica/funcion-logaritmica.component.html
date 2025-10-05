@@ -1,4 +1,4 @@
-<div *ngIf="false">
+<div *ngIf="true">
     <div>
         CATETO 1 =  {{ distancia(puntoA, puntoB)}}
         <br>
@@ -44,8 +44,10 @@
         <td>tangente(alfa)</td>
     </tr>
 </table>
+parabola
+{{ obtenerPuntos().length }}
 <app-parabola
-*ngIf="obtenerPuntos().length > 0 && obtenerRectas().length > 0  && obtenerPerpendiculares().length > 0 "
+*ngIf="obtenerPuntos().length > 0 && obtenerRectas().length > 0"
 [tipo]="'LOGARITMICA'"
 [f]="funcion()"
 [showOptions]="false"
@@ -116,6 +118,27 @@
 
 <div *ngIf="selectedMenu === 'RECTAS'">
     RECTAS
+    <br>
+    <label for="">
+    PUNTO #1
+    </label>
+    <select name="" id=""
+    >
+        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
+    </select>
+    <br>
+    <label for="">
+    PUNTO #2
+    </label>
+    <select name="" id=""
+    >
+        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
+    </select>
+    <br>
+    <button>guardar</button>
+
+
+
 
     <table border="1">
         <thead>

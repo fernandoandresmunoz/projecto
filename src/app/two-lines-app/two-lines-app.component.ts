@@ -71,7 +71,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
       // this.draw();
 
       // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    }, 100)
+    }, 500)
   }
   totales() {
     return this.automata.totales();
@@ -248,13 +248,19 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     return this.automata.showAuxiliaryLines();
   }
   subir(): void {
-    this.automata.subir();
-    this.automata.derecha();
+    for ( let i = 0; i < 10 ; i ++) {
+      this.automata.subir();
+      this.automata.derecha();
+    }
+
     this.draw();
   }
   bajar(): void {
-    this.automata.bajar();
-    this.automata.izquierda();
+
+    for ( let i = 0 ; i < 10 ; i++) {
+      this.automata.bajar();
+      this.automata.izquierda();
+    }
     this.draw();
   }
   izquierda(): void {
@@ -263,8 +269,10 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.draw();
   }
   derecha(): void {
-    this.automata.derecha();
-    this.automata.bajar();
+    for ( let i = 0 ; i < 10 ; i ++) {
+      this.automata.derecha();
+      this.automata.bajar();
+    }
     this.draw();
   }
   subirCubos(): void {

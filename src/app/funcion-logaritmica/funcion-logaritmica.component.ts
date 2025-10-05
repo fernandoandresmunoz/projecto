@@ -61,7 +61,9 @@ export class FuncionLogaritmicaComponent implements OnInit {
   borrarPunto(id: number): void {
     this.geometry.borrarPunto(id)
     .subscribe( response => {
-      console.log(response)
+      console.log(response);
+      this.cargarPuntos();
+      alert('punto borrado con exito');
     } )
   }
 
@@ -83,6 +85,7 @@ export class FuncionLogaritmicaComponent implements OnInit {
   }
 
   cargarPuntos() {
+    this.puntos = [];
     this.geometry.obtenerPuntos().subscribe(response => {
       this.puntos = response;
     })
