@@ -17,7 +17,7 @@ export const JUEGO = {
 
         SCALE: 1,
         PROJECTION: 1,
-        BACKGROUND_COLOR: 'white',
+        BACKGROUND_COLOR: 'black',
         ALTO: 2,
         ANCHO: 1,
         LARGO: 1,

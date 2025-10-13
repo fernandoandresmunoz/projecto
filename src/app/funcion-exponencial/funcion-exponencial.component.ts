@@ -12,4 +12,8 @@ export class FuncionExponencialComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  exponencial() : (x: number) => number { 
+    return x => Math.exp(x);
+  }
+
 }

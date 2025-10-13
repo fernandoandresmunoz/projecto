@@ -25,83 +25,123 @@ import { ControladorFilaComponent } from './rule110/controlador-fila/controlador
 import { ReglasComponent } from './reglas/reglas.component';
 import { NuevoAutomataComponent } from './nuevo-automata/nuevo-automata.component';
 import { MinecraftViewComponent } from './minecraft-view/minecraft-view.component';
+import { CurvasComponent } from './curvas/curvas.component';
+import { RectaComponent } from './recta/recta.component';
+import { AutomatasComponent } from './automatas/automatas.component';
 
 const routes: Routes = [
+  // es el mismo que drawer
 {
     path: 'grafico',
     component: FuncionLogaritmicaComponent
   },
   {
     path: '',
-    component: MinecraftViewComponent
+    'component': HomeComponent
   },
   {
-    path: 'test-path',
-    component: TestappComponent
+    path: 'minecraft-view',
+    component: MinecraftViewComponent
   },
+  // {
+  //   path: 'test-path',
+  //   component: TestappComponent
+  // },
   {
     path: 'tree',
     component: TreeComponent
   },
- {
-    path: 'automata-1',
-    component: Automata1Component
-  },
-{
-    path: 'automata-2',
-    component: Automata2Component
-  },
-{
-    path: 'automata-3',
-    component: Automata3Component
-  },
-  {
-    path: 'glider',
-    component: GliderComponent
-  },
+
+
  {
     path: 'void',
     component: VoidComponent
   },
-{ 
-    path: 'gauss',
-    component: GaussComponent
-  },
-{ 
-    path: 'funcion-seno',
-    component: FuncionSenoComponent
-  },
-{ 
-    path: 'funcion-cuadratica',
-    component: FuncionCuadraticaComponent
+
+  {
+    path: 'automatas',
+    component: AutomatasComponent,
+    children: [
+      {
+        path: 'automata-1',
+        component: Automata1Component
+      },
+      {
+        path: 'automata-2',
+        component: Automata2Component
+      },
+      {
+        path: 'automata-3',
+        component: Automata3Component
+      },
+      {
+        path: 'glider',
+        component: GliderComponent
+      },
+      {
+        path: 'nuevo-automata',
+        component: NuevoAutomataComponent
+      },
+    ]
+
   },
 
-{ 
-    path: 'funcion-exponencial',
-    component: FuncionExponencialComponent
+  {
+    path: 'curvas',
+    component: CurvasComponent,
+    children: [
+      {
+        path: 'funcion-cuadratica',
+        component: FuncionCuadraticaComponent
+      },
+      {
+        path: 'funcion-exponencial',
+        component: FuncionExponencialComponent
+      },
+      {
+        path: 'gauss',
+        component: GaussComponent
+      },
+      {
+        path: 'funcion-polinomica',
+        component: FuncionPolinomicaComponent
+      },
+      {
+        path: 'funcion-seno',
+        component: FuncionSenoComponent
+      },
+      {
+        path: 'recta',
+        component: RectaComponent
+      },
+      {
+        path: 'exponenciales',
+        component: ExponencialesComponent
+      },
+      {
+        path: 'lista-lienzos',
+        component: ListaDeLienzosComponent
+      },
+    ]
+
   },
+// { 
+//     path: 'funcion-cuadratica',
+//     component: FuncionCuadraticaComponent
+//   },
 
 { 
     path: 'funcion-logaritmica',
     component: FuncionLogaritmicaComponent
   },
 
-{ 
-    path: 'funcion-polinomica',
-    component: FuncionPolinomicaComponent
-  },
-{ 
-    path: 'nueva-calculadora',
-    component: Graficadora2Component
-  },
-{ 
-    path: 'exponenciales',
-    component: ExponencialesComponent
-  },
-{ 
-    path: 'lista-lienzos',
-    component: ListaDeLienzosComponent
-  },
+
+// { 
+//     path: 'nueva-calculadora',
+//     component: Graficadora2Component
+//   },
+
+
 { 
     path: 'rule110',
     component: ControladorFilaComponent
@@ -118,10 +158,7 @@ const routes: Routes = [
     path: 'rule/:id',
     component: ReglasComponent
   },
-  {
-    path: 'nuevo-automata',
-    component: NuevoAutomataComponent
-  },
+
   {
     path: 'vista-cubos-3d',
     component: MinecraftViewComponent

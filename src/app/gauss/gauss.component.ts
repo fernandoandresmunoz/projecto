@@ -12,4 +12,9 @@ export class GaussComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  gauss() : (x: number) => number { 
+    return x => 3 * Math.exp(-1 * x**2) 
+
+  }
+
 }

@@ -26,7 +26,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   public context: CanvasRenderingContext2D;
 
   @Input() tipo: string;
-  @Input() f: (x: number) => number = x => x**2;
+  @Input() f: (x: number) => number = x => x**3; // esta es la linea clave de todo .
   @Input() integral: boolean = true;
   // @Input() curvas: ((x: number) => number)[] = [ x=> x, x=> 2]
   @Input() curvas: {color: string, f: (x: number) => number }[] = [{ f: x=> x, color: 'red' }, { f: x=> 2, color: 'green' }];
@@ -51,8 +51,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
   ANCHO_EJE_X = 16  ;
-  inicio = -3;
-  fin = 3;   
+  inicio = -8;
+  fin = 8;   
   dibujarEjes = true;
 
   anchoRectangulo = 0.01
@@ -583,6 +583,9 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarRectas() : void { 
+    if (!this.rectas) {
+      return
+    }
     for (let index = 0; index < this.rectas.length; index++) {
       const recta: {x1: number, y1: number, x2: number, y2: number} = this.rectas[index];
       this.dibujarLinea2(recta.x1, recta.y1, recta.x2, recta.y2)
@@ -595,6 +598,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     // no deberia recibir mas de tres puntos 
 
+    if (!this.puntos) {
+      return;
+    }
+
     for (let index = 0; index < this.puntos.length; index++) {
       const punto = this.puntos[index];
       
@@ -606,7 +613,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarCircunferencias(): void { 
-    console.log('dibujando circunferencias')
+
+    if (!this.circunferencias) {
+      return
+    }
     
     for (let index = 0; index < this.circunferencias.length; index++) {
       this.context.beginPath()
@@ -682,6 +692,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarPerpendiculares(): void {
+
+    if ( !this.perpendiculares) {
+      return;
+    }
+
     for (let index = 0; index < this.perpendiculares.length; index++) {
       const element = this.perpendiculares[index];
       console.log(element)

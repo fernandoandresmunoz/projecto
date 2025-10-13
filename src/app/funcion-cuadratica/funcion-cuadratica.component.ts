@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './funcion-cuadratica.component.html',
   styleUrls: ['./funcion-cuadratica.component.styl']
 })
-export class FuncionCuadraticaComponent implements OnInit {
+export class FuncionCuadraticaComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  cuadratica() : (x: number) => number { 
+    return x => x**2;
   }
+
 
 }

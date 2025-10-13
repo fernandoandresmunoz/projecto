@@ -49,6 +49,9 @@ import { AutomataPersistenceService } from './services/automata-persistence.serv
 import { AutomataLayoutComponent } from './components/automata-layout/automata-layout.component';
 import { MinecraftViewComponent } from './minecraft-view/minecraft-view.component';
 import { AutomataControllerComponent } from './automata-controller/automata-controller.component';
+import { CurvasComponent } from './curvas/curvas.component';
+import { RectaComponent } from './recta/recta.component';
+import { AutomatasComponent } from './automatas/automatas.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +98,10 @@ import { AutomataControllerComponent } from './automata-controller/automata-cont
     StateManagerComponent,
     AutomataLayoutComponent,
     MinecraftViewComponent,
-    AutomataControllerComponent
+    AutomataControllerComponent,
+    CurvasComponent,
+    RectaComponent,
+    AutomatasComponent
   ],
   imports: [
     BrowserModule,

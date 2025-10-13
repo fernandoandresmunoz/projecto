@@ -11,7 +11,7 @@ import { FabricaDeLienzosConcreta } from '../../fabrica-de-lienzos-concreta';
 export class Graficadora2Component implements OnInit {
 
   fabrica: FabricaDeLienzos = new FabricaDeLienzosConcreta()
-  // lienzo: Lienzo = this.fabrica.crear();
+  // lienzo: Lienzo = this.fabrica.crear('test');
   constructor() { }
 
   ngOnInit(): void {
