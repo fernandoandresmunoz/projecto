@@ -26,10 +26,12 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   public context: CanvasRenderingContext2D;
 
   @Input() tipo: string;
-  @Input() f: (x: number) => number = x => x**3; // esta es la linea clave de todo .
+  // @Input() f: (x: number) => number = x => x**3; // esta es la linea clave de todo .
+  @Input() f: (x: number) => number; 
   @Input() integral: boolean = true;
   // @Input() curvas: ((x: number) => number)[] = [ x=> x, x=> 2]
   @Input() curvas: {color: string, f: (x: number) => number }[] = [
+    // { f: this.f(), ()color: 'red'}
         // { f: x=> x**2, color: 'red' },
         // { f: x=> 2, color: 'green' },
         // { f: x=> Math.exp(x), color: 'green' }
@@ -55,8 +57,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
   ANCHO_EJE_X = 16  ;
-  inicio = -4;
-  fin = 8;   
+  inicio = -2;
+  fin = 2;   
   dibujarEjes = true;
 
   anchoRectangulo = 0.01
@@ -105,7 +107,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
   constructor(private geometry: GeometryService) {
-
+    // this.curvas = [
+    // ]
   }
 
   centrar(): void { 
@@ -299,6 +302,16 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   disminuirX() {
     this.usuarioX -= this.avanceXUsuario;
     this.draw();
+  }
+
+  avanzarIntegral() {
+    this.aumentarInicio();
+    this.aumentarFin();
+  }
+
+  retrocederIntegral() { 
+    this.disminuirInicio();
+    this.disminuirFin();
   }
 
   aumentarInicio() {

@@ -7,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FuncionExponencialComponent implements OnInit {
 
-  constructor() { }
+  curvas: {color: string, f: (x: number) => number }[] =  [];
+  
+  constructor() { 
+    this.curvas =  [
+        // { f: x=> x**2, color: 'red' },
+        // { f: x=> 2, color: 'green' },
+        // { f: x=> Math.exp(x), color: 'green' },
+        { f: x => Math.exp(x), color: 'red' } 
+    ] 
+
+
+  }
 
   ngOnInit(): void {
   }
