@@ -23,11 +23,7 @@ pipeline {
         stage('Build & deploy docker image') {
             steps {
               sh ' docker build . -t projecto:latest'
-              try {
               sh ' docker stack rm projecto'
-              } catch (e) {
-                echo "no projecto stack to remove"
-              }
               sh   'sleep 20'
               sh ' docker stack deploy -c stack.yaml projecto'
             }
