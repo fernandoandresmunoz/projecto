@@ -29,7 +29,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   @Input() f: (x: number) => number = x => x**3; // esta es la linea clave de todo .
   @Input() integral: boolean = true;
   // @Input() curvas: ((x: number) => number)[] = [ x=> x, x=> 2]
-  @Input() curvas: {color: string, f: (x: number) => number }[] = [{ f: x=> x, color: 'red' }, { f: x=> 2, color: 'green' }];
+  @Input() curvas: {color: string, f: (x: number) => number }[] = [
+        // { f: x=> x**2, color: 'red' },
+        // { f: x=> 2, color: 'green' },
+        // { f: x=> Math.exp(x), color: 'green' }
+  ];
   @Input() puntos: {id: number, x: number, y: number}[];
   @Input() rectas: {x1: number, y1: number, x2: number, y2: number}[];
   @Input() circunferencias: {x: number, y: number, radio: number}[];
@@ -46,12 +50,12 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   derivada: Line;
 
   // esto es lo que avanza el punto que calcula la derivada
-  avanceXUsuario = 0.5
+  avanceXUsuario = 0.1
   parabola: Parabola;
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
   ANCHO_EJE_X = 16  ;
-  inicio = -8;
+  inicio = -4;
   fin = 8;   
   dibujarEjes = true;
 
@@ -94,7 +98,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   fillRectangles = true;
   valorIntegral: number = 0;
 
-  @Input() mostrarDerivada: boolean  ;
+  @Input() mostrarDerivada: boolean  = true ;
 
   @Input() showOptions: boolean;
 
@@ -298,6 +302,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   aumentarInicio() {
+    // estos son el inicio y el fin de la integral 
     this.inicio += 0.2
   this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()

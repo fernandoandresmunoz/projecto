@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-canvas',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./canvas.component.styl']
 })
 export class CanvasComponent implements OnInit {
+
+  @Input() anchoRectangulo: number;
 
   constructor() { }
 

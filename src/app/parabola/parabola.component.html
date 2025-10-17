@@ -1,1 +1,51 @@
-<canvas style="border: '1px solid gray'" #myCanvas [width]="anchoLienzo" [height]="largoLienzo" ></canvas>
+<table border="1">
+<tr>
+        <td>ZOOM</td>
+        <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_X }}</td>
+        <td>
+            <button (click)="alejar()">-</button>
+            <button (click)="acercar()">+</button>
+        </td>
+    </tr>
+    <tr>
+        <td> Integral Rectangle Width </td>
+        <td style="max-width: '200px'; width: '200px'">{{ anchoRectangulo }}</td>
+        <td>
+            <button (click)="disminuirAnchoRectangulo()">-</button>
+            <button (click)="aumentarAnchoRectangulo()">+</button>
+        </td>
+    </tr>
+    <tr>
+        <td>user value x</td>
+        <td style="max-width: '200px'; width: '200px'">{{ usuarioX }}</td>
+        <td>
+            <button (click)="disminuirX()">-</button>
+            <button (click)="aumentarX()">+</button>
+        </td>
+    </tr>
+<tr>
+        <td>inicio integral</td>
+        <td style="max-width: '200px'; width: '200px'">{{ inicio }}</td>
+        <td>
+            <button (click)="disminuirInicio()">-</button>
+            <button (click)="aumentarInicio()">+</button>
+        </td>
+    </tr>
+<tr>
+        <td>fin integral</td>
+        <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
+        <td>
+            <button (click)="disminuirFin()">-</button>
+            <button (click)="aumentarFin()">+</button>
+        </td>
+    </tr>
+</table>
+<!-- <app-canvas-controller
+    [anchoRectangulo]="anchoRectangulo"
+></app-canvas-controller> -->
+<canvas style="border: '1px solid gray'"
+#myCanvas
+[width]="anchoLienzo"
+[height]="largoLienzo" >
+
+</canvas>

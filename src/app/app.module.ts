@@ -52,6 +52,7 @@ import { AutomataControllerComponent } from './automata-controller/automata-cont
 import { CurvasComponent } from './curvas/curvas.component';
 import { RectaComponent } from './recta/recta.component';
 import { AutomatasComponent } from './automatas/automatas.component';
+import { CanvasControllerComponent } from './canvas-controller/canvas-controller.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { AutomatasComponent } from './automatas/automatas.component';
     AutomataControllerComponent,
     CurvasComponent,
     RectaComponent,
-    AutomatasComponent
+    AutomatasComponent,
+    CanvasControllerComponent
   ],
   imports: [
     BrowserModule,
