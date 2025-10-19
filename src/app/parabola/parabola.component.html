@@ -17,46 +17,9 @@
             <button (click)="acercar()">+</button>
         </td>
     </tr>
-    <tr>
-        <td> Integral Rectangle Width </td>
-        <td style="max-width: '200px'; width: '200px'">{{ anchoRectangulo }}</td>
-        <td>
-            <button (click)="disminuirAnchoRectangulo()">-</button>
-            <button (click)="aumentarAnchoRectangulo()">+</button>
-        </td>
-    </tr>
-    <tr>
-        <td>user value x</td>
-        <td style="max-width: '200px'; width: '200px'">{{ usuarioX }}</td>
-        <td>
-            <button (click)="disminuirX()">-</button>
-            <button (click)="aumentarX()">+</button>
-        </td>
-    </tr>
-<tr>
-        <td>inicio integral</td>
-        <td style="max-width: '200px'; width: '200px'">{{ inicio }}</td>
-        <td>
-            <button (click)="disminuirInicio()">-</button>
-            <button (click)="aumentarInicio()">+</button>
-        </td>
-    </tr>
-<tr>
-        <td>fin integral</td>
-        <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
-        <td>
-            <button (click)="disminuirFin()">-</button>
-            <button (click)="aumentarFin()">+</button>
-        </td>
-    </tr>
-<tr>
-        <td>posición integral</td>
-        <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
-        <td>
-            <button (click)="retrocederIntegral()">-</button>
-            <button (click)="avanzarIntegral()">+</button>
-        </td>
-    </tr>
+
+    
+
 <tr>
         <td>ANCHO EJE Y</td>
         <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_Y }}</td>
@@ -103,6 +66,51 @@
         <td>
             <button (click)="decrementSinFrequency()" >-</button> 
              <button (click)="incrementSinFrequency()" >+</button>
+        </td>
+    </tr>
+</table>
+<br>
+<table border="1" *ngIf="SHOW_INTEGRAL">
+<tr *ngIf="SHOW_INTEGRAL">
+        <td>inicio integral</td>
+        <td style="max-width: '200px'; width: '200px'">{{ inicio }}</td>
+        <td>
+            <button (click)="disminuirInicio()">-</button>
+            <button (click)="aumentarInicio()">+</button>
+        </td>
+    </tr>
+<tr *ngIf="SHOW_INTEGRAL">
+        <td>fin integral</td>
+        <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
+        <td>
+            <button (click)="disminuirFin()">-</button>
+            <button (click)="aumentarFin()">+</button>
+        </td>
+    </tr>
+<tr *ngIf="SHOW_INTEGRAL">
+        <td>posición integral</td>
+        <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
+        <td>
+            <button (click)="retrocederIntegral()">-</button>
+            <button (click)="avanzarIntegral()">+</button>
+        </td>
+    </tr>
+    <tr *ngIf="SHOW_INTEGRAL">
+        <td> Integral Rectangle Width </td>
+        <td style="max-width: '200px'; width: '200px'">{{ anchoRectangulo }}</td>
+        <td>
+            <button (click)="disminuirAnchoRectangulo()">-</button>
+            <button (click)="aumentarAnchoRectangulo()">+</button>
+        </td>
+    </tr>
+</table>
+<table *ngIf="SHOW_DERIVADA" border="1">
+<tr *ngIf="SHOW_DERIVADA">
+        <td>DERIVADA value x</td>
+        <td style="max-width: '200px'; width: '200px'">{{ usuarioX }}</td>
+        <td>
+            <button (click)="disminuirX()">-</button>
+            <button (click)="aumentarX()">+</button>
         </td>
     </tr>
 </table>
