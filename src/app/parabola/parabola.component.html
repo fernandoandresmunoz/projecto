@@ -1,14 +1,35 @@
-<div >
+<canvas style="display: 'inline'; border: '1px solid gray'"
+#myCanvas
+[width]="anchoLienzo"
+[height]="largoLienzo" >
+
+</canvas>
+
+<div class="TABS">
+    <span (click)="PESTANA_ACTIVA=INTEGRAL">INTEGRAL</span>
+    <span (click)="PESTANA_ACTIVA=DERIVADA">DERIVADA</span>
+    <span (click)="PESTANA_ACTIVA=FUNCION">FUNCION</span>
+    <span (click)="PESTANA_ACTIVA=LIENZO">LIENZO</span>
+</div>
+
+
+
+<div *ngIf="PESTANA_ACTIVA===INTEGRAL">
     <input
     (change)="showIntegral()"
     type="checkbox"> Show Integral
 </div>
-<div>
+<div *ngIf="PESTANA_ACTIVA===DERIVADA">
     <input
     (change)="showDerivada()"
     type="checkbox"> Show Derivada
 </div>
-<table border="1">
+<div *ngIf="PESTANA_ACTIVA===INTEGRAL">
+    <input
+    (change)="cambiarFillRectangles()"
+    type="checkbox"> Change fille rectangles
+</div>
+<table *ngIf='PESTANA_ACTIVA==LIENZO' border="1">
 <tr>
         <td>ZOOM</td>
         <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_X }}</td>
@@ -28,6 +49,13 @@
             <button (click)="disminuirAnchoEjeY()">+</button>
         </td>
     </tr>
+
+
+
+</table>
+<br>
+
+<table *ngIf="PESTANA_ACTIVA===FUNCION" border="1">
 <tr>
         <td>TIPO</td>
         <td style="max-width: '200px'; width: '200px'">{{ tipo }}</td>
@@ -36,7 +64,37 @@
             <button (click)="disminuirAnchoEjeY()" disabled>+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SIGMOIDE'">
+<tr *ngIf="tipo === 'SENO'">
+        <td>SIN_POS_Y</td>
+        <td style="max-width: '200px'; width: '200px'">{{ SIN_POS_Y }}</td>
+        <td>
+            <button (click)="SIN_POS_Y = SIN_POS_Y - 0.25; draw()">-</button>
+            <button (click)="SIN_POS_Y = SIN_POS_Y + 0.25; draw()">+</button>
+            <!-- <button (click)="SIN_POS_Y -= 1" >-</button> 
+             <button (click)="SIN_POS_Y += 1" >+</button> -->
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'GAUSS'">
+        <td>K_GAUSS_AMPLITUDE</td>
+        <td style="max-width: '200px'; width: '200px'">{{ K_GAUSS_AMPLITUDE }}</td>
+        <td>
+            <button (click)="K_GAUSS_AMPLITUDE = K_GAUSS_AMPLITUDE - 0.05; draw()">-</button>
+            <button (click)="K_GAUSS_AMPLITUDE = K_GAUSS_AMPLITUDE+ 0.05; draw()">+</button>
+            <!-- <button (click)="SIN_POS_Y -= 1" >-</button> 
+             <button (click)="SIN_POS_Y += 1" >+</button> -->
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'GAUSS' && PESTANA_ACTIVA===FUNCION">
+        <td>K_GAUSS</td>
+        <td style="max-width: '200px'; width: '200px'">{{ K_GAUSS }}</td>
+        <td>
+            <button (click)="K_GAUSS = K_GAUSS - 0.25; draw()">-</button>
+            <button (click)="K_GAUSS = K_GAUSS + 0.25; draw()">+</button>
+            <!-- <button (click)="SIN_POS_Y -= 1" >-</button> 
+             <button (click)="SIN_POS_Y += 1" >+</button> -->
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'SIGMOIDE' ">
         <td>CONSTANTE SIGMOIDE</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_SIGMOIDE }}</td>
         <td>
@@ -44,7 +102,7 @@
              <button (click)="K_SIGMOIDE = K_SIGMOIDE + 1; draw()" >+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SIGMOIDE'">
+<tr *ngIf="tipo === 'SIGMOIDE' ">
         <td>SIN_FREQUENCY</td>
         <td style="max-width: '200px'; width: '200px'">{{ SIGMOIDE_Y }}</td>
         <td>
@@ -52,7 +110,7 @@
              <button (click)="SIGMOIDE_Y = SIGMOIDE_Y + 1; draw()" >+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SENO'">
+<tr *ngIf="tipo === 'SENO' ">
         <td>K_SENO</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_SENO }}</td>
         <td>
@@ -60,7 +118,7 @@
              <button (click)="K_SENO = K_SENO + 0.5; draw()" >+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SENO'">
+<tr *ngIf="tipo === 'SENO' ">
         <td>SIN_FREQUENCY</td>
         <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
         <td>
@@ -68,10 +126,13 @@
              <button (click)="incrementSinFrequency()" >+</button>
         </td>
     </tr>
+
+
 </table>
-<br>
-<table border="1" *ngIf="SHOW_INTEGRAL">
-<tr *ngIf="SHOW_INTEGRAL">
+
+<div *ngIf="PESTANA_ACTIVA===INTEGRAL">VALOR INTEGRAL = {{ valorIntegral }}</div>
+<table border="1" *ngIf="PESTANA_ACTIVA===INTEGRAL">
+<tr >
         <td>inicio integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ inicio }}</td>
         <td>
@@ -79,7 +140,7 @@
             <button (click)="aumentarInicio()">+</button>
         </td>
     </tr>
-<tr *ngIf="SHOW_INTEGRAL">
+<tr >
         <td>fin integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
         <td>
@@ -87,7 +148,7 @@
             <button (click)="aumentarFin()">+</button>
         </td>
     </tr>
-<tr *ngIf="SHOW_INTEGRAL">
+<tr >
         <td>posición integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
         <td>
@@ -95,7 +156,7 @@
             <button (click)="avanzarIntegral()">+</button>
         </td>
     </tr>
-    <tr *ngIf="SHOW_INTEGRAL">
+    <tr >
         <td> Integral Rectangle Width </td>
         <td style="max-width: '200px'; width: '200px'">{{ anchoRectangulo }}</td>
         <td>
@@ -104,7 +165,7 @@
         </td>
     </tr>
 </table>
-<table *ngIf="SHOW_DERIVADA" border="1">
+<table *ngIf="PESTANA_ACTIVA===DERIVADA" border="1">
 <tr *ngIf="SHOW_DERIVADA">
         <td>DERIVADA value x</td>
         <td style="max-width: '200px'; width: '200px'">{{ usuarioX }}</td>
@@ -117,9 +178,4 @@
 <!-- <app-canvas-controller
     [anchoRectangulo]="anchoRectangulo"
 ></app-canvas-controller> -->
-<canvas style="border: '1px solid gray'"
-#myCanvas
-[width]="anchoLienzo"
-[height]="largoLienzo" >
 
-</canvas>

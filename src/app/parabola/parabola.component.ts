@@ -72,7 +72,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   colorIntegral: string = '#0159cb';
   colorCurva: string = '#d71d77';
-  anchoCurva: number = 3;
+  anchoCurva: number = 2;
   anchoDerivada: number = 2;
   colorDerivada: string = 'green';
   tamanoFuenteEjeX: number = 12;
@@ -96,20 +96,31 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   altoTickEjeX: number;
   anchoTickEjeY: number;
 
-  anchoLienzo =1000;
-  largoLienzo = 1000;
+  anchoLienzo =500;
+  largoLienzo = 500;
 
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
 
-  fillRectangles = true;
+  fillRectangles = false;
   valorIntegral: number = 0;
   SIGMOIDE_Y = 0;
   K_SENO = 3;
   SIN_FREQUENCY = 1;
+  SIN_POS_Y: number = 0;
 
   SHOW_INTEGRAL: boolean = false;
   SHOW_DERIVADA : boolean = false;
+
+  K_GAUSS = 4;
+  K_GAUSS_AMPLITUDE = 0.3;
+
+  INTEGRAL = 'INTEGRAL';
+  DERIVADA = 'DERIVADA';
+  FUNCION = 'FUNCION';
+  LIENZO = 'LIENZO';
+
+  PESTANA_ACTIVA = this.FUNCION;
 
   @Input() mostrarDerivada: boolean  = true ;
 
@@ -125,7 +136,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
       this.f = this.sigmoide
 
 
-this.curvas =  [
+      this.curvas =  [
         // { f: x=> x**2, color: 'red' },
         // { f: x=> 2, color: 'green' },
         // { f: x=> Math.exp(x), color: 'green' },
@@ -452,12 +463,20 @@ this.curvas =  [
     else if ( this.tipo === 'SENO') {
       return this.seno(x)
     }
+    else if ( this.tipo === 'GAUSS') {
+      return this.gauss(x)
+    }
     return this.f(x)
   }
 
   seno(x: number): number {
-    return  this.K_SENO * Math.sin(this.SIN_FREQUENCY * x);
+    return  this.K_SENO * Math.sin(this.SIN_FREQUENCY * x) + this.SIN_POS_Y;
   }
+  gauss(x: number): number {
+
+    return  this.K_GAUSS * Math.exp(-1 * ( this.K_GAUSS_AMPLITUDE*x )**2) ;
+  }
+
 
   ngOnInit(): void {
 
@@ -794,6 +813,10 @@ this.curvas =  [
     else if ( this.tipo === 'SENO'){
       this.dibujarCurva( new ParabolaConcreta(this.tipo, this.seno ), 'red')
       this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.seno(x) } ), 'red')
+    }
+    else if ( this.tipo === 'GAUSS'){
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.gauss ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.gauss(x) } ), 'red')
     }
     else {
 
