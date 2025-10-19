@@ -119,15 +119,38 @@
         </td>
     </tr>
 <tr *ngIf="tipo === 'SENO' ">
-        <td>SIN_FREQUENCY</td>
-        <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
-        <td>
-            <button (click)="decrementSinFrequency()" >-</button> 
-             <button (click)="incrementSinFrequency()" >+</button>
-        </td>
-    </tr>
+    <td>SIN_FREQUENCY</td>
+    <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
+    <td>
+        <button (click)="decrementSinFrequency()">-</button>
+        <button (click)="incrementSinFrequency()">+</button>
+    </td>
+</tr>
+<tr *ngIf="tipo === 'CUADRATICA' ">
+    <td>CUADRATICA_A</td>
+    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_A }}</td>
+    <td>
+        <button (click)="CUADRATICA_A = CUADRATICA_A - 1; draw();">-</button>
+        <button (click)="CUADRATICA_A = CUADRATICA_A + 1; draw();">+</button>
+    </td>
+</tr>
 
-
+<tr *ngIf="tipo === 'CUADRATICA' ">
+    <td>CUADRATICA_B</td>
+    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_B }}</td>
+    <td>
+        <button (click)="CUADRATICA_B = CUADRATICA_B - 1; draw();">-</button>
+        <button (click)="CUADRATICA_B = CUADRATICA_B + 1; draw();">+</button>
+    </td>
+</tr>
+<tr *ngIf="tipo === 'CUADRATICA' ">
+    <td>CUADRATICA_C</td>
+    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_C }}</td>
+    <td>
+        <button (click)="CUADRATICA_C = CUADRATICA_C - 1; draw();">-</button>
+        <button (click)="CUADRATICA_C = CUADRATICA_C + 1; draw();">+</button>
+    </td>
+</tr>
 </table>
 
 <div *ngIf="PESTANA_ACTIVA===INTEGRAL">VALOR INTEGRAL = {{ valorIntegral }}</div>

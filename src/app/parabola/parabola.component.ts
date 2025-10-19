@@ -115,6 +115,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   K_GAUSS = 4;
   K_GAUSS_AMPLITUDE = 0.3;
 
+  CUADRATICA_A = 1;
+  CUADRATICA_B = 1;
+  CUADRATICA_C = 1
+
   INTEGRAL = 'INTEGRAL';
   DERIVADA = 'DERIVADA';
   FUNCION = 'FUNCION';
@@ -466,7 +470,14 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     else if ( this.tipo === 'GAUSS') {
       return this.gauss(x)
     }
+    else if ( this.tipo === 'CUADRATICA') {
+      return this.cuadratica(x)
+    }
     return this.f(x)
+  }
+
+  cuadratica(x: number) {
+    return this.CUADRATICA_A * x**2 + this.CUADRATICA_B * x + this.CUADRATICA_C;
   }
 
   seno(x: number): number {
@@ -817,6 +828,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     else if ( this.tipo === 'GAUSS'){
       this.dibujarCurva( new ParabolaConcreta(this.tipo, this.gauss ), 'red')
       this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.gauss(x) } ), 'red')
+    }
+    else if ( this.tipo === 'CUADRATICA'){
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.cuadratica ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.cuadratica(x) } ), 'red')
     }
     else {
 
