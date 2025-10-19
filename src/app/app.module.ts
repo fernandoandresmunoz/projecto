@@ -54,6 +54,7 @@ import { RectaComponent } from './recta/recta.component';
 import { AutomatasComponent } from './automatas/automatas.component';
 import { CanvasControllerComponent } from './canvas-controller/canvas-controller.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +110,7 @@ import { CanvasControllerComponent } from './canvas-controller/canvas-controller
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AutomataPersistenceService],
   bootstrap: [AppComponent]

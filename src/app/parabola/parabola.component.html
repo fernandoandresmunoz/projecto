@@ -1,3 +1,13 @@
+<div >
+    <input
+    (change)="showIntegral()"
+    type="checkbox"> Show Integral
+</div>
+<div>
+    <input
+    (change)="showDerivada()"
+    type="checkbox"> Show Derivada
+</div>
 <table border="1">
 <tr>
         <td>ZOOM</td>
@@ -45,6 +55,54 @@
         <td>
             <button (click)="retrocederIntegral()">-</button>
             <button (click)="avanzarIntegral()">+</button>
+        </td>
+    </tr>
+<tr>
+        <td>ANCHO EJE Y</td>
+        <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_Y }}</td>
+        <td>
+            <button (click)="aumentarAnchoEjeY()">-</button>
+            <button (click)="disminuirAnchoEjeY()">+</button>
+        </td>
+    </tr>
+<tr>
+        <td>TIPO</td>
+        <td style="max-width: '200px'; width: '200px'">{{ tipo }}</td>
+        <td>
+            <button (click)="aumentarAnchoEjeY()" disabled>-</button>
+            <button (click)="disminuirAnchoEjeY()" disabled>+</button>
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'SIGMOIDE'">
+        <td>CONSTANTE SIGMOIDE</td>
+        <td style="max-width: '200px'; width: '200px'">{{ K_SIGMOIDE }}</td>
+        <td>
+            <button (click)="K_SIGMOIDE = K_SIGMOIDE - 1; draw()" >-</button> 
+             <button (click)="K_SIGMOIDE = K_SIGMOIDE + 1; draw()" >+</button>
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'SIGMOIDE'">
+        <td>SIN_FREQUENCY</td>
+        <td style="max-width: '200px'; width: '200px'">{{ SIGMOIDE_Y }}</td>
+        <td>
+            <button (click)="SIGMOIDE_Y = SIGMOIDE_Y - 1; draw()" >-</button> 
+             <button (click)="SIGMOIDE_Y = SIGMOIDE_Y + 1; draw()" >+</button>
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'SENO'">
+        <td>K_SENO</td>
+        <td style="max-width: '200px'; width: '200px'">{{ K_SENO }}</td>
+        <td>
+            <button (click)="K_SENO = K_SENO - 0.5; draw()" >-</button> 
+             <button (click)="K_SENO = K_SENO + 0.5; draw()" >+</button>
+        </td>
+    </tr>
+<tr *ngIf="tipo === 'SENO'">
+        <td>SIN_FREQUENCY</td>
+        <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
+        <td>
+            <button (click)="decrementSinFrequency()" >-</button> 
+             <button (click)="incrementSinFrequency()" >+</button>
         </td>
     </tr>
 </table>
