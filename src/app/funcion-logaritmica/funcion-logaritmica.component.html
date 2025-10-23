@@ -1,29 +1,4 @@
-<div *ngIf="true">
-    <div>
-        CATETO 1 =  {{ distancia(puntoA, puntoB)}}
-        <br>
-        CATETO 2 = {{ distancia(puntoB, puntoC)}}
-        <br>
-        HIPOTENUSA = {{ distancia(puntoC, puntoA )}}
-    </div>
-    
-    <div>
-        suma catetos {{ sumaCatetos() }}
-    </div>
-    <div>
-        hipotenusa al cuadrado {{ cuadradoHipotenusa() }}
-    </div>
-    
-    <p>
-        angulo alfa es {{ anguloAlfa() }}
-    </p>
-    <p>
-        angulo beta es {{ anguloBeta() }}
-    </p>
-    <p>
-        angulo beta + angulo alfa = {{ anguloBeta() + anguloAlfa() }}
-    </p>
-</div>
+
 <table border="1">
     <tr>
         <td>opuesto/hipotenusa</td>
@@ -44,11 +19,10 @@
         <td>tangente(alfa)</td>
     </tr>
 </table>
-parabola
-{{ obtenerPuntos().length }}
-<app-parabola
+
+<!-- <app-parabola
+[tipo]="'GAUSS'"
 *ngIf="obtenerPuntos().length > 0 && obtenerRectas().length > 0"
-[tipo]="'LOGARITMICA'"
 [f]="funcion()"
 [showOptions]="false"
 [integral]="false"
@@ -57,142 +31,8 @@ parabola
 [rectas]="obtenerRectas()"
 [circunferencias]="obtenerCircunferencias()"
 [perpendiculares]="obtenerPerpendiculares()"
-></app-parabola>
+></app-parabola> -->
 
-<div>
-
-    <button (click)="selectedMenu='PUNTOS'">PUNTOS</button>
-    <button (click)="selectedMenu='RECTAS'">RECTAS</button>
-    <button (click)="selectedMenu='PERPENDICULARES'">PERPENDICULARES</button>
-    <!-- <button (click)="selectedMenu='CURVAS'">CURVAS</button>
-    <button (click)="selectedMenu='CURVAS'">DERIVADAS</button>
-    <button (click)="selectedMenu='CURVAS'">INTEGRALES</button>
-    <button (click)="selectedMenu='CURVAS'">CIRCUNFERENCIAS</button> -->
-</div>
-
-    <br>
-    <br>
-
-<div *ngIf="selectedMenu == 'PUNTOS'">
-    <div>
-    
-    
-        <div>
-            <label for="">x = </label>
-            <input type="number"  [(ngModel)]="nuevoX" >
-        </div>
-    <div>
-            <label for="">y = </label>
-            <input type="number" [(ngModel)]="nuevoY" required>
-        </div>
-        <div>
-            <button (click)="crearPunto()">CREAR</button>
-        </div>
-        <br>
-    
-        <div>
-            <table border="1">
-            <thead>
-                        <tr>
-                        <th>id</th>
-                        <th>x</th>
-                        <th>y</th>
-                        <th>actions</th>
-                        <th>actions</th>
-                        </tr>
-                    </thead>
-                <tbody>
-    
-                <tr *ngFor="let punto of puntos">
-                    <td><input type="text" [disabled]='true' [value]="'P' + punto.id "></td>
-                    <td><input type="number"  [(ngModel)]='punto.x' [value]="punto.x"></td>
-                    <td><input type="number"   [(ngModel)]='punto.y' [value]="punto.y"></td>
-                    <td><button (click)="actualizarPunto(punto)">ACTUALIZAR</button></td>
-                    <td><button (click)="borrarPunto(punto.id)">BORRAR</button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div *ngIf="selectedMenu === 'RECTAS'">
-    RECTAS
-    <br>
-    <label for="">
-    PUNTO #1
-    </label>
-    <select name="" id=""
-    >
-        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
-    </select>
-    <br>
-    <label for="">
-    PUNTO #2
-    </label>
-    <select name="" id=""
-    >
-        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
-    </select>
-    <br>
-    <button>guardar</button>
-
-
-
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>1</th>
-                <th>2</th>
-                <th>distancia</th>
-                <th>pendiente</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        <tr *ngFor="let recta of obtenerRectas()">
-<td>
-                #{{ recta.id }}
-            </td>
-            <td>
-                P {{ recta.punto1_id }}
-            </td>
-            <td>
-                P {{ recta.punto2_id }}
-            </td>
-            <td>
-                {{ calcularDistanciaPuntos(recta.x1, recta.y1, recta.x2, recta.y2)}}
-            </td>
-<td>
-                {{ calcularPendiente(recta.x1, recta.y1, recta.x2, recta.y2)}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div *ngIf="selectedMenu === 'PERPENDICULARES'">
-    PERPENDICULARES
-    <table *ngIf="perpendiculares" border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>recta id</th>
-                <th>punto id</th>
-                <th>punto interseccion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let perpendicular of perpendiculares">
-                <td>#{{ perpendicular.id }}</td>
-                <td>#{{ perpendicular.recta_id }} ( {{ perpendicular.x1}}, {{ perpendicular.y1}} ), ( {{ perpendicular.x2}}, {{ perpendicular.y2}} )</td>
-                <td>#{{ perpendicular.punto_id }} ( {{ perpendicular.px }}, {{ perpendicular.py }})</td>
-                <td>#{{ geometry.puntoPerpendicular(perpendicular.x1, perpendicular.y1, perpendicular.x2, perpendicular.y2, perpendicular.px, perpendicular.py)}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 <!-- <div>
     
     <input type="text"> <button >Agregar Funcion</button>

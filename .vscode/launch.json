@@ -5,7 +5,7 @@
         "type": "pwa-chrome",
         "request": "launch",
         "name": "Launch Chrome against localhost",
-        "url": "http://localhost:62568/grafico",
+        "url": "http://localhost:62568/curvas/gauss",
         "webRoot": "${workspaceFolder}"
        }
     ]
