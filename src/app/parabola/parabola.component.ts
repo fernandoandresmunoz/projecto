@@ -12,6 +12,8 @@ import { Perpendicular } from '../funcion-logaritmica/perpendicular';
 import { Geometry } from '../geometry/geometry';
 import { GeometryService } from '../geometry.service';
 import { Recta } from '../funcion-logaritmica/recta';
+import { LienzosService } from '../graficos.service';
+import { Punto } from '../lienzo';
 
 
 @Component({
@@ -40,7 +42,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
         // { f: x=> 2, color: 'green' },
         // { f: x=> Math.exp(x), color: 'green' }
   ];
-  // @Input() puntos: {id: number, x: number, y: number}[];
+  @Input() puntos: Point[];
+  @Input() lienzoID: number = 0;
   // @Input() rectas: {x1: number, y1: number, x2: number, y2: number}[];
   // @Input() circunferencias: {x: number, y: number, radio: number}[];
   // @Input() perpendiculares: Perpendicular[];
@@ -146,17 +149,20 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   nuevoY: number;
 
 
-  puntos: {id: number, x: number, y: number}[] = [];
   rectas: Recta[] = [];
   perpendiculares: Perpendicular[] = []
   circunferencias: {x: number, y: number, radio: number}[] = [];
 
-  selectedMenu: string = 'PUNTOS';
+  RECTAS = 'RECTAS';
+
+  selectedMenu: string = this.RECTAS;
+
+  nuevoP1: Punto;
+  nuevoP2: Punto;
 
 
 
-
-  constructor(public geometry: GeometryService) {
+  constructor(public geometry: GeometryService, private lienzoService: LienzosService) {
     // this.curvas = [
     // ]
 
@@ -535,7 +541,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     this.cargarPuntos();
     this.cargarRectas();
-    this.cargarCircunferencias();
+    // this.cargarCircunferencias();
     this.cargarPerpendiculares();
 
 
@@ -772,8 +778,8 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
       return
     }
     for (let index = 0; index < this.rectas.length; index++) {
-      const recta: {x1: number, y1: number, x2: number, y2: number} = this.rectas[index];
-      this.dibujarLinea2(recta.x1, recta.y1, recta.x2, recta.y2)
+      const recta: Recta = this.rectas[index];
+      this.dibujarLinea2(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)
       
     }
 
@@ -994,24 +1000,44 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   actualizarPunto(punto: {id: number, x: number, y: number}) {
     this.geometry.actualizarPunto(punto.id, punto.x, punto.y).subscribe( response => {
-      console.log(response);
+      this.draw()
     })
   }
 
   crearPunto(): void {
-    this.geometry.crearPunto(this.nuevoX, this.nuevoY)
+    this.geometry.crearPunto(this.lienzoID , this.nuevoX, this.nuevoY)
     .subscribe( response => {
       console.log(response)
       this.draw();
       this.cargarPuntos()
     } )
   }
+
+  changeP1(): void {
+    console.log('changing p1 ', this.nuevoP1)
+  }
+
+  changeP2(): void { 
+    console.log('changing p2 ', this.nuevoP2);
+  }
+
+  crearRecta(): void { 
+    console.log(this.nuevoP1.id)
+    console.log(this.nuevoP2.id)
+    this.geometry.crearRecta(this.lienzoID , this.nuevoP1.id, this.nuevoP2.id)
+    .subscribe( response => {
+      console.log(response)
+      this.draw();
+      this.cargarPuntos()
+      this.cargarRectas();
+    } )
+  }
+
   borrarPunto(id: number): void {
     this.geometry.borrarPunto(id)
     .subscribe( response => {
       console.log(response);
       this.cargarPuntos();
-      alert('punto borrado con exito');
     } )
   }
 
@@ -1034,13 +1060,13 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   cargarPuntos() {
     this.puntos = [];
-    this.geometry.obtenerPuntos().subscribe(response => {
+    this.lienzoService.getPoints(this.lienzoID).subscribe(response => {
       this.puntos = response;
       this.draw()
     })
   }
   cargarRectas() {
-    this.geometry.obtenerRectas().subscribe(response => {
+    this.geometry.obtenerRectas(this.lienzoID).subscribe(response => {
       this.rectas = response;
       this.draw()
     })

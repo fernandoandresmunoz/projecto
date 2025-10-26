@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recta } from './funcion-logaritmica/recta';
 import { Perpendicular } from './funcion-logaritmica/perpendicular';
+import { Point } from 'point';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,27 @@ export class GeometryService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerPuntos(): Observable<{id: number, x: number, y: number}[]> {
-    return this.http.get<{id: number, x: number, y: number}[]>('http://localhost:5001/puntos/');
+  obtenerPuntos(): Observable<Point[]> {
+    return this.http.get<Point[]>('http://localhost:5001/puntos/');
   }
 
-  obtenerRectas(): Observable<Recta[]> {
-    return this.http.get<Recta[]>('http://localhost:5001/rectas/');
+  obtenerRectas(lienzoId: number): Observable<Recta[]> {
+    return this.http.get<Recta[]>(`http://localhost:8000/graficas/rectas/?lienzo=${lienzoId}`);
   }
+
+  obtenerNodos(): Observable<Recta[]> {
+    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/`);
+  }
+
+  // obtenerHijos(padreId: number): Observable<Recta[]> {
+  //   return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/?padre=${padreId}`);
+  // }
+
+
+
+
+
+
 
   obtenerCircunferencias(): Observable<{id: number, x: number, y: number, radio: number}[]> {
     return this.http.get<{id: number, x: number, y: number, radio: number}[]>('http://localhost:5001/circunferencias/');
@@ -89,12 +104,25 @@ export class GeometryService {
     });
   }
 
-  crearPunto( x: number, y: number): Observable<{status: boolean}[]> {
-    return this.http.post<{status: boolean}[]>(`http://localhost:5001/puntos/`, {
+  crearPunto(lienzoId: number, x: number, y: number): Observable<{status: boolean}[]> {
+    return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/puntos/`, {
+      lienzo: lienzoId,
       x: x,
       y: y
     });
   }
+
+
+  crearRecta(lienzoId: number, p1: number, p2: number): Observable<{status: boolean}[]> {
+    return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/rectas/`, {
+      lienzo: Number( lienzoId ),
+      p1: p1,
+      p2:p2 
+    });
+  }
+
+
+
 
   borrarPunto(id: number): Observable<{status: boolean}[]> {
     return this.http.delete<{status: boolean}[]>(`http://localhost:5001/puntos/${id}/` );

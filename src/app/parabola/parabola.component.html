@@ -6,10 +6,18 @@
 </canvas>
 
 <div class="TABS">
-    <span (click)="PESTANA_ACTIVA=INTEGRAL">INTEGRAL</span>
-    <span (click)="PESTANA_ACTIVA=DERIVADA">DERIVADA</span>
-    <span (click)="PESTANA_ACTIVA=FUNCION">FUNCION</span>
-    <span (click)="PESTANA_ACTIVA=LIENZO">LIENZO</span>
+    <button
+    [disabled]="PESTANA_ACTIVA==='INTEGRAL'"
+    (click)="PESTANA_ACTIVA=INTEGRAL">INTEGRAL</button>
+    <button
+    [disabled]="PESTANA_ACTIVA==='DERIVADA'"
+    (click)="PESTANA_ACTIVA=DERIVADA">DERIVADA</button>
+    <button
+    [disabled]="PESTANA_ACTIVA==='FUNCION'"
+    (click)="PESTANA_ACTIVA=FUNCION">FUNCION</button>
+    <button
+    [disabled]="PESTANA_ACTIVA==='LIENZO'"
+    (click)="PESTANA_ACTIVA=LIENZO">LIENZO</button>
 </div>
 
 
@@ -320,22 +328,36 @@ parabola
     RECTAS
     <br>
     <label for="">
-    PUNTO #1
+    PUNTO #1 {{ nuevoP1?.id }}
     </label>
     <select name="" id=""
+    [(ngModel)]="nuevoP1"
+    (change)="changeP1()"
     >
-        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
+    
+        <option
+        value=""
+        [ngValue]="punto"
+        *ngFor="let punto of obtenerPuntos()">
+        P {{ punto.id }}
+    </option>
     </select>
     <br>
     <label for="">
     PUNTO #2
     </label>
     <select name="" id=""
+    [(ngModel)]="nuevoP2"
+    (change)="changeP2()"
     >
-        <option value="" *ngFor="let punto of obtenerPuntos()">P {{ punto.id }}</option>
+        <option
+        [ngValue]="punto"
+        value=""
+        *ngFor="let punto of obtenerPuntos()">
+        P {{ punto.id }}</option>
     </select>
     <br>
-    <button>guardar</button>
+    <button (click)="crearRecta()">CREAR RECTA</button>
 
 
     {{ obtenerRectas().length }}
@@ -354,21 +376,21 @@ parabola
         </thead>
         <tbody>
 
-        <tr *ngFor="let recta of obtenerRectas()">
+        <tr *ngFor="let recta of rectas">
 <td>
                 #{{ recta.id }}
             </td>
             <td>
-                P {{ recta.punto1_id }}
+                P {{ recta.p1_data.id }}
             </td>
             <td>
-                P {{ recta.punto2_id }}
+                P {{ recta.p2_data.id }}
             </td>
             <td>
-                {{ calcularDistanciaPuntos(recta.x1, recta.y1, recta.x2, recta.y2)}}
+                {{ calcularDistanciaPuntos(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
             </td>
 <td>
-                {{ calcularPendiente(recta.x1, recta.y1, recta.x2, recta.y2)}}
+                {{ calcularPendiente(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
             </td>
         </tr>
         </tbody>

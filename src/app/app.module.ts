@@ -53,6 +53,10 @@ import { CurvasComponent } from './curvas/curvas.component';
 import { RectaComponent } from './recta/recta.component';
 import { AutomatasComponent } from './automatas/automatas.component';
 import { CanvasControllerComponent } from './canvas-controller/canvas-controller.component';
+import { LienzosComponent } from './lienzos/lienzos.component';
+import { LienzoDetailComponent } from './lienzo-detail/lienzo-detail.component';
+import { ArbolesComponent } from './arboles/arboles.component';
+import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 
 @NgModule({
@@ -104,7 +108,11 @@ import { CanvasControllerComponent } from './canvas-controller/canvas-controller
     CurvasComponent,
     RectaComponent,
     AutomatasComponent,
-    CanvasControllerComponent
+    CanvasControllerComponent,
+    LienzosComponent,
+    LienzoDetailComponent,
+    ArbolesComponent,
+    DetalleNodoComponent
   ],
   imports: [
     BrowserModule,

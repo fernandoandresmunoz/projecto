@@ -28,6 +28,11 @@ import { MinecraftViewComponent } from './minecraft-view/minecraft-view.componen
 import { CurvasComponent } from './curvas/curvas.component';
 import { RectaComponent } from './recta/recta.component';
 import { AutomatasComponent } from './automatas/automatas.component';
+import { LienzosComponent } from './lienzos/lienzos.component';
+import { LienzoDetailComponent } from './lienzo-detail/lienzo-detail.component';
+import { MatricesComponent } from './matrices/matrices.component';
+import { ArbolesComponent } from './arboles/arboles.component';
+// import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
   // es el mismo que drawer
@@ -35,6 +40,18 @@ const routes: Routes = [
     path: 'grafico',
     component: FuncionLogaritmicaComponent
   },
+{
+    path: 'matrices',
+    component: MatricesComponent
+  },
+{
+    path: 'arboles',
+    component: ArbolesComponent
+  },
+// {
+//     path: 'nodo/:id',
+//     component: DetalleNodoComponent
+//   },
   {
     path: '',
     'component': HomeComponent
@@ -90,6 +107,14 @@ const routes: Routes = [
     path: 'curvas',
     component: CurvasComponent,
     children: [
+      {
+        path: 'lienzos',
+        component: LienzosComponent
+      },
+      {
+        path: 'lienzos/:id',
+        component: LienzoDetailComponent
+      },
       {
         path: 'funcion-cuadratica',
         component: FuncionCuadraticaComponent
