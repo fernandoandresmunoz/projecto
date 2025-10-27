@@ -24,9 +24,13 @@ export class GeometryService {
     return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/`);
   }
 
-  // obtenerHijos(padreId: number): Observable<Recta[]> {
-  //   return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/?padre=${padreId}`);
-  // }
+  obtenerDetalleNodo(nodoId: number): Observable<Recta[]> {
+    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/${nodoId}/`);
+  }
+
+  obtenerHijos(padreId: number): Observable<Recta[]> {
+    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/?padre_id=${padreId}`);
+  }
 
 
 
@@ -112,6 +116,20 @@ export class GeometryService {
     });
   }
 
+  crearNodo(padreId: number): Observable<{status: boolean}[]> {
+    return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/`, {
+      nombre: 'Nuevo Nodo',
+      padreId: padreId
+    });
+  }
+
+  crearNodoRaiz(nombre: string): Observable<{status: boolean}[]> {
+    return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/`, {
+      nombre: nombre,
+    });
+  }
+
+
 
   crearRecta(lienzoId: number, p1: number, p2: number): Observable<{status: boolean}[]> {
     return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/rectas/`, {
@@ -127,6 +145,11 @@ export class GeometryService {
   borrarPunto(id: number): Observable<{status: boolean}[]> {
     return this.http.delete<{status: boolean}[]>(`http://localhost:5001/puntos/${id}/` );
   }
+
+  borrarNodo(id: number): Observable<{status: boolean}[]> {
+    return this.http.delete<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/${id}/` );
+  }
+
 
 
 

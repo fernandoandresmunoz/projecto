@@ -108,6 +108,19 @@ export interface VistaNodo {
 
 
 export interface Nodo {
+    id: number;
+    name: string;
+    nombre: string;
+    children: Nodo[];
+    parent: Nodo;
+
+
+    removeChildren(nodo: Nodo): void;
+    removeChild(nodo: Nodo): void;
+    getParent(): Nodo;
+
+
+
     addChild(nodo: Nodo): void;
     getChildren(): Nodo[];
     operation(): void;

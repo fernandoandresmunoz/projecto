@@ -25,6 +25,20 @@ export class Celula implements Nodo {
 
     constructor() {
     }
+    children: Nodo[];
+    parent: Nodo;
+    removeChildren(nodo: Nodo): void {
+        throw new Error("Method not implemented.");
+    }
+    removeChild(nodo: Nodo): void {
+        throw new Error("Method not implemented.");
+    }
+    getParent(): Nodo {
+        throw new Error("Method not implemented.");
+    }
+    id: number;
+    nombre: string;
+    name: string;
     isLeaf(): boolean {
         return true;
     }

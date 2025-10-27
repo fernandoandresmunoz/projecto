@@ -4,6 +4,24 @@ import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 
 export class GrupoCelulas implements Nodo {
+    removeChild(nodo: Nodo): void {
+        this.children = this.children.filter( x => nodo !== x)
+    }
+    parent: Nodo;
+    getParent(): Nodo {
+        throw new Error("Method not implemented.");
+    }
+    removeChildren(nodo: Nodo): void {
+        this.children = this.children.filter( x => nodo !== x)
+    }
+    id: number;
+    nombre: string;
+    name: string;
+
+    children: Nodo[] = [];
+
+
+
     isLeaf(): boolean {
         return false;
     }
@@ -186,9 +204,9 @@ export class GrupoCelulas implements Nodo {
     getAutomata(): Automata {
         throw new Error("Method not implemented.");
     }
-    children: Nodo[] = [];
 
     addChild(nodo: Nodo): void {
+        nodo.parent = this
         this.children.push(nodo);
     }
     getChildren(): Nodo[] {

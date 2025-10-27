@@ -8,7 +8,15 @@ import { Point } from 'point';
   templateUrl: './point.component.html',
   styleUrls: ['./point.component.styl']
 })
-export class PointComponent implements OnInit, Point {
+export class PointComponent implements OnInit, Point  {
+
+
+  x: number;
+  y: number;
+  id: number;
+  lienzo: number;
+  etiqueta: string;
+
   getLine(pointB: Point): Line {
     throw new Error('Method not implemented.');
   }
@@ -16,6 +24,7 @@ export class PointComponent implements OnInit, Point {
   @Input() point: Point;
 
   @ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
+
   public context: CanvasRenderingContext2D;
 
   ngAfterViewInit(): void {

@@ -186,12 +186,14 @@ export class Factory {
     crearPlanta(): Nodo {
 
         let a = this.crearGrupoCelula();
-        // let b = this.crearGrupoCelula()
-        // let c = this.crearGrupoCelula()
+        
+        let b = this.crearGrupoCelula()
+        let c = this.crearGrupoCelula()
 
 
-        // a.addChild(b)
-        // a.addChild(c)
+        a.addChild(b)
+        a.addChild(c)
+        c.agregarHojas()
         // b.addChild(this.crearGrupoCelula())
         // b.addChild(this.crearGrupoCelula())
 
@@ -199,21 +201,21 @@ export class Factory {
         // c.addChild(this.crearGrupoCelula())
 
 
-        a.addChild(this.superPlanta())
-        a.addChild(this.superPlanta())
-        a.agregarHojas()
+        // a.addChild(this.superPlanta())
+        // a.addChild(this.superPlanta())
+        // a.agregarHojas()
         // // a.addChild(this.megaPlanta2())
         // a.agregarHojas()
         // a.setAutomatas()
 
-        a.setAutomatas()
+        // a.setAutomatas()
 
         return a;
     }
 
     superPlanta() : Nodo {
         let a = this.crearGrupoCelula();
-        a.setAutomatas();
+        // a.setAutomatas();
         return a ;
     }
 

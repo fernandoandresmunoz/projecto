@@ -1,18 +1,50 @@
-<p>arboles works!</p>
 
+
+<div style="margin-bottom: 3em">
+    <h3>creacion root node</h3>
+    <table border="1"><tr>
+        
+            <td>
+        <label for="">Nombre nodo</label>
+            </td>
+            <td>
+        <input
+        [(ngModel)]="nombreNuevoNodo"
+        type="text">
+            </td>
+        
+    </tr></table>
+    <br>
+    <button>Cancelar</button>
+    <button
+    [disabled]="nombreNuevoNodo === ''"
+    (click)="crearNuevoNodo()
+    ">Guardar</button>
+</div>
 <table border="1" style="width: 100%">
     <thead>
         <tr>
             <th>id</th>
             <th>nombre</th>
+            <th>padre</th>
+            <!-- <th>actions</th> -->
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let nodo of nodos"
-        (click)="detalleNodo(nodo)" 
+         
         >
-            <td>{{ nodo.id }}</td>
-            <td>{{ nodo.nombre }}</td>
+            <td
+            (click)="detalleNodo(nodo)"
+            >{{ nodo.id }}</td>
+            <td
+            (click)="detalleNodo(nodo)"
+            >{{ nodo.nombre }}</td>
+            <td>{{ nodo.padre }}</td>
+            <!-- <td><button
+                (click)="borrarNodo(nodo)"
+                style="width: 100%" 
+                >borrar</button></td> -->
         </tr>
     </tbody>
 </table>

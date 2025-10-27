@@ -7,20 +7,32 @@
         'width': '70px',
         'background': root.getState(umbralInferior, umbralSuperior)
     }">
-    <div>
+    <span>
+        <!-- ( {{ root.id }} ) -->
+        {{ root.nombre}}
 
-        {{ root.average() | number}}
-    </div>
-    <div>
+        <!-- {{ root.average() | number}} -->
+        <button (click)="agregarGrupoCelula(root)">+</button>
+        <button 
+        *ngIf="root.getChildren().length === 0"
+        (click)="borrarNodo(root)">x</button>
+        <!-- <button (click)="agregarHoja(root)">Add l</button> -->
+    </span>
+    <!-- <div> -->
 
     <!-- <button (click)='agregarGrupoCelula(root)' [ngStyle]="{ 'width': '20px' }">+</button>
     <button  (click)='agregarHijos(root)'[ngStyle]="{ 'width': '20px' }">+</button> -->
-    </div>
+    <!-- </div> -->
     </span>
 
-    <ul>
+    <ul *ngIf="root.getChildren().length > 0">
         <li *ngFor='let child of root.getChildren()'>
-            <app-arbol-view [root]="child"  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'></app-arbol-view>
+            <app-arbol-view
+            [INHERITED_PARENT_ID]="root.id"
+            [root]="child"
+             [umbralInferior]='umbralInferior'
+             [umbralSuperior]='umbralSuperior'>
+            </app-arbol-view>
         </li>
     </ul>
 </li>
@@ -33,10 +45,14 @@
 
         "background": root.getState(umbralInferior, umbralSuperior)
 }' class="tf-nc">
+<!-- <button>Add child</button> -->
+{{ root.nombre}}
+<!-- <button>add parent</button> -->
+    <button>x</button>
 
-        {{ root.average() | number}}
+        <!-- {{ root.average() | number}} -->
     </span>
 
-    <app-nuevo-automata  [automata]='root.getAutomata()' ></app-nuevo-automata>
+    <!-- <app-nuevo-automata  [automata]='root.getAutomata()' ></app-nuevo-automata> -->
 </li>
     
