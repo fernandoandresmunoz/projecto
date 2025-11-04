@@ -13,7 +13,7 @@ export class BloqueConcreto implements Bloque {
     altura: number = 0;
     data: {state: number, color: string} ;
 
-    constructor(p0: Point, p1: Point, p2: Point, p3: Point, data: {state: number, color: string }, altura: number = 2) {
+    constructor(p0: Point, p1: Point, p2: Point, p3: Point, data: {state: number, color: string }, altura: number = 3) {
         this.p0 = p0;
         this.p1 = p1;
         this.p2 = p2;

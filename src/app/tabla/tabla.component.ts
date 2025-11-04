@@ -8,16 +8,10 @@ import { Automata } from 'cube';
 })
 export class TablaComponent implements OnInit {
 
-  @Input() automata:  Automata;
+  @Input() anchoCelda: number = 2;
+  @Input() datos_matriz: any;
+
   constructor() {
-
-    setInterval(() => {
-
-      this.automata.avanzarUnaGeneracion()
-
-    }, 250)
-
-
 
    }
 

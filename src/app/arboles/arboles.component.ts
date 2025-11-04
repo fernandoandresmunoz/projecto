@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeometryService } from '../geometry.service';
 import { Router } from '@angular/router';
+import { Nodo } from 'src/Nodo';
 
 @Component({
   selector: 'app-arboles',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ArbolesComponent implements OnInit {
 
-  nodos: any = []
+  nodos: Nodo[] = []
   nombreNuevoNodo: string = "";
 
   constructor(
@@ -37,10 +38,9 @@ export class ArbolesComponent implements OnInit {
     })
   }
 
-  borrarNodo(nodo): void {
+  borrarNodo(nodo: Nodo): void {
     this.geometry.borrarNodo(nodo.id)
     .subscribe(resp => {
-      console.log('nodo ', nodo.i, ' borrado exitosamente');
       this.cargarNodos();
     })
   }

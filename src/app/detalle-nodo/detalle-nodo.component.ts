@@ -41,10 +41,8 @@ export class DetalleNodoComponent implements OnInit {
         // console.log('id es ', id)
 
 
-
         this.geometry.obtenerDetalleNodo(id)
         .subscribe( resp => {
-          console.log('esta es la respuesta del detalle de nodo, ', id , resp)
           this.raiz.id = id;
           this.raiz.nombre = resp.nombre;
         })
@@ -60,9 +58,17 @@ export class DetalleNodoComponent implements OnInit {
             // console.log('hijo #' , x)
             // console.log(x.nombre)
 
-            let celula = new GrupoCelulas()
+            let celula: Nodo;
+            if (!x.is_leaf)
+            {
+
+              celula = new GrupoCelulas()
+            } else {
+              celula = new Celula();
+            }
             celula.id = x.id
             celula.nombre = x.nombre;
+            celula.matriz_ac = x.matriz_ac;
             this.raiz.addChild(celula)
 
           })

@@ -75,6 +75,12 @@ export interface Automata extends Observable{
     // mover celula
     // pause rules
     // rules
+
+    leftPosition: number;
+    topPosition: number;
+    generation: number;
+
+
     addBloque(bloque: Bloque): void;
     addElement(element: Element): void;
     addPunto(punto: number[][] ): void

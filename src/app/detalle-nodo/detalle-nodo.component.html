@@ -1,8 +1,20 @@
-<div class="tf-tree tf-ancestor-tree" style="font-size: 14px; padding-left: 2em">
+<div style="position: relative;">
+
+    <button (click)="raiz.operation()">operation!</button>
+    <button (click)="raiz.operation2()">operation 2!</button>
+    <button (click)="raiz.initialize()">initialize</button>
+    <button (click)="raiz.desplegado ? raiz.replegar(): raiz.desplegar()">DESPLEGAR</button>
+    {{ raiz && raiz.desplegado ? "DESPLEGADO": "REPLEGADO"}}
+<div class="tf-tree " style="
+position: relative;
+font-size: 14px; padding-left: 2em">
     <app-arbol-view
     [root]="raiz"
+    [umbralInferior]=".5"
+    [umbralSuperior]=".592"
     >
     </app-arbol-view>
 
     <!-- <app-red-view [root]="raiz"></app-red-view> -->
+</div>
 </div>

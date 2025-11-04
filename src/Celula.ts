@@ -25,6 +25,18 @@ export class Celula implements Nodo {
 
     constructor() {
     }
+    matriz_ac: number;
+    automataId: number;
+    desplegado: boolean;
+    desplegar(): void {
+        this.desplegado = true;
+    }
+    replegar(): void {
+        this.desplegado = false;
+    }
+    operation2(): void {
+        console.log('operation # 2 ', this.nombre)
+    }
     children: Nodo[];
     parent: Nodo;
     removeChildren(nodo: Nodo): void {
@@ -34,7 +46,7 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     getParent(): Nodo {
-        throw new Error("Method not implemented.");
+        return this.parent;
     }
     id: number;
     nombre: string;
@@ -59,7 +71,10 @@ export class Celula implements Nodo {
         this.umbralSuperior = umbralSuperior;
     }
     totalBloques(): number {
-        return this.getAutomata().getBloques().length 
+        if (this.automata) {
+            return this.getAutomata().getBloques().length 
+        }
+        return 0;
     }
     getColor(): string {
         throw new Error("Method not implemented.");
@@ -99,7 +114,9 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     setAutomatas(): void { // deberia ser set automata
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitaryCube(50, 280) : this.factory.createMilitaryCube(50, 280))
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ?
+            this.factory.createMilitaryCube(50, 50) :
+            this.factory.createMilitaryCube(50, 50))
     }
     avanzarUnaGeneracion(): void {
         const automata = this.getAutomata();
@@ -150,19 +167,21 @@ export class Celula implements Nodo {
     }
     operation(): void {
 
-        console.log(console.log(makeid(5)), 'aqui comienza una celula ***** ***** ***** ***** ***** *********** ')
-        let id = makeid(5);
-        if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
+        console.log('operation en hoja ', this.nombre)
 
-        }
-        console.log('value ', this.automata.densidad())
-        let counter = 1;
-        for (let i = 0; i < this.getAutomata().getMatrizActiva().length; i++) {
-            console.log('fila-', counter, this.getAutomata().getMatrizActiva()[i])
-            counter += 1;
-        }
-        localStorage.setItem('celula+' + id, JSON.stringify( this.getAutomata().getBloques() ))
-        console.log(" aqui termina **************************************************************** ")
+        // console.log(console.log(makeid(5)), 'aqui comienza una celula ***** ***** ***** ***** ***** *********** ')
+        // let id = makeid(5);
+        // if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
+
+        // }
+        // console.log('value ', this.automata.densidad())
+        // let counter = 1;
+        // for (let i = 0; i < this.getAutomata().getMatrizActiva().length; i++) {
+        //     console.log('fila-', counter, this.getAutomata().getMatrizActiva()[i])
+        //     counter += 1;
+        // }
+        // localStorage.setItem('celula+' + id, JSON.stringify( this.getAutomata().getBloques() ))
+        // console.log(" aqui termina **************************************************************** ")
     }
     setAutomata(automata: Automata): void {
         this.automata = automata;

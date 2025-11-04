@@ -114,6 +114,16 @@ export interface Nodo {
     children: Nodo[];
     parent: Nodo;
 
+    matriz_ac: number;
+
+    desplegado: boolean;
+    automataId: number;
+    automata: Automata;
+
+
+    desplegar(): void;
+    replegar(): void;
+
 
     removeChildren(nodo: Nodo): void;
     removeChild(nodo: Nodo): void;
@@ -123,7 +133,10 @@ export interface Nodo {
 
     addChild(nodo: Nodo): void;
     getChildren(): Nodo[];
+
     operation(): void;
+    operation2(): void;
+
     setAutomata(automata: Automata): void;
     getAutomata(): Automata;
     average(): number;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Recta } from './funcion-logaritmica/recta';
 import { Perpendicular } from './funcion-logaritmica/perpendicular';
 import { Point } from 'point';
+import { Nodo } from 'src/Nodo';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +21,55 @@ export class GeometryService {
     return this.http.get<Recta[]>(`http://localhost:8000/graficas/rectas/?lienzo=${lienzoId}`);
   }
 
-  obtenerNodos(): Observable<Recta[]> {
-    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/`);
+  obtenerNodos(): Observable<Nodo[]> {
+    return this.http.get<Nodo[]>(`http://localhost:8000/graficas/nodos/`);
   }
 
-  obtenerDetalleNodo(nodoId: number): Observable<Recta[]> {
-    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/${nodoId}/`);
+  obtenerDetalleNodo(nodoId: number): Observable<Nodo> {
+    return this.http.get<Nodo>(`http://localhost:8000/graficas/nodos/${nodoId}/`);
   }
 
-  obtenerHijos(padreId: number): Observable<Recta[]> {
-    return this.http.get<Recta[]>(`http://localhost:8000/graficas/nodos/?padre_id=${padreId}`);
+  obtenerDetalleMatriz(matrizId: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/graficas/matrices/${matrizId}/`);
   }
+
+  actualizarMatriz(
+    id: number,
+    nombre: string,
+    datosMatriz: any,
+    generacion: number,
+    blue_rule: string,
+    brown_rule: string,
+    gray_rule: string,
+    green_rule: string,
+    red_rule: string
+
+    ): Observable<{status: boolean}[]> {
+    return this.http.put<{status: boolean}[]>(`http://localhost:8000/graficas/matrices/${id}/`, {
+      nombre: nombre,
+      datos_matriz: datosMatriz,
+      generacion: generacion,
+      blue_rule: blue_rule,
+      brown_rule: brown_rule,
+      gray_rule: gray_rule,
+      green_rule: green_rule,
+      red_rule: red_rule
+    });
+  }
+
+
+
+  obtenerHijos(padreId: number): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8000/graficas/nodos/?padre_id=${padreId}`);
+  }
+
+
+  obtenerMatrices(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8000/graficas/matrices/`);
+  }
+
+
+
 
 
 
@@ -116,12 +155,35 @@ export class GeometryService {
     });
   }
 
-  crearNodo(padreId: number): Observable<{status: boolean}[]> {
-    return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/`, {
-      nombre: 'Nuevo Nodo',
-      padreId: padreId
+  crearNodo(padreId: number, nombreNodo: string, is_leaf: boolean): Observable<any> {
+    return this.http.post<any>(`http://localhost:8000/graficas/nodos/`, {
+      nombre: nombreNodo,
+      padreId: padreId,
+      is_leaf: is_leaf
     });
   }
+
+
+
+  actualizarNodo(id: number, padreId: number, nombreNodo: string, automataId: number): Observable<any> {
+    return this.http.put<any>(`http://localhost:8000/graficas/nodos/${id}/`, {
+      nombre: nombreNodo,
+      padreId: padreId,
+      matriz_ac: automataId
+    });
+  }
+
+
+  crearMatriz(nombre: string, filas: number, columnas: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8000/graficas/matrices/`, {
+      nombre: nombre,
+      filas: filas,
+      columnas: columnas
+    });
+  }
+
+
+
 
   crearNodoRaiz(nombre: string): Observable<{status: boolean}[]> {
     return this.http.post<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/`, {

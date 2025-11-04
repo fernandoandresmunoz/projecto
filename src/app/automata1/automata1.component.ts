@@ -369,10 +369,10 @@ export class Automata1Component implements OnInit, ControladorColores {
     // Configurar alturas diferentes para cada tipo de terreno
     const alturas = {
         verde: 0.8,    // Bosques - altura media-alta
-        marron: 0.3,   // Tierra - altura baja
-        azul: 0.2,     // Agua - altura muy baja
-        rojo: 0.5,     // Montañas bajas - altura media
-        gris: 1.0      // Montañas altas - altura máxima
+        marron: 0.8,   // Tierra - altura baja
+        azul: 0.8,     // Agua - altura muy baja
+        rojo: 0.8,     // Montañas bajas - altura media
+        gris: 0.8      // Montañas altas - altura máxima
     };
     
     // Aplicar la altura base

@@ -121,3 +121,18 @@ li > ul::after {
 /* ... otras propiedades ... /
 top: 15px; / Ajustar la posición vertical para que se centre mejor en los nodos */
 }
+
+
+  .tf-ancestor-tree { position: relative; }
+  .tf-ancestor-tree > ul { transform: rotateX(180deg); }
+  .tf-ancestor-tree li ul { margin-bottom: 1em; }
+
+
+  .node-text {
+    display: inline-block;
+    transform: rotateX(0deg);
+  }
+
+  .tf-nc {
+    // transform: rotate(180deg) 
+    }

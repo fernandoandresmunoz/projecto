@@ -1,1 +1,66 @@
-<p>matrices works!</p>
+
+{{ matrices.length }} total matrices
+
+
+
+<div style="margin-bottom: 2em">
+    <table border="1">
+        <tr>
+            <td>Nombre</td>
+            <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="Filas">Filas</label>
+            </td>
+            <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="Columnas">Columnas</label>
+            </td>
+            <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
+        </tr>
+    </table>
+    <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">Guardar</button>
+</div>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Preview</th>
+            <th>id</th>
+            <th>nombre</th>
+            <th>generation</th>
+            <th>filas</th>
+            <th>columnas</th>
+            <th>estado</th>
+            <th>fecha creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let matriz of matrices"
+
+        >
+            <td>
+<app-tabla
+[anchoCelda]="0.1"
+[datos_matriz]="matriz.datos_matriz"
+></app-tabla>
+
+
+
+            </td>  
+            <td>{{ matriz.id }}</td>
+            <td
+            (click)="detalleMatriz(matriz.id)" 
+            
+            >{{ matriz.nombre }}</td>
+            <td>{{ matriz.generacion }}</td>
+            <td>{{ matriz.filas }}</td>
+            <td>{{ matriz.columnas }}</td>
+            <td>{{ matriz.estado_actual }}</td>
+            <td>{{ matriz.fecha_creacion }}</td>
+
+        </tr>
+    </tbody>
+</table>

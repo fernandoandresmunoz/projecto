@@ -495,6 +495,26 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return automata;
     }
 
+    crearAutomataPrecargado(filas: number, columnas: number): Automata {
+        let automata = this.configureIsometricSettings(filas, columnas)
+        automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        automata.setNextGenStrategy(new ConcreteNextGenStrategy())
+
+        // automata.setMatrizActiva(automata.createRandomMatriz())
+        return automata;
+    }
+
+    crearAutomataNuevo(filas: number, columnas: number): Automata {
+        let automata = this.configureIsometricSettings(filas, columnas)
+        automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        automata.setNextGenStrategy(new ConcreteNextGenStrategy())
+
+        automata.setMatrizActiva(automata.createRandomMatriz())
+        return automata;
+    }
+
+
+
     createGliderStrategy(filas:number, columnas: number): Automata {
 
         let automata = this.configureIsometricSettings(filas, columnas)

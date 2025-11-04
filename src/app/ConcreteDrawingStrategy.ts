@@ -45,7 +45,7 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
 
         this.mapa.set("Green", 5)
         this.mapa.set("Red", 3)
-        this.mapa.set("Brown", 10)
+        this.mapa.set("Brown", 3)
         this.mapa.set("Gray", 3)
         this.mapa.set("Blue", 2)
     }

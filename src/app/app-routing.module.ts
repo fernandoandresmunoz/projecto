@@ -33,6 +33,7 @@ import { LienzoDetailComponent } from './lienzo-detail/lienzo-detail.component';
 import { MatricesComponent } from './matrices/matrices.component';
 import { ArbolesComponent } from './arboles/arboles.component';
 import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
+import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
 // import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
@@ -52,6 +53,10 @@ const routes: Routes = [
 {
     path: 'nodo/:id',
     component: DetalleNodoComponent
+  },
+  {
+    path: 'matrices/:id',
+    component: DetalleMatrizComponent
   },
   {
     path: '',

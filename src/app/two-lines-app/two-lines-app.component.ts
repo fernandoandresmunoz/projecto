@@ -64,14 +64,14 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
     setInterval(() => {
       if ( !this.getPause()) {
-      this.avanzarUnaGeneracion()
+      // this.avanzarUnaGeneracion()
       // this.right()
       this.draw();
       }
       // this.draw();
 
       // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    }, 500)
+    }, 250)
   }
   totales() {
     return this.automata.totales();
@@ -264,8 +264,12 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.draw();
   }
   izquierda(): void {
-    this.automata.izquierda();
-    this.automata.subir();
+
+    for ( let i = 0 ; i < 10; i ++) {
+      this.automata.izquierda();
+      this.automata.subir();
+    }
+
     this.draw();
   }
   derecha(): void {

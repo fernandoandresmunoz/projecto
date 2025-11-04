@@ -2,14 +2,40 @@ import Automata from "concreteAutomata";
 import { Factory } from "./app/ifaces/game";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 export class GrupoCelulas implements Nodo {
+    matriz_ac: number;
+    automataId: number;
+    desplegado: boolean = false;
+    desplegar(): void {
+        this.desplegado = true;
+        this.getChildren().map( hijo => {
+            hijo.desplegar()
+        })
+    }
+    replegar(): void {
+        this.desplegado = false;
+        this.getChildren().map( hijo => {
+            hijo.replegar()
+        })
+    }
+
+    automata: Automata;
+
+    operation2(): void {
+        this.getChildren().map(hijo => {
+            {
+                hijo.operation2();
+            }
+        })
+    }
     removeChild(nodo: Nodo): void {
         this.children = this.children.filter( x => nodo !== x)
     }
     parent: Nodo;
     getParent(): Nodo {
-        throw new Error("Method not implemented.");
+        return this.parent;
     }
     removeChildren(nodo: Nodo): void {
         this.children = this.children.filter( x => nodo !== x)
@@ -154,13 +180,35 @@ export class GrupoCelulas implements Nodo {
         }
     }
     setAutomatas(): void {
-        this.getChildren().map( obj => obj.setAutomatas());
+        this.getChildren().map( obj => obj.setAutomatas())
 
     }
     avanzarUnaGeneracion(): void {
-        this.getChildren().map( obj => obj.avanzarUnaGeneracion());
+    
+        this.getChildren().map( obj => {
+            if (obj.matriz_ac) {
+
+                obj.avanzarUnaGeneracion()
+            } else {
+                obj.avanzarUnaGeneracion()
+            }
+        });
     }
     initialize(): void {
+
+        // if ( this.getChildren().length > 0) {
+        //     this.getChildren().map( hijo => {
+        //         hijo.initialize()
+        //     })
+        // }
+
+        // else if ( this.getChildren().length === 0 ) {
+        //     let factory = new ConcreteShapeFactory();
+
+        //         console.log('ejecutando "initialize() " en ', this.nombre)
+        //     this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? factory.createMilitary2(70, 70) : factory.createMilitaryCube(70, 70))
+        // }
+
         this.getChildren().map( obj => obj.initialize());
     }
     getState(umbralInferior: number, umbralSuperior: number): string {
@@ -199,10 +247,11 @@ export class GrupoCelulas implements Nodo {
         return suma / this.getChildren().length;
     }
     setAutomata(automata: Automata): void {
-        throw new Error("Method not implemented.");
+        this.automata = automata;
     }
     getAutomata(): Automata {
-        throw new Error("Method not implemented.");
+        return this.automata;
+        
     }
 
     addChild(nodo: Nodo): void {
@@ -213,7 +262,7 @@ export class GrupoCelulas implements Nodo {
         return this.children;
     }
     operation(): void {
-        for ( let child of this.children) {
+        for ( let child of this.getChildren()) {
             child.operation();
         }
     }

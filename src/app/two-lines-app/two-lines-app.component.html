@@ -1,125 +1,126 @@
-
 <div style="display: flex; justify-content: space-between;">
-    
-<div>
 
-{{ coloresRegla1[0]}}
-{{ coloresRegla1[1]}}
-{{ coloresRegla1[2]}}
-<div style='font-size: 20px'>
+    <div>
+
+        {{ coloresRegla1[0]}}
+        {{ coloresRegla1[1]}}
+        {{ coloresRegla1[2]}}
+        <div style='font-size: 20px'>
 
 
 
-    <!--  hasta esto debería estar en su propio componente y solamente pasarle el automata como parametro
+            <!--  hasta esto debería estar en su propio componente y solamente pasarle el automata como parametro
         cuantos componentes se podrian crear pasando solamente el automata como parametro.
     -->
-    {{ showStats ? 'si': 'no'}}
-    <div *ngIf="true">
-    <!-- <div *ngIf="showStats"> -->
+            {{ showStats ? 'si': 'no'}}
+            <div *ngIf="true">
+                <!-- <div *ngIf="showStats"> -->
 
 
 
-        
-    </div>
-    <div *ngIf="true">
-        <p>{{ getBloques().length}}</p>
-        <p > <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
-        
-            <button
-            (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>
-            reset
-        </button>
-        
-    </div>
-    <table *ngIf="true">
-        <tr *ngFor='let elemento of ELEMENTS'>
-            <td style='font-size: 20px'>
-                {{ elemento }}
-            </td>
-            <td>
-<!-- <select    name="" id=""> -->
-<!-- <select  
+
+            </div>
+            <div *ngIf="true">
+                <p>{{ getBloques().length}}</p>
+                <p> <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
+
+                <button (click)='setGeneration(0); setMatrizActiva(createRandomMatriz()); draw();'>
+                    reset
+                </button>
+
+            </div>
+            <table *ngIf="true">
+                <tr *ngFor='let elemento of ELEMENTS'>
+                    <td style='font-size: 20px'>
+                        {{ elemento }}
+                    </td>
+                    <td>
+                        <!-- <select    name="" id=""> -->
+                        <!-- <select  
 (change)="changeRule(elemento, $event.target as HTMLSelectElement).value)"
 name="" id=""> -->
-<!-- <select (change)="changeRule(elemento, $event.target as HTMLSelectElement).value)"> -->
-    <!-- <select (change)="changeRule(elemento, ($event.target as HTMLSelectElement).value)"> -->
+                        <!-- <select (change)="changeRule(elemento, $event.target as HTMLSelectElement).value)"> -->
+                        <!-- <select (change)="changeRule(elemento, ($event.target as HTMLSelectElement).value)"> -->
 
-        <!-- <select (change)='changeRule(elemento, ($event.target as HTMLSelectElement).value)'> -->
-    <!-- <select (change)='changeRule(elemento, $event.target as HTMLSelectElement)'> -->
-        <!-- <select> -->
-    <select (change)='changeRule(elemento, $event.target )'>
-        <option
-        [value]='rule.name'
-        *ngFor='let rule of getRules().sort()'>
-            {{ rule.name }} ( {{ rule.notation }} )
-        </option>
-    </select>
-            </td>
+                        <!-- <select (change)='changeRule(elemento, ($event.target as HTMLSelectElement).value)'> -->
+                        <!-- <select (change)='changeRule(elemento, $event.target as HTMLSelectElement)'> -->
+                        <!-- <select> -->
+                        <select (change)='changeRule(elemento, $event.target )'>
+                            <option [value]='rule.name' *ngFor='let rule of getRules().sort()'>
+                                {{ rule.name }} ( {{ rule.notation }} )
+                            </option>
+                        </select>
+                    </td>
 
-            </tr>
-    
-    </table>
-    <div>
-        <div>
+                </tr>
+
+            </table>
             <div>
-    
-                <p style='font-size: 18px;'>
-    
-        {{ automata.getGeneration() }}
-                </p>
-                <!-- <canvas  #myCanvas (keypress)='keyLeft()'></canvas> -->
-                
+                <div>
+                    <div>
+
+                        <p style='font-size: 18px;'>
+
+                            {{ automata.getGeneration() }}
+                        </p>
+                        <!-- <canvas  #myCanvas (keypress)='keyLeft()'></canvas> -->
+
+                    </div>
+                </div>
             </div>
-        </div>
+<div>
+        <canvas style='border: 1px solid gray; ' #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()"
+            (keypress)='keyLeft()'>
+        </canvas>
     </div>
-    <div *ngIf="true" border="1">
-    <!-- <div *ngIf="showController"> -->
-    
-        <table>
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <button (click)='subir(); draw()'>subir </button>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <button (click)='
+            <div *ngIf="true" border="1">
+                <!-- <div *ngIf="showController"> -->
+
+                <table>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button (click)='subir(); draw()'>subir </button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button (click)='
                     izquierda();
                     draw()'>izquierda</button>
-                </td>
-                <td></td>
-                <td>
-                    <button (click)='
+                        </td>
+                        <td></td>
+                        <td>
+                            <button (click)='
                     derecha();
                     draw()'>derecha</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <button (click)='
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button (click)='
                     bajar();
-                    draw()' >bajar</button>
-    
-    
-                </td>
-                <td></td>
-            </tr>
-        </table>
-    
-    
-                </div>
-                    <button (click)='clean()'>clean</button>
-    
+                    draw()'>bajar</button>
+
+
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <button (click)='clean()'>clean</button>
+
             <!-- <div *ngIf='showController'style='font-size: 16px'> -->
-            <div *ngIf='true'style='font-size: 16px'>
+            <div *ngIf='true' style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>
-    
+
                 <div>
                     horizonte <button (click)='getPointD().setY(getPointD().getY() - 1);
                     getPointC().setY(getPointD().getY() - 1); draw()
@@ -140,9 +141,10 @@ name="" id=""> -->
                     <button (click)='upMilitary(MILITAR_STEP); draw()
                     '>+</button>
                 </div>
-    
+
                 <div>
-                    alto celula <button (click)='getAltoCelula() > 1 && setAltoCelula(getAltoCelula() -1 ); draw()'>-</button>
+                    alto celula <button
+                        (click)='getAltoCelula() > 1 && setAltoCelula(getAltoCelula() -1 ); draw()'>-</button>
                     <button (click)='setAltoCelula(getAltoCelula() + 1); draw()'>+</button>
                     {{ getAltoCelula() }}
                     <br>
@@ -183,10 +185,12 @@ name="" id=""> -->
                                 <h3>Sur (Punto A) </h3>
                                 <p>
                                     x = {{ getPointA().getX() }}
-                                    <button (click)='getPointA().setX(getPointA().getX() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointA().setX(getPointA().getX() - 20); draw()'>-</button><button
                                         (click)='getPointA().setX(getPointA().getX() + 20); draw()'>+</button>
                                     y = {{ getPointA().getY()}}
-                                    <button (click)='getPointA().setY(getPointA().getY() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointA().setY(getPointA().getY() - 20); draw()'>-</button><button
                                         (click)='getPointA().setY(getPointA().getY() + 20); draw()'>+</button>
                                 </p>
                             </div>
@@ -198,7 +202,8 @@ name="" id=""> -->
                                     <button (click)='getPointB().setX(getPointB().getX() - 20); draw()'>-</button>
                                     <button (click)='getPointB().setX(getPointB().getX() + 20); draw()'>+</button>
                                     y = {{ getLine1().getPointB().getY() }}
-                                    <button (click)='getPointB().setY(getPointB().getY() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointB().setY(getPointB().getY() - 20); draw()'>-</button><button
                                         (click)='getPointB().setY(getPointB().getY() + 20); draw()'>+</button>
                                 </p>
                             </div>
@@ -206,12 +211,14 @@ name="" id=""> -->
                                 <h3>East (Punto C )</h3>
                                 <p>
                                     x = {{ getPointC().getX() }}
-                                    <button (click)='getPointC().setX(getPointC().getX() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointC().setX(getPointC().getX() - 20); draw()'>-</button><button
                                         (click)='getPointC().setX(getPointC().getX() + 20); draw()'>+</button>
                                 </p>
                                 <p>
                                     y = {{ getPointC().getY()}}
-                                    <button (click)='getPointC().setY(getPointC().getY() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointC().setY(getPointC().getY() - 20); draw()'>-</button><button
                                         (click)='getPointC().setY(getPointC().getY() + 20); draw()'>+</button>
                                 </p>
                             </div>
@@ -220,63 +227,58 @@ name="" id=""> -->
                                 <p>
                                     x = {{ getPointD().getX() }}
                                     <br>
-                                    <button (click)='getPointD().setX(getPointD().getX() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointD().setX(getPointD().getX() - 20); draw()'>-</button><button
                                         (click)='getPointD().setX(getPointD().getX() + 20); draw()'>+</button>
                                 </p>
                                 <p>
                                     y = {{ getPointD().getY() }}
                                     <br>
-                                    <button (click)='getPointD().setY(getPointD().getY() - 20); draw()'>-</button><button
+                                    <button
+                                        (click)='getPointD().setY(getPointD().getY() - 20); draw()'>-</button><button
                                         (click)='getPointD().setY(getPointD().getY() + 20); draw()'>+</button>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                    </div>
-    
-    
-    
-                <div *ngIf=' showAuxiliaryLines()'>
-                    <div style='border: 1px solid gray'>
-                        <ul>
-                            <li *ngFor='let projection of getProjections()'>
-                                <button (click)='setSelectedProjection(projection)' [disabled]='getSelectedProjection() === projection'>
-                                    {{ projection }}
-                                </button>
-                            </li>
-                        </ul>
-    
-                    </div>
-                    <div style='border: 1px solid gray;'>
-                        <p>
-                            height: {{ getHeight() }}
-                            <br>
-                            <button (click)='setHeight(getHeight() - 1); draw()'>-</button><button
-                                (click)='setHeight(getHeight() + 1); draw()'>+</button>
-                        </p>
-    
-                    </div>
-                        Scale: {{ getScale() }}
-                        <br>
-                        <button (click)='setScale(getScale() - 1); draw()'> - </button>
-                        <button (click)='setScale(getScale() + 1); draw()'>+</button>
+            </div>
+
+
+
+            <div *ngIf=' showAuxiliaryLines()'>
+                <div style='border: 1px solid gray'>
+                    <ul>
+                        <li *ngFor='let projection of getProjections()'>
+                            <button (click)='setSelectedProjection(projection)'
+                                [disabled]='getSelectedProjection() === projection'>
+                                {{ projection }}
+                            </button>
+                        </li>
+                    </ul>
+
                 </div>
+                <div style='border: 1px solid gray;'>
+                    <p>
+                        height: {{ getHeight() }}
+                        <br>
+                        <button (click)='setHeight(getHeight() - 1); draw()'>-</button><button
+                            (click)='setHeight(getHeight() + 1); draw()'>+</button>
+                    </p>
+
+                </div>
+                Scale: {{ getScale() }}
+                <br>
+                <button (click)='setScale(getScale() - 1); draw()'> - </button>
+                <button (click)='setScale(getScale() + 1); draw()'>+</button>
+            </div>
 
 
-</div>
+        </div>
 
 
 
-</div>
-<div>
-        <canvas 
-                    style='border: 1px solid gray; '
-                    #myCanvas
-                    [width]="getAnchoLienzo()"
-                    [height]="getAltoLienzo()"
-                    (keypress)='keyLeft()'>
-                </canvas>
     </div>
+    
 </div>
 

@@ -57,6 +57,12 @@ import { LienzosComponent } from './lienzos/lienzos.component';
 import { LienzoDetailComponent } from './lienzo-detail/lienzo-detail.component';
 import { ArbolesComponent } from './arboles/arboles.component';
 import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
+import { MatricesComponent } from './matrices/matrices.component';
+import { CommonModule } from '@angular/common';
+import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
+import { MatrizPreviewComponent } from './matriz-preview/matriz-preview.component';
+import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
+
 
 
 @NgModule({
@@ -112,13 +118,18 @@ import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
     LienzosComponent,
     LienzoDetailComponent,
     ArbolesComponent,
-    DetalleNodoComponent
+    DetalleNodoComponent,
+    MatricesComponent,
+    DetalleMatrizComponent,
+    MatrizPreviewComponent,
+    MatrizHojaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    CommonModule
   ],
   providers: [AutomataPersistenceService],
   bootstrap: [AppComponent]

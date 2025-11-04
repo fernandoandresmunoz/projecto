@@ -96,7 +96,7 @@ export default class ConcreteAutomata implements Automata {
 
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
-            name: 'life',
+            name: 'life rule',
             rule: this.shapeFactory.createLifeRule(),
             notation: ''
         },
@@ -136,7 +136,7 @@ export default class ConcreteAutomata implements Automata {
             notation: ''
         },
         {
-            name: 'day & night ',
+            name: 'day and night',
             rule: this.shapeFactory.createDayAndNightRule(),
             notation: ''
         },
@@ -305,6 +305,9 @@ export default class ConcreteAutomata implements Automata {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    leftPosition: number = 0;
+    topPosition: number = 0 ;
+
     addObserver(observer: ObservadorAutomata): void {
         throw new Error("Method not implemented.");
     }
@@ -574,13 +577,7 @@ export default class ConcreteAutomata implements Automata {
     }
     setGeneration(generation: number): void {
         this.generation = generation
-        if (this.generation === 0 ) {
-            this.setBlueRule(this.shapeFactory.createCoralRule())
-            this.setGreenRule(this.shapeFactory.createCoralRule())
-            this.setRedRule(this.shapeFactory.createCoralRule())
-            this.setBrownRule(this.shapeFactory.createCoralRule())
-            this.setGrayRule(this.shapeFactory.createLifeRule())
-        }
+        
     }
 
     getAvance(): number {
@@ -659,6 +656,7 @@ export default class ConcreteAutomata implements Automata {
 
     }
     bajar(): void {
+        this.topPosition += 1;
         for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.down()
         }
@@ -677,6 +675,8 @@ export default class ConcreteAutomata implements Automata {
         // this.bajarCubos();
     }
     izquierda(): void {
+
+        this.leftPosition += 1;
 
         for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.left()
