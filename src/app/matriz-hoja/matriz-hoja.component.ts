@@ -53,6 +53,8 @@ export class MatrizHojaComponent implements OnInit {
     ).subscribe( matriz  => {
 
       console.log(matriz)
+      this.nodo.automata.setFilas(matriz.filas)
+      this.nodo.automata.setColumnas(matriz.columnas)
     })
   }
 

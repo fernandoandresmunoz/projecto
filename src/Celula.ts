@@ -1,8 +1,8 @@
-import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 import { Automata } from "cube";
 import ConcreteAutomata from "concreteAutomata";
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 
 function makeid(length: number) {
     let result = '';
@@ -22,12 +22,36 @@ export class Celula implements Nodo {
     umbralInferior: number;
     umbralSuperior: number;
 
+    id: number;
+    nombre: string;
+    name: string;
+    filas: number;
+    columnas: number;
+    hiddenAutomata: boolean;
 
-    constructor() {
-    }
     matriz_ac: number;
     automataId: number;
     desplegado: boolean;
+
+    children: Nodo[];
+    parent: Nodo;
+
+    constructor() {
+    }
+    allAnneal(): void {
+        this.automata.setBrownRule(this.factory.createAnnealRule())
+        this.automata.setGreenRule(this.factory.createAnnealRule())
+        this.automata.setRedRule(this.factory.createAnnealRule())
+        this.automata.setBlueRule(this.factory.createAnnealRule())
+        this.automata.setGrayRule(this.factory.createAnnealRule())
+    }
+    
+
+    
+    hideAutomatas(): void {
+        this.hiddenAutomata = !this.hiddenAutomata;
+    }
+
     desplegar(): void {
         this.desplegado = true;
     }
@@ -37,8 +61,7 @@ export class Celula implements Nodo {
     operation2(): void {
         console.log('operation # 2 ', this.nombre)
     }
-    children: Nodo[];
-    parent: Nodo;
+
     removeChildren(nodo: Nodo): void {
         throw new Error("Method not implemented.");
     }
@@ -48,9 +71,7 @@ export class Celula implements Nodo {
     getParent(): Nodo {
         return this.parent;
     }
-    id: number;
-    nombre: string;
-    name: string;
+
     isLeaf(): boolean {
         return true;
     }
@@ -126,7 +147,13 @@ export class Celula implements Nodo {
     }
     initialize(): void {
         
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(70, 70) : this.factory.createMilitaryCube(70, 70))
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0
+            ? this.factory.createMilitary2(
+                this.getAutomata().getFilas(),
+                this.getAutomata().getColumnas())
+            : this.factory.createMilitaryCube(
+                this.getAutomata().getFilas(),
+                this.getAutomata().getColumnas()))
         
     }
     getState(umbralInferior: number, umbralSuperior: number): string {
@@ -148,12 +175,30 @@ export class Celula implements Nodo {
         this.automata.setBrownRule(this.factory.createReplicatorRule());
         this.automata.setGreenRule(this.factory.createReplicatorRule());
     }
+
+    allGeology(): void {
+        this.automata.setBrownRule(this.factory.createGeologyRule())
+        this.automata.setGreenRule(this.factory.createGeologyRule())
+        this.automata.setRedRule(this.factory.createGeologyRule())
+        this.automata.setBlueRule(this.factory.createGeologyRule())
+        this.automata.setGrayRule(this.factory.createGeologyRule())
+
+    }
+
     allDiamoeba(): void {
         this.automata.setBrownRule(this.factory.createDiamoebaRule())
         this.automata.setGreenRule(this.factory.createDiamoebaRule())
-        // this.automata.(this.factory.createDiademaRule())
-        // this.automata.setBrownRule(this.factory.createDiademaRule())
-        // this.automata.setBrownRule(this.factory.createDiademaRule())
+        this.automata.setRedRule(this.factory.createDiamoebaRule())
+        this.automata.setBlueRule(this.factory.createDiamoebaRule())
+        this.automata.setGrayRule(this.factory.createDiamoebaRule())
+    }
+    allDayAndNight(): void {
+        this.automata.setBrownRule(this.factory.createDayAndNightRule())
+        this.automata.setGreenRule(this.factory.createDayAndNightRule())
+        this.automata.setRedRule(this.factory.createDayAndNightRule())
+        this.automata.setBlueRule(this.factory.createDayAndNightRule())
+        this.automata.setGrayRule(this.factory.createDayAndNightRule())
+
     }
     average(): number {
         const automata = this.getAutomata();

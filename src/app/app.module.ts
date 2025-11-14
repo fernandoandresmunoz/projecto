@@ -62,6 +62,8 @@ import { CommonModule } from '@angular/common';
 import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
 import { MatrizPreviewComponent } from './matriz-preview/matriz-preview.component';
 import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
+import { TablaReglasComponent } from './tabla-reglas/tabla-reglas.component';
+import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
 
 
 
@@ -122,7 +124,9 @@ import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
     MatricesComponent,
     DetalleMatrizComponent,
     MatrizPreviewComponent,
-    MatrizHojaComponent
+    MatrizHojaComponent,
+    TablaReglasComponent,
+    WrapperMinecraftViewComponent
   ],
   imports: [
     BrowserModule,

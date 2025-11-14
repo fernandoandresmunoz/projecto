@@ -29,7 +29,6 @@ export class MatricesComponent implements OnInit {
     .subscribe((matrices) => {
       this.matrices = matrices;
 
-      console.log(matrices)
     })
   }
 
@@ -38,7 +37,6 @@ export class MatricesComponent implements OnInit {
       this.totalNuevasFilas,
       this.totalNuevasColumnas 
       ).subscribe( resp => {
-        console.log(resp)
         this.cargarMatrices();
       })
   }

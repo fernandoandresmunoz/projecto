@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Geometry } from '@babylonjs/core';
 import { GeometryService } from '../geometry.service';
 import { Factory } from '../ifaces/game';
 import { Nodo } from '../../../src/Nodo'
@@ -14,15 +13,6 @@ import { Celula } from '../../Celula';
 })
 export class DetalleNodoComponent implements OnInit {
 
-
-// factory = new Factory();
-//   raiz : Nodo;
-
-//   constructor() { 
-//     this.raiz = this.factory.crearPlanta()
-   
-
-
   factory = new Factory();
   raiz: Nodo;;
 
@@ -35,11 +25,8 @@ export class DetalleNodoComponent implements OnInit {
 
   ngOnInit(): void {
 
-
       this.route.params.subscribe(params => {
         let id = params['id'];
-        // console.log('id es ', id)
-
 
         this.geometry.obtenerDetalleNodo(id)
         .subscribe( resp => {
@@ -47,21 +34,13 @@ export class DetalleNodoComponent implements OnInit {
           this.raiz.nombre = resp.nombre;
         })
 
-
-
-
-
-
         this.geometry.obtenerHijos(id)
         .subscribe( resp => {
           resp.map<any>( x => {
-            // console.log('hijo #' , x)
-            // console.log(x.nombre)
 
             let celula: Nodo;
             if (!x.is_leaf)
             {
-
               celula = new GrupoCelulas()
             } else {
               celula = new Celula();
@@ -69,17 +48,12 @@ export class DetalleNodoComponent implements OnInit {
             celula.id = x.id
             celula.nombre = x.nombre;
             celula.matriz_ac = x.matriz_ac;
+            celula.filas = x.filas;
+            celula.columnas = x.columnas;
             this.raiz.addChild(celula)
 
           })
-
-          // console.log(resp)
         })
     });
-
-
-
-
   }
-
 }

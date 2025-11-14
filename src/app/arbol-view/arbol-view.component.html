@@ -1,371 +1,417 @@
 <!-- si tengo hijos, o sea si soy un composite-->
 <li *ngIf='root !== undefined && !root?.isLeaf()'>
 
-<!-- <div  [ngStyle]="{ 'width': '30px',
+    <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
     <span class="tf-nc" [ngStyle]="{
         'width': '130px',
         'height': '50px',
         'background': root.getState(umbralInferior, umbralSuperior)
     }">
-    <span>
-        <!-- ( {{ root.id }} ) -->
-        {{ root.nombre}} (comp.) # {{ root.matriz_ac}}
-        {{ root.totalBloques()}}
-        <!-- <br>
+        <span>
+            <!-- ( {{ root.id }} ) -->
+            <span *ngIf="!root.hiddenAutomata">
+
+                {{ root.nombre}}
+            </span>
+             <!-- {{ root.matriz_ac}} -->
+             <br>
+            {{ root.average() | number}}
+            <!-- <br>
         GENERATION = {{  root.automata && root.automata.getGeneration()}}
         STATE = {{  root.automata && root.getState(.7, .8)}} -->
 
-    <!-- <app-matriz-hoja 
+            <!-- <app-matriz-hoja 
     *ngIf="root.getChildren().length === 0 "
    [matriz_ac]="root.matriz_ac" 
     ></app-matriz-hoja> -->
-        <!-- {{ root.average() | number}} -->
-        <button (click)="edicion = !edicion; root.desplegado = !root.desplegado">+</button>
+            <!-- {{ root.average() | number}} -->
+            <button
+            *ngIf="!root.hiddenAutomata"
+            (click)="edicion = !edicion; root.desplegado = !root.desplegado"
+            >+</button>
 
-        <div *ngIf="root && root.desplegado" style="width: 400px; background: gray">
-            <div style="width: 100%">
-                <button
-                [disabled]="selectedTab === EDICION_TAB"
-                (click)="selectedTab = EDICION_TAB" 
-                >Editar</button>
-                <button [disabled]="selectedTab === AGREGAR_TAB"
-                (click)="selectedTab = AGREGAR_TAB"
-                >Agregar</button>
-                <!-- <button
-                *ngIf="root.isLeaf"
-                [disabled]="selectedTab === AUTOMATA_TAB"
-                (click)="selectedTab = AUTOMATA_TAB"
-                >AUTOMATA</button> -->
+            <div *ngIf="root && root.desplegado && !root.isLeaf()"
+            style="width: 400px; background: gray">
+                <div style="width: 100%">
+                    <button
+                    [disabled]="selectedTab === EDICION_TAB"
+                    (click)="selectedTab = EDICION_TAB">Editar</button>
+                    <button
+                    [disabled]="selectedTab === AGREGAR_TAB"
+                        (click)="selectedTab = AGREGAR_TAB">
+                        Agregar
+                    </button>
+                </div>
+                <div *ngIf="selectedTab === AUTOMATA_TAB">
+                    AUTOMATA =
+                    {{ root.getAutomata()}}
 
-            </div>
-            <div *ngIf="selectedTab === AUTOMATA_TAB">
-                AUTOMATA =
-                {{ root.getAutomata()}}
+                    <div>
 
-                <div>
+                        <div style="margin-bottom: 2em">
+                            <table border="1">
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Filas">Filas</label>
+                                    </td>
+                                    <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Columnas">Columnas</label>
+                                    </td>
+                                    <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
+                                </tr>
+                            </table>
+                            <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">CREAR
+                                AUTOMATA!</button>
+                            <br>
 
-<div style="margin-bottom: 2em">
-    <table border="1">
-        <tr>
-            <td>Nombre</td>
-            <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Filas">Filas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Columnas">Columnas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
-        </tr>
-    </table>
-    <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">CREAR AUTOMATA!</button>
-    <br>
+                        </div>
 
-</div>
+                    </div>
+
+                    <!-- FILAS = {{ root.getAutomata().getFilas()}}
+                <app-tabla [anchoCelda]="0.1" [datos_matriz]="root.getAutomata().getMatrizActiva()"></app-tabla> -->
+                </div>
+                <div *ngIf="selectedTab === EDICION_TAB">
+
+                    <h3>Edición Nodo ( {{ root.matriz_ac }} )</h3>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="id">id</label>
+                            </td>
+                            <td>
+                                <input type="number" [disabled]="true" [(ngModel)]="root.id">
+                            </td>
+                        </tr>
+                        <tr *ngIf="root.getParent()">
+                            <td>
+                                <label for="id">parent id</label>
+                            </td>
+                            <td>
+                                <input type="number" [disabled]="true" [(ngModel)]="root.getParent().id">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="nombre">
+                                    Nombre
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" [(ngModel)]="nuevoNombreEdicion">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="edicion">
+                                    Description
+                                </label>
+                            </td>
+                            <td>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </td>
+
+                        </tr>
+                    </table>
+
+                    <button (click)="actualizarNodo()">update</button>
+                    <br>
+                    <hr>
+                    <button [disabled]="root.getChildren().length > 0" (click)="borrarNodo(root)">
+                        Eliminar
+                    </button>
+                    <button (click)="quitar()">
+                        Quitar
+                    </button>
+                    <br>
 
                 </div>
+                <div *ngIf="selectedTab === AGREGAR_TAB" style="z-index: 99999; width: 400px; background: gray">
+                    <h3>Agregar Nodo</h3>
 
-                <!-- FILAS = {{ root.getAutomata().getFilas()}}
-                <app-tabla [anchoCelda]="0.1" [datos_matriz]="root.getAutomata().getMatrizActiva()"></app-tabla> -->
+                    <table>
+                        <tr>
+                            <td><label for="nombre">
+                                    Nombre
+                                </label></td>
+                            <td>
+
+                                <input type="text" [(ngModel)]="nuevoNodoNombre">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">description</label></td>
+                            <td>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <br>
+                    <button (click)="agregarGrupoCelula(root); edicion = false"
+                        [disabled]="nuevoNodoNombre === ''">+grupo</button>
+                    <button [disabled]="nuevoNodoNombre === ''"
+                        (click)="agregarHoja(root); edicion = false">+hoja</button>
+                    <button [disabled]="nuevoNodoNombre === ''"
+                        (click)="agregarPadre(root); edicion = false">+parent</button>
+                </div>
             </div>
-            <div *ngIf="selectedTab === EDICION_TAB">
-            
-                <h3>Edición Nodo ( {{ root.matriz_ac }} )</h3>
 
-                <table>
-                    <tr>
-                        <td>
-                            <label for="id">id</label>
-                        </td>
-                        <td>
-                            <input type="number"
-                            [disabled]="true"
-                            [(ngModel)]="root.id"
-                            >
-                        </td>
-                    </tr>
-<tr *ngIf="root.getParent()">
-                        <td>
-                            <label for="id">parent id</label>
-                        </td>
-                        <td>
-                            <input type="number"
-                            [disabled]="true"
-                            [(ngModel)]="root.getParent().id"
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="nombre">
-                                Nombre
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text" [(ngModel)]="nuevoNombreEdicion">
-                        </td>
+            <!-- <button (click)="agregarHoja(root)">Add l</button> -->
+        </span>
+        <!-- <div> -->
 
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="edicion">
-                                Description
-                            </label>
-                        </td>
-                        <td>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                        </td>
-
-                    </tr>
-                </table>
-
-                <button (click)="actualizarNodo()">update</button>
-                <br>
-                <hr>
-                <button
-                [disabled]="root.getChildren().length > 0"
-                (click)="borrarNodo(root)">
-                Eliminar
-                </button>
-                <button (click)="quitar()">
-                    Quitar
-                </button>
-                <br>
-
-            </div>
-            <div *ngIf="selectedTab === AGREGAR_TAB" style="z-index: 99999; width: 400px; background: gray">
-                <h3>Agregar Nodo</h3>
-
-                <table>
-                    <tr>
-                        <td><label for="nombre">
-                            Nombre
-                        </label></td>
-                        <td>
-
-                <input type="text" [(ngModel)]="nuevoNodoNombre">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="description">description</label></td>
-                        <td>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                        </td>
-                    </tr>
-                </table>
-
-            
-                <br>
-                <button (click)="agregarGrupoCelula(root); edicion = false" [disabled]="nuevoNodoNombre === ''">+grupo</button>
-                <button [disabled]="nuevoNodoNombre === ''" (click)="agregarHoja(root); edicion = false">+hoja</button>
-                <button [disabled]="nuevoNodoNombre === ''" (click)="agregarPadre(root); edicion = false">+parent</button>
-            </div>
-        </div>
-
-               <!-- <button (click)="agregarHoja(root)">Add l</button> -->
-    </span>
-    <!-- <div> -->
-
-    <!-- <button (click)='agregarGrupoCelula(root)' [ngStyle]="{ 'width': '20px' }">+</button>
+        <!-- <button (click)='agregarGrupoCelula(root)' [ngStyle]="{ 'width': '20px' }">+</button>
     <button  (click)='agregarHijos(root)'[ngStyle]="{ 'width': '20px' }">+</button> -->
-    <!-- </div> -->
+        <!-- </div> -->
     </span>
 
     <ul *ngIf="root.getChildren().length > 0">
         <li *ngFor='let child of root.getChildren()'>
-            <app-arbol-view
-            [INHERITED_PARENT_ID]="root.id"
-            [root]="child"
-             [umbralInferior]='umbralInferior'
-             [umbralSuperior]='umbralSuperior'>
+            <app-arbol-view 
+             [root]="child" [umbralInferior]='umbralInferior'
+                [umbralSuperior]='umbralSuperior'>
             </app-arbol-view>
         </li>
     </ul>
 </li>
 
 <li *ngIf='( root !== undefined && root.isLeaf()  )'>
-<!-- <div  [ngStyle]="{ 'width': '30px',
+    <!-- <div  [ngStyle]="{ 'width': '30px',
 'border': '1px solid gray', 'background': root.getState(umbralInferior, umbralSuperior),  'height': '30px', 'display': 'inline-block' }"></div> -->
- 
+
     <span [ngStyle]='{"width": "120px",
     "height": "50px",
 
         "background": root.getState(umbralInferior, umbralSuperior)
 }' class="tf-nc">
-<!-- <button>Add child</button> -->
-{{ root.nombre}} (leaf)
-{{ root.getAutomata()?.totalPorcentaje()}}
-<!-- solo aqui podria mostrar una matriz hoja  -->
-<br>
-<br>
-<br>
-        <app-matriz-hoja 
-        *ngIf="root.matriz_ac"
-        [nodo]="root"
-        [matriz_ac]="root.matriz_ac" 
+        <!-- <button>Add child</button> -->
+        <span *ngIf="!root.hiddenAutomata">
 
-        ></app-matriz-hoja>
-        {{ root.automata && root.automata.getGeneration()}}
-<!-- <button>add parent</button> -->
-    <button (click)="root.desplegado = !root.desplegado">x</button>
+        {{ root.nombre}}
+        </span>
 
+        <!-- <table *ngIf="!root.hiddenAutomata" border="1">
+            <tr>
+                <td>
+                    TOTAL MATRIZ </td>
+                <td>{{ root?.getAutomata()?.getFilas() * root?.automata?.getColumnas() }}</td>
+            </tr>
+            <tr>
+                <td>
+                    FILAS </td>
+                <td>{{ root?.automata?.getFilas()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    COLUMNAS </td>
+                <td>{{ root?.automata?.getColumnas()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    TOTAL PORCENTAJE </td>
+                <td>{{ root?.automata?.totalPorcentaje()}}</td>
+            </tr>
+            <tr style="background-color: lightblue;">
+                <td>
+                    AZULES </td>
+                <td>{{ root?.automata?.totalAzules()}}</td>
+            </tr>
+            <tr style="background-color: lightgreen;">
+                <td>
+                    VERDES </td>
+                <td>{{ root?.automata?.totalVerdes()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    DENSIDAD </td>
+                <td>{{ root?.automata?.densidad()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    DENSIDAD </td>
+                <td>{{ root?.automata?.densidad()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    DENSIDAD </td>
+                <td>{{ root?.automata?.densidad()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    DENSIDAD </td>
+                <td>{{ root?.automata?.densidad()}}</td>
+            </tr>
+            <tr>
+                <td>
+                    BLOQUES </td>
+                <td>{{ root?.automata?.getBloques().length }}</td>
+            </tr>
+        </table> -->
+        <app-matriz-hoja *ngIf="root.matriz_ac
+                && !root.hiddenAutomata" [nodo]="root" [matriz_ac]="root.matriz_ac">
+        </app-matriz-hoja>
+        <!-- {{ root.automata && root.automata.getGeneration()}} -->
+        <!-- <button>add parent</button> -->
+        <button
+        *ngIf="!root.hiddenAutomata"
+        (click)="root.desplegado = !root.desplegado">x</button>
 
-            <!-- TOTAL PORCENTAJE = {{ root.getAutomata().totalPorcentaje()}} -->
+        <br>
+
+        {{ root?.average() | number}}
+        <!-- FILAS = {{ root.filas }} -->
+        <!-- COLUMNAS = {{ root.columnas }} -->
         <!-- {{ root.average() | number}} -->
     </span>
 
     <!-- <app-nuevo-automata  [automata]='root.getAutomata()' ></app-nuevo-automata> -->
 </li>
-    
-<div *ngIf="root && root.desplegado" style="width: 400px; background: gray; position: fixed; top: 50%; left: 50%; z-index: 10000">
-            <div style="width: 100%">
-                <button
-                [disabled]="selectedTab === EDICION_TAB"
-                (click)="selectedTab = EDICION_TAB" 
-                >Editar</button>
-                <button
-                *ngIf="root.isLeaf"
-                [disabled]="selectedTab === AUTOMATA_TAB"
-                (click)="selectedTab = AUTOMATA_TAB"
-                >AUTOMATA</button>
-                <button (click)="root.replegar()">REPLEGAR</button>
-                <!-- <button [disabled]="selectedTab === AGREGAR_TAB"
+
+<div *ngIf="root && root.desplegado && root.isLeaf()" style="width: 400px; background: gray;  z-index: 10000">
+    <div style="width: 100%">
+        <button [disabled]="selectedTab === EDICION_TAB" (click)="selectedTab = EDICION_TAB">Editar</button>
+        <button *ngIf="root.isLeaf" [disabled]="selectedTab === AUTOMATA_TAB"
+            (click)="selectedTab = AUTOMATA_TAB">AUTOMATA</button>
+        <button (click)="root.replegar()">x</button>
+        <!-- <button [disabled]="selectedTab === AGREGAR_TAB"
                 (click)="selectedTab = AGREGAR_TAB"
                 >Agregar</button> -->
 
 
-            </div>
-            <div *ngIf="selectedTab === AUTOMATA_TAB">
-                AUTOMATA =
-                {{ root.getAutomata()}}
+    </div>
+    <div *ngIf="selectedTab === AUTOMATA_TAB">
+        AUTOMATA =
+        {{ root.getAutomata()}}
 
-                <div>
+        <div>
 
-<div style="margin-bottom: 2em">
-    <table border="1">
-        <tr>
-            <td>Nombre</td>
-            <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Filas">Filas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Columnas">Columnas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
-        </tr>
-    </table>
-    <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">CREAR AUTOMATA!</button>
-    <br>
-
-</div>
-
-                </div>
-
-                <!-- FILAS = {{ root.getAutomata().getFilas()}}
-                <app-tabla [anchoCelda]="0.1" [datos_matriz]="root.getAutomata().getMatrizActiva()"></app-tabla> -->
-            </div>
-            <div *ngIf="selectedTab === EDICION_TAB">
-            
-                <h3>Edición Nodo ( {{ root.matriz_ac }} )</h3>
-
-                <table>
+            <div style="margin-bottom: 2em">
+                <table border="1">
                     <tr>
-                        <td>
-                            <label for="id">id</label>
-                        </td>
-                        <td>
-                            <input type="number"
-                            [disabled]="true"
-                            [(ngModel)]="root.id"
-                            >
-                        </td>
-                    </tr>
-<tr *ngIf="root.getParent()">
-                        <td>
-                            <label for="id">parent id</label>
-                        </td>
-                        <td>
-                            <input type="number"
-                            [disabled]="true"
-                            [(ngModel)]="root.getParent().id"
-                            >
-                        </td>
+                        <td>Nombre</td>
+                        <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="nombre">
-                                Nombre
-                            </label>
+                            <label for="Filas">Filas</label>
                         </td>
-                        <td>
-                            <input type="text" [(ngModel)]="nuevoNombreEdicion">
-                        </td>
-
+                        <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="edicion">
-                                Description
-                            </label>
+                            <label for="Columnas">Columnas</label>
                         </td>
-                        <td>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                        </td>
-
+                        <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
                     </tr>
                 </table>
-
-                <button (click)="actualizarNodo()">update</button>
-                <br>
-                <hr>
-                <button
-                [disabled]="root.getChildren().length > 0"
-                (click)="borrarNodo(root)">
-                Eliminar
-                </button>
-                <button (click)="quitar()">
-                    Quitar
-                </button>
+                <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">CREAR AUTOMATA!</button>
                 <br>
 
             </div>
-            <div *ngIf="selectedTab === AGREGAR_TAB" style="z-index: 99999; width: 400px; background: gray">
-                <h3>Agregar Nodo</h3>
 
-                <table>
-                    <tr>
-                        <td><label for="nombre">
-                            Nombre
-                        </label></td>
-                        <td>
-
-                <input type="text" [(ngModel)]="nuevoNodoNombre">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="description">description</label></td>
-                        <td>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                        </td>
-                    </tr>
-                </table>
-
-            
-                <br>
-                <button (click)="agregarGrupoCelula(root); edicion = false" [disabled]="nuevoNodoNombre === ''">+grupo</button>
-                <button [disabled]="nuevoNodoNombre === ''" (click)="agregarHoja(root); edicion = false">+hoja</button>
-                <button [disabled]="nuevoNodoNombre === ''" (click)="agregarPadre(root); edicion = false">+parent</button>
-            </div>
         </div>
+
+        <!-- FILAS = {{ root.getAutomata().getFilas()}}
+                <app-tabla [anchoCelda]="0.1" [datos_matriz]="root.getAutomata().getMatrizActiva()"></app-tabla> -->
+    </div>
+    <div *ngIf="selectedTab === EDICION_TAB">
+        <h3>Edición Nodo ( {{ root.matriz_ac }} )</h3>
+        <table>
+            <tr>
+                <td>
+                    <label for="id">id</label>
+                </td>
+                <td>
+                    <input type="number" [disabled]="true" [(ngModel)]="root.id">
+                </td>
+            </tr>
+            <tr *ngIf="root.getParent()">
+                <td>
+                    <label for="id">parent id</label>
+                </td>
+                <td>
+                    <input type="number" [disabled]="true" [(ngModel)]="root.getParent().id">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="nombre">
+                        Nombre
+                    </label>
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="nuevoNombreEdicion">
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="edicion">
+                        Description
+                    </label>
+                </td>
+                <td>
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                </td>
+
+            </tr>
+        </table>
+
+        <button (click)="actualizarNodo()">update</button>
+        <br>
+        <hr>
+        <button [disabled]="root.getChildren().length > 0" (click)="borrarNodo(root)">
+            Eliminar
+        </button>
+        <button (click)="quitar()">
+            Quitar
+        </button>
+        <br>
+
+    </div>
+    <div *ngIf="selectedTab === AGREGAR_TAB" style="z-index: 99999; width: 400px; background: gray">
+        <h3>Agregar Nodo</h3>
+
+        <table>
+            <tr>
+                <td><label for="nombre">
+                        Nombre
+                    </label></td>
+                <td>
+
+                    <input type="text" [(ngModel)]="nuevoNodoNombre">
+                </td>
+            </tr>
+            <tr>
+                <td><label for="description">description</label></td>
+                <td>
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+        <button
+        (click)="agregarGrupoCelula(root);
+        edicion = false" [disabled]="nuevoNodoNombre === ''">+grupo</button>
+        <button
+        [disabled]="nuevoNodoNombre === ''"
+        (click)="agregarHoja(root); edicion = false">+hoja</button>
+        <button
+        [disabled]="nuevoNodoNombre === ''"
+        (click)="agregarPadre(root); edicion = false">+parent</button>
+    </div>
+</div>

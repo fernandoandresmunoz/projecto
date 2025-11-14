@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__ } from '@angular/core';
-import { Automata } from 'cube';
 import { Celula } from 'src/Celula';
 import { GrupoCelulas } from 'src/GrupoCelula';
 import { Nodo } from 'src/Nodo';
 import { GeometryService } from '../geometry.service';
-import { ConcreteShapeFactory } from 'concreteShapeFactory';
 
 @Component({
   selector: 'app-arbol-view',
@@ -16,7 +14,6 @@ export class ArbolViewComponent implements OnInit {
   @Input() root: Nodo;
   @Input() umbralInferior: number;
   @Input() umbralSuperior: number;
-  @Input() INHERITED_PARENT_ID: number;
   edicion: boolean = false;
 
 
@@ -30,13 +27,11 @@ export class ArbolViewComponent implements OnInit {
 
   selectedTab: string = this.EDICION_TAB;
 
-
   nuevoNodoNombre: string = "";
   
   nuevoNombreEdicion: string ;
 
   constructor( 
-
     private geometry: GeometryService,
   ) {
 
@@ -85,34 +80,14 @@ export class ArbolViewComponent implements OnInit {
 
       })
 
-
-    // this.root.parent.removeChild(this.root)
     })
 
-
-
-
-
     }) 
-
-    // this.borrarNodo(this.root)
-
-  
   }
 
   ngOnInit(): void {
     this.loadTree();
-
     this.nuevoNombreEdicion = this.root.nombre;
-      // setInterval( () =>{
-      //   this.root.automata.avanzarUnaGeneracion()
-      // }, 200)
-
-
-
-    // if ( this.INHERITED_PARENT_ID ) {
-    //   console.log('llamando a los hijos de ', this.INHERITED_PARENT_ID);
-    // }
   }
 
   loadTree(): void {
@@ -133,16 +108,10 @@ export class ArbolViewComponent implements OnInit {
               celula.nombre = hijo.nombre;
               celula.automataId = hijo.matriz_ac
               celula.matriz_ac = hijo.matriz_ac
+              celula.filas = hijo.filas;
+              celula.columnas = hijo.columnas;
 
               this.root.addChild(celula)
-
-              if (hijo.matriz_ac) {
-                let factory = new ConcreteShapeFactory();
-                let automata = factory.createMilitary2(50, 50)
-
-                // celula.initialize();
-
-              }
 
             })
           }
@@ -154,10 +123,9 @@ export class ArbolViewComponent implements OnInit {
 
   borrarNodo(root: Nodo): void {
     this.geometry.borrarNodo(root.id)
-  .subscribe( resp=> {
-    root.parent.removeChild(root)
-  })
-    
+      .subscribe( resp=> {
+        root.parent.removeChild(root)
+      })
   }
 
   agregarPadre(root: Nodo) {
@@ -175,14 +143,11 @@ export class ArbolViewComponent implements OnInit {
         this.geometry.actualizarNodo(root.id, nuevoPadre.id, root.nombre, root.matriz_ac)
         .subscribe( resp => {
 
-        parent.removeChild(root)
-        nuevoPadre.addChild(root)
-        this.nuevoNodoNombre = "";
+          parent.removeChild(root)
+          nuevoPadre.addChild(root)
+          this.nuevoNodoNombre = "";
         })
 
-
-
-        // root.parent = parent;
       })
 
   }
@@ -201,8 +166,6 @@ export class ArbolViewComponent implements OnInit {
   }
 
   agregarHoja(root: Nodo) {
-    // let celula = new Celula();
-    // root.addChild(celula)
 
     this.geometry.crearNodo(root.id, this.nuevoNodoNombre, true)
       .subscribe(resp => {
@@ -217,12 +180,8 @@ export class ArbolViewComponent implements OnInit {
 
   agregarHijos(root: Nodo) {
     let child1 = new Celula();
-    let child2 = new Celula();
     child1.setAutomatas();
-    // child2.setAutomatas();
-    // root.setAutomatas()
     root.addChild(child1);
-    // root.addChild(child2);
 
   }
 

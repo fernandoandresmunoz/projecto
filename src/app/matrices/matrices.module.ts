@@ -5,7 +5,7 @@ import { MatricesComponent } from './matrices.component';
 
 
 @NgModule({
-  declarations: [MatricesComponent],
+  // declarations: [MatricesComponent],
   imports: [
     CommonModule
   ]

@@ -1,8 +1,33 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeometryService } from '../geometry.service';
 import { ConcreteShapeFactory } from '../../../concreteShapeFactory';
 import { Automata } from '../../../cube';
+
+const COLOR_MAP: { [key: string]: number } = {
+    "GREEN": 1,
+    "BROWN": 2, // Nota: Si quieres que BROWN sea 2, lo asociamos así.
+    "BLUE": 3,
+    "GRAY": 4,
+    "RED": 5,
+};
+
+
+
+interface Cell {
+  /**
+   * El estado de la célula: 0 es muerta, 1 o más es viva.
+   * Este es el valor que se extraerá.
+   */
+  state: number; 
+  /**
+   * El color de la célula, que será ignorado en la matriz de salida.
+   */
+  color: string;
+  // Puedes añadir más propiedades aquí si tu matriz de entrada las tiene.
+}
+
+
 
 @Component({
   selector: 'app-detalle-matriz',
@@ -24,14 +49,16 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy {
 factory2 = new ConcreteShapeFactory()
   
   automata: Automata
-  puedeAvanzar: boolean = false;
+  puedeAvanzar: boolean = true;
 
 
 
 
 
-  constructor(private route: ActivatedRoute,
-    private geometry: GeometryService
+  constructor(
+    private route: ActivatedRoute,
+    private geometry: GeometryService,
+    private router: Router
     
     ) {
 
@@ -94,12 +121,12 @@ factory2 = new ConcreteShapeFactory()
 
               // console.log('intentando avanzar ..')
               //
-              if (this.puedeAvanzar) {
+              if (this.puedeAvanzar && this.puedeAvanzar) {
                 this.automata.avanzarUnaGeneracion()
                 this.generacion += 1;
               }
 
-              if (this.generacion % 20 === 0 && this.generacion !== 0) {
+              if ( (this.generacion % 20 === 0 && this.generacion !== 0) && this.puedeAvanzar ) {
                 this.guardarMatriz();
               }
 
@@ -122,7 +149,14 @@ factory2 = new ConcreteShapeFactory()
   }
 
   ngOnInit(): void {
+    this.puedeAvanzar = true
 
+  }
+
+  navigateTo3dView(): void {
+    this.router.navigate(['matrices/3d', this.idMatriz ])
+
+    // path: 'matrices/3d/:id',
   }
 
   guardarMatriz(): void {
@@ -140,8 +174,48 @@ factory2 = new ConcreteShapeFactory()
 
     
     ).subscribe( resp => {
-      console.log(resp)
-    })
+      this.geometry.automata(
+       this.convertMatrixToNumeric( this.automata.getMatrizActiva())
+        )
+      .subscribe( x => {
+        console.log(x)
+      });
+      // console.log(resp);
+      // this.geometry.automata(
+
+
+      //   this.convertMatrixToNumeric(
+
+      //   this.automata.getMatrizActiva()
+      //   )
+      //   )
+      // .subscribe( resp => {
+      //   console.log(resp);
+      // }
+      
+      // );
+    });
   }
 
+    convertMatrixToNumeric(matrix: any): any {
+      return matrix.map((row: Cell[]) => {
+        
+        return row.map((cell: Cell) => {
+            
+            // 1. Caso base: Si el estado es 0 (célula muerta), devuelve 0.
+            if (cell.state === 0) {
+                return 0;
+            }
+
+            // 2. Caso vivo: Si el estado es > 0, devuelve el valor mapeado del color.
+            // Usamos .toUpperCase() para asegurar que coincida con el mapa.
+            const colorKey = cell.color.toUpperCase();
+            
+            // Si el color no está en el mapa, devolvemos 0 o un valor por defecto (ej. 1)
+            // Aquí devolvemos 0 como fallback de seguridad.
+            return COLOR_MAP[colorKey] || 0; 
+        });
+    });
+
+}
 }

@@ -15,21 +15,16 @@
 </div>
 
 
-<!-- total filas : {{ datosMatriz.length }} -->
-<!-- total columnas : {{datosMatriz[0].length}} -->
 <p>
     <button (click)="guardarMatriz()">
         GUARDAR MATRIZ</button>
 </p>
-
-<!-- <table border="1">
-    <tr *ngFor="let fila of datosMatriz" >
-        <td *ngFor="let celda of fila " style="width: 20px; height: 20px">
-
-            {{ celda }}
-        </td>
-    </tr>
-</table> -->
+<p>
+    <button 
+    (click)="navigateTo3dView()">
+        3D VIEW 
+    </button>
+</p>
 <div *ngIf="automata">
     <p>
         LOCAL GENERATION: {{generacion}}
@@ -39,38 +34,10 @@
     </p>
 
 
-<h3>tabla regas</h3>
-<table border="1">
-    <thead>
-        <tr>
-            <th>regla</th>
-            <th>color</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>verde</td>
-            <td>{{ automata.getGreenRule().name }}</td>
-        </tr>
-<tr>
-            <td>azul</td>
-            <td>{{ automata.getBlueRule().name }}</td>
-        </tr>
-<tr>
-            <td>gris</td>
-            <td>{{ automata.getGrayRule().name }}</td>
-        </tr>
-<tr>
-            <td>café</td>
-            <td>{{ automata.getBrownRule().name }}</td>
-        </tr>
-<tr>
-            <td>red</td>
-            <td>{{ automata.getRedRule().name }}</td>
-        </tr>
-    </tbody>
-</table>
-
+<app-tabla-reglas
+[automata]="automata"
+></app-tabla-reglas>
+<br>
 <app-tabla
 [anchoCelda]="4"
 [datos_matriz]="automata.getMatrizActiva()"
@@ -90,15 +57,4 @@
 
 <app-automata [automata]="automata">
 </app-automata>
-      <!-- [auxiliaryLines]="false"
-      [showStats]="true"
-      [showController]="true"
-      [coloresRegla1]="coloresRegla1"
-      [coloresRegla2]="coloresRegla2"
-      [coloresRegla3]="coloresRegla3"
-      [coloresRegla4]="coloresRegla4"
-      [coloresRegla5]="coloresRegla5"
-      [coloresRegla6]="coloresRegla6"
-      [coloresRegla7]="coloresRegla7" -->
-
 </div>

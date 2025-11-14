@@ -44,8 +44,8 @@ export class GeometryService {
     green_rule: string,
     red_rule: string
 
-    ): Observable<{status: boolean}[]> {
-    return this.http.put<{status: boolean}[]>(`http://localhost:8000/graficas/matrices/${id}/`, {
+    ): Observable<any> {
+    return this.http.put<any>(`http://localhost:8000/graficas/matrices/${id}/`, {
       nombre: nombre,
       datos_matriz: datosMatriz,
       generacion: generacion,
@@ -211,6 +211,15 @@ export class GeometryService {
   borrarNodo(id: number): Observable<{status: boolean}[]> {
     return this.http.delete<{status: boolean}[]>(`http://localhost:8000/graficas/nodos/${id}/` );
   }
+
+  automata(automata: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:5001/automata`,
+    {
+      matriz: automata
+
+    } );
+  }
+
 
 
 

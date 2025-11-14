@@ -120,6 +120,11 @@ export interface Nodo {
     automataId: number;
     automata: Automata;
 
+    hiddenAutomata: boolean;
+    
+    filas: number;
+    columnas: number;
+
 
     desplegar(): void;
     replegar(): void;
@@ -141,6 +146,10 @@ export interface Nodo {
     getAutomata(): Automata;
     average(): number;
     allDiamoeba(): void;
+    allDayAndNight(): void;
+    allAnneal(): void;
+    allGeology(): void;
+    hideAutomatas(): void;
     replicator(): void;
     getState(umbralInferior: number, umbralSuperior: number): string;
     setState(state: string): void;

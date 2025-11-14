@@ -364,7 +364,7 @@ export default class ConcreteAutomata implements Automata {
     }
 
     totalPorcentaje(): number {
-        return this.totalSumadoElementos() / (this.getFilas() * this.getColumnas() )
+        return ( this.totalSumadoElementos() * 100 ) / (this.getFilas() * this.getColumnas() )
     }
 
     
@@ -488,13 +488,13 @@ export default class ConcreteAutomata implements Automata {
         this.grayRule = rule;
     }
     totalAzules(): number {
-        return this.getBloques().filter(obj => obj.getData().color === 'Blue').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Blue' && obj.getData().state === 1).length;
     }
     totalVerdes(): number {
         return this.getBloques().filter(obj => obj.getData().color === 'Green').length;
     }
     totalCafes(): number {
-        return this.getBloques().filter(obj => obj.getData().color === 'Brown').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Brown' ).length;
     }
     totalRojos(): number {
         return this.getBloques().filter(obj => obj.getData().color === 'Red').length;

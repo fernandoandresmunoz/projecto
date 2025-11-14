@@ -34,6 +34,7 @@ import { MatricesComponent } from './matrices/matrices.component';
 import { ArbolesComponent } from './arboles/arboles.component';
 import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
+import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
 // import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'matrices/:id',
     component: DetalleMatrizComponent
+  },
+  {
+    path: 'matrices/3d/:id',
+    component: WrapperMinecraftViewComponent
   },
   {
     path: '',

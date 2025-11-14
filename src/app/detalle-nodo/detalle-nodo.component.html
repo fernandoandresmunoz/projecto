@@ -3,18 +3,29 @@
     <button (click)="raiz.operation()">operation!</button>
     <button (click)="raiz.operation2()">operation 2!</button>
     <button (click)="raiz.initialize()">initialize</button>
+
+    <button (click)="raiz.allDiamoeba()">ALL DIAMOEBA</button>
+    <button (click)="raiz.allGeology()">ALL GEOLOGY</button>
+    <button (click)="raiz.allDayAndNight()">ALL DAY & NIGHT </button>
+    <button (click)="raiz.allAnneal()">ALL ANNEAL </button>
+    <button (click)="raiz.hideAutomatas()">HIDE AUTOMATA</button> {{ raiz.hiddenAutomata ? "HIDDEN": "no hidden" }}
+
     <button (click)="raiz.desplegado ? raiz.replegar(): raiz.desplegar()">DESPLEGAR</button>
     {{ raiz && raiz.desplegado ? "DESPLEGADO": "REPLEGADO"}}
-<div class="tf-tree " style="
-position: relative;
-font-size: 14px; padding-left: 2em">
-    <app-arbol-view
-    [root]="raiz"
-    [umbralInferior]=".5"
-    [umbralSuperior]=".592"
-    >
-    </app-arbol-view>
+    <div>
+        {{ raiz?.average()}}
+    </div>
+    <div
+        class="tf-tree "
+        style="
+            position: relative;
+            font-size: 14px; padding-left: 2em">
+            <app-arbol-view
+                [root]="raiz"
+                [umbralInferior]=".6"
+                [umbralSuperior]=".8">
+            </app-arbol-view>
 
-    <!-- <app-red-view [root]="raiz"></app-red-view> -->
-</div>
+        <!-- <app-red-view [root]="raiz"></app-red-view> -->
+    </div>
 </div>

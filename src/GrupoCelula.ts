@@ -5,6 +5,23 @@ import { Nodo } from "./Nodo";
 import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 export class GrupoCelulas implements Nodo {
+    allAnneal(): void {
+        this.getChildren().map( obj => obj.allAnneal());
+    }
+    allGeology(): void {
+        this.getChildren().map( obj => obj.allGeology())
+    }
+    filas: number;
+    columnas: number;
+    hiddenAutomata: boolean;
+
+    hideAutomatas(): void {
+
+        this.hiddenAutomata = !this.hiddenAutomata;
+        this.getChildren().map( child => {
+            child.hideAutomatas();
+        })
+    }
     matriz_ac: number;
     automataId: number;
     desplegado: boolean = false;
@@ -239,12 +256,28 @@ export class GrupoCelulas implements Nodo {
     allDiamoeba(): void {
         this.children.map( obj => obj.allDiamoeba())
     }
+
+    allDayAndNight(): void {
+        this.children.map( obj => obj.allDayAndNight())
+    }
+
     average(): number {
+        if (this.getChildren().length === 0) {
+            return 0
+        }
+
         let suma = 0;
+        let counter = 0;
         this.children.map( child => {
-            suma += child.average();
+            if ((  child.getChildren().length > 0 || child.isLeaf() ) && child.average() !== 0)
+            {
+
+                suma += child.average();
+                counter += 1;
+            }
+
         })
-        return suma / this.getChildren().length;
+        return suma / counter;
     }
     setAutomata(automata: Automata): void {
         this.automata = automata;

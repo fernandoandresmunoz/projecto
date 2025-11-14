@@ -530,6 +530,9 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
+    createGeologyRule(): Rule {
+        return new Geology();
+    }
     createDiamoebaRule() {
         return new Diamoeba();
     }

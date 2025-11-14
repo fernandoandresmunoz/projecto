@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
@@ -344,6 +345,10 @@ interface SavedGameState {
   `]
 })
 export class MinecraftViewComponent implements OnInit {
+
+
+  @Input() datos_matriz: {state: number, color: string}[][];
+
   @ViewChild('rendererContainer', { static: true }) rendererContainer!: ElementRef;
   @ViewChild('minimapContainer', { static: true }) minimapContainer!: ElementRef;
 
@@ -493,12 +498,17 @@ export class MinecraftViewComponent implements OnInit {
   // Añadir propiedad para controlar el tiempo entre guardados
   private lastSaveTime: number = 0;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute
+  ) {
     this.blockFactory = new BlockFactory();
     this.flyweightFactory = BlockFlyweightFactory.getInstance();
   }
 
   ngOnInit() {
+
+    
+
     this.loadMatrixFromLocalStorage();
     this.initScene();
     
@@ -515,10 +525,32 @@ export class MinecraftViewComponent implements OnInit {
 
   private loadMatrixFromLocalStorage() {
     try {
+
+      if (this.datos_matriz) {
+        console.log( "tengo datos matriz !!!!")
+        this.matrix = this.datos_matriz
+        console.log('Matrix loaded from localStorage:', this.matrix.length, 'x', this.matrix[0].length);
+        
+        // Mostrar algunos ejemplos de colores que existen en la matriz
+        const colors = new Set();
+        this.matrix.forEach(row => 
+          row.forEach(cell => {
+            if (cell.state === 1) colors.add(cell.color);
+          })
+        );
+        console.log('Colors found in matrix:', Array.from(colors));
+
+      }
+
+
       const savedData = localStorage.getItem('automata_matrix');
       console.log('Attempting to load matrix from localStorage');
+
+      if ( this.datos_matriz) {
+        return
+      }
       
-      if (savedData) {
+      if (savedData && !this.datos_matriz) {
         const parsedData: SavedMatrix = JSON.parse(savedData);
         this.matrix = parsedData.matrix;
         console.log('Matrix loaded from localStorage:', this.matrix.length, 'x', this.matrix[0].length);
