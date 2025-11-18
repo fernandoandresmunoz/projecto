@@ -305,6 +305,34 @@ export default class ConcreteAutomata implements Automata {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    altura_regla_1: number = 2;
+    altura_regla_2: number = 2;
+    altura_regla_3: number = 2;
+    altura_regla_4: number = 2;
+    altura_regla_5: number = 2;
+
+
+    id: number;
+    nombre: string;
+    generacion: number;
+    estado_actual: string;
+    fecha_creacion: string;
+    regla_1_color_1: string;
+    regla_1_color_2: string;
+    regla_1_color_3: string;
+    regla_2_color_1: string;
+    regla_2_color_2: string;
+    regla_2_color_3: string;
+    regla_3_color_1: string;
+    regla_3_color_2: string;
+    regla_3_color_3: string;
+    regla_4_color_1: string;
+    regla_4_color_2: string;
+    regla_4_color_3: string;
+    regla_5_color_1: string;
+    regla_5_color_2: string;
+    regla_5_color_3: string;
+
     leftPosition: number = 0;
     topPosition: number = 0 ;
 

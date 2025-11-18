@@ -32,6 +32,8 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   ]
   MILITAR_STEP = JUEGO.MILITAR_STEP
 
+  points: Point[] = [];
+
 
   shapeFactory: ShapeFactory = new ConcreteShapeFactory();
   // cube: Cube;
@@ -89,8 +91,6 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     return this.automata.densidad();
   }
   changeRule(element: string, rule: any ): void {
-    console.log(element);
-    console.log(rule);
     if (rule)
       this.automata.changeRule(element, rule.value);
   }
@@ -139,7 +139,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   addElement(element: Element): void {
     throw new Error('Method not implemented.');
   }
-  calculateAliveNeighbors(matriz: { state: number; color: string; }[][], fila: number, columna: number): { state: number; color: string; }[] {
+  calculateAliveNeighbors(
+    matriz: { state: number; color: string; }[][],
+    fila: number, columna: number): { state: number; color: string; }[] {
     throw new Error('Method not implemented.');
   }
 
@@ -414,17 +416,18 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   parseColors(color: string) {
     if (color === "Red") {
-      return [this.coloresRegla2[0],this.coloresRegla2[1],this.coloresRegla2[2],]
+      // return [this.coloresRegla2[0],this.coloresRegla2[1],this.coloresRegla2[2],]
+      return [this.automata.regla_1_color_1, this.automata.regla_1_color_2, this.automata.regla_1_color_3];
     } else if (color === "Green") {
-      return [this.coloresRegla1[0], this.coloresRegla1[1], this.coloresRegla1[2]]
+      return [this.automata.regla_3_color_1, this.automata.regla_3_color_2, this.automata.regla_3_color_3];
     } else if (color === "Blue") {
 
-      return [this.coloresRegla3[0], this.coloresRegla3[1], this.coloresRegla3[2]]
+      return [this.automata.regla_2_color_1, this.automata.regla_2_color_2, this.automata.regla_2_color_3];
     } else if (color === "Brown") {
-      return [this.coloresRegla4[0], this.coloresRegla4[1], this.coloresRegla4[2]]
+      return [this.automata.regla_4_color_1, this.automata.regla_4_color_2, this.automata.regla_4_color_3];
     }
     else if (color === "Gray") {
-      return [this.coloresRegla5[0], this.coloresRegla5[1], this.coloresRegla5[2]]
+      return [this.automata.regla_5_color_1, this.automata.regla_5_color_2, this.automata.regla_5_color_3];
     }
     return ["", "", ""]
   }
@@ -688,10 +691,22 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.context.fillRect(0, 0, this.automata.getAnchoLienzo(), this.automata.getAltoLienzo());
     // this.context.fillRect(0, 0, 200, 200);
 
-    let puntoA = this.getPointA();
-    let puntoB = this.getPointB();
-    let puntoC = this.getPointC();
-    let puntoD = this.getPointD();
+
+    let puntoA: Point = this.getPointA();
+    let puntoB: Point = this.getPointB();
+    let puntoC: Point = this.getPointC();
+    let puntoD: Point = this.getPointD();
+
+    this.points = [
+      puntoA,
+      puntoB,
+      puntoC,
+      puntoD,
+    ]
+
+    
+
+
 
     let pointA = puntoA;
     let pointB = puntoB;
@@ -865,8 +880,10 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   }
 
   dibujarRectaCompleta(line: Line): void {
-    this.drawLine(this.shapeFactory.createPoint(0, line.calcularPendiente() * 0 + line.intereseccionEnEjeY().getY()),
-      this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY()))
+    this.drawLine(
+      this.shapeFactory.createPoint(0, line.calcularPendiente() * 0 + line.intereseccionEnEjeY().getY()),
+      this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY())
+      )
   }
 
   paintQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void {

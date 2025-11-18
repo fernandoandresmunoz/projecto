@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, HostListener, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Automata } from 'cube';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
@@ -150,7 +151,7 @@ class BlockFlyweightFactory {
     this.initializeFlyweights();
   }
 
-  static getInstance(): BlockFlyweightFactory {
+  static getInstance(automata: Automata): BlockFlyweightFactory {
     if (!BlockFlyweightFactory.instance) {
       BlockFlyweightFactory.instance = new BlockFlyweightFactory();
     }
@@ -347,6 +348,7 @@ interface SavedGameState {
 export class MinecraftViewComponent implements OnInit {
 
 
+  @Input() automata: Automata;
   @Input() datos_matriz: {state: number, color: string}[][];
 
   @ViewChild('rendererContainer', { static: true }) rendererContainer!: ElementRef;
@@ -502,7 +504,7 @@ export class MinecraftViewComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.blockFactory = new BlockFactory();
-    this.flyweightFactory = BlockFlyweightFactory.getInstance();
+    this.flyweightFactory = BlockFlyweightFactory.getInstance(this.automata);
   }
 
   ngOnInit() {

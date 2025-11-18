@@ -5,6 +5,7 @@ import { Recta } from './funcion-logaritmica/recta';
 import { Perpendicular } from './funcion-logaritmica/perpendicular';
 import { Point } from 'point';
 import { Nodo } from 'src/Nodo';
+import { Automata } from 'cube';
 
 @Injectable({
   providedIn: 'root'
@@ -36,26 +37,54 @@ export class GeometryService {
   actualizarMatriz(
     id: number,
     nombre: string,
-    datosMatriz: any,
     generacion: number,
-    blue_rule: string,
-    brown_rule: string,
-    gray_rule: string,
-    green_rule: string,
-    red_rule: string
+    automata: Automata
+    // datosMatriz: any,
+    // blue_rule: string,
+    // brown_rule: string,
+    // gray_rule: string,
+    // green_rule: string,
+    // red_rule: string
 
     ): Observable<any> {
     return this.http.put<any>(`http://localhost:8000/graficas/matrices/${id}/`, {
       nombre: nombre,
-      datos_matriz: datosMatriz,
+      datos_matriz: automata.getMatrizActiva(),
       generacion: generacion,
-      blue_rule: blue_rule,
-      brown_rule: brown_rule,
-      gray_rule: gray_rule,
-      green_rule: green_rule,
-      red_rule: red_rule
+      blue_rule: automata.getBlueRule().name,
+      brown_rule: automata.getBrownRule().name,
+      gray_rule: automata.getGrayRule().name,
+      green_rule: automata.getGreenRule().name,
+      red_rule: automata.getRedRule().name,
+      rule_1_color_1: automata.regla_1_color_1,
+      rule_1_color_2: automata.regla_1_color_2,
+      rule_1_color_3: automata.regla_1_color_3,
+      rule_2_color_1: automata.regla_2_color_1,
+      rule_2_color_2: automata.regla_2_color_2,
+      rule_2_color_3: automata.regla_2_color_3,
+      rule_3_color_1: automata.regla_3_color_1,
+      rule_3_color_2: automata.regla_3_color_2,
+      rule_3_color_3: automata.regla_3_color_3,
+      rule_4_color_1: automata.regla_4_color_1,
+      rule_4_color_2: automata.regla_4_color_2,
+      rule_4_color_3: automata.regla_4_color_3,
+      rule_5_color_1: automata.regla_5_color_1,
+      rule_5_color_2: automata.regla_5_color_2,
+      rule_5_color_3: automata.regla_5_color_3,
+      altura_regla_1: automata.altura_regla_1,
+      altura_regla_2: automata.altura_regla_2,
+      altura_regla_3: automata.altura_regla_3,
+      altura_regla_4: automata.altura_regla_4,
+      altura_regla_5: automata.altura_regla_5,
     });
   }
+      // this.automata.getMatrizActiva(),
+      // this.automata.getBlueRule().name,
+      // this.automata.getBrownRule().name,
+      // this.automata.getGrayRule().name,
+      // this.automata.getGreenRule().name,
+      // this.automata.getRedRule().name,
+
 
 
 

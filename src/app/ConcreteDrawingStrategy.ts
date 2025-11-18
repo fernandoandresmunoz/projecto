@@ -37,17 +37,38 @@ function calcularDistancia(i: number, j: number, matriz: { state: number, color:
     return 0
 }
 
+
+function obtenerAltura(regla: string, automata: Automata): number {
+
+    switch (regla) {
+        case 'Red':
+           return automata.altura_regla_1;
+        case 'Blue':
+            return automata.altura_regla_2;    
+        case 'Green':
+            return automata.altura_regla_3;   
+
+        case 'Brown':
+            return automata.altura_regla_4;
+        case 'Gray':
+            return automata.altura_regla_5;
+        default:
+            return 2;
+    }
+
+}
+
 export class ConcreteDrawingStrategy implements DrawingStrategy {
 
     mapa = new Map();
 
     constructor() {
 
-        this.mapa.set("Green", 5)
+        this.mapa.set("Green", 3)
         this.mapa.set("Red", 3)
         this.mapa.set("Brown", 3)
         this.mapa.set("Gray", 3)
-        this.mapa.set("Blue", 2)
+        this.mapa.set("Blue", 0)
     }
 
     draw(automata: Automata, matriz: { state: number; color: string; }[][]): void {
@@ -67,8 +88,14 @@ export class ConcreteDrawingStrategy implements DrawingStrategy {
 
                 if (celda.state >= 1) {
 
-                    const altura = this.mapa.get(celda.color);
-                    automata.crearBloque({ state: celda.state, color: celda.color }, altura);
+                    // const altura = this.mapa.get(celda.color);
+                    // const altura = this.mapa.get(celda.color);
+                    const altura = obtenerAltura(celda.color, automata);
+                    automata.crearBloque(
+                        { state: celda.state, color: celda.color },
+                        altura
+                        
+                        );
 
                 }
                 automata.left();

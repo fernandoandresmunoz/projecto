@@ -20,6 +20,9 @@
 
 
             </div>
+
+
+
             <div *ngIf="true">
                 <p>{{ getBloques().length}}</p>
                 <p> <button (click)='setPause(!getPause())'> pause</button> <span *ngIf='getPause()'>pausado</span> </p>
@@ -68,12 +71,36 @@ name="" id=""> -->
                     </div>
                 </div>
             </div>
+
+            <div>
+
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>point</th>
+            <th>x</th>
+            <th>y</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        <tr *ngFor="let point of points; index as i">
+            <td>{{ i }}</td>
+            <td><input type="number" [(ngModel)]="point.x"></td>
+            <td><input type="number" [(ngModel)]="point.y"></td>
+        </tr>
+    </tbody>
+</table>
+            </div>
 <div>
         <canvas style='border: 1px solid gray; ' #myCanvas [width]="getAnchoLienzo()" [height]="getAltoLienzo()"
             (keypress)='keyLeft()'>
         </canvas>
     </div>
-            <div *ngIf="true" border="1">
+            <div *ngIf="false" border="1">
                 <!-- <div *ngIf="showController"> -->
 
                 <table>
@@ -88,24 +115,22 @@ name="" id=""> -->
                     <tr>
                         <td>
                             <button (click)='
-                    izquierda();
-                    draw()'>izquierda</button>
+                                    izquierda();
+                                    draw()'>izquierda</button>
                         </td>
                         <td></td>
                         <td>
-                            <button (click)='
-                    derecha();
-                    draw()'>derecha</button>
+                            <button (click)=' derecha(); draw()'>
+                                    derecha
+                                </button>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <button (click)='
-                    bajar();
-                    draw()'>bajar</button>
-
-
+                                    bajar();
+                                    draw()'>bajar</button>
                         </td>
                         <td></td>
                     </tr>
@@ -116,7 +141,7 @@ name="" id=""> -->
             <button (click)='clean()'>clean</button>
 
             <!-- <div *ngIf='showController'style='font-size: 16px'> -->
-            <div *ngIf='true' style='font-size: 16px'>
+            <div *ngIf='false' style='font-size: 16px'>
                 <div>
                     BC = {{ automata.getLineBC().ecuacionRecta() }}
                 </div>
@@ -178,8 +203,13 @@ name="" id=""> -->
                     <button (click)='setColumnas(getColumnas() - 1); draw()'>-</button>
                     <button (click)='setColumnas(getColumnas() + 1); draw()'>+</button>
                 </div>
-                <div style='width: 80%'>
+                <div style='width: 80%' *ngIf="false">
+
+                    PUNTOS
+
+
                     <div style='display: inline-flex;'>
+                        
                         <div>
                             <div>
                                 <h3>Sur (Punto A) </h3>

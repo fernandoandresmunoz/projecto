@@ -50,7 +50,25 @@ factory2 = new ConcreteShapeFactory()
   
   automata: Automata
   puedeAvanzar: boolean = true;
+// Regla 1: Pasto
+// @Input() coloresRegla1: string[] = [ "#1e5e3a", "#4a8562", "#71b585" ];
+coloresRegla1: string[] = [ "#1e5e3a", "green", "#71b585" ];
 
+// Regla 3: Agua
+coloresRegla3: string[] = [ "#153366", "#3d649a", "#5a8ac4" ];
+
+// Tonos de roca
+// Regla 2: Piedra
+// @Input() coloresRegla2: string[] = [ "#4d4d4d", "#7a7a7a", "#b0b0b0" ];
+coloresRegla2: string[] = [ "#4d4d4d", "red", "#b0b0b0" ];
+
+// Regla 4: Tierra
+// @Input() coloresRegla4: string[] = [ "#6a4e32", "#8e6c4e", "#b08a6b" ];
+coloresRegla4: string[] = [ "#6a4e32", "brown", "#b08a6b" ];
+
+// Regla 5: Madera
+// @Input() coloresRegla5: string[] = [ "#593c28", "red", "#b08f75" ];
+coloresRegla5: string[] = [ "#593c28", "gray", "#b08f75" ];
 
 
 
@@ -76,6 +94,7 @@ factory2 = new ConcreteShapeFactory()
 
 
 
+            // la matriz existe 
             if (matriz.datos_matriz.length !== 0) {
 
               this.automata = this.factory2.createMilitaryCube(this.filas, this.columnas)
@@ -88,6 +107,32 @@ factory2 = new ConcreteShapeFactory()
               this.automata.setGeneration(matriz.generacion)
               this.puedeAvanzar = true;
 
+              this.automata.regla_1_color_1 = matriz.rule_1_color_1;
+              this.automata.regla_1_color_2 = matriz.rule_1_color_2;
+              this.automata.regla_1_color_3 = matriz.rule_1_color_3;
+
+              this.automata.regla_2_color_1 = matriz.rule_2_color_1;
+              this.automata.regla_2_color_2 = matriz.rule_2_color_2;
+              this.automata.regla_2_color_3 = matriz.rule_2_color_3;
+
+
+              this.automata.regla_3_color_1 = matriz.rule_3_color_1;
+              this.automata.regla_3_color_2 = matriz.rule_3_color_2;
+              this.automata.regla_3_color_3 = matriz.rule_3_color_3;
+
+              this.automata.regla_4_color_1 = matriz.rule_4_color_1;
+              this.automata.regla_4_color_2 = matriz.rule_4_color_2;
+              this.automata.regla_4_color_3 = matriz.rule_4_color_3;
+
+              this.automata.regla_5_color_1 = matriz.rule_5_color_1;
+              this.automata.regla_5_color_2 = matriz.rule_5_color_2;
+              this.automata.regla_5_color_3 = matriz.rule_5_color_3;
+
+              this.automata.altura_regla_1 = matriz.altura_regla_1;
+              this.automata.altura_regla_2 = matriz.altura_regla_2;
+              this.automata.altura_regla_3 = matriz.altura_regla_3;
+              this.automata.altura_regla_4 = matriz.altura_regla_4;
+              this.automata.altura_regla_5 = matriz.altura_regla_5;
             }
 
 
@@ -161,17 +206,12 @@ factory2 = new ConcreteShapeFactory()
 
   guardarMatriz(): void {
 
+
     this.geometry.actualizarMatriz(
       this.idMatriz,
       this.nombre,
-      this.automata.getMatrizActiva(),
       this.generacion,
-      this.automata.getBlueRule().name,
-      this.automata.getBrownRule().name,
-      this.automata.getGrayRule().name,
-      this.automata.getGreenRule().name,
-      this.automata.getRedRule().name,
-
+      this.automata
     
     ).subscribe( resp => {
       this.geometry.automata(

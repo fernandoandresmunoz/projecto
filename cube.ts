@@ -75,10 +75,59 @@ export interface Automata extends Observable{
     // mover celula
     // pause rules
     // rules
+            // <td>{{ matriz.id }}</td>
+            // <td
+            // (click)="detalleMatriz(matriz.id)" 
+            
+            // >{{ matriz.nombre }}</td>
+            // <td>{{ matriz.generacion }}</td>
+            // <td>{{ matriz.filas }}</td>
+            // <td>{{ matriz.columnas }}</td>
+            // <td>{{ matriz.estado_actual }}</td>
+            // <td>{{ matriz.fecha_creacion }}</td>
+
+
+    id: number;
+    nombre: string;
+    generacion: number;
+    filas: number;
+    columnas: number;
+    estado_actual: string;
+    fecha_creacion: string;
 
     leftPosition: number;
     topPosition: number;
     generation: number;
+
+
+    regla_1_color_1: string;
+    regla_1_color_2: string;
+    regla_1_color_3: string;
+
+    regla_2_color_1: string;
+    regla_2_color_2: string;
+    regla_2_color_3: string;
+
+
+    regla_3_color_1: string;
+    regla_3_color_2: string;
+    regla_3_color_3: string;
+
+
+    regla_4_color_1: string;
+    regla_4_color_2: string;
+    regla_4_color_3: string;
+
+
+    regla_5_color_1: string;
+    regla_5_color_2: string;
+    regla_5_color_3: string;
+
+    altura_regla_1: number;
+    altura_regla_2: number;
+    altura_regla_3: number;
+    altura_regla_4: number;
+    altura_regla_5: number;
 
 
     addBloque(bloque: Bloque): void;

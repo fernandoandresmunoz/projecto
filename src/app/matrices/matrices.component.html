@@ -24,7 +24,7 @@
     </table>
     <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">Guardar</button>
 </div>
-<table border="1">
+<table border="1" *ngIf="matrices.length > 0">
     <thead>
         <tr>
             <th>Preview</th>
@@ -38,13 +38,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let matriz of matrices"
+        <tr *ngFor="let matriz of automatas"
 
         >
             <td>
 <app-tabla
 [anchoCelda]="0.1"
-[datos_matriz]="matriz.datos_matriz"
+[automata]="matriz"
 ></app-tabla>
 
 

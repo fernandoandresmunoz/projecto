@@ -39,8 +39,8 @@
 ></app-tabla-reglas>
 <br>
 <app-tabla
-[anchoCelda]="4"
-[datos_matriz]="automata.getMatrizActiva()"
+[automata]="automata"
+[anchoCelda]="3"
 >
 </app-tabla>
 
@@ -55,6 +55,98 @@
     </tr>
 </table>
 
-<app-automata [automata]="automata">
+{{ automata.regla_1_color_1}}
+<app-automata
+[automata]="automata">
 </app-automata>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Regla</th>
+            <th>color 1</th>
+            <th>color 2</th>
+            <th>color 3</th>
+            <th>altura h</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> Regla 1 ( Green ) {{ automata.regla_1_color_1}} </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_1_color_1">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_1_color_2">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_1_color_3">
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="automata.altura_regla_1">
+            </td>
+        </tr>
+        <tr>
+            <td> Regla 2 ( Green ) {{ automata.altura_regla_2}} </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_2_color_1">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_2_color_2">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_2_color_3">
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="automata.altura_regla_2">
+            </td>
+        </tr>
+        <tr>
+            <td> Regla 3 ( Green ) {{ automata.regla_3_color_1}} </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_3_color_1">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_3_color_2">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_3_color_3">
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="automata.altura_regla_3">
+            </td>
+        </tr>
+        <tr>
+            <td> Regla 4 ( Green ) {{ automata.regla_4_color_1}} </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_4_color_1">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_4_color_2">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_4_color_3">
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="automata.altura_regla_4">
+            </td>
+        </tr>
+        <tr>
+            <td> Regla 5 ( Green ) {{ automata.altura_regla_5 }} </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_5_color_1">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_5_color_2">
+            </td>
+            <td>
+                <input type="color" [(ngModel)]="automata.regla_5_color_3">
+            </td>
+            <td>
+                <input type="number" [(ngModel)]="automata.altura_regla_5">
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
 </div>

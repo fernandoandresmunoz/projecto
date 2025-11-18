@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Automata } from 'cube';
 import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 
@@ -12,6 +13,7 @@ export class TablaNodoComponent implements OnInit {
   @Input() nodo: Nodo;
   @Input() umbralInferior: number;
   @Input() umbralSuperior: number;
+  @Input() automata: Automata;
 
 
   ANCHO_BARRA = JUEGO.ANCHO_BARRA
