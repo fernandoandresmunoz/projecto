@@ -146,14 +146,16 @@ interface BlockContext {
 class BlockFlyweightFactory {
   private flyweights: Map<string, BlockFlyweight> = new Map();
   private static instance: BlockFlyweightFactory;
+  automata: Automata;
 
-  private constructor() {
+  constructor(automata: Automata) {
+    this.automata = automata;
     this.initializeFlyweights();
   }
 
   static getInstance(automata: Automata): BlockFlyweightFactory {
     if (!BlockFlyweightFactory.instance) {
-      BlockFlyweightFactory.instance = new BlockFlyweightFactory();
+      BlockFlyweightFactory.instance = new BlockFlyweightFactory(automata);
     }
     return BlockFlyweightFactory.instance;
   }
@@ -163,7 +165,8 @@ class BlockFlyweightFactory {
     const geometries = {
       cube: new THREE.BoxGeometry(1, 1, 1),
       trunk: new THREE.BoxGeometry(0.3, 2.0, 0.3),
-      leaves: new THREE.ConeGeometry(1.0, 2.5, 8),
+      // leaves: new THREE.ConeGeometry(1.0, 2.5, 8),
+      leaves: new THREE.BoxGeometry(1,1,1),
       water: new THREE.BoxGeometry(1, 0.2, 1),
       path: new THREE.BoxGeometry(1, 1, 1)
     };
@@ -171,34 +174,41 @@ class BlockFlyweightFactory {
     // Materiales compartidos
     const materials = {
       trunk: new THREE.MeshPhongMaterial({ 
-        color: 0x3D2410,
+        // color: 0x3D2410,
+        color: this.automata.regla_3_color_2,
         shininess: 5,
         flatShading: true
       }),
       leaves: new THREE.MeshPhongMaterial({ 
-        color: 0x2F5A1C,
+        // color: 0x2F5A1C,
+        color: this.automata.regla_2_color_2,
         shininess: 5,
         flatShading: true,
         side: THREE.DoubleSide
       }),
       ground: new THREE.MeshPhongMaterial({ 
-        color: 0x5C4033,
+        color: this.automata.regla_4_color_2,
+        // color: 0x5C4033,
         shininess: 0,
         flatShading: true
       }),
       water: new THREE.MeshPhongMaterial({ 
-        color: 0x0F5E9C,
+        color: this.automata.regla_2_color_2, // gris por ahora
+        // color: 0x0F5E9C,
         transparent: true,
-        opacity: 0.6,
+        // opacity: 0.6,
+        // opacity: 0.6,
         shininess: 30
       }),
       mountain: new THREE.MeshPhongMaterial({ 
-        color: 0x808080,
+        // color: 0x808080,
+        color: this.automata.regla_5_color_2,
         shininess: 10,
         flatShading: true
       }),
       path: new THREE.MeshPhongMaterial({ 
-        color: 0x6B4423,
+        // color: 0x6B4423,
+        color: this.automata.regla_1_color_2,
         shininess: 0,
         flatShading: true
       })
@@ -211,7 +221,8 @@ class BlockFlyweightFactory {
       type: 'ground'
     });
     this.flyweights.set('water', { 
-      geometry: geometries.water,
+      geometry: geometries.cube,
+      // geometry: geometries.water,
       material: materials.water,
       type: 'water'
     });
@@ -221,15 +232,17 @@ class BlockFlyweightFactory {
       type: 'mountain'
     });
     this.flyweights.set('trunk', { 
-      geometry: geometries.trunk,
+      // geometry: geometries.trunk,
+      geometry: geometries.cube,
       material: materials.trunk,
       type: 'trunk'
     });
-    this.flyweights.set('leaves', { 
-      geometry: geometries.leaves,
-      material: materials.leaves,
-      type: 'leaves'
-    });
+    // this.flyweights.set('leaves', { 
+    //   // geometry: geometries.leaves,
+    //   geometry: geometries.cube,
+    //   material: materials.leaves,
+    //   type: 'leaves'
+    // });
     this.flyweights.set('path', { 
       geometry: geometries.path,
       material: materials.path,
@@ -348,7 +361,6 @@ interface SavedGameState {
 export class MinecraftViewComponent implements OnInit {
 
 
-  @Input() automata: Automata;
   @Input() datos_matriz: {state: number, color: string}[][];
 
   @ViewChild('rendererContainer', { static: true }) rendererContainer!: ElementRef;
@@ -499,17 +511,20 @@ export class MinecraftViewComponent implements OnInit {
 
   // Añadir propiedad para controlar el tiempo entre guardados
   private lastSaveTime: number = 0;
+  @Input() automata: Automata;
 
   constructor(
     private route: ActivatedRoute
   ) {
     this.blockFactory = new BlockFactory();
-    this.flyweightFactory = BlockFlyweightFactory.getInstance(this.automata);
+    // this.flyweightFactory = BlockFlyweightFactory.getInstance(this.automata);
   }
 
   ngOnInit() {
 
     
+    // this.flyweightFactory = new BlockFlyweightFactory(this.automata);
+    this.flyweightFactory = BlockFlyweightFactory.getInstance(this.automata);
 
     this.loadMatrixFromLocalStorage();
     this.initScene();
@@ -771,7 +786,7 @@ export class MinecraftViewComponent implements OnInit {
     for (let i = 0; i < 300; i++) {
         const x = Math.random() * 128;
         const y = Math.random() * 128;
-        const height = 2 + Math.random() * 3;
+      const height = 2 + Math.random() * 3;
         
         context.beginPath();
         context.moveTo(x, y);
@@ -905,6 +920,9 @@ export class MinecraftViewComponent implements OnInit {
           const worldZ = z + offsetZ;
           const height = this.getBlockHeight(cell.color);
 
+
+          const baseHeight = cell.height; // Usar la altura de la celda como base
+
           const context: BlockContext = {
             position: new THREE.Vector3(worldX, height, worldZ),
             rotation: new THREE.Euler(0, 0, 0),
@@ -918,26 +936,64 @@ export class MinecraftViewComponent implements OnInit {
               this.addBlockContext('trunk', {
                 position: new THREE.Vector3(worldX, height + 1.0, worldZ),
                 rotation: new THREE.Euler(0, 0, 0),
-                scale: new THREE.Vector3(1, 1, 1)
+                scale: new THREE.Vector3(1, this.automata.altura_regla_3, 1)
               });
               // Hojas
-              this.addBlockContext('leaves', {
-                position: new THREE.Vector3(worldX, height + 2.8, worldZ),
+              // this.addBlockContext('leaves', {
+              //   position: new THREE.Vector3(worldX, height + 2.8, worldZ),
+              //   rotation: new THREE.Euler(0, 0, 0),
+              //   scale: new THREE.Vector3(1, 1, 1)
+              // });
+              break;
+
+
+
+    // switch(color) {
+    //   case 'Green': // Árboles
+    //     return this.automata.altura_regla_3;
+    //   case 'Brown': // Tierra
+    //     return this.automata.altura_regla_4;
+    //   case 'Blue': // Agua
+    //     return this.automata.altura_regla_2;
+    //     // return -0.2;
+    //   case 'Gray': // Montañas
+    //     return this.automata.altura_regla_5;
+    //   case 'Red': // Caminos
+    //     return this.automata.altura_regla_1;
+    //   default:
+    //     return 0;
+
+
+
+
+
+            case 'Brown':
+              this.addBlockContext('ground', {
+                position: new THREE.Vector3(worldX, height + 1.0, worldZ),
                 rotation: new THREE.Euler(0, 0, 0),
-                scale: new THREE.Vector3(1, 1, 1)
+                scale: new THREE.Vector3(1, this.automata.altura_regla_4, 1)
               });
               break;
-            case 'Brown':
-              this.addBlockContext('ground', context);
-              break;
             case 'Blue':
-              this.addBlockContext('water', context);
+              this.addBlockContext('water', {
+                position: new THREE.Vector3(worldX, height + 1.0, worldZ),
+                rotation: new THREE.Euler(0, 0, 0),
+                scale: new THREE.Vector3(1, this.automata.altura_regla_2, 1)
+              });
               break;
             case 'Gray':
-              this.addBlockContext('mountain', context);
+              this.addBlockContext('mountain',{
+                position: new THREE.Vector3(worldX, height + 1.0, worldZ),
+                rotation: new THREE.Euler(0, 0, 0),
+                scale: new THREE.Vector3(1, this.automata.altura_regla_5, 1)
+              });
               break;
             case 'Red':
-              this.addBlockContext('path', context);
+              this.addBlockContext('path', {
+                position: new THREE.Vector3(worldX, height + 1.0, worldZ),
+                rotation: new THREE.Euler(0, 0, 0),
+                scale: new THREE.Vector3(1, this.automata.altura_regla_1, 1)
+              });
               break;
           }
         }
@@ -984,17 +1040,19 @@ export class MinecraftViewComponent implements OnInit {
   }
 
   private getBlockHeight(color: string): number {
+    return 0
     switch(color) {
       case 'Green': // Árboles
-        return 0;
+        return this.automata.altura_regla_3;
       case 'Brown': // Tierra
-        return 0;
+        return this.automata.altura_regla_4;
       case 'Blue': // Agua
-        return -0.2;
+        return this.automata.altura_regla_2;
+        // return -0.2;
       case 'Gray': // Montañas
-        return 0;
+        return this.automata.altura_regla_5;
       case 'Red': // Caminos
-        return 0;
+        return this.automata.altura_regla_1;
       default:
         return 0;
     }

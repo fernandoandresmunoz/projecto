@@ -1,4 +1,7 @@
-<div *ngIf="datos_matriz">
+
+
+{{ automata?.regla_2_color_2 }}
+<div *ngIf="datos_matriz && automata !== undefined">
     <app-minecraft-view
     [automata]="automata" 
     [datos_matriz]="datos_matriz"
