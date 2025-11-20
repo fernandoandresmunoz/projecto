@@ -1,6 +1,7 @@
 # Projecto
 
-<img width="523" height="316" alt="Captura de pantalla 2025-08-19 a la(s) 10 17 16 p m" src="https://github.com/user-attachments/assets/b3993567-da12-4e19-8c3c-761a76c4cab5" />
+<img width=<img width="1302" height="878" alt="Captura de pantalla 2025-11-20 a la(s) 4 43 16 p m" src="https://github.com/user-attachments/assets/338b7203-c2d6-477c-96a0-f452ef446e26" />
+"523" height="316" alt="Captura de pantalla 2025-08-19 a la(s) 10 17 16 p m" src="https://github.com/user-attachments/assets/b3993567-da12-4e19-8c3c-761a76c4cab5" />
 
 
 
