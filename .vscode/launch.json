@@ -5,7 +5,7 @@
         "type": "pwa-chrome",
         "request": "launch",
         "name": "Launch Chrome against localhost",
-        "url": "http://localhost:62568/matrices",
+        "url": "http://localhost:62568/matrices/99",
         "webRoot": "${workspaceFolder}"
        }
     ]

@@ -62,6 +62,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     //   this.right()
     //   // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
     // }, 00)
+    this.draw();
 
 
     setInterval(() => {

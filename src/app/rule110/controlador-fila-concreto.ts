@@ -12,7 +12,7 @@ const REGLA = 99;
 
 
 const FILAS = 200;
-const COLUMNAS = 400 
+const COLUMNAS = 200 
 
 export class ControladorFilaConcreto implements ControladorFila {
 

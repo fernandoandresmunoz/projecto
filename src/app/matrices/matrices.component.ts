@@ -72,6 +72,7 @@ export class MatricesComponent implements OnInit {
               automata.regla_5_color_1 = matriz.rule_5_color_1;
               automata.regla_5_color_2 = matriz.rule_5_color_2;
               automata.regla_5_color_3 = matriz.rule_5_color_3;
+              automata.estado_actual = matriz.estado_actual;
 
               this.automatas.push(automata);
 

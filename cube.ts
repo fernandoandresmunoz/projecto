@@ -129,6 +129,9 @@ export interface Automata extends Observable{
     altura_regla_4: number;
     altura_regla_5: number;
 
+    scale: number;
+    escalaVistaPlana: number;
+
 
     addBloque(bloque: Bloque): void;
     addElement(element: Element): void;

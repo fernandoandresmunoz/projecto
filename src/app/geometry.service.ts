@@ -76,6 +76,8 @@ export class GeometryService {
       altura_regla_3: automata.altura_regla_3,
       altura_regla_4: automata.altura_regla_4,
       altura_regla_5: automata.altura_regla_5,
+      escala: automata.scale,
+      escala_vista_plana: automata.escalaVistaPlana
     });
   }
       // this.automata.getMatrizActiva(),
@@ -208,6 +210,20 @@ export class GeometryService {
       nombre: nombre,
       filas: filas,
       columnas: columnas
+    });
+  }
+
+  createMatrixWithData(nombre: string, filas: number, columnas: number, data: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:8000/graficas/matrices/`, {
+      nombre: nombre,
+      filas: filas,
+      columnas: columnas,
+      datos_matriz: data,
+      blue_rule: "day and night",
+      red_rule: "day and night",
+      brown_rule: "day and night",
+      gray_rule: "day and night",
+      green_rule: "day and night",
     });
   }
 

@@ -1,46 +1,71 @@
+<div>
+    {{ automata.estado_actual }}
+</div>
 
+
+
+<div>
+    {{ puedeAvanzar ? "ACTIVO": "PAUSADO"}}
+    <button (click)="puedeAvanzar = !puedeAvanzar;
+    automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">PAUSE LOCAL</button>
+</div>
 <div >
-    
-    <div>
-    
-    {{ nombre }}
-    </div>
-    <div>
-    {{ columnas}}
-    </div>
-    <div>
-    
-    {{ filas}}
-    </div>
+    <div> {{ nombre }} </div>
+    <div> {{ columnas}} </div>
+    <div> {{ filas}} </div>
 </div>
 
 
 <p>
     <button (click)="guardarMatriz()">
         GUARDAR MATRIZ</button>
+        {{ !guardando ? "": "GUARDANDO.."}}
 </p>
 <p>
-    <button 
+    <!-- <button 
     (click)="navigateTo3dView()">
         3D VIEW 
-    </button>
+    </button> -->
+    <a 
+    [routerLink]="['matrices/3d', idMatriz]"
+    target="_blank"
+  >
+    Abrir Matriz 3D
+  </a>
 </p>
 <div *ngIf="automata">
     <p>
         LOCAL GENERATION: {{generacion}}
     </p>
-<p>
-        AUTOMATA GENERATION: {{automata.getGeneration()}}
-    </p>
+    <h2> GENERATION: {{automata.getGeneration()}} </h2>
 
 
 <app-tabla-reglas
 [automata]="automata"
 ></app-tabla-reglas>
 <br>
+
+<div>
+    <label for="intervalo">INTERVALO EVOLUCION ( MILISEGUNDOS )</label>
+    <input
+    name="intervalo"
+    type="number"
+    [(ngModel)]="intervaloEvolucion"
+    min="250"
+    step="50"
+    >
+</div>
+
+<div>
+    <label for="">Escala vista plana {{ automata.escalaVistaPlana }}</label>
+    <input
+    type="number"
+    [(ngModel)]='automata.escalaVistaPlana'
+    >
+</div>
 <app-tabla
 [automata]="automata"
-[anchoCelda]="3"
+[anchoCelda]="automata.escalaVistaPlana"
 >
 </app-tabla>
 
@@ -56,6 +81,10 @@
 </table>
 
 {{ automata.regla_1_color_1}}
+
+
+ESCALA: 
+<input type="number" [(ngModel)]="automata.scale">
 <app-automata
 [automata]="automata">
 </app-automata>
@@ -67,6 +96,7 @@
             <th>color 2</th>
             <th>color 3</th>
             <th>altura h</th>
+            <th>REGLA</th>
         </tr>
     </thead>
     <tbody>
@@ -84,6 +114,16 @@
             <td>
                 <input type="number" [(ngModel)]="automata.altura_regla_1">
             </td>
+            <td>
+                <select (change)='automata.changeRule("RED", $event.target.value )'>
+                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                        {{ rule.name }}
+                        <span *ngIf="rule.notation">
+                            ( {{ rule.notation }} )
+                        </span>
+                    </option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td> Regla 2 ( Green ) {{ automata.altura_regla_2}} </td>
@@ -98,6 +138,13 @@
             </td>
             <td>
                 <input type="number" [(ngModel)]="automata.altura_regla_2">
+            </td>
+            <td>
+                <select (change)='automata.changeRule("BLUE", $event.target.value )'>
+                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                        {{ rule.name }} ( {{ rule.notation }} )
+                    </option>
+                </select>
             </td>
         </tr>
         <tr>
@@ -114,6 +161,13 @@
             <td>
                 <input type="number" [(ngModel)]="automata.altura_regla_3">
             </td>
+            <td>
+                <select (change)='automata.changeRule("GREEN", $event.target.value )'>
+                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                        {{ rule.name }} ( {{ rule.notation }} )
+                    </option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td> Regla 4 ( Green ) {{ automata.regla_4_color_1}} </td>
@@ -129,6 +183,13 @@
             <td>
                 <input type="number" [(ngModel)]="automata.altura_regla_4">
             </td>
+            <td>
+                <select (change)='automata.changeRule("BROWN", $event.target.value )'>
+                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                        {{ rule.name }} ( {{ rule.notation }} )
+                    </option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td> Regla 5 ( Green ) {{ automata.altura_regla_5 }} </td>
@@ -143,6 +204,13 @@
             </td>
             <td>
                 <input type="number" [(ngModel)]="automata.altura_regla_5">
+            </td>
+            <td>
+                <select (change)='automata.changeRule("GRAY", $event.target.value )'>
+                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                        {{ rule.name }} ( {{ rule.notation }} )
+                    </option>
+                </select>
             </td>
         </tr>
     </tbody>

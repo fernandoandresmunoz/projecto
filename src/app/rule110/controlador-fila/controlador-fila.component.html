@@ -170,6 +170,9 @@
     
     
 </div>
+<button
+(click)="saveMatrix()"
+>SAVE AS MATRIX</button>
 <div *ngFor="let fila of matrixCompleta()" class="contenedor">
 
             <span *ngFor="let celda of fila.getCeldas()" class="bloque"

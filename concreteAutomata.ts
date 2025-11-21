@@ -305,6 +305,7 @@ export default class ConcreteAutomata implements Automata {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    escalaVistaPlana: number;
     altura_regla_1: number = 2;
     altura_regla_2: number = 2;
     altura_regla_3: number = 2;
@@ -484,6 +485,7 @@ export default class ConcreteAutomata implements Automata {
                 break;
 
             case 'BLUE':
+                console.log(rule)
                 this.setBlueRule(this.getRules().filter(obj => obj.name === rule)[0].rule)
                 break;
             case 'GRAY':

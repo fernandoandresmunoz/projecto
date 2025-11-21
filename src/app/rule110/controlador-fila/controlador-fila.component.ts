@@ -3,6 +3,7 @@ import { ControladorFilaConcreto } from '../controlador-fila-concreto';
 import { ControladorFila } from '../controlador-fila';
 import { Celda } from '../celda';
 import { Fila } from '../fila';
+import { GeometryService } from 'src/app/geometry.service';
 
 @Component({
   selector: 'app-controlador-fila',
@@ -14,7 +15,7 @@ export class ControladorFilaComponent implements OnInit, ControladorFila {
   controlador = new ControladorFilaConcreto()
   @Input() regla: number;
 
-  constructor() {
+  constructor(private geometry: GeometryService) {
     // this.init(110);
 
    }
@@ -146,6 +147,34 @@ export class ControladorFilaComponent implements OnInit, ControladorFila {
   ngOnInit(): void {
 
     this.init(this.regla);
+  }
+
+  saveMatrix(): void {
+
+    let nuevaMatrix = [];
+    for ( let fila of this.matrixCompleta()) {
+
+      let nuevaFila = [];
+
+      for ( let celda of fila.getCeldas()) {
+        // console.log(celda.getState())
+        nuevaFila.push({
+          state: celda.getState(),
+          color: 'Red'
+        })
+      }
+
+      nuevaMatrix.push(nuevaFila);
+
+
+
+    }
+
+    this.geometry.createMatrixWithData('Nueva matrix', 200, 200, nuevaMatrix)
+    .subscribe( r => {
+      console.log(r)
+    })
+
   }
 
 }
