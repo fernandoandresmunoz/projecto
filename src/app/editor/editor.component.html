@@ -1,0 +1,45 @@
+<p>editor works!</p>
+
+
+filas: <input type="number" [(ngModel)]="filas">
+<br>
+columnas: <input type="number" [(ngModel)]="columnas">
+
+<button (click)="createMatrix()">CREAR MATRIX!</button>
+<br>
+<button (click)="saveAsMatrix()">SAVE AS MATRIX</button>
+
+
+<br>
+
+SELECTED COLOR = {{ selectedColor }}
+<table style="margin-bottom: 2em; margin-top: 2em">
+    <tr>
+        <td (click)="selectedColor = 'red'" style="background-color: red; height: 20px; width: 20px"></td>
+        <td (click)="selectedColor = 'blue'" style="background-color: blue; height: 20px; width: 20px"></td>
+        <td (click)="selectedColor = 'green'" style="background-color: green; height: 20px; width: 20px"></td>
+        <td (click)="selectedColor = 'brown'" style="background-color: brown; height: 20px; width: 20px"></td>
+        <td (click)="selectedColor = 'gray'" style="background-color: gray; height: 20px; width: 20px"></td>
+    </tr>
+</table>
+
+<table border="1">
+    <tr *ngFor="let fila of matrix; let i = index">
+        <td
+        (click)="clickCelda(i, j )"
+        style="width: 20px; height: 20px"
+        [ngClass]="{
+            'fondo-rojo': matrix[i][j] ===1,
+            'fondo-azul': matrix[i][j] ===2,
+            'fondo-verde': matrix[i][j] ===3,
+            'fondo-cafe': matrix[i][j] ===4,
+            'fondo-gris': matrix[i][j] ===5
+
+        }"
+
+        *ngFor="let celda of fila; let j = index ">
+            {{ celda  }}
+        </td>
+    </tr>
+
+</table>
