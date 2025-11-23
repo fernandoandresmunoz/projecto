@@ -44,11 +44,15 @@ import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 import { GliderNextGenStrategy } from "src/app/GliderNextGenStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 import { LifeNextMatrixStrategy } from "src/app/life-next-matrix-strategy.ts";
+import { PersianCarpet } from "rules/PersianCarpet";
 
 
 
 
 export class ConcreteShapeFactory implements ShapeFactory {
+    createPersianCarpet(): Rule {
+        return new PersianCarpet()
+    }
 
 
 

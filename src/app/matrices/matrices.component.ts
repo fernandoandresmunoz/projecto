@@ -33,7 +33,7 @@ export class MatricesComponent implements OnInit {
   cargarMatrices(): void {
     this.geometry.obtenerMatrices()
     .subscribe((matrices) => {
-      this.matrices = matrices;
+      this.matrices = matrices.results;
 
       this.matrices.map( matriz => {
 

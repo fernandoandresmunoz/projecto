@@ -2,7 +2,6 @@ import { Automata, ObservadorAutomata  } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
-import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Bloque } from "bloque";
 import { Rule } from "rule";
 import { Element } from './rules/element';
@@ -17,6 +16,7 @@ import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStra
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { JUEGO } from "src/JUEGO";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 
 
 export default class ConcreteAutomata implements Automata {
@@ -223,6 +223,11 @@ export default class ConcreteAutomata implements Automata {
         {
             name: 'geology',
             rule: this.shapeFactory.geologyRule(),
+            notation: ''
+        },
+    {
+            name: 'persian carpet',
+            rule: this.shapeFactory.createPersianCarpet(),
             notation: ''
         }
     ]

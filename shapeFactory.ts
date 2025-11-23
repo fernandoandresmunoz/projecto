@@ -26,6 +26,7 @@ export interface ShapeFactory {
     createSeedsRule(): Rule;
     createLifeWithoutDeathRule(): Rule;
     create34LifeRule(): Rule;
+    createPersianCarpet(): Rule;
     create2x2Rule(): Rule;
     createHighLifeRule(): Rule;
     createDayAndNightRule(): Rule;

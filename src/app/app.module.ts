@@ -64,6 +64,7 @@ import { MatrizPreviewComponent } from './matriz-preview/matriz-preview.componen
 import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
 import { TablaReglasComponent } from './tabla-reglas/tabla-reglas.component';
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
+import { EditorComponent } from './editor/editor.component';
 
 
 
@@ -126,7 +127,8 @@ import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-
     MatrizPreviewComponent,
     MatrizHojaComponent,
     TablaReglasComponent,
-    WrapperMinecraftViewComponent
+    WrapperMinecraftViewComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

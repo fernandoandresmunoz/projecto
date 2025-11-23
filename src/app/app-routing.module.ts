@@ -35,6 +35,7 @@ import { ArbolesComponent } from './arboles/arboles.component';
 import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
+import { EditorComponent } from './editor/editor.component';
 // import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
@@ -198,7 +199,12 @@ const routes: Routes = [
   {
     path: 'vista-cubos-3d',
     component: MinecraftViewComponent
+  },
+  {
+    path: 'editor',
+    component: EditorComponent
   }
+
 
 
 

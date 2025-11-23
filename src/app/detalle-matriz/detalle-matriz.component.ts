@@ -243,20 +243,6 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
         .subscribe(x => {
           console.log(x)
         });
-      // console.log(resp);
-      // this.geometry.automata(
-
-
-      //   this.convertMatrixToNumeric(
-
-      //   this.automata.getMatrizActiva()
-      //   )
-      //   )
-      // .subscribe( resp => {
-      //   console.log(resp);
-      // }
-
-      // );
     });
   }
 

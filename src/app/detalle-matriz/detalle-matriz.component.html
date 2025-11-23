@@ -22,16 +22,16 @@
         {{ !guardando ? "": "GUARDANDO.."}}
 </p>
 <p>
-    <!-- <button 
+    <button 
     (click)="navigateTo3dView()">
         3D VIEW 
-    </button> -->
-    <a 
+    </button>
+    <!-- <a 
     [routerLink]="['matrices/3d', idMatriz]"
     target="_blank"
   >
     Abrir Matriz 3D
-  </a>
+  </a> -->
 </p>
 <div *ngIf="automata">
     <p>
@@ -97,11 +97,14 @@ ESCALA:
             <th>color 3</th>
             <th>altura h</th>
             <th>REGLA</th>
+            <th>TOTAL</th>
+            <th>PERCENT.</th>
+            <th>BARRA.</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td> Regla 1 ( Green ) {{ automata.regla_1_color_1}} </td>
+            <td> Regla 1 ( RED ) {{ automata.regla_1_color_1}} </td>
             <td>
                 <input type="color" [(ngModel)]="automata.regla_1_color_1">
             </td>
@@ -124,9 +127,20 @@ ESCALA:
                     </option>
                 </select>
             </td>
+            <td>
+                {{ automata.totalRojos() | number}}
+            </td>
+            <td>
+                {{( automata.totalRojos() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+            </td>
+            <td style="width: 200px">
+                <div style="height: 20px; width: {{ 200 * automata.porcentajeRojos() }}px; background-color: black">
+
+                </div>
+            </td>
         </tr>
         <tr>
-            <td> Regla 2 ( Green ) {{ automata.altura_regla_2}} </td>
+            <td> Regla 2 ( BLUE ) {{ automata.altura_regla_2}} </td>
             <td>
                 <input type="color" [(ngModel)]="automata.regla_2_color_1">
             </td>
@@ -145,6 +159,17 @@ ESCALA:
                         {{ rule.name }} ( {{ rule.notation }} )
                     </option>
                 </select>
+            </td>
+            <td>
+                {{ automata.totalAzules() | number}}
+            </td>
+            <td>
+                {{( automata.totalAzules() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+            </td>
+<td style="width: 200px">
+                <div style="height: 20px; width: {{ 200 * automata.porcentajeAzules() }}px; background-color: black">
+
+                </div>
             </td>
         </tr>
         <tr>
@@ -168,9 +193,20 @@ ESCALA:
                     </option>
                 </select>
             </td>
+            <td>
+                {{ automata.totalVerdes() | number }}
+            </td>
+            <td>
+                {{( automata.totalVerdes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+            </td>
+<td style="width: 200px">
+                <div style="height: 20px; width: {{ 200 * automata.porcentajeVerdes() }}px; background-color: black">
+
+                </div>
+            </td>
         </tr>
         <tr>
-            <td> Regla 4 ( Green ) {{ automata.regla_4_color_1}} </td>
+            <td> Regla 4 ( BROWN ) {{ automata.regla_4_color_1}} </td>
             <td>
                 <input type="color" [(ngModel)]="automata.regla_4_color_1">
             </td>
@@ -190,9 +226,20 @@ ESCALA:
                     </option>
                 </select>
             </td>
+            <td>
+                {{ automata.totalCafes() | number }}
+            </td>
+            <td>
+                {{( automata.totalCafes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+            </td>
+<td style="width: 200px">
+                <div style="height: 20px; width: {{ 200 * automata.porcentajeCafes() }}px; background-color: black">
+
+                </div>
+            </td>
         </tr>
         <tr>
-            <td> Regla 5 ( Green ) {{ automata.altura_regla_5 }} </td>
+            <td> Regla 5 ( GRAY ) {{ automata.altura_regla_5 }} </td>
             <td>
                 <input type="color" [(ngModel)]="automata.regla_5_color_1">
             </td>
@@ -211,6 +258,17 @@ ESCALA:
                         {{ rule.name }} ( {{ rule.notation }} )
                     </option>
                 </select>
+            </td>
+            <td>
+                {{ automata.totalGrises() | number }}
+            </td>
+            <td>
+                {{( automata.totalGrises() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+            </td>
+<td style="width: 200px">
+                <div style="height: 20px; width: {{ 200 * automata.porcentajeGrises() }}px; background-color: black">
+
+                </div>
             </td>
         </tr>
     </tbody>
