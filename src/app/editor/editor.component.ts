@@ -9,11 +9,12 @@ import { GeometryService } from '../geometry.service';
 export class EditorComponent implements OnInit {
 
 
-  filas: number = 20;
-  columnas: number = 20;
+  filas: number = 32  ;
+  columnas: number = 64;
 
   matrix: number[][] = []
   selectedColor: string = 'red';
+  anchoPincel: number = 5;
 
   constructor(private geometry: GeometryService) { }
 
@@ -42,25 +43,40 @@ export class EditorComponent implements OnInit {
 
     console.log('SELECTED COLOR ', this.selectedColor)
 
+    let COLOR_CODE: number = 0;
+
     switch (this.selectedColor) {
       case 'red':
-        this.matrix[i][j] = 1;
+        COLOR_CODE = 1; 
         break;
       case 'blue':
-        this.matrix[i][j] = 2;
+        COLOR_CODE = 2; 
         break;
       case 'green':
-        this.matrix[i][j] = 3;
+        COLOR_CODE = 3; 
         break;
       case 'brown':
-        this.matrix[i][j] = 4;
+        COLOR_CODE = 4; 
         break;
       case 'gray':
-        this.matrix[i][j] = 5;
+        COLOR_CODE = 5; 
         break;
-
       default:
         break;
+    }
+
+    try {
+
+      for (let x = 0; x < this.anchoPincel; x++) {
+        for (let y = 0; y < this.anchoPincel; y++) {
+            // Pinta la celda: (Fila i + x) y (Columna j + y)
+            this.matrix[i + x][j + y] = COLOR_CODE;
+        }
+    } 
+
+
+    } catch (error) {
+      
     }
 
     // if ( this.matrix[i][j] === 0 ) {

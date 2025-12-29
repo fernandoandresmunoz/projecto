@@ -1,6 +1,9 @@
 <div>
     {{ automata.estado_actual }}
 </div>
+<app-tabla [automata]="automata" [anchoCelda]="automata.escalaVistaPlana" [showChannels]="true">
+</app-tabla>
+
 
 
 
@@ -9,7 +12,7 @@
     <button (click)="puedeAvanzar = !puedeAvanzar;
     automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">PAUSE LOCAL</button>
 </div>
-<div >
+<div>
     <div> {{ nombre }} </div>
     <div> {{ columnas}} </div>
     <div> {{ filas}} </div>
@@ -19,12 +22,11 @@
 <p>
     <button (click)="guardarMatriz()">
         GUARDAR MATRIZ</button>
-        {{ !guardando ? "": "GUARDANDO.."}}
+    {{ !guardando ? "": "GUARDANDO.."}}
 </p>
 <p>
-    <button 
-    (click)="navigateTo3dView()">
-        3D VIEW 
+    <button (click)="navigateTo3dView()">
+        3D VIEW
     </button>
     <!-- <a 
     [routerLink]="['matrices/3d', idMatriz]"
@@ -40,239 +42,226 @@
     <h2> GENERATION: {{automata.getGeneration()}} </h2>
 
 
-<app-tabla-reglas
-[automata]="automata"
-></app-tabla-reglas>
-<br>
+    <app-tabla-reglas [automata]="automata"></app-tabla-reglas>
+    <br>
 
-<div>
-    <label for="intervalo">INTERVALO EVOLUCION ( MILISEGUNDOS )</label>
-    <input
-    name="intervalo"
-    type="number"
-    [(ngModel)]="intervaloEvolucion"
-    min="250"
-    step="50"
-    >
-</div>
+    <div>
+        <label for="intervalo">INTERVALO EVOLUCION ( MILISEGUNDOS )</label>
+        <input name="intervalo" type="number" [(ngModel)]="intervaloEvolucion" min="250" step="50">
+    </div>
 
-<div>
-    <label for="">Escala vista plana {{ automata.escalaVistaPlana }}</label>
-    <input
-    type="number"
-    [(ngModel)]='automata.escalaVistaPlana'
-    >
-</div>
-<app-tabla
-[automata]="automata"
-[anchoCelda]="automata.escalaVistaPlana"
->
-</app-tabla>
-
-<table border="1">
-    <tr>
-        <td>top position</td>
-        <td>{{ automata.topPosition }}</td>
-    </tr>
-    <tr>
-        <td>left position</td>
-        <td>{{ automata.leftPosition }}</td>
-    </tr>
-</table>
-
-{{ automata.regla_1_color_1}}
-
-
-ESCALA: 
-<input type="number" [(ngModel)]="automata.scale">
-<app-automata
-[automata]="automata">
-</app-automata>
-<table border=1>
-    <thead>
+    <div>
+        <label for="">Escala vista plana {{ automata.escalaVistaPlana }}</label>
+        <input type="number" [(ngModel)]='automata.escalaVistaPlana'>
+    </div>
+    <table border="1">
         <tr>
-            <th>Regla</th>
-            <th>color 1</th>
-            <th>color 2</th>
-            <th>color 3</th>
-            <th>altura h</th>
-            <th>REGLA</th>
-            <th>TOTAL</th>
-            <th>PERCENT.</th>
-            <th>BARRA.</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td> Regla 1 ( RED ) {{ automata.regla_1_color_1}} </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_1_color_1">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_1_color_2">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_1_color_3">
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="automata.altura_regla_1">
-            </td>
-            <td>
-                <select (change)='automata.changeRule("RED", $event.target.value )'>
-                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                        {{ rule.name }}
-                        <span *ngIf="rule.notation">
-                            ( {{ rule.notation }} )
-                        </span>
-                    </option>
-                </select>
-            </td>
-            <td>
-                {{ automata.totalRojos() | number}}
-            </td>
-            <td>
-                {{( automata.totalRojos() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
-            </td>
-            <td style="width: 200px">
-                <div style="height: 20px; width: {{ 200 * automata.porcentajeRojos() }}px; background-color: black">
-
-                </div>
-            </td>
+            <td>top position</td>
+            <td>{{ automata.topPosition }}</td>
         </tr>
         <tr>
-            <td> Regla 2 ( BLUE ) {{ automata.altura_regla_2}} </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_2_color_1">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_2_color_2">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_2_color_3">
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="automata.altura_regla_2">
-            </td>
-            <td>
-                <select (change)='automata.changeRule("BLUE", $event.target.value )'>
-                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                        {{ rule.name }} ( {{ rule.notation }} )
-                    </option>
-                </select>
-            </td>
-            <td>
-                {{ automata.totalAzules() | number}}
-            </td>
-            <td>
-                {{( automata.totalAzules() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
-            </td>
-<td style="width: 200px">
-                <div style="height: 20px; width: {{ 200 * automata.porcentajeAzules() }}px; background-color: black">
-
-                </div>
-            </td>
+            <td>left position</td>
+            <td>{{ automata.leftPosition }}</td>
         </tr>
-        <tr>
-            <td> Regla 3 ( Green ) {{ automata.regla_3_color_1}} </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_3_color_1">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_3_color_2">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_3_color_3">
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="automata.altura_regla_3">
-            </td>
-            <td>
-                <select (change)='automata.changeRule("GREEN", $event.target.value )'>
-                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                        {{ rule.name }} ( {{ rule.notation }} )
-                    </option>
-                </select>
-            </td>
-            <td>
-                {{ automata.totalVerdes() | number }}
-            </td>
-            <td>
-                {{( automata.totalVerdes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
-            </td>
-<td style="width: 200px">
-                <div style="height: 20px; width: {{ 200 * automata.porcentajeVerdes() }}px; background-color: black">
+    </table>
 
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Regla 4 ( BROWN ) {{ automata.regla_4_color_1}} </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_4_color_1">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_4_color_2">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_4_color_3">
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="automata.altura_regla_4">
-            </td>
-            <td>
-                <select (change)='automata.changeRule("BROWN", $event.target.value )'>
-                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                        {{ rule.name }} ( {{ rule.notation }} )
-                    </option>
-                </select>
-            </td>
-            <td>
-                {{ automata.totalCafes() | number }}
-            </td>
-            <td>
-                {{( automata.totalCafes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
-            </td>
-<td style="width: 200px">
-                <div style="height: 20px; width: {{ 200 * automata.porcentajeCafes() }}px; background-color: black">
+    {{ automata.regla_1_color_1}}
 
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Regla 5 ( GRAY ) {{ automata.altura_regla_5 }} </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_5_color_1">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_5_color_2">
-            </td>
-            <td>
-                <input type="color" [(ngModel)]="automata.regla_5_color_3">
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="automata.altura_regla_5">
-            </td>
-            <td>
-                <select (change)='automata.changeRule("GRAY", $event.target.value )'>
-                    <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                        {{ rule.name }} ( {{ rule.notation }} )
-                    </option>
-                </select>
-            </td>
-            <td>
-                {{ automata.totalGrises() | number }}
-            </td>
-            <td>
-                {{( automata.totalGrises() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
-            </td>
-<td style="width: 200px">
-                <div style="height: 20px; width: {{ 200 * automata.porcentajeGrises() }}px; background-color: black">
 
-                </div>
-            </td>
-        </tr>
-    </tbody>
+    ESCALA:
+    <input type="number" [(ngModel)]="automata.scale">
+    <app-automata [automata]="automata">
+    </app-automata>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>Regla</th>
+                <th>color 1</th>
+                <th>color 2</th>
+                <th>color 3</th>
+                <th>altura h</th>
+                <th>REGLA</th>
+                <th>TOTAL</th>
+                <th>PERCENT.</th>
+                <!-- <th>BARRA.</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> Regla 1 ( RED ) {{ automata.regla_1_color_1}} </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_1_color_1">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_1_color_2">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_1_color_3">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="automata.altura_regla_1">
+                </td>
+                <td>
+                    <select (change)='automata.changeRule("RED", $event.target.value )'>
+                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                            {{ rule.name }}
+                            <span *ngIf="rule.notation">
+                                ( {{ rule.notation }} )
+                            </span>
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    {{ automata.totalRojos() | number}}
+                </td>
+                <td>
+                    {{( automata.totalRojos() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+                </td>
+                <!-- <td style="width: {{ anchoBarra }}px">
+                    <div
+                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeRojos() }}px; background-color: black">
 
-</table>
+                    </div>
+                </td> -->
+            </tr>
+            <tr>
+                <td> Regla 2 ( BLUE ) {{ automata.altura_regla_2}} </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_2_color_1">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_2_color_2">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_2_color_3">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="automata.altura_regla_2">
+                </td>
+                <td>
+                    <select (change)='automata.changeRule("BLUE", $event.target.value )'>
+                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                            {{ rule.name }} ( {{ rule.notation }} )
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    {{ automata.totalAzules() | number}}
+                </td>
+                <td>
+                    {{( automata.totalAzules() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+                </td>
+                <!-- <td style="width: {{ anchoBarra }}px">
+                    <div
+                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeAzules() }}px; background-color: black">
+
+                    </div>
+                </td> -->
+            </tr>
+            <tr>
+                <td> Regla 3 ( Green ) {{ automata.regla_3_color_1}} </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_3_color_1">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_3_color_2">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_3_color_3">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="automata.altura_regla_3">
+                </td>
+                <td>
+                    <select (change)='automata.changeRule("GREEN", $event.target.value )'>
+                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                            {{ rule.name }} ( {{ rule.notation }} )
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    {{ automata.totalVerdes() | number }}
+                </td>
+                <td>
+                    {{( automata.totalVerdes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+                </td>
+                <!-- <td style="width: {{ anchoBarra }}px">
+                    <div
+                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeVerdes() }}px; background-color: black">
+
+                    </div>
+                </td> -->
+            </tr>
+            <tr>
+                <td> Regla 4 ( BROWN ) {{ automata.regla_4_color_1}} </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_4_color_1">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_4_color_2">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_4_color_3">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="automata.altura_regla_4">
+                </td>
+                <td>
+                    <select (change)='automata.changeRule("BROWN", $event.target.value )'>
+                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                            {{ rule.name }} ( {{ rule.notation }} )
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    {{ automata.totalCafes() | number }}
+                </td>
+                <td>
+                    {{( automata.totalCafes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+                </td>
+                <!-- <td style="width: {{ anchoBarra }}px">
+                    <div
+                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeCafes() }}px; background-color: black">
+
+                    </div>
+                </td> -->
+            </tr>
+            <tr>
+                <td> Regla 5 ( GRAY ) {{ automata.altura_regla_5 }} </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_5_color_1">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_5_color_2">
+                </td>
+                <td>
+                    <input type="color" [(ngModel)]="automata.regla_5_color_3">
+                </td>
+                <td>
+                    <input type="number" [(ngModel)]="automata.altura_regla_5">
+                </td>
+                <td>
+                    <select (change)='automata.changeRule("GRAY", $event.target.value )'>
+                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
+                            {{ rule.name }} ( {{ rule.notation }} )
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    {{ automata.totalGrises() | number }}
+                </td>
+                <td>
+                    {{( automata.totalGrises() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
+                </td>
+                <!-- <td style="width: {{ anchoBarra }}px">
+                    <div
+                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeGrises() }}px; background-color: black">
+
+                    </div>
+                </td> -->
+            </tr>
+        </tbody>
+
+    </table>
 
 </div>

@@ -78,6 +78,8 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
 
   intervaloEvolucion: number = 250;
   guardando: boolean = false;
+  
+  anchoBarra: number = 400;
 
 
 

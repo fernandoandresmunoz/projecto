@@ -11,6 +11,30 @@ export class TablaComponent implements OnInit {
   @Input() anchoCelda: number = 2;
   // @Input() datos_matriz: any;
   @Input() automata: Automata;
+  @Input() showChannels = false;
+
+  reglas = [
+    {
+      id: 1,
+      color: 'Red'
+    },
+    {
+      id: 2,
+      color: 'Blue'
+    },    
+    {
+      id: 3,
+      color: 'Green'
+    },    
+    {
+      id: 4,
+      color: 'Brown'
+    },    
+    {
+      id: 5,
+      color: 'Gray'
+    },
+  ]
 
   constructor() {
 

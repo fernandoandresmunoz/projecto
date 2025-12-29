@@ -25,14 +25,14 @@ export class MatrizHojaComponent implements OnInit {
   datosMatriz: any[] = [];
   generacion: number;
 
-  
+
   puedeAvanzar: boolean = true;
 
 
 
 
 
-  constructor(private geometry: GeometryService) { 
+  constructor(private geometry: GeometryService) {
 
   }
 
@@ -41,16 +41,16 @@ export class MatrizHojaComponent implements OnInit {
     this.geometry.actualizarMatriz(
       this.idMatriz,
       this.nombre,
-      this.nodo.automata.getMatrizActiva(),
       this.nodo.automata.generation,
-      this.nodo.automata.getBlueRule().name,
-      this.nodo.automata.getBrownRule().name,
-      this.nodo.automata.getGrayRule().name,
-      this.nodo.automata.getGreenRule().name,
-      this.nodo.automata.getRedRule().name,
+      this.nodo.automata
+      // this.nodo.automata.getBlueRule().name,
+      // this.nodo.automata.getBrownRule().name,
+      // this.nodo.automata.getGrayRule().name,
+      // this.nodo.automata.getGreenRule().name,
+      // this.nodo.automata.getRedRule().name,
 
-    
-    ).subscribe( matriz  => {
+
+    ).subscribe(matriz => {
 
       console.log(matriz)
       this.nodo.automata.setFilas(matriz.filas)

@@ -6,8 +6,8 @@ import { Point } from 'point';
 import { Canvas } from './canvas';
 
 // URL base de tu API de Django. Asegúrate de ajustarla si es necesario.
-// Si estás usando Django en localhost:8000 y el path 'api/', la ruta es:
-const API_URL = 'http://localhost:8000/graficas/lienzos/'; 
+// Si estás usando Django en localhost:8001 y el path 'api/', la ruta es:
+const API_URL = 'http://localhost:8001/graficas/lienzos/';
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +27,14 @@ export class LienzosService {
 
 
   getPoints(lienzoID: number): Observable<Point[]> {
-    return this.http.get<Point[]>(`http://localhost:8000/graficas/puntos/?lienzo=${lienzoID}`);
+    return this.http.get<Point[]>(`http://localhost:8001/graficas/puntos/?lienzo=${lienzoID}`);
   }
 
   createCanvas(canvasData: Canvas) {
-    return this.http.post<any[]>(`http://localhost:8000/graficas/lienzos/`,
-    
-    canvasData
-  
+    return this.http.post<any[]>(`http://localhost:8001/graficas/lienzos/`,
+
+      canvasData
+
 
     );
   }
