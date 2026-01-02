@@ -11,7 +11,7 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 })
 export class MatricesComponent implements OnInit {
 
-  matrices: any = [];
+  matrices: any;
 
   nuevoNombreMatriz: string = "Nueva Matriz";
   totalNuevasFilas: number = 80;
@@ -20,6 +20,11 @@ export class MatricesComponent implements OnInit {
   automatas: Automata[] = [];
 
   factory2 = new ConcreteShapeFactory()
+
+  count: number;
+  next: string;
+  previous: string;
+  loading = false
 
   constructor(
     private router: Router,
@@ -30,9 +35,20 @@ export class MatricesComponent implements OnInit {
 
   }
 
-  cargarMatrices(): void {
-    this.geometry.obtenerMatrices()
-      .subscribe((matrices) => {
+  cargarMatrices(url: string = `http://localhost:8001/graficas/matrices/`): void {
+    this.loading = true;
+    this.geometry.obtenerMatrices(url)
+      .subscribe((matrices: any) => {
+        this.loading = false;
+
+        this.matrices = [];
+        this.automatas = []
+
+        this.count = matrices.count;
+        this.next = matrices.next;
+        this.previous = matrices.previous;
+
+
         this.matrices = matrices.results;
 
         this.matrices.map((matriz: any) => {

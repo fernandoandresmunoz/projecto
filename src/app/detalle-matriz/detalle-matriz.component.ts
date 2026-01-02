@@ -5,11 +5,11 @@ import { ConcreteShapeFactory } from '../../../concreteShapeFactory';
 import { Automata } from '../../../cube';
 
 const COLOR_MAP: { [key: string]: number } = {
-    "GREEN": 1,
-    "BROWN": 2, // Nota: Si quieres que BROWN sea 2, lo asociamos así.
-    "BLUE": 3,
-    "GRAY": 4,
-    "RED": 5,
+  "GREEN": 1,
+  "BROWN": 2, // Nota: Si quieres que BROWN sea 2, lo asociamos así.
+  "BLUE": 3,
+  "GRAY": 4,
+  "RED": 5,
 };
 
 
@@ -19,19 +19,6 @@ const GREEN = 'GREEN';
 const BROWN = 'BROWN';
 const GRAY = 'GRAY';
 
-
-interface Cell {
-  /**
-   * El estado de la célula: 0 es muerta, 1 o más es viva.
-   * Este es el valor que se extraerá.
-   */
-  state: number; 
-  /**
-   * El color de la célula, que será ignorado en la matriz de salida.
-   */
-  color: string;
-  // Puedes añadir más propiedades aquí si tu matriz de entrada las tiene.
-}
 
 
 
@@ -76,10 +63,16 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
   // @Input() coloresRegla5: string[] = [ "#593c28", "red", "#b08f75" ];
   coloresRegla5: string[] = ["#593c28", "gray", "#b08f75"];
 
-  intervaloEvolucion: number = 250;
+  intervaloEvolucion: number = 500;
   guardando: boolean = false;
-  
+
   anchoBarra: number = 400;
+
+  lastTimeStamp: number = Date.now();
+
+  matrizIA: number[][] = [];
+
+  canales = [1, 2, 3, 4, 5];
 
 
 
@@ -145,7 +138,7 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
             this.automata.altura_regla_5 = matriz.altura_regla_5;
             this.automata.estado_actual = matriz.estado_actual;
             this.automata.scale = matriz.escala;
-            this.automata.escalaVistaPlana = matriz.escala_vista_plana; 
+            this.automata.escalaVistaPlana = matriz.escala_vista_plana;
           }
 
 
@@ -184,8 +177,14 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
             //
             if (this.automata.estado_actual !== 'Inicial' && this.puedeAvanzar && this.puedeAvanzar) {
               this.automata.avanzarUnaGeneracion()
+
+
+              const now = Date.now()
+              console.log('timestamp ', now - this.lastTimeStamp)
+              this.lastTimeStamp = now
+
               this.generacion += 1;
-              if ((this.generacion % 20 === 0 && this.generacion !== 0) && this.puedeAvanzar) {
+              if ((this.generacion % 10 === 0 && this.generacion !== 0) && this.puedeAvanzar) {
                 this.guardarMatriz();
               }
             }
@@ -240,15 +239,24 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
 
       // esta es la llamada a la api de flask
       this.geometry.automata(
-        this.convertMatrixToNumeric(this.automata.getMatrizActiva())
+        this.binarizarCanal(1),
+        // this.convertMatrixToNumeric(this.automata.getMatrizActiva())
       )
         .subscribe(x => {
-          console.log(x)
+          this.matrizIA = x;
         });
     });
   }
 
-  convertMatrixToNumeric(matrix: any): any {
+
+  getColor(value: number): string {
+    // Mapeamos 0-9 a un porcentaje de luminosidad (100% a 10%)
+    // 0 -> 100% (Blanco)
+    // 9 -> 10% (Gris casi negro)
+    const lightness = 100 - (value * 10);
+    return `hsl(0, 0%, ${lightness}%)`;
+  }
+  convertMatrixToNumeric(matrix: any): number[][] {
     return matrix.map((row: Cell[]) => {
 
       return row.map((cell: Cell) => {
@@ -269,4 +277,13 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
     });
 
   }
+
+  binarizarCanal(valorObjetivo: number): number[][] {
+    return this.convertMatrixToNumeric(this.automata.getMatrizActiva()).map(fila =>
+      fila.map(celda => (celda === valorObjetivo ? 1 : 0))
+    );
+  }
+
+
+
 }

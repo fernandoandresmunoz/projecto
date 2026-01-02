@@ -1,10 +1,61 @@
+<!-- <div *ngFor="let canal of canales">
+    <h2> CANAL {{ canal }} </h2> -->
+
+{{ matrizIA.length }}
+
+<!-- <table border="1">
+    <tr *ngFor="let row of binarizarCanal(1)">
+        <td *ngFor="let cell of row">
+            <div *ngIf="cell === 1" style="background-color: gray; width: 5px; height: 5px"></div>
+            <div *ngIf="cell === 0" style="background-color: white; width: 5px; height: 5px"></div>
+        </td>
+    </tr>
+</table> -->
+<!-- </div> -->
+<!-- <table>
+    <tr *ngFor="let row of matrizIA['densidad']; trackBy: trackByRow">
+        <td *ngFor="let cell of row; trackBy: trackByCell">
+            <div [style.background-color]="getColor(cell)"></div>
+        </td>
+    </tr>
+</table> -->
+<div style="display: flex">
+
+    <table border="0" style="border-collapse: collapse;">
+        <tr *ngFor="let row of matrizIA['bordes']">
+            <td *ngFor="let cell of row" style="padding: 0;">
+                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" style="border-collapse: collapse;">
+        <tr *ngFor="let row of matrizIA['densidad']">
+            <td *ngFor="let cell of row" style="padding: 0;">
+                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table border="0" style="border-collapse: collapse;">
+        <tr *ngFor="let row of matrizIA['relieve']">
+            <td *ngFor="let cell of row" style="padding: 0;">
+                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 <div>
     {{ automata.estado_actual }}
 </div>
-<app-tabla [automata]="automata" [anchoCelda]="automata.escalaVistaPlana" [showChannels]="true">
+<app-tabla [preview]="false" [automata]="automata" [anchoCelda]="automata.escalaVistaPlana" [showChannels]="true">
 </app-tabla>
 
 
+CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
+
+<!-- <app-convolution [automata]="automata"></app-convolution> -->
 
 
 <div>

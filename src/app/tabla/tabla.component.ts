@@ -12,6 +12,7 @@ export class TablaComponent implements OnInit {
   // @Input() datos_matriz: any;
   @Input() automata: Automata;
   @Input() showChannels = false;
+  @Input() preview = false;
 
   reglas = [
     {
@@ -21,15 +22,15 @@ export class TablaComponent implements OnInit {
     {
       id: 2,
       color: 'Blue'
-    },    
+    },
     {
       id: 3,
       color: 'Green'
-    },    
+    },
     {
       id: 4,
       color: 'Brown'
-    },    
+    },
     {
       id: 5,
       color: 'Gray'
@@ -37,26 +38,26 @@ export class TablaComponent implements OnInit {
   ]
 
   constructor() {
-
-   }
+  }
 
   ngOnInit(): void {
+    console.log('automata desde tabla ', this.automata)
   }
 
   getColor(colorInput: string): string {
 
     switch (colorInput) {
       case "Red":
-        return this.automata.regla_1_color_2 ? this.automata.regla_1_color_2 : "red" ;
+        return this.automata.regla_1_color_2 ? this.automata.regla_1_color_2 : "red";
       case "Blue":
-        return this.automata.regla_2_color_2 ? this.automata.regla_2_color_2: "blue" ;
+        return this.automata.regla_2_color_2 ? this.automata.regla_2_color_2 : "blue";
       case "Green":
-        return this.automata.regla_3_color_2 ? this.automata.regla_3_color_2: "green" ;
+        return this.automata.regla_3_color_2 ? this.automata.regla_3_color_2 : "green";
       case "Brown":
-        return this.automata.regla_4_color_2 ? this.automata.regla_4_color_2: 'brown' ;
+        return this.automata.regla_4_color_2 ? this.automata.regla_4_color_2 : 'brown';
       case "Gray":
-        return this.automata.regla_5_color_2 ? this.automata.regla_5_color_2: 'gray';
-          
+        return this.automata.regla_5_color_2 ? this.automata.regla_5_color_2 : 'gray';
+
       default:
         return "#fff"
     }

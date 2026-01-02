@@ -1,0 +1,26 @@
+<br>
+
+<div *ngFor="let channel of channels">
+    CHANNEL #{{ channel }}
+    <app-matriz-preview [matrix]="channelController.getChannel(channel)"></app-matriz-preview>
+</div>
+
+<!-- <table cellspacing="0" cellpadding="0">
+    <tr *ngFor="let row of channelController.getChannel(2)">
+        <td *ngFor="let cell of row">
+            <div *ngIf="cell" style="width: 5px ; height: 5px; background-color: red; "></div>
+            <div *ngIf="!cell" style="width: 5px ; height: 5px; background-color: white; "></div>
+        </td>
+    </tr>
+</table> -->
+
+
+<!-- <table border="1">
+    <tr *ngFor="let fila of automata.getMatrizActiva()">
+        <td style="width: 5px; height: 5px;" *ngFor="let columna of fila">
+            {{ columna.state }}
+        </td>
+    </tr>
+</table> -->
+
+<!-- {{ channelController.getChannel(0) }} -->

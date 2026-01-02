@@ -65,6 +65,8 @@ import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
 import { TablaReglasComponent } from './tabla-reglas/tabla-reglas.component';
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
 import { EditorComponent } from './editor/editor.component';
+import { ConvolutionComponent } from './convolution/convolution.component';
+import { ControladorCanalesComponent } from './controlador-canales/controlador-canales.component';
 
 
 
@@ -128,7 +130,9 @@ import { EditorComponent } from './editor/editor.component';
     MatrizHojaComponent,
     TablaReglasComponent,
     WrapperMinecraftViewComponent,
-    EditorComponent
+    EditorComponent,
+    ConvolutionComponent,
+    ControladorCanalesComponent
   ],
   imports: [
     BrowserModule,

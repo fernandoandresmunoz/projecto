@@ -97,8 +97,8 @@ export class GeometryService {
   }
 
 
-  obtenerMatrices(): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:8001/graficas/matrices/`);
+  obtenerMatrices(url: string = `http://localhost:8001/graficas/matrices/`): Observable<any[]> {
+    return this.http.get<any[]>(url);
   }
 
 

@@ -1,0 +1,312 @@
+<!-- HTML Mejorado para detalle-matriz.component.html -->
+
+
+
+
+<div class="detalle-matriz-container">
+
+  <!-- Header con estado -->
+  <div class="estado-header">
+    <div class="estado-info">
+      <div>
+        <h1>{{ nombre }}</h1>
+        <p>{{ columnas }}x{{ filas }} • Generación {{ generacion }}</p>
+      </div>
+      <div class="estado-badge" [ngClass]="puedeAvanzar ? 'activo' : 'pausado'">
+        {{ puedeAvanzar ? "🟢 ACTIVO": "⏸️ PAUSADO"}}
+      </div>
+    </div>
+    <div class="guardando-indicator" *ngIf="guardando">
+      💾 Guardando...
+    </div>
+  </div>
+
+  <!-- Estadísticas en tiempo real -->
+  <div class="estadisticas-live" *ngIf="automata">
+    <div class="stat-card">
+      <div class="stat-label">Generación</div>
+      <div class="stat-value">{{ automata.getGeneration() }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Células Vivas</div>
+      <div class="stat-value">
+        {{ automata.totalRojos() + automata.totalAzules() + automata.totalVerdes() +
+        automata.totalCafes() + automata.totalGrises() | number }}
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Densidad</div>
+      <div class="stat-value">
+        {{ ((automata.totalRojos() + automata.totalAzules() + automata.totalVerdes() +
+        automata.totalCafes() + automata.totalGrises()) /
+        (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.1-1' }}%
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Intervalo</div>
+      <div class="stat-value">{{ intervaloEvolucion }}ms</div>
+    </div>
+  </div>
+
+  <!-- Controles principales -->
+  <div class="controles-principales">
+    <div class="control-card">
+      <h3>Control de Simulación</h3>
+      <button class="primary"
+        (click)="puedeAvanzar = !puedeAvanzar; automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">
+        {{ puedeAvanzar ? "⏸️ PAUSAR" : "▶️ REANUDAR" }}
+      </button>
+    </div>
+
+    <div class="control-card">
+      <h3>Guardar Estado</h3>
+      <button class="secondary" (click)="guardarMatriz()" [disabled]="guardando">
+        💾 {{ guardando ? "Guardando..." : "Guardar Matriz" }}
+      </button>
+    </div>
+
+    <div class="control-card">
+      <h3>Vista 3D</h3>
+      <button class="primary" (click)="navigateTo3dView()">
+        🎮 Abrir Vista 3D
+      </button>
+    </div>
+
+    <div class="control-card">
+      <h3>Exportar Datos</h3>
+      <button class="secondary" (click)="exportarParaCNN()">
+        🧠 Exportar para CNN
+      </button>
+    </div>
+  </div>
+
+  <!-- Visualización principal -->
+  <div class="visualizacion-principal">
+    <app-tabla [automata]="automata" [anchoCelda]="automata.escalaVistaPlana" [showChannels]="true">
+    </app-tabla>
+  </div>
+
+  <!-- Configuración de visualización -->
+  <div class="config-visualization" *ngIf="automata">
+    <h2>⚙️ Configuración de Visualización</h2>
+
+    <div class="config-grid">
+      <div class="config-item">
+        <label>Intervalo de Evolución (ms)</label>
+        <input type="range" [(ngModel)]="intervaloEvolucion" min="50" max="2000" step="50">
+        <span>{{ intervaloEvolucion }}ms</span>
+      </div>
+
+      <div class="config-item">
+        <label>Escala Vista Plana</label>
+        <input type="range" [(ngModel)]="automata.escalaVistaPlana" min="1" max="20" step="1">
+        <span>{{ automata.escalaVistaPlana }}px</span>
+      </div>
+
+      <div class="config-item">
+        <label>Escala 3D</label>
+        <input type="range" [(ngModel)]="automata.scale" min="0.1" max="5" step="0.1">
+        <span>{{ automata.scale }}</span>
+      </div>
+    </div>
+
+    <div class="position-info">
+      <div>🧭 Posición Top: {{ automata.topPosition }}</div>
+      <div>🧭 Posición Left: {{ automata.leftPosition }}</div>
+    </div>
+  </div>
+
+  <!-- Tabla de reglas con gráficos -->
+  <div class="reglas-table-container" *ngIf="automata">
+    <h2>🎨 Configuración de Reglas por Color</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Regla</th>
+          <th>Paleta de Colores</th>
+          <th>Altura (h)</th>
+          <th>Algoritmo</th>
+          <th>Población</th>
+          <th>Densidad %</th>
+          <th>Distribución</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Regla 1: RED -->
+        <tr>
+          <td><strong>🔴 RED</strong></td>
+          <td class="color-inputs">
+            <input type="color" [(ngModel)]="automata.regla_1_color_1" title="Color 1">
+            <input type="color" [(ngModel)]="automata.regla_1_color_2" title="Color 2">
+            <input type="color" [(ngModel)]="automata.regla_1_color_3" title="Color 3">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="automata.altura_regla_1" min="1" max="100">
+          </td>
+          <td>
+            <select (change)='automata.changeRule("RED", $event.target.value)'>
+              <option [value]='rule.name' *ngFor='let rule of automata.getRules()'>
+                {{ rule.name }}
+                <span *ngIf="rule.notation"> ({{ rule.notation }})</span>
+              </option>
+            </select>
+          </td>
+          <td><strong>{{ automata.totalRojos() | number }}</strong></td>
+          <td>
+            {{ (automata.totalRojos() / (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.2-2' }}%
+          </td>
+          <td>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"
+                [style.width.%]="(automata.totalRojos() / (automata.getFilas() * automata.getColumnas()) * 100)"
+                style="background: linear-gradient(90deg, #ef4444, #dc2626)">
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Regla 2: BLUE -->
+        <tr>
+          <td><strong>🔵 BLUE</strong></td>
+          <td class="color-inputs">
+            <input type="color" [(ngModel)]="automata.regla_2_color_1">
+            <input type="color" [(ngModel)]="automata.regla_2_color_2">
+            <input type="color" [(ngModel)]="automata.regla_2_color_3">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="automata.altura_regla_2" min="1" max="100">
+          </td>
+          <td>
+            <select (change)='automata.changeRule("BLUE", $event.target.value)'>
+              <option [value]='rule.name' *ngFor='let rule of automata.getRules()'>
+                {{ rule.name }} ({{ rule.notation }})
+              </option>
+            </select>
+          </td>
+          <td><strong>{{ automata.totalAzules() | number }}</strong></td>
+          <td>
+            {{ (automata.totalAzules() / (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.2-2' }}%
+          </td>
+          <td>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"
+                [style.width.%]="(automata.totalAzules() / (automata.getFilas() * automata.getColumnas()) * 100)"
+                style="background: linear-gradient(90deg, #3b82f6, #2563eb)">
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Regla 3: GREEN -->
+        <tr>
+          <td><strong>🟢 GREEN</strong></td>
+          <td class="color-inputs">
+            <input type="color" [(ngModel)]="automata.regla_3_color_1">
+            <input type="color" [(ngModel)]="automata.regla_3_color_2">
+            <input type="color" [(ngModel)]="automata.regla_3_color_3">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="automata.altura_regla_3" min="1" max="100">
+          </td>
+          <td>
+            <select (change)='automata.changeRule("GREEN", $event.target.value)'>
+              <option [value]='rule.name' *ngFor='let rule of automata.getRules()'>
+                {{ rule.name }} ({{ rule.notation }})
+              </option>
+            </select>
+          </td>
+          <td><strong>{{ automata.totalVerdes() | number }}</strong></td>
+          <td>
+            {{ (automata.totalVerdes() / (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.2-2' }}%
+          </td>
+          <td>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"
+                [style.width.%]="(automata.totalVerdes() / (automata.getFilas() * automata.getColumnas()) * 100)"
+                style="background: linear-gradient(90deg, #10b981, #059669)">
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Regla 4: BROWN -->
+        <tr>
+          <td><strong>🟤 BROWN</strong></td>
+          <td class="color-inputs">
+            <input type="color" [(ngModel)]="automata.regla_4_color_1">
+            <input type="color" [(ngModel)]="automata.regla_4_color_2">
+            <input type="color" [(ngModel)]="automata.regla_4_color_3">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="automata.altura_regla_4" min="1" max="100">
+          </td>
+          <td>
+            <select (change)='automata.changeRule("BROWN", $event.target.value)'>
+              <option [value]='rule.name' *ngFor='let rule of automata.getRules()'>
+                {{ rule.name }} ({{ rule.notation }})
+              </option>
+            </select>
+          </td>
+          <td><strong>{{ automata.totalCafes() | number }}</strong></td>
+          <td>
+            {{ (automata.totalCafes() / (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.2-2' }}%
+          </td>
+          <td>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"
+                [style.width.%]="(automata.totalCafes() / (automata.getFilas() * automata.getColumnas()) * 100)"
+                style="background: linear-gradient(90deg, #92400e, #78350f)">
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Regla 5: GRAY -->
+        <tr>
+          <td><strong>⚫ GRAY</strong></td>
+          <td class="color-inputs">
+            <input type="color" [(ngModel)]="automata.regla_5_color_1">
+            <input type="color" [(ngModel)]="automata.regla_5_color_2">
+            <input type="color" [(ngModel)]="automata.regla_5_color_3">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="automata.altura_regla_5" min="1" max="100">
+          </td>
+          <td>
+            <select (change)='automata.changeRule("GRAY", $event.target.value)'>
+              <option [value]='rule.name' *ngFor='let rule of automata.getRules()'>
+                {{ rule.name }} ({{ rule.notation }})
+              </option>
+            </select>
+          </td>
+          <td><strong>{{ automata.totalGrises() | number }}</strong></td>
+          <td>
+            {{ (automata.totalGrises() / (automata.getFilas() * automata.getColumnas()) * 100) | number:'1.2-2' }}%
+          </td>
+          <td>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"
+                [style.width.%]="(automata.totalGrises() / (automata.getFilas() * automata.getColumnas()) * 100)"
+                style="background: linear-gradient(90deg, #6b7280, #4b5563)">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Vista 3D embebida -->
+  <div class="vista-3d" *ngIf="automata">
+    <h2>🎮 Vista 3D</h2>
+    <app-automata [automata]="automata"></app-automata>
+  </div>
+
+  <!-- Reglas detalladas -->
+  <div class="reglas-detalladas" *ngIf="automata">
+    <h2>📋 Reglas Detalladas</h2>
+    <app-tabla-reglas [automata]="automata"></app-tabla-reglas>
+  </div>
+
+</div>

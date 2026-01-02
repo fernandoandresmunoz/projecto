@@ -7,12 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MatrizPreviewComponent implements OnInit {
 
-  @Input() datos_matriz: any;
+  @Input() matrix: number[][];
+
+  i: number = 0;
+  j: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log('soy matriz data', this.datos_matriz);
   }
 
 }

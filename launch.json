@@ -6,8 +6,8 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             // "url": "http://localhost:4200/automata-1",
-            "url": "http://localhost:59018/automata-1",
+            "url": "http://localhost:4201/automata-1",
             "webRoot": "${workspaceFolder}"
         }
     ]
-  }
+}

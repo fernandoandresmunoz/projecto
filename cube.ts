@@ -3,7 +3,7 @@ import { Line } from "line";
 import { Point } from "point";
 import { Rule } from "rule";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
-import {Element } from "./rules/element";
+import { Element } from "./rules/element";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
 import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 
@@ -23,7 +23,7 @@ export interface Observable {
 }
 
 
-export interface ObservadorAutomata { 
+export interface ObservadorAutomata {
 
 
 
@@ -68,23 +68,23 @@ export interface ControladorAutomata {
 }
 
 // deberia ser "export interface Automata"
-export interface Automata extends Observable{
-    
-    
+export interface Automata extends Observable {
+
+
     // estos puntos deberian generarse automáticamente ?
     // mover celula
     // pause rules
     // rules
-            // <td>{{ matriz.id }}</td>
-            // <td
-            // (click)="detalleMatriz(matriz.id)" 
-            
-            // >{{ matriz.nombre }}</td>
-            // <td>{{ matriz.generacion }}</td>
-            // <td>{{ matriz.filas }}</td>
-            // <td>{{ matriz.columnas }}</td>
-            // <td>{{ matriz.estado_actual }}</td>
-            // <td>{{ matriz.fecha_creacion }}</td>
+    // <td>{{ matriz.id }}</td>
+    // <td
+    // (click)="detalleMatriz(matriz.id)" 
+
+    // >{{ matriz.nombre }}</td>
+    // <td>{{ matriz.generacion }}</td>
+    // <td>{{ matriz.filas }}</td>
+    // <td>{{ matriz.columnas }}</td>
+    // <td>{{ matriz.estado_actual }}</td>
+    // <td>{{ matriz.fecha_creacion }}</td>
 
 
     id: number;
@@ -135,17 +135,17 @@ export interface Automata extends Observable{
 
     addBloque(bloque: Bloque): void;
     addElement(element: Element): void;
-    addPunto(punto: number[][] ): void
+    addPunto(punto: number[][]): void
     avanzarUnaGeneracion(): void;
-    
-    calculateAliveNeighbors(matriz: {state: number, color: string}[][], fila: number, columna: number): {state: number, color: string}[];
+
+    calculateAliveNeighbors(matriz: { state: number, color: string }[][], fila: number, columna: number): { state: number, color: string }[];
     clean(): void;
-    crearBloque(data: {state: number, color: string}, altura: number): void;
+    crearBloque(data: { state: number, color: string }, altura: number): void;
     crearTableroAleatorio(): void;
-    createRandomMatriz(): {state: number, color: string}[][];
-    createGlider(): {state: number, color: string}[][];
+    createRandomMatriz(): { state: number, color: string }[][];
+    createGlider(): { state: number, color: string }[][];
     densidad(): number;
-    dibujarMatriz(matriz: {state: number, color: string}[][]): void;
+    dibujarMatriz(matriz: { state: number, color: string }[][]): void;
     dibujarRectaCompleta(line: Line): void;
     down(): void;
     downMilitary(): void;
@@ -165,7 +165,7 @@ export interface Automata extends Observable{
     getAnchoLienzo(): number;
     getAvance(): number;
     getBloques(): Bloque[];
-    getColorSchema(): {} ;
+    getColorSchema(): {};
     setColorSchema(colorSchema: any): void;
 
     getColumnas(): number;
@@ -183,7 +183,7 @@ export interface Automata extends Observable{
     getLineAD(): Line;
     getLineBC(): Line;
     getLineBD(): Line;
-    getMatrizActiva(): {state: number, color: string}[][];
+    getMatrizActiva(): { state: number, color: string }[][];
     getPause(): boolean;
 
     // funciones de muy bajo nivel
@@ -214,11 +214,11 @@ export interface Automata extends Observable{
 
     getScale(): number;
     getSelectedProjection(): string;
-    
+
     keyLeft(): void;
     keyRight(): void;
     left(): void;
-    matrizSiguiente(matriz: {state: number, color: string}[][]): {state: number, color: string}[][];
+    matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][];
     paintCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void;
     paintQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void;
     puntoCelula(): Point;
@@ -243,7 +243,7 @@ export interface Automata extends Observable{
     setLife(): void;
     setLine1(line: Line): void;
     setLine2(line: Line): void;
-    setMatrizActiva(matrizActiva: {state: number, color: string}[][]): void;
+    setMatrizActiva(matrizActiva: { state: number, color: string }[][]): void;
     setPause(pause: boolean): void;
     setPoint(point: Point): void;
     setPoint1(point: Point): void;
@@ -262,7 +262,7 @@ export interface Automata extends Observable{
     setRectaAD(line: Line): void;
     setRectaBC(line: Line): void;
     setRectaBD(line: Line): void;
-    
+
     setScale(scale: number): void;
     setSelectedProjection(selectedProjection: string): void;
     setShowAuxiliaryLines(showAuxiliaryLines: boolean): void;
@@ -283,9 +283,9 @@ export interface Automata extends Observable{
     getRedRule(): Rule;
     getRedRule(): Rule;
     getRule(): Rule;
-    getRules(): {name: string, rule: Rule, notation: string}[]; 
+    getRules(): { name: string, rule: Rule, notation: string }[];
     setRule(rule: Rule): void;
-    setRules(rules: {name: string, rule: Rule, notation: string}[]): void;
+    setRules(rules: { name: string, rule: Rule, notation: string }[]): void;
 
 
     //move automata
@@ -307,18 +307,18 @@ export interface Automata extends Observable{
     totalVerdes(): number;
     totalSumadoElementos(): number;
 
-    porcentajeAzules() : number;
+    porcentajeAzules(): number;
     porcentajeCafes(): number;
     porcentajeGrises(): number;
-    porcentajeRojos(): number; 
+    porcentajeRojos(): number;
     porcentajeVerdes(): number;
     totalPorcentaje(): number;
-    
-    dataAzules() : [ number, number ][];
-    dataCafes() : [ number, number ][];
-    dataGrises() : [ number, number ][];
-    dataRojos() : [ number, number ][];
-    dataVerdes() : [ number, number ][];
+
+    dataAzules(): [number, number][];
+    dataCafes(): [number, number][];
+    dataGrises(): [number, number][];
+    dataRojos(): [number, number][];
+    dataVerdes(): [number, number][];
 
     addDataAzul(generation: number, value: number): void;
     addDataCafe(generation: number, value: number): void;
@@ -331,9 +331,11 @@ export interface Automata extends Observable{
     setNextGenStrategy(nextGenStrategy: NextGenStrategy): void;
     getNexGenStategy(): NextGenStrategy;
 
-    setMatrixCreationStrategy(strategy: MatrixCreationStrategy) : void;
+    setMatrixCreationStrategy(strategy: MatrixCreationStrategy): void;
     getMatrixCreationStrategy(): MatrixCreationStrategy;
 
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void;
     getNextMatrixStrategy(): NextMatrixStrategy;
+
+
 }

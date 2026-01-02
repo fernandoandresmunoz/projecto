@@ -36,28 +36,38 @@ import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
 import { EditorComponent } from './editor/editor.component';
+import { ConvolutionComponent } from './convolution/convolution.component';
 // import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
   // es el mismo que drawer
-{
+  {
+    path: 'convolution/:id',
+    component: ConvolutionComponent
+  },
+
+  {
     path: 'grafico',
     component: FuncionLogaritmicaComponent
   },
-{
+  {
     path: 'matrices',
     component: MatricesComponent
   },
-{
+  {
     path: 'arboles',
     component: ArbolesComponent
   },
-{
+  {
     path: 'nodo/:id',
     component: DetalleNodoComponent
   },
   {
     path: 'matrices/:id',
+    component: DetalleMatrizComponent
+  },
+  {
+    path: 'matrix/:id',
     component: DetalleMatrizComponent
   },
   {
@@ -82,7 +92,7 @@ const routes: Routes = [
   },
 
 
- {
+  {
     path: 'void',
     component: VoidComponent
   },
@@ -162,24 +172,24 @@ const routes: Routes = [
     ]
 
   },
-// { 
-//     path: 'funcion-cuadratica',
-//     component: FuncionCuadraticaComponent
-//   },
+  // { 
+  //     path: 'funcion-cuadratica',
+  //     component: FuncionCuadraticaComponent
+  //   },
 
-{ 
+  {
     path: 'funcion-logaritmica',
     component: FuncionLogaritmicaComponent
   },
 
 
-// { 
-//     path: 'nueva-calculadora',
-//     component: Graficadora2Component
-//   },
+  // { 
+  //     path: 'nueva-calculadora',
+  //     component: Graficadora2Component
+  //   },
 
 
-{ 
+  {
     path: 'rule110',
     component: ControladorFilaComponent
   },
@@ -216,13 +226,13 @@ const routes: Routes = [
 
 
 ];
-    // <li> <a [routerLink]="['/gauss']">gauss</a></li>
-    // <li> <a [routerLink]="['/funcion-seno']">función seno</a></li>
-    // <li> <a [routerLink]="['/funcion-cuadratica']">función cuadrática</a></li>
-    // <li> <a [routerLink]="['/funcion-exponencial']">función exponencial</a></li>
-    // <li> <a [routerLink]="['/funcion-logaritmica']">función logarítmica</a></li>
-    // <li> <a [routerLink]="['/funcion-polinomica']">función polinómica</a></li>
- 
+// <li> <a [routerLink]="['/gauss']">gauss</a></li>
+// <li> <a [routerLink]="['/funcion-seno']">función seno</a></li>
+// <li> <a [routerLink]="['/funcion-cuadratica']">función cuadrática</a></li>
+// <li> <a [routerLink]="['/funcion-exponencial']">función exponencial</a></li>
+// <li> <a [routerLink]="['/funcion-logaritmica']">función logarítmica</a></li>
+// <li> <a [routerLink]="['/funcion-polinomica']">función polinómica</a></li>
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

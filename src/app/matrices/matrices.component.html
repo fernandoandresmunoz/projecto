@@ -1,7 +1,13 @@
+Total resultados: {{ count }}
 
-{{ matrices.length }} total matrices
+
+<div *ngIf="loading">Cargando...</div>
 
 
+<!-- 
+<div>
+    Mostrando {{ ( main.current_page - 1 ) * 40 + 1 }} a {{ main.current_page * 40 }} de {{ main.count | number
+    }} artículos</div> -->
 
 <div style="margin-bottom: 2em">
     <table border="1">
@@ -24,7 +30,13 @@
     </table>
     <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">Guardar</button>
 </div>
-<table border="1" *ngIf="matrices.length > 0">
+
+
+
+
+<button (click)="cargarMatrices(previous)">Previous</button>
+<button (click)="cargarMatrices(next)">Next</button>
+<table border="1" *ngIf="matrices && matrices.length > 0">
     <thead>
         <tr>
             <th>Preview</th>
@@ -39,24 +51,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let matriz of automatas"
-
-        >
+        <tr *ngFor="let matriz of automatas">
             <td>
-<app-tabla
-[anchoCelda]="0.1"
-[automata]="matriz"
-
-></app-tabla>
+                <app-tabla [anchoCelda]="0.1" [automata]="matriz" [preview]="true">
+                </app-tabla>
 
 
 
-            </td>  
+            </td>
             <td>{{ matriz.id }}</td>
-            <td
-            (click)="detalleMatriz(matriz.id)" 
-            
-            >{{ matriz.nombre }}</td>
+            <td (click)="detalleMatriz(matriz.id)">{{ matriz.nombre }}</td>
             <td>{{ matriz.generacion }}</td>
             <td>{{ matriz.filas }}</td>
             <td>{{ matriz.columnas }}</td>
