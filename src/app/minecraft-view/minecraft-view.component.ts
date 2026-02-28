@@ -371,7 +371,7 @@ export class MinecraftViewComponent implements OnInit {
   private camera!: THREE.PerspectiveCamera;
   private renderer!: THREE.WebGLRenderer;
   private controls!: PointerLockControls;
-  private matrix: Cell[][] = [];
+  private matrix: any[][] = [];
 
   private velocity = new THREE.Vector3();
   private direction = new THREE.Vector3();
