@@ -940,11 +940,11 @@ export class MinecraftViewComponent implements OnInit {
                 scale: new THREE.Vector3(1, this.automata.altura_regla_3, 1)
               });
               // Hojas
-              // this.addBlockContext('leaves', {
-              //   position: new THREE.Vector3(worldX, height + 2.8, worldZ),
-              //   rotation: new THREE.Euler(0, 0, 0),
-              //   scale: new THREE.Vector3(1, 1, 1)
-              // });
+              this.addBlockContext('leaves', {
+                position: new THREE.Vector3(worldX, height + 2.8, worldZ),
+                rotation: new THREE.Euler(0, 0, 0),
+                scale: new THREE.Vector3(1, 1, 1)
+              });
               break;
 
 
