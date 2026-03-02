@@ -1,5 +1,8 @@
 import { Automata } from "cube";
 import { ChannelController } from "./channel-controller";
+import { Cell } from "./detalle-matriz/detalle-matriz.component";
+
+
 
 
 

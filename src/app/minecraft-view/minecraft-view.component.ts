@@ -162,55 +162,66 @@ class BlockFlyweightFactory {
   }
 
   private initializeFlyweights() {
+    // Generar texturas usando el color configurado para que la geometría no sea perfectamente plana
+    const groundTexture = this.createGroundTexture(this.automata.regla_4_color_2);
+    const mountainTexture = this.createMountainTexture(this.automata.regla_5_color_2);
+    const pathTexture = this.createPathTexture(this.automata.regla_1_color_2);
+
     // Geometrías compartidas
     const geometries = {
       cube: new THREE.BoxGeometry(1, 1, 1),
       trunk: new THREE.BoxGeometry(0.3, 2.0, 0.3),
-      // leaves: new THREE.ConeGeometry(1.0, 2.5, 8),
-      leaves: new THREE.BoxGeometry(1, 1, 1),
+      leaves: new THREE.ConeGeometry(1.2, 3.0, 8),
       water: new THREE.BoxGeometry(1, 0.2, 1),
       path: new THREE.BoxGeometry(1, 1, 1)
     };
 
-    // Materiales compartidos
+    // Materiales compartidos: usamos MeshStandardMaterial para que reaccionen a la luz y sombras
     const materials = {
-      trunk: new THREE.MeshPhongMaterial({
-        // color: 0x3D2410,
-        color: this.automata.regla_3_color_2,
-        shininess: 5,
-        flatShading: true
+      trunk: new THREE.MeshStandardMaterial({
+        color: 0x3D2410, // Tronco color café
+        roughness: 0.9,
+        metalness: 0.1,
       }),
-      leaves: new THREE.MeshPhongMaterial({
-        // color: 0x2F5A1C,
-        color: this.automata.regla_2_color_2,
-        shininess: 5,
+      leaves: new THREE.MeshStandardMaterial({
+        color: this.automata.regla_3_color_2, // Color de las hojas del automata
+        roughness: 0.8,
+        metalness: 0.1,
         flatShading: true,
         side: THREE.DoubleSide
       }),
-      ground: new THREE.MeshPhongMaterial({
+      ground: new THREE.MeshStandardMaterial({
+        map: groundTexture,
+        bumpMap: groundTexture,
+        bumpScale: 0.1,
         color: this.automata.regla_4_color_2,
-        // color: 0x5C4033,
-        shininess: 0,
+        roughness: 1.0,
+        metalness: 0.0,
         flatShading: true
       }),
-      water: new THREE.MeshPhongMaterial({
+      water: new THREE.MeshStandardMaterial({
         color: this.automata.regla_2_color_2, // gris por ahora
-        // color: 0x0F5E9C,
         transparent: true,
-        // opacity: 0.6,
-        // opacity: 0.6,
-        shininess: 30
+        roughness: 0.1,
+        metalness: 0.8,
+        opacity: 0.8
       }),
-      mountain: new THREE.MeshPhongMaterial({
-        // color: 0x808080,
+      mountain: new THREE.MeshStandardMaterial({
+        map: mountainTexture,
+        bumpMap: mountainTexture,
+        bumpScale: 0.15,
         color: this.automata.regla_5_color_2,
-        shininess: 10,
+        roughness: 0.7,
+        metalness: 0.2,
         flatShading: true
       }),
-      path: new THREE.MeshPhongMaterial({
-        // color: 0x6B4423,
+      path: new THREE.MeshStandardMaterial({
+        map: pathTexture,
+        bumpMap: pathTexture,
+        bumpScale: 0.1,
         color: this.automata.regla_1_color_2,
-        shininess: 0,
+        roughness: 0.9,
+        metalness: 0.1,
         flatShading: true
       })
     };
@@ -233,17 +244,15 @@ class BlockFlyweightFactory {
       type: 'mountain'
     });
     this.flyweights.set('trunk', {
-      // geometry: geometries.trunk,
-      geometry: geometries.cube,
+      geometry: geometries.trunk,
       material: materials.trunk,
       type: 'trunk'
     });
-    // this.flyweights.set('leaves', { 
-    //   // geometry: geometries.leaves,
-    //   geometry: geometries.cube,
-    //   material: materials.leaves,
-    //   type: 'leaves'
-    // });
+    this.flyweights.set('leaves', {
+      geometry: geometries.leaves,
+      material: materials.leaves,
+      type: 'leaves'
+    });
     this.flyweights.set('path', {
       geometry: geometries.path,
       material: materials.path,
@@ -264,6 +273,88 @@ class BlockFlyweightFactory {
       flyweight.material,
       count
     );
+  }
+  // --- Funciones para texturas procedurales ---
+
+  private createGroundTexture(baseColorHex: string): THREE.Texture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 128;
+    canvas.height = 128;
+    const context = canvas.getContext('2d')!;
+
+    // Usar el color base proporcionado
+    context.fillStyle = baseColorHex;
+    context.fillRect(0, 0, 128, 128);
+
+    // Añadir textura (ruido) más claro/oscuro sobre el color base
+    for (let y = 0; y < 128; y += 2) {
+      for (let x = 0; x < 128; x += 2) {
+        if (Math.random() > 0.5) {
+          const intensity = Math.random() > 0.5 ? 0.1 : -0.1;
+          context.fillStyle = `rgba(0, 0, 0, ${Math.abs(intensity)})`;
+          context.fillRect(x, y, 2, 2);
+        }
+      }
+    }
+
+    const texture = new THREE.Texture(canvas);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(2, 2);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  private createMountainTexture(baseColorHex: string): THREE.Texture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const context = canvas.getContext('2d')!;
+
+    context.fillStyle = baseColorHex;
+    context.fillRect(0, 0, 256, 256);
+
+    // Añadir patrón de roca (puntos y trazos de contraste)
+    for (let i = 0; i < 1500; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
+      const size = 1 + Math.random() * 4;
+      const isDark = Math.random() > 0.5;
+      context.fillStyle = isDark ? `rgba(0, 0, 0, 0.15)` : `rgba(255, 255, 255, 0.1)`;
+      context.beginPath();
+      context.arc(x, y, size, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  private createPathTexture(baseColorHex: string): THREE.Texture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const context = canvas.getContext('2d')!;
+
+    context.fillStyle = baseColorHex;
+    context.fillRect(0, 0, 256, 256);
+
+    // Añadir textura de camino (pequeñas piedritas)
+    for (let i = 0; i < 2000; i++) {
+      const x = Math.random() * 256;
+      const y = Math.random() * 256;
+      const size = 1 + Math.random() * 2;
+
+      context.fillStyle = `rgba(0, 0, 0, 0.1)`;
+      context.beginPath();
+      context.arc(x, y, size, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
   }
 }
 
@@ -288,6 +379,7 @@ interface SavedGameState {
   template: `
     <div #rendererContainer></div>
     <div #minimapContainer class="minimap"></div>
+    <div class="fps-counter">FPS: {{ currentFps }}</div>
     <!-- <div class="flight-message" [class.visible]="isFlying">MODO VUELO ACTIVADO</div> -->
     <!-- <div class="controls-info" *ngIf="!isLocked">
       Click to start<br>
@@ -339,6 +431,20 @@ interface SavedGameState {
       border: 2px solid white;
       overflow: hidden;
       background: rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+    .fps-counter {
+      position: fixed;
+      top: 20px;
+      right: 230px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #00ff00;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-family: monospace;
+      pointer-events: none;
+      z-index: 100;
     }
     .flight-message {
       position: fixed;
@@ -366,6 +472,10 @@ export class MinecraftViewComponent implements OnInit {
 
   @ViewChild('rendererContainer', { static: true }) rendererContainer!: ElementRef;
   @ViewChild('minimapContainer', { static: true }) minimapContainer!: ElementRef;
+
+  currentFps: number = 0;
+  private frameCount: number = 0;
+  private lastFpsTime: number = performance.now();
 
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
@@ -453,20 +563,25 @@ export class MinecraftViewComponent implements OnInit {
   private needsRender = true;
 
   private ANIMAL_COLORS: { [key: string]: AnimalColors } = {
-    'trex': {
-      body: '#8B4513',
-      face: '#A0522D',
-      legs: '#654321'
+    'pig': {
+      body: '#FFC0CB',
+      face: '#FFB6C1',
+      legs: '#FF69B4'
     },
     'chicken': {
       body: '#FFFFFF',
-      face: '#FFD700',
+      face: '#FF0000',
       legs: '#FFA500'
     },
     'cow': {
-      body: '#000000',
-      face: '#FFFFFF',
+      body: '#FFFFFF', // El cuerpo base, le añadiremos manchas grises
+      face: '#F5DEB3',
       legs: '#000000'
+    },
+    'duck': {
+      body: '#32CD32', // Pato de cuello verde / mallard
+      face: '#228B22',
+      legs: '#FFA500'
     }
   };
 
@@ -509,6 +624,15 @@ export class MinecraftViewComponent implements OnInit {
   private readonly CELESTIAL_DISTANCE = 100;
 
   private worldWrappedChunks: Map<string, THREE.Group> = new Map();
+
+  // Variables para construir
+  private raycaster = new THREE.Raycaster();
+  private centerPoint = new THREE.Vector2(0, 0); // Centro de la pantalla para el raycaster
+  private userBlocks: THREE.Mesh[] = [];
+  private buildMaterial = new THREE.MeshStandardMaterial({
+    color: 0x8B4513, roughness: 0.9, metalness: 0.0 // Color madera/tierra para las construcciones
+  });
+  private buildGeometry = new THREE.BoxGeometry(1, 1, 1);
 
   // Añadir propiedad para controlar el tiempo entre guardados
   private lastSaveTime: number = 0;
@@ -633,16 +757,34 @@ export class MinecraftViewComponent implements OnInit {
     this.renderer.physicallyCorrectLights = false;
 
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.BasicShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Mejores sombras
 
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
 
-    // Configuración de luz diurna constante
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    this.directionalLight.position.set(1, 1, 1);
+    // Configuración de luz diurna con sombras
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    // Posicionar la luz para generar sombras más dramáticas y notorias
+    this.directionalLight.position.set(50, 100, 50);
+    this.directionalLight.castShadow = true;
+
+    // Aumentar la resolución del mapa de sombras para que no se vean pixeladas
+    this.directionalLight.shadow.mapSize.width = 2048;
+    this.directionalLight.shadow.mapSize.height = 2048;
+
+    // Configurar cámara de sombras para que abarque todo el mundo posible
+    const d = 100;
+    this.directionalLight.shadow.camera.left = -d;
+    this.directionalLight.shadow.camera.right = d;
+    this.directionalLight.shadow.camera.top = d;
+    this.directionalLight.shadow.camera.bottom = -d;
+    this.directionalLight.shadow.camera.near = 0.5;
+    this.directionalLight.shadow.camera.far = 500;
+    this.directionalLight.shadow.bias = -0.0005;
+
     this.scene.add(this.directionalLight);
 
-    this.ambientLight = new THREE.AmbientLight(0x404040, 1.2);
+    // Bajar un poco la luz ambiental para que resalte la luz direccional y las caras cambien de color con la rotación
+    this.ambientLight = new THREE.AmbientLight(0x404040, 0.8);
     this.scene.add(this.ambientLight);
 
     // Calcular los límites del mundo basado en el tamaño de la matriz
@@ -669,8 +811,29 @@ export class MinecraftViewComponent implements OnInit {
     const fog = new THREE.FogExp2(0x87CEEB, fogDensity);
     this.scene.fog = fog;
 
-    // Añadir nubes
+    // Añadir nubes y animales
     this.createClouds();
+    this.initAnimals();
+  }
+
+  private initAnimals() {
+    // Generar animales en posiciones aleatorias del mapa
+    const types = ['pig', 'cow', 'chicken', 'duck'];
+    const worldSize = Math.max(this.matrix.length, this.matrix[0] ? this.matrix[0].length : 0);
+    const numAnimals = 15; // Cantidad total de animales
+
+    for (let i = 0; i < numAnimals; i++) {
+      const type = types[Math.floor(Math.random() * types.length)];
+      // Posición aleatoria dentro del mapa
+      const x = (Math.random() - 0.5) * worldSize * 0.8;
+      const z = (Math.random() - 0.5) * worldSize * 0.8;
+
+      // Determinar altura del terreno en ese punto
+      const y = this.getTerrainHeightAt(x, z);
+
+      const animal = this.createAnimal(type, new THREE.Vector3(x, y + 1, z));
+      this.animals.push(animal);
+    }
   }
 
   private initControls() {
@@ -933,17 +1096,32 @@ export class MinecraftViewComponent implements OnInit {
           switch (cell.color) {
             case 'Green':
               this.treePositions.push(new THREE.Vector3(worldX, 0, worldZ));
-              // Tronco
-              this.addBlockContext('trunk', {
+              const treeHeight = this.automata.altura_regla_3 || 1;
+              const groundHeight = this.automata.altura_regla_4 || 1;
+
+              // Agregar base de tierra (mismo color que 'Brown')
+              this.addBlockContext('ground', {
                 position: new THREE.Vector3(worldX, height + 1.0, worldZ),
                 rotation: new THREE.Euler(0, 0, 0),
-                scale: new THREE.Vector3(1, this.automata.altura_regla_3, 1)
+                scale: new THREE.Vector3(1, groundHeight, 1)
               });
-              // Hojas
-              this.addBlockContext('leaves', {
-                position: new THREE.Vector3(worldX, height + 2.8, worldZ),
+
+              // Calcular la parte superior del bloque de tierra para apoyar el árbol
+              // El bloque 'ground' (cubo de 1x1x1) tiene su base en (position.y - scale.y/2) y su techo en (position.y + scale.y/2)
+              const groundTop = height + 1.0 + groundHeight / 2;
+
+              // Para que el árbol respete la altura configurada y empiece exactamente sobre la tierra:
+              // Repartimos la altura total: 40% tronco, 70% hojas (solapamiento del 10%)
+              // La geometría del tronco mide 2.0 y la del cono 3.0
+              this.addBlockContext('trunk', {
+                position: new THREE.Vector3(worldX, groundTop + treeHeight * 0.2, worldZ),
                 rotation: new THREE.Euler(0, 0, 0),
-                scale: new THREE.Vector3(1, 1, 1)
+                scale: new THREE.Vector3(1, treeHeight * 0.2, 1)
+              });
+              this.addBlockContext('leaves', {
+                position: new THREE.Vector3(worldX, groundTop + treeHeight * 0.65, worldZ),
+                rotation: new THREE.Euler(0, 0, 0),
+                scale: new THREE.Vector3(1, (treeHeight * 0.7) / 3.0, 1)
               });
               break;
 
@@ -1060,9 +1238,9 @@ export class MinecraftViewComponent implements OnInit {
   }
 
   private checkWaterCollision() {
-    // Obtener la posición actual del jugador en coordenadas de la matriz
-    const matrixX = Math.floor(this.camera.position.x + this.matrix.length / 2);
-    const matrixZ = Math.floor(this.camera.position.z + this.matrix[0].length / 2);
+    // Obtener la posición actual del jugador en coordenadas de la matriz usando Math.round (los centros son enteros)
+    const matrixX = Math.round(this.camera.position.x + this.matrix.length / 2);
+    const matrixZ = Math.round(this.camera.position.z + this.matrix[0].length / 2);
 
     // Verificar si la posición está dentro de los límites de la matriz
     const isInBounds = matrixX >= 0 && matrixX < this.matrix.length &&
@@ -1206,41 +1384,80 @@ export class MinecraftViewComponent implements OnInit {
 
     const offsetX = -this.matrix.length / 2;
     const offsetZ = -this.matrix[0].length / 2;
+    const worldWidth = this.matrix.length;
+    const worldDepth = this.matrix[0].length;
+
+    // Remove old minimap blocks
+    const objectsToRemove: THREE.Object3D[] = [];
+    this.minimapScene.traverse((child) => {
+      // Don't remove the player marker
+      if (child !== this.playerMarker && child.type === 'Mesh' && child.userData['isMinimapBlock']) {
+        objectsToRemove.push(child);
+      }
+    });
+    objectsToRemove.forEach(obj => this.minimapScene.remove(obj));
 
     // Create a merged geometry for each color
-    const blocksByColor: { [key: string]: THREE.Vector3[] } = {};
+    const blocksByColor: { [key: string]: THREE.InstancedMesh } = {};
+    const instancesCountByColor: { [key: string]: number } = {};
 
-    for (let x = 0; x < this.matrix.length; x++) {
-      for (let z = 0; z < this.matrix[x].length; z++) {
-        const cell = this.matrix[x][z];
+    // First count how many instances we need for each color to size the InstancedMesh
+    for (let x = -worldWidth; x < worldWidth * 2; x++) {
+      for (let z = -worldDepth; z < worldDepth * 2; z++) {
+        const wrappedX = ((x % worldWidth) + worldWidth) % worldWidth;
+        const wrappedZ = ((z % worldDepth) + worldDepth) % worldDepth;
+        const cell = this.matrix[wrappedX][wrappedZ];
+
         if (cell.state === 1) {
-          if (!blocksByColor[cell.color]) {
-            blocksByColor[cell.color] = [];
-          }
-          blocksByColor[cell.color].push(
-            new THREE.Vector3(x + offsetX, 0, z + offsetZ)
-          );
+          if (!instancesCountByColor[cell.color]) instancesCountByColor[cell.color] = 0;
+          instancesCountByColor[cell.color]++;
         }
       }
     }
 
-    // Create merged meshes for each color with brighter colors for better visibility
-    Object.entries(blocksByColor).forEach(([color, positions]) => {
-      const geometry = new THREE.BoxGeometry(1, 0.1, 1);
+    // Create the instanced meshes
+    const geometry = new THREE.BoxGeometry(1, 0.1, 1);
+    Object.keys(instancesCountByColor).forEach(color => {
       const baseColor = new THREE.Color(this.colorMap[color]);
-      // Make colors slightly darker for better contrast with the player marker
       baseColor.multiplyScalar(0.8);
+
       const material = new THREE.MeshBasicMaterial({
         color: baseColor,
         transparent: color === 'Blue',
-        opacity: color === 'Blue' ? 0.6 : 0.7
+        opacity: color === 'Blue' ? 0.6 : 1.0
       });
 
-      positions.forEach(position => {
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(position);
-        this.minimapScene.add(mesh);
-      });
+      const instancedMesh = new THREE.InstancedMesh(geometry, material, instancesCountByColor[color]);
+      instancedMesh.userData['isMinimapBlock'] = true;
+      blocksByColor[color] = instancedMesh;
+      this.minimapScene.add(instancedMesh);
+    });
+
+    // Populate matrices
+    const instancesIndexTracker: { [key: string]: number } = {};
+    const dummyMatrix = new THREE.Matrix4();
+    const position = new THREE.Vector3();
+
+    for (let x = -worldWidth; x < worldWidth * 2; x++) {
+      for (let z = -worldDepth; z < worldDepth * 2; z++) {
+        const wrappedX = ((x % worldWidth) + worldWidth) % worldWidth;
+        const wrappedZ = ((z % worldDepth) + worldDepth) % worldDepth;
+        const cell = this.matrix[wrappedX][wrappedZ];
+
+        if (cell.state === 1) {
+          position.set(x + offsetX, 0, z + offsetZ);
+          dummyMatrix.makeTranslation(position.x, position.y, position.z);
+
+          if (!instancesIndexTracker[cell.color]) instancesIndexTracker[cell.color] = 0;
+          const mapMesh = blocksByColor[cell.color];
+          mapMesh.setMatrixAt(instancesIndexTracker[cell.color]++, dummyMatrix);
+        }
+      }
+    }
+
+    // Update instance matrices
+    Object.values(blocksByColor).forEach(mesh => {
+      mesh.instanceMatrix.needsUpdate = true;
     });
   }
 
@@ -1320,6 +1537,9 @@ export class MinecraftViewComponent implements OnInit {
 
     // Animar piernas mientras camina
     this.player.children.forEach((child, index) => {
+      // Regresamos a resetear la rotación en caso de que se haya guardado algún estado anterior
+      child.rotation.x = 0;
+
       if (index >= 2 && index <= 3) { // Piernas
         if (walkingSpeed > 0.1) {
           child.position.y = 0.3 + Math.sin(walkingCycle + (index === 2 ? 0 : Math.PI)) * 0.2;
@@ -1425,21 +1645,38 @@ export class MinecraftViewComponent implements OnInit {
         this.updateChunks();
       }
 
-      if (!this.isFlying && this.camera.position.y <= 2 && !this.isUnderwater) {
+      const floorY = this.getTerrainHeightAt(this.camera.position.x, this.camera.position.z) + this.playerHeight;
+
+      if (!this.isFlying && this.camera.position.y <= floorY && !this.isUnderwater) {
         this.velocity.y = 0;
-        this.camera.position.y = 2;
+        this.camera.position.y = floorY;
         this.canJump = true;
       }
 
       this.updatePlayerAnimation();
       this.updateMinimap();
       this.updateClouds(delta);
+
+      // Actualizar ciclo de día y noche
+      this.updateTimeOfDay();
+
+      // Actualizar animales y su movimiento
+      this.updateAnimals(currentTime);
+      this.animals.forEach(animal => this.moveAnimal(animal, delta));
+      this.checkAnimalCollisions();
     }
 
     // Guardar estado cada 5 segundos
     if (currentTime - this.lastSaveTime > 5000) {
       this.saveGameState();
       this.lastSaveTime = currentTime;
+    }
+
+    this.frameCount++;
+    if (currentTime - this.lastFpsTime >= 1000) {
+      this.currentFps = Math.round((this.frameCount * 1000) / (currentTime - this.lastFpsTime));
+      this.frameCount = 0;
+      this.lastFpsTime = currentTime;
     }
 
     this.renderer.render(this.scene, this.camera);
@@ -1450,6 +1687,55 @@ export class MinecraftViewComponent implements OnInit {
     const moveThreshold = 1.0; // unidades de mundo
     return Math.abs(this.camera.position.x - this.lastChunkPosition.x) > moveThreshold ||
       Math.abs(this.camera.position.z - this.lastChunkPosition.y) > moveThreshold;
+  }
+
+  private getTerrainHeightAt(x: number, z: number): number {
+    let baseHeightFallback = 1.5;
+    let computedHeight = 0;
+
+    if (!this.matrix || this.matrix.length === 0) computedHeight = baseHeightFallback;
+    else {
+      const matrixX = Math.round(x + this.matrix.length / 2);
+      const matrixZ = Math.round(z + this.matrix[0].length / 2);
+
+      if (matrixX >= 0 && matrixX < this.matrix.length && matrixZ >= 0 && matrixZ < this.matrix[0].length) {
+        const cell = this.matrix[matrixX][matrixZ];
+        if (cell.state === 1) {
+          const baseHeight = 1.0;
+          switch (cell.color) {
+            case 'Green':
+            case 'Brown':
+              computedHeight = baseHeight + (this.automata.altura_regla_4 || 1) / 2;
+              break;
+            case 'Blue':
+              computedHeight = baseHeight + (this.automata.altura_regla_2 || 1) / 2;
+              break;
+            case 'Gray':
+              computedHeight = baseHeight + (this.automata.altura_regla_5 || 1) / 2;
+              break;
+            case 'Red':
+              computedHeight = baseHeight + (this.automata.altura_regla_1 || 1) / 2;
+              break;
+            default:
+              computedHeight = baseHeightFallback;
+          }
+        } else {
+          computedHeight = baseHeightFallback;
+        }
+      } else {
+        computedHeight = baseHeightFallback;
+      }
+    }
+
+    // Comprobar si hay un bloque construido por el usuario aquí
+    let highestUserBlock = -Infinity;
+    for (const block of this.userBlocks) {
+      if (Math.abs(block.position.x - x) <= 0.5 && Math.abs(block.position.z - z) <= 0.5) {
+        highestUserBlock = Math.max(highestUserBlock, block.position.y + 0.5); // +0.5 is top of block
+      }
+    }
+
+    return Math.max(computedHeight, highestUserBlock);
   }
 
   private updateChunks() {
@@ -1485,26 +1771,23 @@ export class MinecraftViewComponent implements OnInit {
   }
 
   private checkWorldBounds() {
-    const margin = 1;
-    const maxX = (this.matrix.length / 2) - margin;
-    const maxZ = (this.matrix[0].length / 2) - margin;
+    const worldWidth = this.matrix.length;
+    const worldDepth = this.matrix[0].length;
+    const halfWidth = worldWidth / 2;
+    const halfDepth = worldDepth / 2;
 
     // Comportamiento toroidal para el eje X (Este-Oeste)
-    if (this.camera.position.x < -maxX) {
-      this.camera.position.x = maxX - ((-maxX - this.camera.position.x) % (maxX * 2));
-      this.velocity.x *= 0.5;
-    } else if (this.camera.position.x > maxX) {
-      this.camera.position.x = -maxX + ((this.camera.position.x - maxX) % (maxX * 2));
-      this.velocity.x *= 0.5;
+    if (this.camera.position.x < -halfWidth) {
+      this.camera.position.x += worldWidth;
+    } else if (this.camera.position.x >= halfWidth) {
+      this.camera.position.x -= worldWidth;
     }
 
     // Comportamiento toroidal para el eje Z (Norte-Sur)
-    if (this.camera.position.z < -maxZ) {
-      this.camera.position.z = maxZ - ((-maxZ - this.camera.position.z) % (maxZ * 2));
-      this.velocity.z *= 0.5;
-    } else if (this.camera.position.z > maxZ) {
-      this.camera.position.z = -maxZ + ((this.camera.position.z - maxZ) % (maxZ * 2));
-      this.velocity.z *= 0.5;
+    if (this.camera.position.z < -halfDepth) {
+      this.camera.position.z += worldDepth;
+    } else if (this.camera.position.z >= halfDepth) {
+      this.camera.position.z -= worldDepth;
     }
 
     // Actualizar la posición del jugador
@@ -1627,6 +1910,59 @@ export class MinecraftViewComponent implements OnInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
+  @HostListener('window:mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    if (!this.isLocked) return;
+
+    // Actualizar raycaster desde el centro de la cámara
+    this.raycaster.setFromCamera(this.centerPoint, this.camera);
+
+    // Obtener objetos a interceptar (terrain instanciado + bloques de usuario)
+    const objectsToIntersect = [...Object.values(this.instancedMeshes), ...this.userBlocks];
+
+    // intersectObjects(objects, recursive)
+    const intersects = this.raycaster.intersectObjects(objectsToIntersect, false);
+
+    if (intersects.length > 0) {
+      const intersect = intersects[0];
+
+      // Limitar distancia de construcción a 10 unidades
+      if (intersect.distance > 10) return;
+
+      if (event.button === 0) { // Click izquierdo: Construir
+        // Calcular posición alineada a la grilla usando la normal de la cara interceptada
+        if (intersect.normal) {
+          const pos = intersect.point.clone().add(intersect.normal.clone().multiplyScalar(0.5));
+          pos.x = Math.round(pos.x);
+          pos.y = Math.round(pos.y);
+          pos.z = Math.round(pos.z);
+
+          const block = new THREE.Mesh(this.buildGeometry, this.buildMaterial);
+          block.position.copy(pos);
+          block.castShadow = true;
+          block.receiveShadow = true;
+
+          this.scene.add(block);
+          this.userBlocks.push(block);
+        }
+      } else if (event.button === 2) { // Click derecho: Destruir solo bloques de usuario
+        const index = this.userBlocks.indexOf(intersect.object as THREE.Mesh);
+        if (index > -1) {
+          this.scene.remove(intersect.object);
+          this.userBlocks.splice(index, 1);
+        }
+      }
+    }
+  }
+
+  @HostListener('document:contextmenu', ['$event'])
+  onContextMenu(event: Event) {
+    // Evitar que aparezca el menú contextual del click derecho cuando estamos jugando
+    if (this.isLocked) {
+      event.preventDefault();
+    }
+  }
+
   private createBlockGeometry(type: string): THREE.BufferGeometry {
     switch (type) {
       case 'tree':
@@ -1661,10 +1997,48 @@ export class MinecraftViewComponent implements OnInit {
     const group = new THREE.Group();
     const colors = this.ANIMAL_COLORS[type];
 
-    const bodyGeometry = new THREE.BoxGeometry(1, 1, 2);
-    const bodyMaterial = new THREE.MeshPhongMaterial({ color: colors.body });
-    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    // Diferentes modelos según tipo
+    let bodyGeometry, headGeometry;
+    const bodyMat = new THREE.MeshStandardMaterial({ color: colors.body });
+    const headMat = new THREE.MeshStandardMaterial({ color: colors.face });
+    const legMat = new THREE.MeshStandardMaterial({ color: colors.legs });
+
+    if (type === 'cow') {
+      bodyGeometry = new THREE.BoxGeometry(0.8, 0.6, 1.2);
+      headGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+      // Detalles de vaca (manchas)
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
+      const spot1 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.62, 0.3), darkMat);
+      spot1.position.set(0.1, 0, 0.2);
+      group.add(spot1);
+    } else if (type === 'pig') {
+      bodyGeometry = new THREE.BoxGeometry(0.7, 0.5, 1.0);
+      headGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+    } else {
+      // Aves (chicken/duck)
+      bodyGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.5);
+      headGeometry = new THREE.BoxGeometry(0.2, 0.3, 0.2);
+    }
+
+    const body = new THREE.Mesh(bodyGeometry, bodyMat);
+    body.position.y = bodyGeometry.parameters.height / 2 + 0.3; // Elevado por las patas
     group.add(body);
+
+    const head = new THREE.Mesh(headGeometry, headMat);
+    head.position.set(0, body.position.y + bodyGeometry.parameters.height / 2 + 0.1, bodyGeometry.parameters.depth / 2);
+    group.add(head);
+
+    // Patas (4 para mamiferos, 2 para aves)
+    const legGeom = new THREE.BoxGeometry(0.1, 0.3, 0.1);
+    const numLegs = (type === 'cow' || type === 'pig') ? 4 : 2;
+
+    for (let i = 0; i < numLegs; i++) {
+      const leg = new THREE.Mesh(legGeom, legMat);
+      const zOffset = numLegs === 4 ? (i < 2 ? 0.3 : -0.3) : 0;
+      const xOffset = (i % 2 === 0) ? 0.2 : -0.2;
+      leg.position.set(xOffset, 0.15, zOffset);
+      group.add(leg);
+    }
 
     group.position.copy(position);
     this.scene.add(group);
@@ -1680,74 +2054,176 @@ export class MinecraftViewComponent implements OnInit {
     };
   }
 
+  private updateTimeOfDay(): void {
+    if (!this.directionalLight || !this.ambientLight || !this.sun || !this.moon) return;
+
+    const currentTime = performance.now();
+    const elapsed = currentTime - this.dayStartTime;
+    // Progreso del día entre 0 (inicio) y 1 (fin, equivalente a 20 minutos)
+    const dayProgress = (elapsed % this.DAY_LENGTH) / this.DAY_LENGTH;
+    // Ángulo del sol: 0 es mediodía (arriba), Math.PI es medianoche (abajo)
+    const angle = dayProgress * Math.PI * 2;
+
+    // Posiciones orbitales basadas en la cámara (el cielo nos sigue)
+    const cx = this.camera.position.x;
+    const cz = this.camera.position.z;
+
+    this.sun.position.x = cx + Math.cos(angle - Math.PI / 2) * this.CELESTIAL_DISTANCE;
+    this.sun.position.y = Math.sin(angle - Math.PI / 2) * this.CELESTIAL_DISTANCE;
+    this.sun.position.z = cz;
+
+    // La luna está en el lado opuesto
+    this.moon.position.x = cx + Math.cos(angle + Math.PI / 2) * this.CELESTIAL_DISTANCE;
+    this.moon.position.y = Math.sin(angle + Math.PI / 2) * this.CELESTIAL_DISTANCE;
+    this.moon.position.z = cz;
+
+    // Actualizar fuente de luz principal (Direccional) para que coincida con el sol/luna superior
+    // Si es de día el sol ilumina, si es de noche la luna ilumina débilmente
+    if (this.sun.position.y > 0) {
+      this.directionalLight.position.copy(this.sun.position);
+      // Intensidad normal de día
+      this.directionalLight.intensity = Math.max(0.1, Math.sin(angle - Math.PI / 2)) * 1.5;
+      this.directionalLight.color.setHex(0xffffff);
+    } else {
+      this.directionalLight.position.copy(this.moon.position);
+      // Intensidad muy baja de noche
+      this.directionalLight.intensity = Math.max(0.1, Math.sin(angle + Math.PI / 2)) * 0.3;
+      this.directionalLight.color.setHex(0xaaaaaa); // Luz más fría
+    }
+
+    // Actualizar luz ambiental (menor en la noche)
+    if (this.sun.position.y > 50) {
+      this.ambientLight.intensity = 0.8;
+    } else if (this.sun.position.y < -10) {
+      this.ambientLight.intensity = 0.2;
+    } else {
+      // Transición
+      const t = (this.sun.position.y + 10) / 60; // 0 (noche) a 1 (día)
+      this.ambientLight.intensity = 0.2 + 0.6 * t;
+    }
+
+    // Cambiar color del cielo y niebla según el momento del día
+    let currentSkyColor = new THREE.Color();
+    const isDay = dayProgress < 0.45;
+    const isDusk = dayProgress >= 0.45 && dayProgress < 0.55;
+    const isNight = dayProgress >= 0.55 && dayProgress < 0.95;
+    const isDawn = dayProgress >= 0.95;
+
+    if (isDay) {
+      currentSkyColor.copy(this.skyColors.day);
+    } else if (isNight) {
+      currentSkyColor.copy(this.skyColors.night);
+    } else if (isDusk) {
+      // Interpolar Dia -> Atardecer -> Noche
+      let t = (dayProgress - 0.45) / 0.1;
+      if (t < 0.5) currentSkyColor.lerpColors(this.skyColors.day, this.skyColors.dawn, t * 2);
+      else currentSkyColor.lerpColors(this.skyColors.dawn, this.skyColors.night, (t - 0.5) * 2);
+    } else if (isDawn) {
+      // Interpolar Noche -> Amanecer -> Dia
+      let t = (dayProgress - 0.95) / 0.05;
+      if (t < 0.5) currentSkyColor.lerpColors(this.skyColors.night, this.skyColors.dawn, t * 2);
+      else currentSkyColor.lerpColors(this.skyColors.dawn, this.skyColors.day, (t - 0.5) * 2);
+    }
+
+    this.normalFogColor = currentSkyColor.clone();
+
+    // Solo cambiar el color real del cielo si no estamos bajo el agua
+    if (!this.isUnderwater) {
+      this.scene.background = currentSkyColor;
+      if (this.scene.fog) {
+        (this.scene.fog as THREE.FogExp2).color = currentSkyColor;
+      }
+    }
+  }
+
   private updateAnimals(currentTime: number): void {
-    if (currentTime - this.lastAnimalUpdate < 5000) return;
+    if (currentTime - this.lastAnimalUpdate < 2000) return; // Revisar estado cada 2 seg
     this.lastAnimalUpdate = currentTime;
 
     this.animals.forEach(animal => {
       if (animal && animal.mesh) {
-        // Update animal behavior
         this.updateAnimalBehavior(animal);
       }
     });
   }
 
   private moveAnimal(animal: Animal, delta: number): void {
-    if (!animal.targetPosition) return;
+    if (!animal.targetPosition || !animal.isAlive) return;
 
-    const speed = animal.type === 'trex' ? 5 : 2;
-    const direction = new THREE.Vector3()
-      .subVectors(animal.targetPosition, animal.position)
-      .normalize();
+    const speed = (animal.type === 'chicken' || animal.type === 'duck') ? 1.5 : 1.0;
 
-    const movement = direction.multiplyScalar(speed * delta);
-    animal.position.add(movement);
-    animal.mesh.position.copy(animal.position);
+    // Distancia al objetivo
+    const dx = animal.targetPosition.x - animal.position.x;
+    const dz = animal.targetPosition.z - animal.position.z;
+    const distanceToTarget = Math.sqrt(dx * dx + dz * dz);
 
-    // Rotate to face movement direction
-    const angle = Math.atan2(direction.x, direction.z);
-    animal.mesh.rotation.y = angle;
+    if (distanceToTarget > 0.5) {
+      // Mover hacia el objetivo
+      const direction = new THREE.Vector3(dx, 0, dz).normalize();
+      const movement = direction.multiplyScalar(speed * delta);
+      animal.position.add(movement);
+
+      // Actualizar Y para seguir el terreno
+      animal.position.y = this.getTerrainHeightAt(animal.position.x, animal.position.z);
+      animal.mesh.position.copy(animal.position);
+
+      // Rotar suavemente hacia la dirección del movimiento
+      const targetAngle = Math.atan2(dx, dz);
+      // Interpolación simple de ángulo
+      let diff = targetAngle - animal.mesh.rotation.y;
+      // Normalizar a [-PI, PI]
+      diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+      animal.mesh.rotation.y += diff * 0.1;
+
+      // Animar patas estilo balancín simple
+      const walkingCycle = performance.now() * 0.015;
+      animal.mesh.children.forEach((child, index) => {
+        // Asumiendo que las patas fueron añadidas de ultimo
+        if (index >= 2) {
+          child.position.y = 0.15 + Math.abs(Math.sin(walkingCycle + (index % 2 * Math.PI))) * 0.1;
+        }
+      });
+    } else {
+      // Llegó al objetivo
+      animal.targetPosition = undefined;
+    }
   }
 
   private checkAnimalCollisions(): void {
-    for (let i = 0; i < this.animals.length; i++) {
-      const animal = this.animals[i];
-      if (!animal.isAlive) continue;
-
-      // Check collision with player
+    // Para simplificar vida de granja, no hay depredadores, 
+    // pero pueden esquivar al jugador ligeramente si este se acerca mucho.
+    this.animals.forEach(animal => {
+      if (!animal.isAlive) return;
       const playerDistance = this.camera.position.distanceTo(animal.position);
-      if (playerDistance < 2) {
-        if (animal.type === 'trex') {
-          // T-Rex attacks player
-          console.log('T-Rex attacked player!');
-          // Add player damage logic here
-        }
-      }
 
-      // T-Rex hunts other animals
-      if (animal.type === 'trex') {
-        for (let j = 0; j < this.animals.length; j++) {
-          const prey = this.animals[j];
-          if (i !== j && prey.isAlive && prey.type !== 'trex') {
-            const distance = animal.position.distanceTo(prey.position);
-            if (distance < 2) {
-              prey.isAlive = false;
-              this.scene.remove(prey.mesh);
-            }
-          }
-        }
+      if (playerDistance < 3) {
+        // Huir del jugador (elegir punto en dirección contraria)
+        const escapeDir = new THREE.Vector3().subVectors(animal.position, this.camera.position).setY(0).normalize();
+        animal.targetPosition = animal.position.clone().add(escapeDir.multiplyScalar(5));
       }
-    }
+    });
   }
 
   private updateAnimalBehavior(animal: Animal): void {
     if (!animal.isAlive) return;
 
+    // Si ya tienen objetivo, siguen hasta él (gestionado en moveAnimal)
+    if (animal.targetPosition) return;
+
     const currentTime = performance.now();
-    if (currentTime - animal.lastStateChange > 3000) {
-      const randomX = animal.position.x + (Math.random() - 0.5) * 10;
-      const randomZ = animal.position.z + (Math.random() - 0.5) * 10;
-      animal.targetPosition = new THREE.Vector3(randomX, 2, randomZ);
+
+    // Solo cambiar de estado después de estar parado un tiempo aleatorio
+    if (currentTime - animal.lastStateChange > Math.random() * 5000 + 4000) {
+      // 50% de probabilidad de pasear, 50% de quedarse quieto pastando/comiendo
+      if (Math.random() > 0.5) {
+        const wanderOffsetX = (Math.random() - 0.5) * 8; // Moverse en un radio corto
+        const wanderOffsetZ = (Math.random() - 0.5) * 8;
+        animal.targetPosition = new THREE.Vector3(
+          animal.position.x + wanderOffsetX,
+          animal.position.y,
+          animal.position.z + wanderOffsetZ
+        );
+      }
       animal.lastStateChange = currentTime;
     }
   }

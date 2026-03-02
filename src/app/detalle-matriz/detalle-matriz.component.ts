@@ -4,6 +4,17 @@ import { GeometryService } from '../geometry.service';
 import { ConcreteShapeFactory } from '../../../concreteShapeFactory';
 import { Automata } from '../../../cube';
 
+
+
+interface Cell {
+  state: number;
+  color: string;
+  height: number;
+}
+
+
+
+
 const COLOR_MAP: { [key: string]: number } = {
   "GREEN": 1,
   "BROWN": 2, // Nota: Si quieres que BROWN sea 2, lo asociamos así.
@@ -206,7 +217,8 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
 
   }
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+    console.log('after view init')
+    //throw new Error('Method not implemented.');
   }
   ngOnDestroy(): void {
     this.puedeAvanzar = false;
