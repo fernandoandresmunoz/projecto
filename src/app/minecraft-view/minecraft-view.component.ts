@@ -1931,20 +1931,20 @@ export class MinecraftViewComponent implements OnInit {
 
       if (event.button === 0) { // Click izquierdo: Construir
         // Calcular posición alineada a la grilla usando la normal de la cara interceptada
-        if (intersect.normal) {
-          const pos = intersect.point.clone().add(intersect.normal.clone().multiplyScalar(0.5));
-          pos.x = Math.round(pos.x);
-          pos.y = Math.round(pos.y);
-          pos.z = Math.round(pos.z);
+        // if (intersect.normal) {
+        //   const pos = intersect.point.clone().add(intersect.normal.clone().multiplyScalar(0.5));
+        //   pos.x = Math.round(pos.x);
+        //   pos.y = Math.round(pos.y);
+        //   pos.z = Math.round(pos.z);
 
-          const block = new THREE.Mesh(this.buildGeometry, this.buildMaterial);
-          block.position.copy(pos);
-          block.castShadow = true;
-          block.receiveShadow = true;
+        //   const block = new THREE.Mesh(this.buildGeometry, this.buildMaterial);
+        //   block.position.copy(pos);
+        //   block.castShadow = true;
+        //   block.receiveShadow = true;
 
-          this.scene.add(block);
-          this.userBlocks.push(block);
-        }
+        //   this.scene.add(block);
+        //   this.userBlocks.push(block);
+        // }
       } else if (event.button === 2) { // Click derecho: Destruir solo bloques de usuario
         const index = this.userBlocks.indexOf(intersect.object as THREE.Mesh);
         if (index > -1) {
