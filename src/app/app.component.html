@@ -1,28 +1,25 @@
 <ul>
-  <li><a [routerLink]="['/']">Home</a></li>
-  <li><a [routerLink]="['/minecraft-view']">Minecraft View</a></li>
+    <li><a [routerLink]="['/']">Home</a></li>
+    <!-- <li><a [routerLink]="['/minecraft-view']">Minecraft View</a></li> -->
 
-  <li><a [routerLink]="['/reglas/110']" class="nav-link">Rules</a></li>
-  <!-- <li><a [routerLink]="['/tree']" class="nav-link">Árbol</a></li> -->
-  <!-- <li><a [routerLink]="['/funcion-logaritmica']" class="nav-link">Drawer</a></li> -->
-  <li><a [routerLink]="['/automatas']" class="nav-link">Automatas</a></li>
-  
-  <li><a [routerLink]="['/curvas']" class="nav-link">Curvas</a></li>
-  <li><a [routerLink]="['/matrices']" class="nav-link">Matrices</a></li>
-  <li><a [routerLink]="['/arboles']" class="nav-link">Árboles</a></li>
+    <li><a [routerLink]="['/reglas/110']" class="nav-link">Rules</a></li>
+    <!-- <li><a [routerLink]="['/tree']" class="nav-link">Árbol</a></li> -->
+    <!-- <li><a [routerLink]="['/funcion-logaritmica']" class="nav-link">Drawer</a></li> -->
+    <li><a [routerLink]="['/automatas']" class="nav-link">Automatas</a></li>
+
+    <li><a [routerLink]="['/curvas']" class="nav-link">Curvas</a></li>
+    <li><a [routerLink]="['/matrices']" class="nav-link">Matrices</a></li>
+    <li><a [routerLink]="['/arboles']" class="nav-link">Árboles</a></li>
 
 
- 
-  </ul>
-<div
-class="app-container"
-[ngStyle]="
+
+</ul>
+<div class="app-container" [ngStyle]="
 {'background-color': backgroundColor, 'min-height': '100vh', 'transition': 'background-color 1s ease'}
-"
->
-  
-  <!-- Navigation Menu -->
-  <!-- <nav class="main-nav">
+">
+
+    <!-- Navigation Menu -->
+    <!-- <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
       </div>
@@ -30,10 +27,10 @@ class="app-container"
     </div>
   </nav> -->
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
+    <!-- Main Content -->
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
 </div>
 
 
@@ -63,7 +60,7 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
 
 <!-- <div> -->
-    <!-- <h2>Árbol 1</h2> -->
+<!-- <h2>Árbol 1</h2> -->
 <!-- {{ raiz.average()}} -->
 <!-- </div> -->
 <!-- <div>
@@ -75,12 +72,12 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
             </tr>
         </table> -->
 
-    
+
 
 
 <div class="tf-tree tf-ancestor-tree" style="font-size: 14px">
 
-    <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'[root]="raiz"></app-arbol-view>
+    <app-arbol-view [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]="raiz"></app-arbol-view>
 
 </div>
 <!-- <div>
@@ -104,17 +101,17 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
 
 
 
-    <!-- <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1> -->
-    <!-- <div *ngIf='true' class='tf-tree tf-ancestor-tree '> -->
-            <!-- <h2>Árbol 1</h2> -->
-            <!-- <app-nodo
+<!-- <h1 *ngIf='showTitle' style='margin-top: 70px'>{{ title }}</h1> -->
+<!-- <div *ngIf='true' class='tf-tree tf-ancestor-tree '> -->
+<!-- <h2>Árbol 1</h2> -->
+<!-- <app-nodo
                 [umbralInferior]='umbralInferior'
                 [umbralSuperior]='umbralSuperior'
                 [root]='raiz'
                 [showDraw]='0'>
             </app-nodo> -->
-            <!-- <hr> -->
-            <!-- <h2>Árbol 2</h2>
+<!-- <hr> -->
+<!-- <h2>Árbol 2</h2>
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz2' [showDraw]='1'></app-nodo>
 
             <br><br>
@@ -124,18 +121,18 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
             <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='raiz3' [showDraw]='0'></app-nodo>
             </div> -->
 
-    <!-- </div> -->
-    <!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
+<!-- </div> -->
+<!-- <app-controlador-umbrales  [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' ></app-controlador-umbrales>   -->
 
-    <!-- <h2>{{ generacion }}</h2>
+<!-- <h2>{{ generacion }}</h2>
     <div *ngIf=' showCurva'>
         <app-curva *ngIf='mostrarGrafica' [automata]="automata1" [generacion]='generacion' [points]='points' [azules]='azules'
             [verdes]='verdes' [rojos]='rojos' [cafes]='cafes' [grises]='grises'></app-curva>
     </div> -->
 
-    <!-- {{ raiz.getHojas().length}} -->
+<!-- {{ raiz.getHojas().length}} -->
 
-    <!-- <div *ngIf='showTabla'>
+<!-- <div *ngIf='showTabla'>
         <h2>Rack </h2>
 
 
@@ -143,4 +140,4 @@ filas {{ automata3.getFilas() }} columnas: {{ automata3.getColumnas() }}
         </app-tabla-nodo>
 
     </div> 
-</div>--> 
+</div>-->
