@@ -1418,7 +1418,20 @@ export class MinecraftViewComponent implements OnInit {
     // Create the instanced meshes
     const geometry = new THREE.BoxGeometry(1, 0.1, 1);
     Object.keys(instancesCountByColor).forEach(color => {
-      const baseColor = new THREE.Color(this.colorMap[color]);
+      let hexColor: any = this.colorMap[color];
+
+      // Use colors from automata if they exist
+      if (this.automata) {
+        switch (color) {
+          case 'Green': hexColor = this.automata.regla_3_color_2; break;
+          case 'Brown': hexColor = this.automata.regla_4_color_2; break;
+          case 'Blue': hexColor = this.automata.regla_2_color_2; break;
+          case 'Gray': hexColor = this.automata.regla_5_color_2; break;
+          case 'Red': hexColor = this.automata.regla_1_color_2; break;
+        }
+      }
+
+      const baseColor = new THREE.Color(hexColor);
       baseColor.multiplyScalar(0.8);
 
       const material = new THREE.MeshBasicMaterial({
