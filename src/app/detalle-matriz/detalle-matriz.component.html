@@ -22,28 +22,28 @@
 <div style="display: flex">
 
     <table border="0" style="border-collapse: collapse;">
-        <tr *ngFor="let row of matrizIA['bordes']">
+        <!-- <tr *ngFor="let row of matrizIA['bordes']">
             <td *ngFor="let cell of row" style="padding: 0;">
                 <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
                 </div>
             </td>
-        </tr>
+        </tr> -->
     </table>
     <table border="0" style="border-collapse: collapse;">
-        <tr *ngFor="let row of matrizIA['densidad']">
+        <!-- <tr *ngFor="let row of matrizIA['densidad']">
             <td *ngFor="let cell of row" style="padding: 0;">
                 <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
                 </div>
             </td>
-        </tr>
+        </tr> -->
     </table>
     <table border="0" style="border-collapse: collapse;">
-        <tr *ngFor="let row of matrizIA['relieve']">
+        <!-- <tr *ngFor="let row of matrizIA['relieve']">
             <td *ngFor="let cell of row" style="padding: 0;">
                 <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
                 </div>
             </td>
-        </tr>
+        </tr> -->
     </table>
 </div>
 <div>
@@ -153,14 +153,14 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_1">
                 </td>
                 <td>
-                    <select (change)='automata.changeRule("RED", $event.target.value )'>
+                    <!-- <select (change)='automata.changeRule("RED", $event.target.value )'>
                         <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
                             {{ rule.name }}
                             <span *ngIf="rule.notation">
                                 ( {{ rule.notation }} )
                             </span>
                         </option>
-                    </select>
+                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalRojos() | number}}
@@ -190,11 +190,11 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_2">
                 </td>
                 <td>
-                    <select (change)='automata.changeRule("BLUE", $event.target.value )'>
+                    <!-- <select (change)='automata.changeRule("BLUE", $event.target.value )'>
                         <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
                             {{ rule.name }} ( {{ rule.notation }} )
                         </option>
-                    </select>
+                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalAzules() | number}}
@@ -224,11 +224,11 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_3">
                 </td>
                 <td>
-                    <select (change)='automata.changeRule("GREEN", $event.target.value )'>
+                    <!-- <select (change)='automata.changeRule("GREEN", $event.target.value )'>
                         <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
                             {{ rule.name }} ( {{ rule.notation }} )
                         </option>
-                    </select>
+                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalVerdes() | number }}
@@ -258,11 +258,11 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_4">
                 </td>
                 <td>
-                    <select (change)='automata.changeRule("BROWN", $event.target.value )'>
+                    <!-- <select (change)='automata.changeRule("BROWN", $event.target.value )'>
                         <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
                             {{ rule.name }} ( {{ rule.notation }} )
                         </option>
-                    </select>
+                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalCafes() | number }}
@@ -292,11 +292,11 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_5">
                 </td>
                 <td>
-                    <select (change)='automata.changeRule("GRAY", $event.target.value )'>
+                    <!-- <select (change)='automata.changeRule("GRAY", $event.target.value )'>
                         <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
                             {{ rule.name }} ( {{ rule.notation }} )
                         </option>
-                    </select>
+                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalGrises() | number }}

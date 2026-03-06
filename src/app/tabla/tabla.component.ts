@@ -13,6 +13,7 @@ export class TablaComponent implements OnInit {
   @Input() automata: Automata;
   @Input() showChannels = false;
   @Input() preview = false;
+  @Input() datos_matriz: any;
 
   reglas = [
     {
