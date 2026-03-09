@@ -139,6 +139,11 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
 
           else {
             this.automata = this.factory2.crearAutomataNuevo(this.filas, this.columnas);
+            this.automata.altura_regla_1 = matriz.altura_regla_1;
+            this.automata.altura_regla_2 = matriz.altura_regla_2;
+            this.automata.altura_regla_3 = matriz.altura_regla_3;
+            this.automata.altura_regla_4 = matriz.altura_regla_4;
+            this.automata.altura_regla_5 = matriz.altura_regla_5;
             this.automata.setGeneration(matriz.generacion)
             this.puedeAvanzar = true;
 

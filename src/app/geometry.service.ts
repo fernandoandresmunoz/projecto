@@ -211,7 +211,12 @@ export class GeometryService {
     return this.http.post<any>(`http://localhost:8001/graficas/matrices/`, {
       nombre: nombre,
       filas: filas,
-      columnas: columnas
+      columnas: columnas,
+      altura_regla_1: 3,
+      altura_regla_2: 2,
+      altura_regla_3: 8,
+      altura_regla_4: 4,
+      altura_regla_5: 5,
     });
   }
 
