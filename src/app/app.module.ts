@@ -67,6 +67,7 @@ import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-
 import { EditorComponent } from './editor/editor.component';
 import { ConvolutionComponent } from './convolution/convolution.component';
 import { ControladorCanalesComponent } from './controlador-canales/controlador-canales.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 
@@ -132,7 +133,8 @@ import { ControladorCanalesComponent } from './controlador-canales/controlador-c
     WrapperMinecraftViewComponent,
     EditorComponent,
     ConvolutionComponent,
-    ControladorCanalesComponent
+    ControladorCanalesComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

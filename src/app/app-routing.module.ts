@@ -37,183 +37,198 @@ import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.componen
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
 import { EditorComponent } from './editor/editor.component';
 import { ConvolutionComponent } from './convolution/convolution.component';
+import { MenuComponent } from './menu/menu.component';
 // import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
 
 const routes: Routes = [
-  // es el mismo que drawer
   {
-    path: 'convolution/:id',
-    component: ConvolutionComponent
-  },
-
-  {
-    path: 'grafico',
-    component: FuncionLogaritmicaComponent
-  },
-  {
-    path: 'matrices',
-    component: MatricesComponent
-  },
-  {
-    path: 'arboles',
-    component: ArbolesComponent
-  },
-  {
-    path: 'nodo/:id',
-    component: DetalleNodoComponent
-  },
-  {
-    path: 'matrices/:id',
-    component: DetalleMatrizComponent
-  },
-  {
-    path: 'matrix/:id',
-    component: DetalleMatrizComponent
-  },
-  {
+    path: '',
+    component: MenuComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'matrices',
+        component: MatricesComponent
+      },
+      {
+        path: 'matrices/:id',
+        component: DetalleMatrizComponent
+      },
+    ]
+  }, {
     path: 'matrices/3d/:id',
     component: WrapperMinecraftViewComponent
   },
-  {
-    path: '',
-    'component': HomeComponent
-  },
-  {
-    path: 'minecraft-view',
-    component: MinecraftViewComponent
-  },
   // {
-  //   path: 'test-path',
-  //   component: TestappComponent
+  //   path: 'convolution/:id',
+  //   component: ConvolutionComponent
   // },
-  {
-    path: 'tree',
-    component: TreeComponent
-  },
+
+  // {
+  //   path: 'grafico',
+  //   component: FuncionLogaritmicaComponent
+  // },
+
+  // {
+  //   path: 'arboles',
+  //   component: ArbolesComponent
+  // },
+  // {
+  //   path: 'nodo/:id',
+  //   component: DetalleNodoComponent
+  // },
+
+  // // {
+  // //   path: 'matrix/:id',
+  // //   component: DetalleMatrizComponent
+  // // },
+  // {
+  //   path: 'matrices/3d/:id',
+  //   component: WrapperMinecraftViewComponent
+  // },
+  // {
+  //   path: '',
+  //   'component': MenuComponent
+  // },
+  // {
+  //   path: 'minecraft-view',
+  //   component: MinecraftViewComponent
+  // },
+  // // {
+  // //   path: 'test-path',
+  // //   component: TestappComponent
+  // // },
+  // {
+  //   path: 'tree',
+  //   component: TreeComponent
+  // },
 
 
-  {
-    path: 'void',
-    component: VoidComponent
-  },
+  // {
+  //   path: 'void',
+  //   component: VoidComponent
+  // },
 
-  {
-    path: 'automatas',
-    component: AutomatasComponent,
-    children: [
-      {
-        path: 'automata-1',
-        component: Automata1Component
-      },
-      {
-        path: 'automata-2',
-        component: Automata2Component
-      },
-      {
-        path: 'automata-3',
-        component: Automata3Component
-      },
-      {
-        path: 'glider',
-        component: GliderComponent
-      },
-      {
-        path: 'nuevo-automata',
-        component: NuevoAutomataComponent
-      },
-    ]
+  // {
+  //   path: 'automatas',
+  //   component: AutomatasComponent,
+  //   children: [
+  //     {
+  //       path: 'automata-1',
+  //       component: Automata1Component
+  //     },
+  //     {
+  //       path: 'automata-2',
+  //       component: Automata2Component
+  //     },
+  //     {
+  //       path: 'automata-3',
+  //       component: Automata3Component
+  //     },
+  //     {
+  //       path: 'glider',
+  //       component: GliderComponent
+  //     },
+  //     {
+  //       path: 'nuevo-automata',
+  //       component: NuevoAutomataComponent
+  //     },
+  //   ]
 
-  },
+  // },
 
-  {
-    path: 'curvas',
-    component: CurvasComponent,
-    children: [
-      {
-        path: 'lienzos',
-        component: LienzosComponent
-      },
-      {
-        path: 'lienzos/:id',
-        component: LienzoDetailComponent
-      },
-      {
-        path: 'funcion-cuadratica',
-        component: FuncionCuadraticaComponent
-      },
-      {
-        path: 'funcion-exponencial',
-        component: FuncionExponencialComponent
-      },
-      {
-        path: 'gauss',
-        component: GaussComponent
-      },
-      {
-        path: 'funcion-polinomica',
-        component: FuncionPolinomicaComponent
-      },
-      {
-        path: 'funcion-seno',
-        component: FuncionSenoComponent
-      },
-      {
-        path: 'recta',
-        component: RectaComponent
-      },
-      {
-        path: 'exponenciales',
-        component: ExponencialesComponent
-      },
-      {
-        path: 'lista-lienzos',
-        component: ListaDeLienzosComponent
-      },
-    ]
+  // {
+  //   path: 'curvas',
+  //   component: CurvasComponent,
+  //   children: [
+  //     {
+  //       path: 'lienzos',
+  //       component: LienzosComponent
+  //     },
+  //     {
+  //       path: 'lienzos/:id',
+  //       component: LienzoDetailComponent
+  //     },
+  //     {
+  //       path: 'funcion-cuadratica',
+  //       component: FuncionCuadraticaComponent
+  //     },
+  //     {
+  //       path: 'funcion-exponencial',
+  //       component: FuncionExponencialComponent
+  //     },
+  //     {
+  //       path: 'gauss',
+  //       component: GaussComponent
+  //     },
+  //     {
+  //       path: 'funcion-polinomica',
+  //       component: FuncionPolinomicaComponent
+  //     },
+  //     {
+  //       path: 'funcion-seno',
+  //       component: FuncionSenoComponent
+  //     },
+  //     {
+  //       path: 'recta',
+  //       component: RectaComponent
+  //     },
+  //     {
+  //       path: 'exponenciales',
+  //       component: ExponencialesComponent
+  //     },
+  //     {
+  //       path: 'lista-lienzos',
+  //       component: ListaDeLienzosComponent
+  //     },
+  //   ]
 
-  },
-  // { 
-  //     path: 'funcion-cuadratica',
-  //     component: FuncionCuadraticaComponent
-  //   },
+  // },
+  // // { 
+  // //     path: 'funcion-cuadratica',
+  // //     component: FuncionCuadraticaComponent
+  // //   },
 
-  {
-    path: 'funcion-logaritmica',
-    component: FuncionLogaritmicaComponent
-  },
-
-
-  // { 
-  //     path: 'nueva-calculadora',
-  //     component: Graficadora2Component
-  //   },
+  // {
+  //   path: 'funcion-logaritmica',
+  //   component: FuncionLogaritmicaComponent
+  // },
 
 
-  {
-    path: 'rule110',
-    component: ControladorFilaComponent
-  },
-  {
-    path: 'reglas/:id',
-    component: ReglasComponent
-  },
-  {
-    path: 'rules/:id',
-    component: ReglasComponent
-  },
-  {
-    path: 'rule/:id',
-    component: ReglasComponent
-  },
+  // // { 
+  // //     path: 'nueva-calculadora',
+  // //     component: Graficadora2Component
+  // //   },
 
-  {
-    path: 'vista-cubos-3d',
-    component: MinecraftViewComponent
-  },
-  {
-    path: 'editor',
-    component: EditorComponent
-  }
+
+  // {
+  //   path: 'rule110',
+  //   component: ControladorFilaComponent
+  // },
+  // {
+  //   path: 'reglas/:id',
+  //   component: ReglasComponent
+  // },
+  // {
+  //   path: 'rules/:id',
+  //   component: ReglasComponent
+  // },
+  // {
+  //   path: 'rule/:id',
+  //   component: ReglasComponent
+  // },
+
+  // {
+  //   path: 'vista-cubos-3d',
+  //   component: MinecraftViewComponent
+  // },
+  // {
+  //   path: 'editor',
+  //   component: EditorComponent
+  // }
 
 
 
@@ -226,12 +241,6 @@ const routes: Routes = [
 
 
 ];
-// <li> <a [routerLink]="['/gauss']">gauss</a></li>
-// <li> <a [routerLink]="['/funcion-seno']">función seno</a></li>
-// <li> <a [routerLink]="['/funcion-cuadratica']">función cuadrática</a></li>
-// <li> <a [routerLink]="['/funcion-exponencial']">función exponencial</a></li>
-// <li> <a [routerLink]="['/funcion-logaritmica']">función logarítmica</a></li>
-// <li> <a [routerLink]="['/funcion-polinomica']">función polinómica</a></li>
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

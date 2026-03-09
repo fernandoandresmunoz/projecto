@@ -55,25 +55,6 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
   automata: Automata
   puedeAvanzar: boolean = true;
   // Regla 1: Pasto
-  // @Input() coloresRegla1: string[] = [ "#1e5e3a", "#4a8562", "#71b585" ];
-  coloresRegla1: string[] = ["#1e5e3a", "green", "#71b585"];
-
-  // Regla 3: Agua
-  coloresRegla3: string[] = ["#153366", "#3d649a", "#5a8ac4"];
-
-  // Tonos de roca
-  // Regla 2: Piedra
-  // @Input() coloresRegla2: string[] = [ "#4d4d4d", "#7a7a7a", "#b0b0b0" ];
-  coloresRegla2: string[] = ["#4d4d4d", "red", "#b0b0b0"];
-
-  // Regla 4: Tierra
-  // @Input() coloresRegla4: string[] = [ "#6a4e32", "#8e6c4e", "#b08a6b" ];
-  coloresRegla4: string[] = ["#6a4e32", "brown", "#b08a6b"];
-
-  // Regla 5: Madera
-  // @Input() coloresRegla5: string[] = [ "#593c28", "red", "#b08f75" ];
-  coloresRegla5: string[] = ["#593c28", "gray", "#b08f75"];
-
   intervaloEvolucion: number = 500;
   guardando: boolean = false;
 
@@ -150,6 +131,9 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
             this.automata.estado_actual = matriz.estado_actual;
             this.automata.scale = matriz.escala;
             this.automata.escalaVistaPlana = matriz.escala_vista_plana;
+
+            this.puedeAvanzar = true;
+            this.automata.estado_actual = 'Activo';
           }
 
 
@@ -211,9 +195,6 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
     })
 
 
-    if (this.automata) {
-
-    }
 
   }
   ngAfterViewInit(): void {
@@ -230,8 +211,11 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   navigateTo3dView(): void {
-    this.router.navigate(['matrices/3d', this.idMatriz])
-
+    // this.router.navigate(['matrices/3d', this.idMatriz])
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/matrices/3d', this.idMatriz])
+    );
+    window.open(url, '_blank')
     // path: 'matrices/3d/:id',
   }
 

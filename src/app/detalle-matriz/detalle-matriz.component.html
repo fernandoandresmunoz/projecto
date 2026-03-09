@@ -1,6 +1,17 @@
 <!-- <div *ngFor="let canal of canales">
     <h2> CANAL {{ canal }} </h2> -->
 
+<h2> GENERATION: {{automata.getGeneration()}} </h2>
+<div>
+    PUEDE AVANZAR: {{ puedeAvanzar ? "ACTIVO": "PAUSADO"}}
+    <button (click)="puedeAvanzar = !puedeAvanzar;
+    automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">PAUSE LOCAL</button>
+</div>
+<p>
+    <button (click)="navigateTo3dView()">
+        3D VIEW
+    </button>
+</p>
 {{ matrizIA.length }}
 
 <!-- <table border="1">
@@ -58,11 +69,7 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
 <!-- <app-convolution [automata]="automata"></app-convolution> -->
 
 
-<div>
-    {{ puedeAvanzar ? "ACTIVO": "PAUSADO"}}
-    <button (click)="puedeAvanzar = !puedeAvanzar;
-    automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">PAUSE LOCAL</button>
-</div>
+
 <div>
     <div> {{ nombre }} </div>
     <div> {{ columnas}} </div>
@@ -75,22 +82,11 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
         GUARDAR MATRIZ</button>
     {{ !guardando ? "": "GUARDANDO.."}}
 </p>
-<p>
-    <button (click)="navigateTo3dView()">
-        3D VIEW
-    </button>
-    <!-- <a 
-    [routerLink]="['matrices/3d', idMatriz]"
-    target="_blank"
-  >
-    Abrir Matriz 3D
-  </a> -->
-</p>
+
 <div *ngIf="automata">
     <p>
         LOCAL GENERATION: {{generacion}}
     </p>
-    <h2> GENERATION: {{automata.getGeneration()}} </h2>
 
 
     <app-tabla-reglas [automata]="automata"></app-tabla-reglas>
