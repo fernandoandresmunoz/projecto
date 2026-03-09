@@ -211,11 +211,11 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   navigateTo3dView(): void {
-    // this.router.navigate(['matrices/3d', this.idMatriz])
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/matrices/3d', this.idMatriz])
-    );
-    window.open(url, '_blank')
+    this.router.navigate(['matrices/3d', this.idMatriz])
+    // const url = this.router.serializeUrl(
+    //   this.router.createUrlTree(['/matrices/3d', this.idMatriz])
+    // );
+    // window.open(url, '_blank')
     // path: 'matrices/3d/:id',
   }
 
