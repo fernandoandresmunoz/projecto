@@ -489,6 +489,10 @@ export class MinecraftViewComponent implements OnInit {
   private moveBackward = false;
   private moveLeft = false;
   private moveRight = false;
+  private lookUp = false;
+  private lookDown = false;
+  private lookLeft = false;
+  private lookRight = false;
   private canJump = true;
   private isUnderwater = false;
   private moveSpeed = 15.0;
@@ -1609,6 +1613,25 @@ export class MinecraftViewComponent implements OnInit {
     const delta = (currentTime - this.prevTime) / 1000;
 
     if (this.isLocked) {
+      // Rotación de cámara con teclado (flechas)
+      if (this.lookUp || this.lookDown || this.lookLeft || this.lookRight) {
+        const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+        euler.setFromQuaternion(this.camera.quaternion);
+
+        const rotationSpeed = 2.0 * delta; // Velocidad de giro
+        if (this.lookLeft) euler.y += rotationSpeed;
+        if (this.lookRight) euler.y -= rotationSpeed;
+        if (this.lookUp) euler.x += rotationSpeed;
+        if (this.lookDown) euler.x -= rotationSpeed;
+
+        // Limitar la rotación vertical para evitar dar la vuelta completa
+        const PI_2 = Math.PI / 2 - 0.01;
+        euler.x = Math.max(-PI_2, Math.min(PI_2, euler.x));
+        euler.z = 0; // Forzamos Z a 0 para quitar permanentemente cualquier inclinación
+
+        this.camera.quaternion.setFromEuler(euler);
+      }
+
       this.velocity.x -= this.velocity.x * this.friction * delta;
       this.velocity.z -= this.velocity.z * this.friction * delta;
 
@@ -1829,21 +1852,29 @@ export class MinecraftViewComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     switch (event.code) {
-      case 'ArrowUp':
       case 'KeyW':
         this.moveForward = true;
         break;
-      case 'ArrowDown':
       case 'KeyS':
         this.moveBackward = true;
         break;
-      case 'ArrowLeft':
       case 'KeyA':
         this.moveLeft = true;
         break;
-      case 'ArrowRight':
       case 'KeyD':
         this.moveRight = true;
+        break;
+      case 'ArrowUp':
+        this.lookUp = true;
+        break;
+      case 'ArrowDown':
+        this.lookDown = true;
+        break;
+      case 'ArrowLeft':
+        this.lookLeft = true;
+        break;
+      case 'ArrowRight':
+        this.lookRight = true;
         break;
       case 'Space':
         if (!this.spaceKeyPressed) {
@@ -1886,21 +1917,29 @@ export class MinecraftViewComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     switch (event.code) {
-      case 'ArrowUp':
       case 'KeyW':
         this.moveForward = false;
         break;
-      case 'ArrowDown':
       case 'KeyS':
         this.moveBackward = false;
         break;
-      case 'ArrowLeft':
       case 'KeyA':
         this.moveLeft = false;
         break;
-      case 'ArrowRight':
       case 'KeyD':
         this.moveRight = false;
+        break;
+      case 'ArrowUp':
+        this.lookUp = false;
+        break;
+      case 'ArrowDown':
+        this.lookDown = false;
+        break;
+      case 'ArrowLeft':
+        this.lookLeft = false;
+        break;
+      case 'ArrowRight':
+        this.lookRight = false;
         break;
       case 'Space':
         this.spaceKeyPressed = false;
@@ -2499,7 +2538,7 @@ export class MinecraftViewComponent implements OnInit {
         this.camera.rotation.set(
           gameState.playerState.rotation.x,
           gameState.playerState.rotation.y,
-          gameState.playerState.rotation.z
+          0 // Evita cargar ladeos indeseados provenientes de un guardado corrupto anterior
         );
 
         // Restaurar modo de vuelo
