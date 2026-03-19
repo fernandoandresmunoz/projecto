@@ -35,7 +35,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges {
   points: Point[] = [];
 
 
-  shapeFactory: ShapeFactory = new ConcreteShapeFactory();
+  shapeFactory: ConcreteShapeFactory = new ConcreteShapeFactory();
   // cube: Cube;
   @Input() automata: Automata;
   @Input() filas: number;
@@ -66,7 +66,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges {
 
 
     setInterval(() => {
-      if (!this.getPause()) {
+      if (this.automata && !this.getPause()) {
         // this.avanzarUnaGeneracion()
         // this.right()
         this.draw();
@@ -74,7 +74,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges {
       // this.draw();
 
       // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
-    }, 500)
+    }, 250)
   }
   totales() {
     return this.automata.totales();

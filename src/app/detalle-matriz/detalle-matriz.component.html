@@ -1,75 +1,612 @@
-<!-- <div *ngFor="let canal of canales">
-    <h2> CANAL {{ canal }} </h2> -->
+<div *ngIf="automata">
+    <div class="status-bar" *ngIf="automata">
+        <div>GENERACIÓN: <span>{{ automata.getGeneration() }}</span></div>
+        <div class="separator">|</div>
+        <div>MODO: <span>{{ geometry.modo_actual }}</span></div>
 
-<h2> GENERATION: {{automata.getGeneration()}} </h2>
+        <button (click)='resetEpisodio()'>
+            reset
+        </button>
+        ||
+        INTERVALO GENERACION:
+        {{ intervaloGeneracion }}
+    </div>
+    <!-- <div *ngIf="automata">
+        GENERACIÓN : {{ automata.getGeneration() }}
+        | MODO : {{ geometry.modo_actual }}
+        |
+        <button (click)='resetEpisodio()'>
+            reset
+        </button>
+
+    </div> -->
+    <div class="main" style="border: 1px solid gray; display: flex">
+        <div class="controls" style="border: 1px solid gray; padding: 2em; width: 40%;">
+            <button [class.active]="menuAbierto === EVOLUCION" (click)="menuAbierto = EVOLUCION">
+                EVOLUCION
+            </button>
+            <button [class.active]="menuAbierto === CONTROL_REGLAS" (click)="menuAbierto = CONTROL_REGLAS">
+                CONTROL REGLAS
+            </button>
+            <button [class.active]="menuAbierto === STATS" (click)="menuAbierto = STATS">
+                STATS
+            </button>
+            <button [class.active]="menuAbierto === STYLES" (click)="menuAbierto = STYLES">
+                STYLES
+            </button>
+
+            <div style="background-color: white;">
+
+                <div *ngIf="menuAbierto === EVOLUCION">
+                    <div style="margin-bottom: 2em;">
+                        <button [disabled]="geometry.modo_actual === geometry.MANUAL"
+                            (click)="geometry.modo_actual = geometry.MANUAL">MODO
+                            MANUAL</button>
+                        <button [disabled]="geometry.modo_actual === geometry.HIBRIDO"
+                            (click)="geometry.modo_actual = geometry.HIBRIDO">MODO
+                            HIBRIDO</button>
+                        <button [disabled]="geometry.modo_actual === geometry.AUTONOMO"
+                            (click)="geometry.modo_actual = geometry.AUTONOMO">MODO
+                            AUTONOMO</button>
+                        <button [disabled]="geometry.modo_actual === geometry.SIN_INTERVENCION"
+                            (click)="geometry.modo_actual = geometry.SIN_INTERVENCION">SIN_INTERVENCION
+                        </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    CHANNEL
+                                </th>
+                                <th>
+                                    CURRENT RULE
+                                </th>
+                                <th>
+                                    SUGGESTED RULE
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> CHANNEL 1
+                                    <br>
+                                    ( VEGETACION )
+                                </td>
+                                <td>{{ automata.getGreenRule().name }}</td>
+                                <td>{{ sugerencia_canal_1 }}</td>
+                                <!-- <td>{{ estado_global_canal_1 }}</td>
+                                <td>{{ densidad_real_canal_1 }}</td>
+                                <td>{{ total_celulas_canal_1 }}</td> -->
+                            </tr>
+                            <tr>
+                                <td> CHANNEL 2
+                                    <br>
+                                    ( TIERRA )
+                                </td>
+                                <td>{{ automata.getBrownRule().name }}</td>
+                                <td>{{ sugerencia_canal_2 }}</td>
+                                <!-- <td>{{ estado_global_canal_2 }}</td>
+                                <td>{{ densidad_real_canal_2 }}</td>
+                                <td>{{ total_celulas_canal_2 }}</td> -->
+                            </tr>
+                            <tr>
+                                <td> CHANNEL 3
+                                    <br>
+                                    ( MAR )
+                                </td>
+                                <td>{{ automata.getBlueRule().name }}</td>
+                                <td>{{ sugerencia_canal_3 }}</td>
+                                <!-- <td>{{ estado_global_canal_3 }}</td>
+                                <td>{{ densidad_real_canal_3 }}</td>
+                                <td>{{ total_celulas_canal_3 }}</td> -->
+                            </tr>
+                            <tr>
+                                <td> CHANNEL 4
+                                    <br>
+                                    ( GRIS )
+                                </td>
+                                <td>{{ automata.getGrayRule().name }}</td>
+                                <td>{{ sugerencia_canal_4 }}</td>
+                                <!-- <td>{{ estado_global_canal_4 }}</td>
+                                <td>{{ densidad_real_canal_4 }}</td>
+                                <td>{{ total_celulas_canal_4 }}</td> -->
+                            </tr>
+                            <tr>
+                                <td> CHANNEL 5
+                                    <br>
+                                    ( LAVA )
+                                </td>
+                                <td>{{ automata.getRedRule().name }}</td>
+                                <td>{{ sugerencia_canal_5 }}</td>
+                                <!-- <td>{{ estado_global_canal_5 }}</td>
+                                <td>{{ densidad_real_canal_5 }}</td>
+                                <td>{{ total_celulas_canal_5 }}</td> -->
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div *ngIf="menuAbierto === CONTROL_REGLAS">
+                    <div style="display: flex">
+                        <button [disabled]="canalActivoControlRegla === 1"
+                            (click)="canalActivoControlRegla = 1">1</button>
+                        <button (click)="canalActivoControlRegla = 2">2</button>
+                        <button (click)="canalActivoControlRegla = 3">3</button>
+                        <button (click)="canalActivoControlRegla = 4">4</button>
+                        <button (click)="canalActivoControlRegla = 5">5</button>
+                    </div>
+                    <div class="controladorReglasCanales">
+                        <div *ngIf="canalActivoControlRegla === 1">
+                            <h3>canal 1</h3>
+                            <button (click)='automata.changeRule("GREEN", rule.name )'
+                                *ngFor='let rule of automata.getRules().sort()'>
+                                {{ rule.name }}
+                            </button>
+                        </div>
+                        <div *ngIf="canalActivoControlRegla === 2">
+                            <h3>canal 2</h3>
+                            <button (click)='automata.changeRule("BROWN", rule.name )'
+                                *ngFor='let rule of automata.getRules().sort()'>
+                                {{ rule.name }}
+                            </button>
+                        </div>
+                        <div *ngIf="canalActivoControlRegla === 3">
+                            <h3>canal 3</h3>
+                            <button (click)='automata.changeRule("BLUE", rule.name )'
+                                *ngFor='let rule of automata.getRules().sort()'>
+                                {{ rule.name }}
+                            </button>
+                        </div>
+                        <div *ngIf="canalActivoControlRegla === 4">
+                            <h3>canal 4</h3>
+                            <button (click)='automata.changeRule("GRAY", rule.name )'
+                                *ngFor='let rule of automata.getRules().sort()'>
+                                {{ rule.name }}
+                            </button>
+                        </div>
+                        <div *ngIf="canalActivoControlRegla === 5">
+                            <h3>canal 5</h3>
+                            <button (click)='automata.changeRule("RED", rule.name )'
+                                *ngFor='let rule of automata.getRules().sort()'>
+                                {{ rule.name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="menuAbierto === STATS">
+                    STATS
+                </div>
+                <div *ngIf="menuAbierto === STYLES">
+                    STYLES
+                </div>
+            </div>
+        </div>
+        <div class="views" style="border: 1px solid gray; padding: 2em; width: 80%;">
+            <div class="view-buttons" style="border: 1px solid gray">
+                <button [disabled]="vistaActual === VISTA_ISOMETRICA" (click)="vistaActual = VISTA_ISOMETRICA">VISTA
+                    AXONOMÉTRICA</button>
+                <button [disabled]="vistaActual === VISTA_PLANA " (click)="vistaActual = VISTA_PLANA ">VISTA PLANA
+                </button>
+                <button [disabled]="vistaActual === VISTA_FILTROS"
+                    (click)="vistaActual = VISTA_FILTROS">FILTROS</button>
+                <!-- <button [disabled]="vistaActual === VISTA_ALL" (click)="vistaActual = VISTA_ALL">ALL</button> -->
+                <button [disabled]="vistaActual === VISTA_CANALES"
+                    (click)="vistaActual = VISTA_CANALES">CANALES</button>
+                <button (click)="navigateTo3dView()">OPEN 3D WORLD</button>
+            </div>
+            <div class="view-content" style="border: 1px solid gray">
+                <div *ngIf="vistaActual === VISTA_ISOMETRICA">
+                    <app-automata [automata]="automata">
+                    </app-automata>
+                </div>
+                <div *ngIf="vistaActual === VISTA_PLANA">
+                    <app-tabla [preview]="false" [automata]="automata" [anchoCelda]="2" [showChannels]="true">
+                    </app-tabla>
+                </div>
+                <div *ngIf="vistaActual === VISTA_FILTROS">
+                    <div style="display: ruby" *ngIf="matrices && matrizIA">
+                        <div *ngFor="let matriz of matrices">
+
+                            <h4>{{ matriz }}</h4>
+                            <div>
+                                <table border="0"
+                                    style="border-collapse: collapse; border: 1px solid black ; margin-right: 1em">
+                                    <tr *ngFor="let row of matrizIA['matrices'][matriz]">
+                                        <td *ngFor="let cell of row" style="padding: 0;">
+                                            <div [style.background-color]="getColor(cell)"
+                                                style="width: 10px; height: 10px;">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="vistaActual === VISTA_CANALES">
+                    VISTA CANALES
+                    <div style="border: 1px solid black;">
+
+                        <h2> CHANNEL #0 </h2>
+                        <table cellspacing="0">
+                            <tr *ngFor="let fila of automata.getMatrizActiva()">
+                                <td *ngFor="let columna of fila" [ngStyle]="{
+                                    'background': columna.state === 0  ?  'black': 'white' ,
+                                    'width': anchoCelda + 'px', 'height': anchoCelda + 'px'
+                                    }">
+                                    <div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div style="border: 1px solid black; display: flex; flex-direction: row;">
+                        <div style="border: 1px solid gray;" *ngFor="let regla of reglas">
+                            <h2> CHANNEL #{{ regla.id }} </h2>
+                            <p>
+                                {{ regla.name }}
+                            </p>
+                            <p>
+                                {{ regla.notation }}
+                            </p>
+                            <table cellspacing="0">
+                                <tr *ngFor="let fila of automata.getMatrizActiva()">
+                                    <td *ngFor="let columna of fila" [ngStyle]="{
+                                'background': columna.state === 1 && columna.color === regla.color ?  getColorCanal(columna.color): 'white' ,
+                                'width': 2 + 'px', 'height': 2 + 'px'
+                                }">
+                                        <div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div style="margin-bottom: 2em;">
+    <button [disabled]="geometry.modo_actual === geometry.MANUAL" (click)="geometry.modo_actual = geometry.MANUAL">MODO
+        MANUAL</button>
+    <button [disabled]="geometry.modo_actual === geometry.HIBRIDO"
+        (click)="geometry.modo_actual = geometry.HIBRIDO">MODO
+        HIBRIDO</button>
+    <button [disabled]="geometry.modo_actual === geometry.AUTONOMO"
+        (click)="geometry.modo_actual = geometry.AUTONOMO">MODO
+        AUTONOMO</button>
+    <button [disabled]="geometry.modo_actual === geometry.SIN_INTERVENCION"
+        (click)="geometry.modo_actual = geometry.SIN_INTERVENCION">SIN_INTERVENCION
+    </button>
+</div>
+
+<div *ngIf="vistaActual === VISTA_ISOMETRICA">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    CHANNEL
+                </th>
+                <th>
+                    CURRENT RULE
+                </th>
+                <th>
+                    SUGGESTED RULE
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> CHANNEL 1 ( VEGETACION ) </td>
+                <td>{{ automata.getGreenRule().name }}</td>
+                <td>{{ sugerencia_canal_1 }}</td>
+                <td>{{ estado_global_canal_1 }}</td>
+                <td>{{ densidad_real_canal_1 }}</td>
+                <td>{{ total_celulas_canal_1 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 2 ( TIERRA )</td>
+                <td>{{ automata.getBrownRule().name }}</td>
+                <td>{{ sugerencia_canal_2 }}</td>
+                <td>{{ estado_global_canal_2 }}</td>
+                <td>{{ densidad_real_canal_2 }}</td>
+                <td>{{ total_celulas_canal_2 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 3 ( MAR )</td>
+                <td>{{ automata.getBlueRule().name }}</td>
+                <td>{{ sugerencia_canal_3 }}</td>
+                <td>{{ estado_global_canal_3 }}</td>
+                <td>{{ densidad_real_canal_3 }}</td>
+                <td>{{ total_celulas_canal_3 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 4 ( GRIS )</td>
+                <td>{{ automata.getGrayRule().name }}</td>
+                <td>{{ sugerencia_canal_4 }}</td>
+                <td>{{ estado_global_canal_4 }}</td>
+                <td>{{ densidad_real_canal_4 }}</td>
+                <td>{{ total_celulas_canal_4 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 5 ( LAVA )</td>
+                <td>{{ automata.getRedRule().name }}</td>
+                <td>{{ sugerencia_canal_5 }}</td>
+                <td>{{ estado_global_canal_5 }}</td>
+                <td>{{ densidad_real_canal_5 }}</td>
+                <td>{{ total_celulas_canal_5 }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="controladorReglasCanales">
+        <div>
+            <h3>canal 1</h3>
+            <button (click)='automata.changeRule("GREEN", rule.name )' *ngFor='let rule of automata.getRules().sort()'>
+                {{ rule.name }}
+            </button>
+        </div>
+        <div>
+            <h3>canal 2</h3>
+            <button (click)='automata.changeRule("BROWN", rule.name )' *ngFor='let rule of automata.getRules().sort()'>
+                {{ rule.name }}
+            </button>
+        </div>
+        <div>
+            <h3>canal 3</h3>
+            <button (click)='automata.changeRule("BLUE", rule.name )' *ngFor='let rule of automata.getRules().sort()'>
+                {{ rule.name }}
+            </button>
+        </div>
+        <div>
+            <h3>canal 4</h3>
+            <button (click)='automata.changeRule("GRAY", rule.name )' *ngFor='let rule of automata.getRules().sort()'>
+                {{ rule.name }}
+            </button>
+        </div>
+        <div>
+            <h3>canal 5</h3>
+            <button (click)='automata.changeRule("RED", rule.name )' *ngFor='let rule of automata.getRules().sort()'>
+                {{ rule.name }}
+            </button>
+        </div>
+    </div>
+
+</div>
+<p *ngIf="infoText" style="color: red; background-color: black;">
+    {{ infoText }}
+</p>
+<button (click)='resetEpisodio()'>
+    reset
+</button>
+{{ automata.getGeneration() }}
+<table *ngIf="vistaActual === VISTA_ALL ">
+    <thead>
+        <tr>
+            <th>COLOR</th>
+            <th>RULE</th>
+            <th>CELULAS VIVAS</th>
+            <th>PORCENTAJE ( SOBRE CELDAS VIVAS )</th>
+            <th>PORCENTAJE ( TOTAL CELDAS)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Verdes</td>
+            <td>{{ automata.getGreenRule().name }}</td>
+            <td>{{ automata.totalVerdes() }}</td>
+            <td>{{ automata.totalVerdes() / automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.porcentajeVerdes()}}</td>
+        </tr>
+        <tr>
+            <td>Cafes</td>
+            <td>{{ automata.getBrownRule().name }}</td>
+            <td>{{ automata.totalCafes() }}</td>
+            <td>{{ automata.totalCafes() / automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.porcentajeCafes()}}</td>
+        </tr>
+        <tr>
+            <td>Azules</td>
+            <td>{{ automata.getBlueRule().name }}</td>
+            <td>{{ automata.totalAzules() }}</td>
+            <td>{{ automata.totalAzules() / automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.porcentajeAzules()}}</td>
+        </tr>
+        <tr>
+            <td>Grises</td>
+            <td>{{ automata.getGrayRule().name }}</td>
+            <td>{{ automata.totalGrises() }}</td>
+            <td>{{ automata.totalGrises() / automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.porcentajeGrises()}}</td>
+        </tr>
+        <tr>
+            <td>Rojos</td>
+            <td>{{ automata.getRedRule().name }}</td>
+            <td>{{ automata.totalRojos() }}</td>
+            <td>{{ automata.totalRojos() / automata.totalSumadoElementos() }}</td>
+            <td>{{ automata.porcentajeRojos()}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div *ngIf="vistaActual === VISTA_ALL">
+    <app-tabla [preview]="false" [automata]="automata" [anchoCelda]="8" [showChannels]="true">
+    </app-tabla>
+</div>
+
+
+<button (click)="automata.reset()">
+    reset
+</button>
+<h2> GENERATION: {{automata?.getGeneration()}} </h2>
 <div>
     PUEDE AVANZAR: {{ puedeAvanzar ? "ACTIVO": "PAUSADO"}}
     <button (click)="puedeAvanzar = !puedeAvanzar;
     automata.estado_actual = puedeAvanzar ? 'Activo' : 'PAUSADO'">PAUSE LOCAL</button>
 </div>
 <p>
-    <button (click)="navigateTo3dView()">
-        3D VIEW
-    </button>
+
 </p>
-{{ matrizIA.length }}
 
-<!-- <table border="1">
-    <tr *ngFor="let row of binarizarCanal(1)">
-        <td *ngFor="let cell of row">
-            <div *ngIf="cell === 1" style="background-color: gray; width: 5px; height: 5px"></div>
-            <div *ngIf="cell === 0" style="background-color: white; width: 5px; height: 5px"></div>
-        </td>
-    </tr>
-</table> -->
-<!-- </div> -->
-<!-- <table>
-    <tr *ngFor="let row of matrizIA['densidad']; trackBy: trackByRow">
-        <td *ngFor="let cell of row; trackBy: trackByCell">
-            <div [style.background-color]="getColor(cell)"></div>
-        </td>
-    </tr>
-</table> -->
-<div style="display: flex">
+<p>
+    <label for="selectedChannel">CANAL SELECCIONADO: {{ selectedChannel }}</label>
+    <input (change)="guardarMatriz()" type="number" [(ngModel)]="selectedChannel" min="0" max="5">
+</p>
 
-    <table border="0" style="border-collapse: collapse;">
-        <!-- <tr *ngFor="let row of matrizIA['bordes']">
-            <td *ngFor="let cell of row" style="padding: 0;">
-                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
+<div *ngIf="matrizIA">
+    DIAGNÓSTICO
+    <br>
+    estado_global : {{ matrizIA['diagnostico']['estado_global'] }}
+    <br>
+    sugerencia_regla : {{ matrizIA['diagnostico']['sugerencia_regla'] }}
+    <br>
+    <table>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][0] }}</td>
+            <td>
+
+                <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][0] * 100"
+                    style="height: 20px; background-color: black; transition: width 0.3s ease;">
                 </div>
             </td>
-        </tr> -->
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][1] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][1] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][2] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][2] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][3] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][3] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][4] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][4] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][5] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][5] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
+        <tr>
+            <td>{{ matrizIA['diagnostico']['adn_vector'][6] }}</td>
+            <div [style.width.px]=" matrizIA['diagnostico']['adn_vector'][6] * 100"
+                style="height: 20px; background-color: black; transition: width 0.3s ease;">
+            </div>
+        </tr>
     </table>
-    <table border="0" style="border-collapse: collapse;">
-        <!-- <tr *ngFor="let row of matrizIA['densidad']">
-            <td *ngFor="let cell of row" style="padding: 0;">
-                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
+
+</div>
+
+<div *ngIf="matrizIA && vistaActual === VISTA_FILTROS">
+    <table border="1" style="width: 100%">
+        <tr *ngFor="let kpi of estadisticas">
+            <td style="width: 220px">{{ kpi }}</td>
+            <td>
+                <div [style.width.px]=" matrizIA['estadisticas'][kpi] * 100"
+                    style="height: 20px; background-color: black; transition: width 0.3s ease;">
                 </div>
             </td>
-        </tr> -->
-    </table>
-    <table border="0" style="border-collapse: collapse;">
-        <!-- <tr *ngFor="let row of matrizIA['relieve']">
-            <td *ngFor="let cell of row" style="padding: 0;">
-                <div [style.background-color]="getColor(cell)" style="width: 5px; height: 5px;">
-                </div>
-            </td>
-        </tr> -->
+        </tr>
     </table>
 </div>
+
+<div *ngIf="vistaActual === VISTA_FILTROS">
+    
+</div>
+
 <div>
     {{ automata.estado_actual }}
 </div>
-<app-tabla [preview]="false" [automata]="automata" [anchoCelda]="automata.escalaVistaPlana" [showChannels]="true">
-</app-tabla>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    CHANNEL
+                </th>
+                <th>
+                    CURRENT RULE
+                </th>
+                <th>
+                    SUGGESTED RULE
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> CHANNEL 1</td>
+                <td>{{ automata.getGreenRule().name }}</td>
+                <td>{{ sugerencia_canal_1 }}</td>
+                <td>{{ estado_global_canal_1 }}</td>
+                <td>{{ densidad_real_canal_1 }}</td>
+                <td>{{ total_celulas_canal_1 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 2</td>
+                <td>{{ automata.getBrownRule().name }}</td>
+                <td>{{ sugerencia_canal_2 }}</td>
+                <td>{{ estado_global_canal_2 }}</td>
+                <td>{{ densidad_real_canal_2 }}</td>
+                <td>{{ total_celulas_canal_2 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 3</td>
+                <td>{{ automata.getBlueRule().name }}</td>
+                <td>{{ sugerencia_canal_3 }}</td>
+                <td>{{ estado_global_canal_3 }}</td>
+                <td>{{ densidad_real_canal_3 }}</td>
+                <td>{{ total_celulas_canal_3 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 4</td>
+                <td>{{ automata.getGrayRule().name }}</td>
+                <td>{{ sugerencia_canal_4 }}</td>
+                <td>{{ estado_global_canal_4 }}</td>
+                <td>{{ densidad_real_canal_4 }}</td>
+                <td>{{ total_celulas_canal_4 }}</td>
+            </tr>
+            <tr>
+                <td> CHANNEL 5</td>
+                <td>{{ automata.getRedRule().name }}</td>
+                <td>{{ sugerencia_canal_5 }}</td>
+                <td>{{ estado_global_canal_5 }}</td>
+                <td>{{ densidad_real_canal_5 }}</td>
+                <td>{{ total_celulas_canal_5 }}</td>
+            </tr>
 
+        </tbody>
+    </table>
+</div>
+<div>
+    sugerencia canal 1 : <strong>{{ sugerencia_canal_1 }}</strong> ####
+    sugerencia canal 2 : <strong>{{ sugerencia_canal_2 }}</strong> ####
+    sugerencia canal 3 : <strong>{{ sugerencia_canal_3 }}</strong> ####
+    sugerencia canal 4 : <strong>{{ sugerencia_canal_4 }}</strong> ####
+    sugerencia canal 5 : <strong>{{ sugerencia_canal_5 }}</strong> ####
+</div>
+<p>
+    CANALES VACIOS : {{ canalesVacios }}
+</p>
 
 CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
-
-<!-- <app-convolution [automata]="automata"></app-convolution> -->
-
-
-
 <div>
     <div> {{ nombre }} </div>
     <div> {{ columnas}} </div>
@@ -83,7 +620,7 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
     {{ !guardando ? "": "GUARDANDO.."}}
 </p>
 
-<div *ngIf="automata">
+<div *ngIf="automata && vistaActual === VISTA_FILTROS">
     <p>
         LOCAL GENERATION: {{generacion}}
     </p>
@@ -117,8 +654,7 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
 
     ESCALA:
     <input type="number" [(ngModel)]="automata.scale">
-    <!-- <app-automata [automata]="automata">
-    </app-automata> -->
+
     <table border=1>
         <thead>
             <tr>
@@ -130,7 +666,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <th>REGLA</th>
                 <th>TOTAL</th>
                 <th>PERCENT.</th>
-                <!-- <th>BARRA.</th> -->
             </tr>
         </thead>
         <tbody>
@@ -149,14 +684,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_1">
                 </td>
                 <td>
-                    <!-- <select (change)='automata.changeRule("RED", $event.target.value )'>
-                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                            {{ rule.name }}
-                            <span *ngIf="rule.notation">
-                                ( {{ rule.notation }} )
-                            </span>
-                        </option>
-                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalRojos() | number}}
@@ -164,12 +691,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <td>
                     {{( automata.totalRojos() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
                 </td>
-                <!-- <td style="width: {{ anchoBarra }}px">
-                    <div
-                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeRojos() }}px; background-color: black">
-
-                    </div>
-                </td> -->
             </tr>
             <tr>
                 <td> Regla 2 ( BLUE ) {{ automata.altura_regla_2}} </td>
@@ -186,11 +707,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_2">
                 </td>
                 <td>
-                    <!-- <select (change)='automata.changeRule("BLUE", $event.target.value )'>
-                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                            {{ rule.name }} ( {{ rule.notation }} )
-                        </option>
-                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalAzules() | number}}
@@ -198,12 +714,12 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <td>
                     {{( automata.totalAzules() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
                 </td>
-                <!-- <td style="width: {{ anchoBarra }}px">
+                <td style="width: {{ anchoBarra }}px">
                     <div
                         style="height: 20px; width: {{ anchoBarra * automata.porcentajeAzules() }}px; background-color: black">
 
                     </div>
-                </td> -->
+                </td>
             </tr>
             <tr>
                 <td> Regla 3 ( Green ) {{ automata.regla_3_color_1}} </td>
@@ -220,11 +736,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_3">
                 </td>
                 <td>
-                    <!-- <select (change)='automata.changeRule("GREEN", $event.target.value )'>
-                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                            {{ rule.name }} ( {{ rule.notation }} )
-                        </option>
-                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalVerdes() | number }}
@@ -232,12 +743,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <td>
                     {{( automata.totalVerdes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
                 </td>
-                <!-- <td style="width: {{ anchoBarra }}px">
-                    <div
-                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeVerdes() }}px; background-color: black">
-
-                    </div>
-                </td> -->
             </tr>
             <tr>
                 <td> Regla 4 ( BROWN ) {{ automata.regla_4_color_1}} </td>
@@ -254,11 +759,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_4">
                 </td>
                 <td>
-                    <!-- <select (change)='automata.changeRule("BROWN", $event.target.value )'>
-                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                            {{ rule.name }} ( {{ rule.notation }} )
-                        </option>
-                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalCafes() | number }}
@@ -266,12 +766,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <td>
                     {{( automata.totalCafes() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
                 </td>
-                <!-- <td style="width: {{ anchoBarra }}px">
-                    <div
-                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeCafes() }}px; background-color: black">
-
-                    </div>
-                </td> -->
             </tr>
             <tr>
                 <td> Regla 5 ( GRAY ) {{ automata.altura_regla_5 }} </td>
@@ -288,11 +782,6 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                     <input type="number" [(ngModel)]="automata.altura_regla_5">
                 </td>
                 <td>
-                    <!-- <select (change)='automata.changeRule("GRAY", $event.target.value )'>
-                        <option [value]='rule.name' *ngFor='let rule of automata.getRules().sort()'>
-                            {{ rule.name }} ( {{ rule.notation }} )
-                        </option>
-                    </select> -->
                 </td>
                 <td>
                     {{ automata.totalGrises() | number }}
@@ -300,15 +789,9 @@ CANAL BINARIZADO 1 = {{ binarizarCanal(1).length }}
                 <td>
                     {{( automata.totalGrises() / ( automata.getFilas() * automata.getColumnas() ) ) | number }}
                 </td>
-                <!-- <td style="width: {{ anchoBarra }}px">
-                    <div
-                        style="height: 20px; width: {{ anchoBarra * automata.porcentajeGrises() }}px; background-color: black">
-
-                    </div>
-                </td> -->
             </tr>
         </tbody>
 
     </table>
 
-</div>
+</div> -->

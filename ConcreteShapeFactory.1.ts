@@ -50,6 +50,9 @@ import { PersianCarpet } from "rules/PersianCarpet";
 
 
 export class ConcreteShapeFactory implements ShapeFactory {
+    createRule(ruleName: string | undefined): Rule {
+        throw new Error("Method not implemented.");
+    }
     createPersianCarpet(): Rule {
         return new PersianCarpet()
     }

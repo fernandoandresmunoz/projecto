@@ -14,8 +14,8 @@ export class MatricesComponent implements OnInit {
   matrices: any;
 
   nuevoNombreMatriz: string = "Nueva Matriz";
-  totalNuevasFilas: number = 80;
-  totalNuevasColumnas: number = 80;
+  totalNuevasFilas: number = 32;
+  totalNuevasColumnas: number = 32;
 
   automatas: Automata[] = [];
 

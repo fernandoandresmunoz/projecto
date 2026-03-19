@@ -1,10 +1,18 @@
-<ul>
+<!-- <ul>
     <li><a [routerLink]="['/']">Home</a></li>
     <li><a [routerLink]="['/reglas/110']" class="nav-link">Rules</a></li>
     <li><a [routerLink]="['/automatas']" class="nav-link">Automatas</a></li>
     <li><a [routerLink]="['/curvas']" class="nav-link">Curvas</a></li>
     <li><a [routerLink]="['/matrices']" class="nav-link">Matrices</a></li>
     <li><a [routerLink]="['/arboles']" class="nav-link">Árboles</a></li>
+</ul> -->
+<ul>
+    <li><a [routerLink]="['/']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+    <li><a [routerLink]="['/reglas/110']" routerLinkActive="active-link" class="nav-link">Rules</a></li>
+    <li><a [routerLink]="['/automatas']" routerLinkActive="active-link" class="nav-link">Automatas</a></li>
+    <li><a [routerLink]="['/curvas']" routerLinkActive="active-link" class="nav-link">Curvas</a></li>
+    <li><a [routerLink]="['/matrices']" routerLinkActive="active-link" class="nav-link">Matrices</a></li>
+    <li><a [routerLink]="['/arboles']" routerLinkActive="active-link" class="nav-link">Árboles</a></li>
 </ul>
 <div>
     <router-outlet></router-outlet>

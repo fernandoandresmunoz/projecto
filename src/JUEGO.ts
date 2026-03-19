@@ -6,7 +6,7 @@ export const JUEGO = {
     DANGER_COLOR: 'salmon',
     OK_COLOR: 'lightgreen',
     UNKWON_STATE_COLOR: 'gray',
-    MILITAR_DEFAULT: 10, 
+    MILITAR_DEFAULT: 10,
     MILITAR_STEP: 1,
     ALTO_LIENZO: 600,
     ANCHO_LIENZO: 800,
@@ -15,7 +15,7 @@ export const JUEGO = {
     CELULA: {
 
 
-        SCALE: 3,
+        SCALE: 7,
         PROJECTION: 1,
         BACKGROUND_COLOR: 'black',
         ALTO: 2,

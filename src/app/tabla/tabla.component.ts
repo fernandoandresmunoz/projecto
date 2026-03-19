@@ -8,7 +8,7 @@ import { Automata } from 'cube';
 })
 export class TablaComponent implements OnInit {
 
-  @Input() anchoCelda: number = 2;
+  @Input() anchoCelda: number = 1;
   // @Input() datos_matriz: any;
   @Input() automata: Automata;
   @Input() showChannels = false;
@@ -18,23 +18,33 @@ export class TablaComponent implements OnInit {
   reglas = [
     {
       id: 1,
-      color: 'Red'
+      color: 'Green',
+      name: '',
+      notation: ''
     },
     {
       id: 2,
-      color: 'Blue'
+      color: 'Brown',
+      name: '',
+      notation: ''
     },
     {
       id: 3,
-      color: 'Green'
+      color: 'Blue',
+      name: '',
+      notation: ''
     },
     {
       id: 4,
-      color: 'Brown'
+      color: 'Gray',
+      name: '',
+      notation: ''
     },
     {
       id: 5,
-      color: 'Gray'
+      color: 'Red',
+      name: '',
+      notation: ''
     },
   ]
 
@@ -42,7 +52,6 @@ export class TablaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('automata desde tabla ', this.automata)
   }
 
   getColor(colorInput: string): string {

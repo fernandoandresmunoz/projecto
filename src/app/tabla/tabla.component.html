@@ -1,4 +1,3 @@
-#AUTOMATA
 <table cellspacing="0">
     <tr *ngFor="let fila of automata.getMatrizActiva()">
         <td *ngFor="let columna of fila" [ngStyle]="{
@@ -10,11 +9,17 @@
         </td>
     </tr>
 </table>
-<div style="display: flex; flex-direction: row;">
+<!-- <div style="display: flex; flex-direction: row;">
 
     <div style="border: 1px solid black; display: flex; flex-direction: row;" *ngIf="showChannels">
         <div style="border: 1px solid gray;" *ngFor="let regla of reglas">
             <h2> CHANNEL #{{ regla.id }} </h2>
+            <p>
+                {{ regla.name }} no work
+            </p>
+            <p>
+                {{ regla.notation }}
+            </p>
             <table cellspacing="0">
                 <tr *ngFor="let fila of automata.getMatrizActiva()">
                     <td *ngFor="let columna of fila" [ngStyle]="{
@@ -28,9 +33,9 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
 
-<div style="border: 1px solid black;" *ngIf="showChannels">
+<!-- <div style="border: 1px solid black;" *ngIf="showChannels">
 
     <h2> CHANNEL #0 </h2>
     <table cellspacing="0">
@@ -45,7 +50,4 @@
         </tr>
 
     </table>
-</div>
-
-<div *ngIf="!preview ">
-</div>
+</div> -->

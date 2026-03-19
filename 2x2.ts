@@ -3,17 +3,18 @@ import { Rule } from "rule";
 
 export class TwoXTwo implements Rule {
     name: string = 'twoxtwo';
+    notation: string = 'S125/B36';
     // B36/S125	
     surviveCondition(vivas: number): boolean {
-        if ( vivas === 1 || vivas === 2 || vivas === 5 ) {
+        if (vivas === 1 || vivas === 2 || vivas === 5) {
             return true;
         }
         return false;
     }
     liveCondition(vivas: number): boolean {
-        if ( vivas === 3 || vivas === 6 ) {
+        if (vivas === 3 || vivas === 6) {
             return true;
-        } 
+        }
         return false;
     }
 

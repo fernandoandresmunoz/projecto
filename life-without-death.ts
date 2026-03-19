@@ -3,11 +3,12 @@ import { Rule } from "rule";
 
 export class LifeWithoutDeath implements Rule {
     name: string = 'life without death';
+    notation: string = 'S012345678/B3';
     surviveCondition(vivas: number): boolean {
         return true;
     }
     liveCondition(vivas: number): boolean {
-        if ( vivas === 3 ) {
+        if (vivas === 3) {
             return true;
         } return false;
     }

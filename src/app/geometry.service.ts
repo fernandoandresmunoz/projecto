@@ -6,6 +6,8 @@ import { Perpendicular } from './funcion-logaritmica/perpendicular';
 import { Point } from 'point';
 import { Nodo } from 'src/Nodo';
 import { Automata } from 'cube';
+import { RespuestaPytorch } from './respuesta-pytorch';
+import { AutomataResponse } from './detalle-matriz/detalle-matriz.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,14 @@ import { Automata } from 'cube';
 export class GeometryService {
 
   defaultPort: number = 8001;
+  public MANUAL = "MANUAL";
+  public HIBRIDO = "HIBRIDO";
+  public AUTONOMO = "AUTONOMO";
+  public SIN_INTERVENCION = "SIN INTERVENCION";
+
+  public modo_actual: string = this.SIN_INTERVENCION;
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -212,11 +222,26 @@ export class GeometryService {
       nombre: nombre,
       filas: filas,
       columnas: columnas,
-      altura_regla_1: 3,
-      altura_regla_2: 2,
-      altura_regla_3: 8,
-      altura_regla_4: 4,
-      altura_regla_5: 5,
+      altura_regla_1: 2,
+      altura_regla_2: 1,
+      altura_regla_3: 4,
+      altura_regla_4: 3,
+      altura_regla_5: 3,
+      rule_1_color_1: "#b90428",
+      rule_1_color_2: "#f10909",
+      rule_1_color_3: "#840b0b",
+      rule_2_color_1: "#08068e",
+      rule_2_color_2: "#0810f7",
+      rule_2_color_3: "#0b2e7f",
+      rule_3_color_1: "#0c7321",
+      rule_3_color_2: "#1cc457",
+      rule_3_color_3: "#0c5f11",
+      rule_4_color_1: "#5f3a07",
+      rule_4_color_2: "#9f4d09",
+      rule_4_color_3: "#7f4005",
+      rule_5_color_1: "#5c5757",
+      rule_5_color_2: "#908484",
+      rule_5_color_3: "#5e5555",
     });
   }
 
@@ -234,6 +259,17 @@ export class GeometryService {
     });
   }
 
+
+
+  resetEpisodio(): Observable<{ ok: boolean, mensaje: string }[]> {
+    return this.http.post<{ ok: boolean, mensaje: string }[]>(`http://localhost:5002/reset_episodio`, {
+
+    });
+  }
+  // return jsonify({
+  //     "ok":      True,
+  //     "mensaje": "Episodio reseteado. Pesos y aprendizaje conservados.",
+  // })
 
 
 
@@ -264,16 +300,81 @@ export class GeometryService {
     return this.http.delete<{ status: boolean }[]>(`http://localhost:8001/graficas/nodos/${id}/`);
   }
 
-  automata(automata: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:5001/automata`,
+  automata(automata: any): Observable<RespuestaPytorch> {
+    return this.http.post<RespuestaPytorch>(`http://localhost:5003/automata`,
       {
         matriz: automata
 
       });
   }
 
+  automataV2(payload: PayloadPytorch): Observable<LightPytorchResponse> {
+    return this.http.post<LightPytorchResponse>(`http://localhost:5002/automata_v2/sugerencias`,
+
+      payload
+
+    );
+  }
+
+}
+
+/**
+ * Representa el diagnóstico detallado de un canal específico.
+ */
+interface Diagnostico {
+  adn_vector: number[];
+  estado_global: "ESTABLE" | "SOBREPOBLADO" | "CAÓTICO";
+  // Estas propiedades son opcionales porque canal_0 no las incluye en tu JSON
+  densidad_real?: number;
+  total_celulas?: number;
+  generacion?: number;
+}
+
+/**
+ * Representa la configuración y estado de un canal individual.
+ */
+interface Canal {
+  canal_id?: number;
+  diagnostico: Diagnostico;
+  bs_decimal?: number[];
+  bs_sugerido?: number[];
+  distancia?: number;
+  explorando?: boolean;
+  regla_cercana?: string;
+  matriz: number[][];
+  total: number;
+  regla_codificada: number[];
+}
 
 
 
+interface CanalPayload {
+  canal_id: number;
+  matriz: number[][];
+  total: number;
+  regla_codificada: number[];
+}
+/**
+ * Interfaz principal para el objeto del autómata.
+ */
+interface LightPytorchResponse {
+  adn_global: number[];
+  canales: {
+    [key: string]: Canal; // Permite canal_0, canal_1, etc.
+  };
+  generacion_automata: number;
+}
 
+// interface Canal {
+//   canal_id: number;
+//   matriz: number[][];
+//   total: number;
+//   regla_codificada: number[]; // Siempre presente en la interfaz de la lista
+//   recompensa?: number;        // Opcional por ahora
+// }
+
+interface PayloadPytorch {
+  generacion: number;
+  canal_0: number[][]; // El fondo se envía por separado como matriz simple
+  canales: CanalPayload[];    // Array de objetos
 }

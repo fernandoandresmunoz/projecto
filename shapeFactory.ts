@@ -4,7 +4,7 @@ import { Line } from "line";
 import { Point } from "point";
 import { Rule } from "rule";
 import { Element } from "rules/element";
-import { Circle,  Quadrilateral, Triangle } from "src/modelo";
+import { Circle, Quadrilateral, Triangle } from "src/modelo";
 
 export interface ShapeFactory {
     createLine(pointA: Point, pointB: Point): Line;
@@ -19,6 +19,10 @@ export interface ShapeFactory {
     createCavalier(): Automata;
     createCavalierCube(filas: number, columnas: number): Automata;
     createBloque(p0: Point, p1: Point, p2: Point, p3: Point): Bloque;
+
+
+
+    createRule(ruleName: string | undefined): Rule;
 
     createDiamoebaRule(): Rule;
     createLifeRule(): Rule;
@@ -44,7 +48,7 @@ export interface ShapeFactory {
     PedestrianLife(): Rule;
     MazeWithMice(): Rule;
     SnowLife(): Rule;
-    MazectricWithMice(): Rule; 
+    MazectricWithMice(): Rule;
     Mazectric(): Rule;
 
     crearTierra(): Element;
@@ -53,8 +57,8 @@ export interface ShapeFactory {
     crearVegetacion(): Element;
 
     // todos devuelven un automata pero con diferentes vistas. no debería estar anclado al modelo
-    createMilitaryCube(filas:number, columnas:number): Automata;
-    createMilitary2(filas:number, columnas:number): Automata;
+    createMilitaryCube(filas: number, columnas: number): Automata;
+    createMilitary2(filas: number, columnas: number): Automata;
     createMilitary3(filas: number, columnas: number): Automata;
     serviettes(): Rule;
     emptyRule(): Rule;

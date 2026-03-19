@@ -11,48 +11,75 @@ export class ConcreteNextGenStrategy implements NextGenStrategy {
     nextGeneration(automata: Automata): void {
 
 
-        let GENERATION = automata.getGeneration();
+        // let GENERATION = automata.getGeneration();
 
-        console.log("LA GENERACION ACTUAL ES ", GENERATION)
-        console.log("MAR", automata.porcentajeAzules())
-        console.log("TIERRA CLARA", automata.porcentajeCafes())
-        console.log("TIERRA OSCURA", automata.porcentajeGrises())
-        console.log("VEGETACION", automata.porcentajeVerdes())
-        console.log("LAVA", automata.porcentajeRojos())
-
-
+        // console.log("LA GENERACION ACTUAL ES ", GENERATION)
+        // console.log("MAR", automata.porcentajeAzules())
+        // console.log("TIERRA CLARA", automata.porcentajeCafes())
+        // console.log("TIERRA OSCURA", automata.porcentajeGrises())
+        // console.log("VEGETACION", automata.porcentajeVerdes())
+        // console.log("LAVA", automata.porcentajeRojos())
 
 
-        if (automata.porcentajeAzules() < 0.02) {
-            automata.setBlueRule(this.shapeFactory.MazeWithMice())
-        } else if (automata.porcentajeAzules() > 0.03) {
-            automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
-        }
-
-        if (automata.porcentajeVerdes() < 0.06) {
+        if (automata.porcentajeVerdes() < 0.04) {
+            automata.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule())
+        } else if (automata.porcentajeVerdes() < 0.2) {
             automata.setGreenRule(this.shapeFactory.createCoralRule())
-        } else if (automata.porcentajeVerdes() > 0.05) {
-            automata.setGreenRule(this.shapeFactory.createCoralRule())
-        } else if (automata.porcentajeVerdes() > 0.4) {
+        } else if (automata.porcentajeVerdes() > 0.5) {
+            automata.setGreenRule(this.shapeFactory.createDayAndNightRule())
+        } else if (automata.porcentajeVerdes() > 0.6) {
             automata.setGreenRule(this.shapeFactory.createMorleyRule())
         }
 
-        if (automata.porcentajeCafes() < 0.06) {
-            automata.setBrownRule(this.shapeFactory.MazeWithMice())
-        } else if (automata.porcentajeCafes() > 0.14) {
-            automata.setBrownRule(this.shapeFactory.createDiamoebaRule())
+
+
+        if (automata.porcentajeAzules() < 0.05) {
+            automata.setBlueRule(this.shapeFactory.createReplicatorRule())
+        } else if (automata.porcentajeAzules() > 0.2 && automata.porcentajeAzules() < 0.3) {
+            automata.setBlueRule(this.shapeFactory.createAnnealRule())
+        } else if (automata.porcentajeAzules() < 0.2) {
+            automata.setBlueRule(this.shapeFactory.createDiamoebaRule())
+        } else if (automata.porcentajeAzules() > 0.3) {
+            automata.setBlueRule(this.shapeFactory.createMorleyRule())
         }
 
-        if (automata.porcentajeRojos() < 0.06) {
-            automata.setRedRule(this.shapeFactory.createLifeWithoutDeathRule())
-        } else if (automata.porcentajeRojos() > 0.18) {
-            automata.setRedRule(this.shapeFactory.geologyRule())
+
+
+        if (automata.porcentajeCafes() < 0.02) {
+            automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+        }
+        else if (automata.porcentajeCafes() < 0.05) {
+            automata.setBrownRule(this.shapeFactory.createLifeWithoutDeathRule())
+        } else if (automata.porcentajeCafes() > 0.3) {
+            automata.setBrownRule(this.shapeFactory.createCoagulationRule())
+        } else if (automata.porcentajeCafes() > 0.5) {
+            automata.setBrownRule(this.shapeFactory.createCoagulationRule())
         }
 
-        if (automata.porcentajeGrises() < 0.06) {
-            automata.setGrayRule(this.shapeFactory.MazeWithMice())
-        } else if (automata.porcentajeGrises() > 0.08) {
-            automata.setGrayRule(this.shapeFactory.createCoagulationRule())
+        ///// GRISES 
+
+        if (automata.porcentajeGrises() < 0.05) {
+            automata.setGrayRule(this.shapeFactory.createLifeWithoutDeathRule())
+        } else if (automata.porcentajeGrises() > 0.4) {
+            automata.setGrayRule(this.shapeFactory.createMorleyRule())
+        } else if (automata.porcentajeGrises() >= 0.05 && automata.porcentajeGrises() < 0.08) {
+            automata.setGrayRule(this.shapeFactory.createWalledCityRule())
+        }
+
+
+        if (automata.porcentajeRojos() < 0.02) {
+            automata.setRedRule(this.shapeFactory.createReplicatorRule())
+        }
+        else if (automata.porcentajeRojos() < 0.05) {
+            if (automata.getGeneration() > 100) {
+                automata.setRedRule(this.shapeFactory.MazeWithMice())
+            } else {
+                automata.setRedRule(this.shapeFactory.createReplicatorRule())
+            }
+        } else if (automata.porcentajeRojos() > 0.3 && automata.porcentajeRojos() < 0.5) {
+            automata.setRedRule(this.shapeFactory.createDayAndNightRule())
+        } else if (automata.porcentajeRojos() > 0.5) {
+            automata.setRedRule(this.shapeFactory.createMorleyRule())
         }
 
 

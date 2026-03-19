@@ -337,5 +337,7 @@ export interface Automata extends Observable {
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void;
     getNextMatrixStrategy(): NextMatrixStrategy;
 
+    reset(): void;
+
 
 }

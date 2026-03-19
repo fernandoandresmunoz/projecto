@@ -2,12 +2,13 @@ import { Rule } from "rule";
 
 export class PersianCarpet implements Rule {
     name: string = 'PERSIAN CARPET';
+    notation: string = 'S/B234';
     // B3/S124	
     surviveCondition(vivas: number): boolean {
         return false;
     }
     liveCondition(vivas: number): boolean {
-        if ( vivas === 2 || vivas === 3 || vivas === 4 ) {
+        if (vivas === 2 || vivas === 3 || vivas === 4) {
             return true;
         }
         return false;
@@ -15,6 +16,5 @@ export class PersianCarpet implements Rule {
         //     return true
         // }
     }
-// 
+    // 
 }
-    

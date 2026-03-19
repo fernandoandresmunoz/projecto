@@ -212,3 +212,52 @@
     
   .controles-principales
     grid-template-columns: 1fr
+
+/* Contenedor principal de la barra de estado */
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #1a1a1a; /* Mismo fondo que tu menú superior */
+    color: #e0e0e0;
+    padding: 10px 20px;
+    font-family: 'Courier New', Courier, monospace; /* Fuente mono para aire técnico */
+    font-size: 12px;
+    border-bottom: 1px solid #333;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Estilo para los valores dinámicos (Generación y Modo) */
+.status-bar span {
+    color: #4caf50; /* Verde neón para los datos activos */
+    font-weight: bold;
+}
+
+/* Divisor visual (|) */
+.separator {
+    color: #444;
+    font-weight: normal;
+}
+
+/* Botón Reset estilizado */
+.status-bar button {
+    background-color: #333;
+    color: #ff5252; /* Rojo para advertir acción de borrado */
+    border: 1px solid #444;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    margin-left: auto; /* Empuja el botón al extremo derecho */
+}
+
+.status-bar button:hover {
+    background-color: #ff5252;
+    color: white;
+    border-color: #ff5252;
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.4);
+}
