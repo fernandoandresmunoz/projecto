@@ -39,6 +39,7 @@ interface Animal {
   colors: AnimalColors;
   lastStateChange: number;
   targetPosition?: THREE.Vector3;
+  isBaby?: boolean;
 }
 
 interface BlockPrototype {
@@ -835,7 +836,8 @@ export class MinecraftViewComponent implements OnInit {
       // Determinar altura del terreno en ese punto
       const y = this.getTerrainHeightAt(x, z);
 
-      const animal = this.createAnimal(type, new THREE.Vector3(x, y + 1, z));
+      const isBaby = Math.random() > 0.7; // 30% de probabilidad de que sea bebé
+      const animal = this.createAnimal(type, new THREE.Vector3(x, y + 1, z), isBaby);
       this.animals.push(animal);
     }
   }
@@ -1997,11 +1999,22 @@ export class MinecraftViewComponent implements OnInit {
         //   this.scene.add(block);
         //   this.userBlocks.push(block);
         // }
-      } else if (event.button === 2) { // Click derecho: Destruir solo bloques de usuario
+      } else if (event.button === 2) { // Click derecho: Destruir
         const index = this.userBlocks.indexOf(intersect.object as THREE.Mesh);
         if (index > -1) {
           this.scene.remove(intersect.object);
           this.userBlocks.splice(index, 1);
+        } else if (intersect.object instanceof THREE.InstancedMesh) {
+          const meshType = this.getInstancedMeshType(intersect.object);
+          if (meshType === 'trunk' || meshType === 'leaves') {
+            const dummy = new THREE.Matrix4();
+            const pos = new THREE.Vector3();
+            if (intersect.instanceId !== undefined) {
+              intersect.object.getMatrixAt(intersect.instanceId, dummy);
+              pos.setFromMatrixPosition(dummy);
+              this.destroyTreeAt(pos.x, pos.z);
+            }
+          }
         }
       }
     }
@@ -2012,6 +2025,76 @@ export class MinecraftViewComponent implements OnInit {
     // Evitar que aparezca el menú contextual del click derecho cuando estamos jugando
     if (this.isLocked) {
       event.preventDefault();
+    }
+  }
+
+  private getInstancedMeshType(mesh: THREE.InstancedMesh): string | null {
+    for (const [key, value] of Object.entries(this.instancedMeshes)) {
+      if (value === mesh) return key;
+    }
+    return null;
+  }
+
+  private destroyTreeAt(x: number, z: number) {
+    const threshold = 0.5;
+
+    // Remover de colisiones
+    this.treePositions = this.treePositions.filter(pos =>
+      !(Math.abs(pos.x - x) < threshold && Math.abs(pos.z - z) < threshold)
+    );
+
+    // Ocultar instancias del tronco y las hojas
+    const types = ['trunk', 'leaves'];
+    const dummyMat = new THREE.Matrix4();
+    const pos = new THREE.Vector3();
+    const scale = new THREE.Vector3();
+    const quat = new THREE.Quaternion();
+
+    types.forEach(type => {
+      const mesh = this.instancedMeshes[type];
+      if (mesh) {
+        for (let i = 0; i < mesh.count; i++) {
+          mesh.getMatrixAt(i, dummyMat);
+          dummyMat.decompose(pos, quat, scale);
+
+          if (Math.abs(pos.x - x) < threshold && Math.abs(pos.z - z) < threshold) {
+            scale.set(0, 0, 0); // Escala a 0 para ocultarlo permanentemente
+            dummyMat.compose(pos, quat, scale);
+            mesh.setMatrixAt(i, dummyMat);
+          }
+        }
+        mesh.instanceMatrix.needsUpdate = true;
+      }
+    });
+
+    if (this.matrix && this.matrix.length > 0) {
+      const worldWidth = this.matrix.length;
+      const worldDepth = this.matrix[0].length;
+      const offsetX = -worldWidth / 2;
+      const offsetZ = -worldDepth / 2;
+
+      const matrixX = Math.round(x - offsetX);
+      const matrixZ = Math.round(z - offsetZ);
+
+      const wrappedX = ((matrixX % worldWidth) + worldWidth) % worldWidth;
+      const wrappedZ = ((matrixZ % worldDepth) + worldDepth) % worldDepth;
+
+      if (this.matrix[wrappedX] && this.matrix[wrappedX][wrappedZ]) {
+        // Al talar el árbol, la celda se vuelve tierra simple ('Brown')
+        if (this.matrix[wrappedX][wrappedZ].color === 'Green') {
+          this.matrix[wrappedX][wrappedZ].color = 'Brown';
+        }
+      }
+
+      // Intentar guardar el cambio en el localStorage donde se guarda el automata matrix completo, si existe.
+      const savedData = localStorage.getItem('automata_matrix');
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          parsedData.matrix = this.matrix;
+          localStorage.setItem('automata_matrix', JSON.stringify(parsedData));
+        } catch (e) {}
+      }
     }
   }
 
@@ -2045,7 +2128,7 @@ export class MinecraftViewComponent implements OnInit {
     }
   }
 
-  private createAnimal(type: string, position: THREE.Vector3): Animal {
+  private createAnimal(type: string, position: THREE.Vector3, isBaby: boolean = false): Animal {
     const group = new THREE.Group();
     const colors = this.ANIMAL_COLORS[type];
 
@@ -2092,6 +2175,11 @@ export class MinecraftViewComponent implements OnInit {
       group.add(leg);
     }
 
+    if (isBaby) {
+      group.scale.set(0.5, 0.5, 0.5); // Escalar al 50%
+      position.y -= 0.15; // Ajustar posición para que toquen el suelo correctamente
+    }
+
     group.position.copy(position);
     this.scene.add(group);
 
@@ -2102,7 +2190,8 @@ export class MinecraftViewComponent implements OnInit {
       health: 100,
       isAlive: true,
       colors,
-      lastStateChange: performance.now()
+      lastStateChange: performance.now(),
+      isBaby
     };
   }
 
