@@ -2,6 +2,6 @@ import { TransformadorDePuntosConcretos } from './transformador-de-puntos-concre
 
 describe('TransformadorDePuntosConcretos', () => {
   it('should create an instance', () => {
-    expect(new TransformadorDePuntosConcretos()).toBeTruthy();
+    expect(new TransformadorDePuntosConcretos(0, 0, 0, 0)).toBeTruthy();
   });
 });
