@@ -1,0 +1,305 @@
+services:
+  karma-tests:
+    image: vzor-front:latest
+    volumes:
+      - ./coverage:/app/coverage
+      - ./junit-report:/app/junit-report
+    command: >
+      sh -c "
+        mkdir -p coverage &&
+        npm run test || true
+      "
+
+
+  karma-tests-develop:
+    image: vzor-front-develop:latest
+    volumes:
+      - ./coverage:/app/coverage
+      - ./junit-report:/app/junit-report
+    command: >
+      sh -c "
+        mkdir -p coverage &&
+        npm run test || true
+      "
+
+  build-test:
+    image: vzor-front:latest
+    volumes:
+      - ./dist:/app/dist
+
+    command: >
+      sh -c "
+        npm run build-staging
+      "
+
+  build-test-operaciones:
+    image: vzor-front:latest
+    volumes:
+      - ./dist:/app/dist
+
+    command: >
+      sh -c "
+        npm run build-operaciones
+      "
+
+
+
+
+  # cypress-tests2:
+  #   image: test-cypress:latest
+  #   command: >
+  #     sh -c "
+  #       # Instalar dependencias necesarias
+  #     apk add --no-cache \
+  #       chromium \
+  #       nss \
+  #       freetype \
+  #       harfbuzz \
+  #       ca-certificates \
+  #       ttf-freefont \
+  #       libstdc++ \
+  #       && \
+  #     # Instalar glibc compatible
+  #     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+  #     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
+  #     apk add --no-cache glibc-2.35-r0.apk && \
+  #     rm glibc-2.35-r0.apk && \
+  #     # Ejecutar Cypress
+  #       npx cypress run --browser chrome --headless
+  #     "
+
+  cypress-tests3:
+    image: test-cypress:latest
+    environment:
+      - DISPLAY=:99
+      - CYPRESS_CACHE_FOLDER=/app/.cache/Cypress
+    volumes:
+      - .:/app:delegated
+      - ./cypress/reports:/app/cypress/reports:delegated
+      - ./node_modules:/app/node_modules:delegated
+      - ./.cache:/app/.cache:delegated
+    user: "root"
+    working_dir: /app
+    command: >
+      sh -c "
+        # Install dependencies
+        apk update &&
+        apk add --no-cache  libstdc++  nss  freetype  harfbuzz  ttf-freefont  &&
+        npx cypress run --browser /usr/bin/chrome --headless
+      "
+
+
+  cypress-tests-electron:
+    # image: cypress/browsers:22.15.0
+    image: cypress/included:12.17.4
+    volumes:
+      - ./:/e2e  # Monta todo el proyecto
+      - /e2e/node_modules  # Evita sobrescribir node_modules
+      - ./cypress/reports:/e2e/cypress/reports  # Para guardar los reportes
+    working_dir: /e2e
+    environment:
+      - CYPRESS_BASE_URL=https://cloud.vzorsuite.com
+      - CYPRESS_REPORTS_FOLDER=/e2e/cypress/reports
+    command: cypress run  --browser firefox --headless --spec 'cypress/e2e/**/*'
+
+
+
+  cypress-tests-chrome:
+    # image: cypress/browsers:22.15.0
+    image: cypress/included:12.17.4
+    volumes:
+      - ./:/e2e  # Monta todo el proyecto
+      - /e2e/node_modules  # Evita sobrescribir node_modules
+      - ./cypress/reports:/e2e/cypress/reports  # Para guardar los reportes
+    working_dir: /e2e
+    environment:
+      - CYPRESS_BASE_URL=http://staging-dev:4201/
+      - CYPRESS_REPORTS_FOLDER=/e2e/cypress/reports
+    command: npx @puppeteer/browsers install chrome@stable && cypress run  --browser chrome --headless --spec 'cypress/e2e/**/*'
+
+
+
+  cypress-tests:
+    image: test-cypress:latest
+    environment:
+      - DISPLAY=:99
+      - CYPRESS_CACHE_FOLDER=/app/.cache/Cypress
+    volumes:
+      - .:/app:delegated
+      - ./cypress/reports:/app/cypress/reports:delegated
+      - ./node_modules:/app/node_modules:delegated
+      - ./.cache:/app/.cache:delegated
+    user: "root"
+    network_mode: "host"
+    working_dir: /app
+    command: >
+      sh -c "
+        mkdir -p cypress/reports .cache/Cypress &&
+        Xvfb :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &&
+        sleep 5 &&
+        export DISPLAY=:99 &&
+        npx cypress run --browser chrome --headless
+      "
+  de-quality:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run quality checks
+        npm run quality
+
+        # Run SonarQube analysis if configured
+        if [ -f "sonar-project.properties" ]; then
+          npm run sonar
+        fi
+      '
+
+  jasmine-karma-tests:
+    build:
+      context: .
+      dockerfile: jasmine-karma.Dockerfile
+    volumes:
+      - .:/app:delegated
+      - ./coverage:/app/coverage
+      - ./reports:/app/reports
+      - ./node_modules:/app/node_modules:delegated
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=4096
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+    working_dir: /app
+    command: >
+      sh -c '
+        set -ex
+        # Install dependencies
+        npm install
+        # Start Xvfb
+        Xvfb :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        sleep 5
+        export DISPLAY=:99
+        # Run tests with proper configuration
+        NODE_OPTIONS=--max_old_space_size=4096 npx ng test --browsers=ChromeHeadlessCI --watch=false
+      '
+
+  security-tests:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+      - ./security-reports:/app/security-reports:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run npm audit
+        npm audit --json > security-reports/npm-audit.json || true
+
+        # Run Snyk security scan if configured
+        if [ -f ".snyk" ]; then
+          npx snyk test --json > security-reports/snyk-report.json || true
+        fi
+
+        # Check for exposed secrets
+        npx detect-secrets scan > security-reports/secrets-scan.txt || true
+      '
+
+  performance-tests:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+      - ./performance-reports:/app/performance-reports:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run Lighthouse analysis
+        lighthouse https://cloud.vzorsuite.com --output json --output html --output-path=performance-reports/lighthouse-report
+
+        # Analyze bundle size
+        npm run build -- --stats-json
+        webpack-bundle-analyzer dist/stats.json --port 8888 --report performance-reports/bundle-analysis.html
+      '
+
+  accessibility-tests:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+      - ./a11y-reports:/app/a11y-reports:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run accessibility tests
+        pa11y https://cloud.vzorsuite.com --json > a11y-reports/pa11y-report.json
+
+        # Run axe-core tests
+        npx cypress run --spec "cypress/integration/accessibility.spec.js"
+      '
+
+  compatibility-tests:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+      - ./compatibility-reports:/app/compatibility-reports:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run tests in different browsers
+        Xvfb :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        export DISPLAY=:99
+
+        # Chrome
+        npx cypress run --browser chrome --headless
+
+        # Firefox
+        npx cypress run --browser firefox --headless
+
+        # Test responsive design
+        npx cypress run --spec "cypress/integration/responsive.spec.js"
+      '
+
+  api-integration-tests:
+    image: test-cypress:latest
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+      - ./api-reports:/app/api-reports:delegated
+    working_dir: /app
+    command: >
+      sh -c '
+        # Run API tests
+        npx cypress run --spec "cypress/integration/api/*.spec.js"
+
+        # Run contract tests if configured
+        if [ -f "pact.config.js" ]; then
+          npm run test:pact
+        fi
+      '
+
+  server-development:
+    image: node:14.21.3-bullseye
+    user: "1000:1000"
+    volumes:
+      - .:/app:delegated
+    ports:
+      - 4201:4200
+    working_dir: /app
+    command: >
+      sh -c '
+        npm run start-dev
+      '
+
+#  npm run coverage
+# ls -la cypress/reports
+# ls -la cypress
+# ls -la .
+networks:
+  default:
+    name: front_develop-unit-tests_default

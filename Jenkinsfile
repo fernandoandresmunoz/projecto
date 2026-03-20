@@ -28,7 +28,35 @@ pipeline {
             }
         }
 
+        stage('Jasmine/Karma Tests') {
+            steps {
+                script {
+                    echo 'dummy jasmine/karma tests'
+                    //sh 'docker system prune -f'
+                    sh 'mkdir -p junit-report'
+                    def testResult = sh( script: 'docker compose -f docker-compose-testing.yaml run karma-tests', returnStatus: true )
+                    if (testResult != 0) {
+                        echo "Jasmine/Karma tests completed with exit code: ${testResult}"
+                    } else {
+                        echo "Jasime/Karma tests passed successfully"
+                    }
+                    sh 'ls -lhtr' 
+                    sh 'ls -lhtrs ./junit-report/'
 
+                }
+            }
+            post {
+                always {
+                    script {
+                        echo 'dummy post execution'
+                        // Archive Jasmine/Karma test results
+                        // junit 'jasmine-karma-report/test-results.xml' // Adjust path as necessary
+                        junit 'junit-report/test-results.xml' // Or '**/junit-report/test-results.xml' if structure varies
+
+                    }
+                }
+            }
+        }
     stage('Deploy') {
       steps {
               sh ' docker stack deploy -c stack.yaml projecto'
