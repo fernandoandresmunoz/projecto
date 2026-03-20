@@ -1,0 +1,52 @@
+/* Contenedor de la lista */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #1a1a1a; /* Fondo casi negro para coherencia */
+    border-bottom: 1px solid #333;
+    padding: 0 20px;
+    align-items: center;
+    height: 50px;
+}
+
+/* Elementos de la lista */
+li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Enlaces de navegación */
+.nav-link, ul li a {
+    display: block;
+    color: #999; /* Gris suave por defecto */
+    text-decoration: none;
+    padding: 0 20px;
+    line-height: 50px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+/* Efecto Hover */
+.nav-link:hover, ul li a:hover {
+    color: #ffffff;
+    background-color: #2d2d2d;
+}
+
+/* Clase para el link activo (Angular lo maneja con routerLinkActive) */
+.active-link {
+    color: #4caf50 !important; /* Verde IA para indicar posición */
+    border-bottom: 2px solid #4caf50;
+    background-color: rgba(76, 175, 80, 0.05);
+}
+
+/* Espaciado para el contenido debajo del menú */
+div > router-outlet {
+    display: block;
+    padding: 20px;
+}

@@ -2,8 +2,69 @@ import Automata from "concreteAutomata";
 import { Factory } from "./app/ifaces/game";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
+import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 export class GrupoCelulas implements Nodo {
+    allAnneal(): void {
+        this.getChildren().map( obj => obj.allAnneal());
+    }
+    allGeology(): void {
+        this.getChildren().map( obj => obj.allGeology())
+    }
+    filas: number;
+    columnas: number;
+    hiddenAutomata: boolean;
+
+    hideAutomatas(): void {
+
+        this.hiddenAutomata = !this.hiddenAutomata;
+        this.getChildren().map( child => {
+            child.hideAutomatas();
+        })
+    }
+    matriz_ac: number;
+    automataId: number;
+    desplegado: boolean = false;
+    desplegar(): void {
+        this.desplegado = true;
+        this.getChildren().map( hijo => {
+            hijo.desplegar()
+        })
+    }
+    replegar(): void {
+        this.desplegado = false;
+        this.getChildren().map( hijo => {
+            hijo.replegar()
+        })
+    }
+
+    automata: Automata;
+
+    operation2(): void {
+        this.getChildren().map(hijo => {
+            {
+                hijo.operation2();
+            }
+        })
+    }
+    removeChild(nodo: Nodo): void {
+        this.children = this.children.filter( x => nodo !== x)
+    }
+    parent: Nodo;
+    getParent(): Nodo {
+        return this.parent;
+    }
+    removeChildren(nodo: Nodo): void {
+        this.children = this.children.filter( x => nodo !== x)
+    }
+    id: number;
+    nombre: string;
+    name: string;
+
+    children: Nodo[] = [];
+
+
+
     isLeaf(): boolean {
         return false;
     }
@@ -136,13 +197,35 @@ export class GrupoCelulas implements Nodo {
         }
     }
     setAutomatas(): void {
-        this.getChildren().map( obj => obj.setAutomatas());
+        this.getChildren().map( obj => obj.setAutomatas())
 
     }
     avanzarUnaGeneracion(): void {
-        this.getChildren().map( obj => obj.avanzarUnaGeneracion());
+    
+        this.getChildren().map( obj => {
+            if (obj.matriz_ac) {
+
+                obj.avanzarUnaGeneracion()
+            } else {
+                obj.avanzarUnaGeneracion()
+            }
+        });
     }
     initialize(): void {
+
+        // if ( this.getChildren().length > 0) {
+        //     this.getChildren().map( hijo => {
+        //         hijo.initialize()
+        //     })
+        // }
+
+        // else if ( this.getChildren().length === 0 ) {
+        //     let factory = new ConcreteShapeFactory();
+
+        //         console.log('ejecutando "initialize() " en ', this.nombre)
+        //     this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? factory.createMilitary2(70, 70) : factory.createMilitaryCube(70, 70))
+        // }
+
         this.getChildren().map( obj => obj.initialize());
     }
     getState(umbralInferior: number, umbralSuperior: number): string {
@@ -173,29 +256,46 @@ export class GrupoCelulas implements Nodo {
     allDiamoeba(): void {
         this.children.map( obj => obj.allDiamoeba())
     }
+
+    allDayAndNight(): void {
+        this.children.map( obj => obj.allDayAndNight())
+    }
+
     average(): number {
+        if (this.getChildren().length === 0) {
+            return 0
+        }
+
         let suma = 0;
+        let counter = 0;
         this.children.map( child => {
-            suma += child.average();
+            if ((  child.getChildren().length > 0 || child.isLeaf() ) && child.average() !== 0)
+            {
+
+                suma += child.average();
+                counter += 1;
+            }
+
         })
-        return suma / this.getChildren().length;
+        return suma / counter;
     }
     setAutomata(automata: Automata): void {
-        throw new Error("Method not implemented.");
+        this.automata = automata;
     }
     getAutomata(): Automata {
-        throw new Error("Method not implemented.");
+        return this.automata;
+        
     }
-    children: Nodo[] = [];
 
     addChild(nodo: Nodo): void {
+        nodo.parent = this
         this.children.push(nodo);
     }
     getChildren(): Nodo[] {
         return this.children;
     }
     operation(): void {
-        for ( let child of this.children) {
+        for ( let child of this.getChildren()) {
             child.operation();
         }
     }

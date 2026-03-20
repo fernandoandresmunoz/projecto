@@ -44,11 +44,18 @@ import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 import { GliderNextGenStrategy } from "src/app/GliderNextGenStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 import { LifeNextMatrixStrategy } from "src/app/life-next-matrix-strategy.ts";
+import { PersianCarpet } from "rules/PersianCarpet";
 
 
 
 
 export class ConcreteShapeFactory implements ShapeFactory {
+    createRule(ruleName: string | undefined): Rule {
+        throw new Error("Method not implemented.");
+    }
+    createPersianCarpet(): Rule {
+        return new PersianCarpet()
+    }
 
 
 
@@ -480,7 +487,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
     // creation of automata.
     createMilitaryCube(filas: number, columnas: number): Automata {
 
-        let automata = this.configureIsometricSettings(filas, columnas);
+        let automata: Automata = this.configureIsometricSettings(filas, columnas);
         automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy());
         automata.setNextGenStrategy(new ConcreteNextGenStrategy());
         automata.setNextMatrixStrategy(new ConcreteNextMatrixStrategy(automata));

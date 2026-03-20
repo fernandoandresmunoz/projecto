@@ -3,33 +3,149 @@ import { Line } from "line";
 import { Point } from "point";
 import { Rule } from "rule";
 import { NextGenStrategy } from "src/app/NextGenStrategy";
-import {Element } from "./rules/element";
+import { Element } from "./rules/element";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
 import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 
 
 
+export interface ObserveradorAutomata {
+
+
+}
+
+
+export interface Observable {
+    addObserver(observer: ObservadorAutomata): void;
+    removeObserver(observer: ObservadorAutomata): void;
+    notifyObservers(): void;
+
+}
+
+
+export interface ObservadorAutomata {
+
+
+
+}
+
+
+
+
+export interface ControladorAutomata {
+
+    borderColor: string;
+    borderWidth: number;
+    backgroundColor: string;
+    anchoLienzo: number;
+    altoLienzo: number;
+    automata: Automata;
+
+    getAutomata(): Automata;
+    setAutomata(automata: Automata): void;
+
+    setAnchoLienzo(anchoLienzo: number): void;
+    setAltoLienzo(altoLienzo: number): void;
+
+    getAnchoLienzo(): number;
+    getAltoLienzo(): number;
+
+    avanzarUnaGeneracion(): void;
+    subir(): void;
+    bajar(): void;
+    moverALaIzquierda(): void;
+    moverALaDerecha(): void;
+    getRules(): void;
+    guardar(): void;
+
+    getBorderWidth(): number;
+    setBorderWidth(borderWidth: number): void;
+
+    getBorderColor(): string;
+    setBorderColor(borderColor: string): void;
+
+
+}
+
 // deberia ser "export interface Automata"
-export interface Automata  {
-    
-    
+export interface Automata extends Observable {
+
+
     // estos puntos deberian generarse automáticamente ?
     // mover celula
     // pause rules
     // rules
+    // <td>{{ matriz.id }}</td>
+    // <td
+    // (click)="detalleMatriz(matriz.id)" 
+
+    // >{{ matriz.nombre }}</td>
+    // <td>{{ matriz.generacion }}</td>
+    // <td>{{ matriz.filas }}</td>
+    // <td>{{ matriz.columnas }}</td>
+    // <td>{{ matriz.estado_actual }}</td>
+    // <td>{{ matriz.fecha_creacion }}</td>
+
+
+    id: number;
+    nombre: string;
+    generacion: number;
+    filas: number;
+    columnas: number;
+    estado_actual: string;
+    fecha_creacion: string;
+
+    leftPosition: number;
+    topPosition: number;
+    generation: number;
+
+
+    regla_1_color_1: string;
+    regla_1_color_2: string;
+    regla_1_color_3: string;
+
+    regla_2_color_1: string;
+    regla_2_color_2: string;
+    regla_2_color_3: string;
+
+
+    regla_3_color_1: string;
+    regla_3_color_2: string;
+    regla_3_color_3: string;
+
+
+    regla_4_color_1: string;
+    regla_4_color_2: string;
+    regla_4_color_3: string;
+
+
+    regla_5_color_1: string;
+    regla_5_color_2: string;
+    regla_5_color_3: string;
+
+    altura_regla_1: number;
+    altura_regla_2: number;
+    altura_regla_3: number;
+    altura_regla_4: number;
+    altura_regla_5: number;
+
+    scale: number;
+    escalaVistaPlana: number;
+
+
     addBloque(bloque: Bloque): void;
     addElement(element: Element): void;
-    addPunto(punto: number[][] ): void
+    addPunto(punto: number[][]): void
     avanzarUnaGeneracion(): void;
-    
-    calculateAliveNeighbors(matriz: {state: number, color: string}[][], fila: number, columna: number): {state: number, color: string}[];
+
+    calculateAliveNeighbors(matriz: { state: number, color: string }[][], fila: number, columna: number): { state: number, color: string }[];
     clean(): void;
-    crearBloque(data: {state: number, color: string}, altura: number): void;
+    crearBloque(data: { state: number, color: string }, altura: number): void;
     crearTableroAleatorio(): void;
-    createRandomMatriz(): {state: number, color: string}[][];
-    createGlider(): {state: number, color: string}[][];
+    createRandomMatriz(): { state: number, color: string }[][];
+    createGlider(): { state: number, color: string }[][];
     densidad(): number;
-    dibujarMatriz(matriz: {state: number, color: string}[][]): void;
+    dibujarMatriz(matriz: { state: number, color: string }[][]): void;
     dibujarRectaCompleta(line: Line): void;
     down(): void;
     downMilitary(): void;
@@ -49,7 +165,7 @@ export interface Automata  {
     getAnchoLienzo(): number;
     getAvance(): number;
     getBloques(): Bloque[];
-    getColorSchema(): {} ;
+    getColorSchema(): {};
     setColorSchema(colorSchema: any): void;
 
     getColumnas(): number;
@@ -67,7 +183,7 @@ export interface Automata  {
     getLineAD(): Line;
     getLineBC(): Line;
     getLineBD(): Line;
-    getMatrizActiva(): {state: number, color: string}[][];
+    getMatrizActiva(): { state: number, color: string }[][];
     getPause(): boolean;
 
     // funciones de muy bajo nivel
@@ -98,11 +214,11 @@ export interface Automata  {
 
     getScale(): number;
     getSelectedProjection(): string;
-    
+
     keyLeft(): void;
     keyRight(): void;
     left(): void;
-    matrizSiguiente(matriz: {state: number, color: string}[][]): {state: number, color: string}[][];
+    matrizSiguiente(matriz: { state: number, color: string }[][]): { state: number, color: string }[][];
     paintCube(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void;
     paintQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void;
     puntoCelula(): Point;
@@ -127,7 +243,7 @@ export interface Automata  {
     setLife(): void;
     setLine1(line: Line): void;
     setLine2(line: Line): void;
-    setMatrizActiva(matrizActiva: {state: number, color: string}[][]): void;
+    setMatrizActiva(matrizActiva: { state: number, color: string }[][]): void;
     setPause(pause: boolean): void;
     setPoint(point: Point): void;
     setPoint1(point: Point): void;
@@ -146,7 +262,7 @@ export interface Automata  {
     setRectaAD(line: Line): void;
     setRectaBC(line: Line): void;
     setRectaBD(line: Line): void;
-    
+
     setScale(scale: number): void;
     setSelectedProjection(selectedProjection: string): void;
     setShowAuxiliaryLines(showAuxiliaryLines: boolean): void;
@@ -167,9 +283,9 @@ export interface Automata  {
     getRedRule(): Rule;
     getRedRule(): Rule;
     getRule(): Rule;
-    getRules(): {name: string, rule: Rule, notation: string}[]; 
+    getRules(): { name: string, rule: Rule, notation: string }[];
     setRule(rule: Rule): void;
-    setRules(rules: {name: string, rule: Rule, notation: string}[]): void;
+    setRules(rules: { name: string, rule: Rule, notation: string }[]): void;
 
 
     //move automata
@@ -191,18 +307,18 @@ export interface Automata  {
     totalVerdes(): number;
     totalSumadoElementos(): number;
 
-    porcentajeAzules() : number;
+    porcentajeAzules(): number;
     porcentajeCafes(): number;
     porcentajeGrises(): number;
-    porcentajeRojos(): number; 
+    porcentajeRojos(): number;
     porcentajeVerdes(): number;
     totalPorcentaje(): number;
-    
-    dataAzules() : [ number, number ][];
-    dataCafes() : [ number, number ][];
-    dataGrises() : [ number, number ][];
-    dataRojos() : [ number, number ][];
-    dataVerdes() : [ number, number ][];
+
+    dataAzules(): [number, number][];
+    dataCafes(): [number, number][];
+    dataGrises(): [number, number][];
+    dataRojos(): [number, number][];
+    dataVerdes(): [number, number][];
 
     addDataAzul(generation: number, value: number): void;
     addDataCafe(generation: number, value: number): void;
@@ -215,9 +331,13 @@ export interface Automata  {
     setNextGenStrategy(nextGenStrategy: NextGenStrategy): void;
     getNexGenStategy(): NextGenStrategy;
 
-    setMatrixCreationStrategy(strategy: MatrixCreationStrategy) : void;
+    setMatrixCreationStrategy(strategy: MatrixCreationStrategy): void;
     getMatrixCreationStrategy(): MatrixCreationStrategy;
 
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void;
     getNextMatrixStrategy(): NextMatrixStrategy;
+
+    reset(): void;
+
+
 }

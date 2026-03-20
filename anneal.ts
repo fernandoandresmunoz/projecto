@@ -4,6 +4,8 @@
 import { Rule } from "rule";
 
 export class Anneal implements Rule {
+    name: string = 'anneal';
+    notation: string = 'S35678/B4678';
     surviveCondition(vivas: number): boolean {
         if (vivas === 3 || vivas === 5 || vivas === 6 || vivas === 7 || vivas === 8) {
             return true;
@@ -11,7 +13,7 @@ export class Anneal implements Rule {
         return false;
     }
     liveCondition(vivas: number): boolean {
-        if ( vivas === 4 || vivas === 6 || vivas === 7 || vivas === 8 ) {
+        if (vivas === 4 || vivas === 6 || vivas === 7 || vivas === 8) {
             return true;
         }
         return false;

@@ -11,6 +11,10 @@ import { ControladorCalculadora } from '../calculadora/controlador-calculadora';
 import { Perpendicular } from '../funcion-logaritmica/perpendicular';
 import { Geometry } from '../geometry/geometry';
 import { GeometryService } from '../geometry.service';
+import { Recta } from '../funcion-logaritmica/recta';
+import { LienzosService } from '../graficos.service';
+import { Punto } from '../lienzo';
+
 
 @Component({
   selector: 'app-parabola',
@@ -26,15 +30,26 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   public context: CanvasRenderingContext2D;
 
   @Input() tipo: string;
-  @Input() f: (x: number) => number = x => x**2;
+  // @Input() f: (x: number) => number = x => x**3; // esta es la linea clave de todo .
+  @Input() f: (x: number) => number; 
+
   @Input() integral: boolean = true;
   // @Input() curvas: ((x: number) => number)[] = [ x=> x, x=> 2]
-  @Input() curvas: {color: string, f: (x: number) => number }[] = [{ f: x=> x, color: 'red' }, { f: x=> 2, color: 'green' }];
-  @Input() puntos: {id: number, x: number, y: number}[];
-  @Input() rectas: {x1: number, y1: number, x2: number, y2: number}[];
-  @Input() circunferencias: {x: number, y: number, radio: number}[];
-  @Input() perpendiculares: Perpendicular[];
+  @Input() curvas: {color: string, f: (x: number) => number }[] = [
 
+    // { f: this.f(), ()color: 'red'}
+        // { f: x=> x**2, color: 'red' },
+        // { f: x=> 2, color: 'green' },
+        // { f: x=> Math.exp(x), color: 'green' }
+  ];
+  @Input() puntos: Point[];
+  @Input() lienzoID: number = 0;
+  // @Input() rectas: {x1: number, y1: number, x2: number, y2: number}[];
+  // @Input() circunferencias: {x: number, y: number, radio: number}[];
+  // @Input() perpendiculares: Perpendicular[];
+
+
+  K_SIGMOIDE = 8;
 
 
   usuarioX: number = 0
@@ -46,13 +61,14 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   derivada: Line;
 
   // esto es lo que avanza el punto que calcula la derivada
-  avanceXUsuario = 0.5
+  avanceXUsuario = 0.1
   parabola: Parabola;
   transformadorDePuntos: TransformadorDePuntos;
   distanciaPuntosDerivada: number;
   ANCHO_EJE_X = 16  ;
-  inicio = -3;
-  fin = 3;   
+  ANCHO_EJE_Y= 16;
+  inicio = -2;
+  fin = 2;   
   dibujarEjes = true;
 
   anchoRectangulo = 0.01
@@ -85,23 +101,120 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   altoTickEjeX: number;
   anchoTickEjeY: number;
 
-  anchoLienzo =1000;
-  largoLienzo = 1000;
+  anchoLienzo =500;
+  largoLienzo = 500;
 
   centerX = this.anchoLienzo / 2;
   centerY = this.largoLienzo / 2;
 
-  fillRectangles = true;
+  fillRectangles = false;
   valorIntegral: number = 0;
+  SIGMOIDE_Y = 0;
+  K_SENO = 3;
+  SIN_FREQUENCY = 1;
+  SIN_POS_Y: number = 0;
 
-  @Input() mostrarDerivada: boolean  ;
+  SHOW_INTEGRAL: boolean = false;
+  SHOW_DERIVADA : boolean = false;
+
+  K_GAUSS = 4;
+  K_GAUSS_AMPLITUDE = 0.3;
+
+  CUADRATICA_D = 1;
+  CUADRATICA_A = 1;
+  CUADRATICA_B = 1;
+  CUADRATICA_C = 1
+
+  INTEGRAL = 'INTEGRAL';
+  DERIVADA = 'DERIVADA';
+  FUNCION = 'FUNCION';
+  LIENZO = 'LIENZO';
+
+  PESTANA_ACTIVA = this.FUNCION;
+
+  @Input() mostrarDerivada: boolean  = true ;
 
   @Input() showOptions: boolean;
 
 
 
-  constructor(private geometry: GeometryService) {
+// FUNCIONES importadas de funcion logaritmica.
+// FUNCIONES importadas de funcion logaritmica.
 
+  puntoA = { x: 36, y: 0 };
+  puntoB = { x: 0, y: 0 };
+  puntoC = { x: 0, y: 36 };
+
+  nuevoX: number;
+  nuevoY: number;
+
+
+  rectas: Recta[] = [];
+  perpendiculares: Perpendicular[] = []
+  circunferencias: {x: number, y: number, radio: number}[] = [];
+
+  RECTAS = 'RECTAS';
+
+  selectedMenu: string = this.RECTAS;
+
+  nuevoP1: Punto;
+  nuevoP2: Punto;
+
+
+
+  constructor(public geometry: GeometryService, private lienzoService: LienzosService) {
+    // this.curvas = [
+    // ]
+
+    if ( this.tipo === 'SIGMOIDE') {
+      this.f = this.sigmoide
+
+
+      this.curvas =  [
+        // { f: x=> x**2, color: 'red' },
+        // { f: x=> 2, color: 'green' },
+        // { f: x=> Math.exp(x), color: 'green' },
+        { f: x =>  this.K_SIGMOIDE * 1 / (1 + Math.exp(-x)) , color: 'red' } 
+    ] 
+
+
+    }
+    this.curvas = [
+    ]
+
+  }
+
+  incrementSinFrequency(): void {
+    if ( this.SIN_FREQUENCY <= 2) {
+      this.SIN_FREQUENCY += 0.1
+    } else {
+
+      this.SIN_FREQUENCY += 1;
+    }
+    this.draw();
+  }
+
+  decrementSinFrequency(): void {
+
+    if (this.SIN_FREQUENCY <= 2) {
+      this.SIN_FREQUENCY -= 0.1
+    } else {
+
+      this.SIN_FREQUENCY -= 1;
+    }
+
+    this.draw();
+  }
+
+  showIntegral(): void {
+    this.SHOW_INTEGRAL = !this.SHOW_INTEGRAL;
+    this.draw();
+
+  }
+
+  showDerivada(): void { 
+    this.SHOW_DERIVADA = !this.SHOW_DERIVADA;
+    this.draw();
   }
 
   centrar(): void { 
@@ -265,13 +378,41 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
 
+
+  aumentarAnchoEjeX() {
+    this.ANCHO_EJE_X -= 2;
+    this.draw();
+  }
+
+  disminuirAnchoEjeX() {
+    this.ANCHO_EJE_X += 2;
+    this.draw();
+
+  }
+
+
+
+
+  aumentarAnchoEjeY() {
+    this.ANCHO_EJE_Y -= 2;
+    this.draw();
+  }
+
+  disminuirAnchoEjeY() {
+    this.ANCHO_EJE_Y += 2;
+    this.draw();
+
+  }
+
   alejar(): void {
     this.ANCHO_EJE_X += 2;
+    this.ANCHO_EJE_Y += 2;
     this.draw();
   }
 
   acercar(): void {
     this.ANCHO_EJE_X -= 2;
+    this.ANCHO_EJE_Y -= 2;
     this.draw();
   }
 
@@ -297,7 +438,18 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     this.draw();
   }
 
+  avanzarIntegral() {
+    this.aumentarInicio();
+    this.aumentarFin();
+  }
+
+  retrocederIntegral() { 
+    this.disminuirInicio();
+    this.disminuirFin();
+  }
+
   aumentarInicio() {
+    // estos son el inicio y el fin de la integral 
     this.inicio += 0.2
   this.cantidadRectangulos = ( this.fin - this.inicio ) / this.anchoRectangulo
     this.draw()
@@ -355,10 +507,43 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     throw new Error('Method not implemented.');
   }
   funcion(x: number): number {
+    if ( this.tipo === 'SIGMOIDE') {
+      return this.sigmoide(x);
+    } 
+    else if ( this.tipo === 'SENO') {
+      return this.seno(x)
+    }
+    else if ( this.tipo === 'GAUSS') {
+      return this.gauss(x)
+    }
+    else if ( this.tipo === 'CUADRATICA') {
+      return this.cuadratica(x)
+    }
     return this.f(x)
   }
 
+  cuadratica(x: number) {
+    return this.CUADRATICA_D * x  ** 3 + this.CUADRATICA_A * x**2 +
+    this.CUADRATICA_B * x + this.CUADRATICA_C;
+  }
+
+  seno(x: number): number {
+    return  this.K_SENO * Math.sin(this.SIN_FREQUENCY * x) + this.SIN_POS_Y;
+  }
+  gauss(x: number): number {
+
+    return  this.K_GAUSS * Math.exp(-1 * ( this.K_GAUSS_AMPLITUDE*x )**2) ;
+  }
+
+
   ngOnInit(): void {
+
+
+    this.cargarPuntos();
+    this.cargarRectas();
+    // this.cargarCircunferencias();
+    this.cargarPerpendiculares();
+
 
 
   }
@@ -380,10 +565,16 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
     this.drawLine(
-      this.transformadorDePuntos.transformarPunto(new ConcretePoint(-this.ANCHO_EJE_X / 2, this.derivada.funcion(-this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
+      this.transformadorDePuntos.transformarPunto(
+        new ConcretePoint(-this.ANCHO_EJE_X / 2, this.derivada.funcion(-this.ANCHO_EJE_Y / 2)),
+        this.centerX, this.centerY),
 
-      this.transformadorDePuntos.transformarPunto(new ConcretePoint(this.ANCHO_EJE_X / 2, this.derivada.funcion(this.ANCHO_EJE_X / 2)), this.centerX, this.centerY),
-      'green',
+      this.transformadorDePuntos.transformarPunto(
+        new ConcretePoint(
+          this.ANCHO_EJE_X / 2, this.derivada.funcion(this.ANCHO_EJE_Y / 2)),
+          this.centerX,
+          this.centerY),
+        'green',
       this.anchoDerivada);
 
 
@@ -561,11 +752,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   dibujarNumerosEjes() {
 
     for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i =  i + this.intervaloNumerosEjeX ) {
-      this.dibujarTexto(i.toString(), i - 0.1, -0.4, 'gray')
+      this.dibujarTexto(i.toString()  , i - 0.1, -0.4, 'gray')
       this.dibujarLinea(new ConcretePoint(i, 0.1), new ConcretePoint(i, -0.1), 'gray', 1)
     }
     // eje y 
-    for (let i = -this.ANCHO_EJE_X / 2; i < (this.ANCHO_EJE_X / 2) + 1; i = i + this.intervaloNumerosEjeY) {
+    for (let i = -this.ANCHO_EJE_Y / 2; i < (this.ANCHO_EJE_Y / 2) + 1; i = i + this.intervaloNumerosEjeY) {
       if ( i !== 0 ) {
 
       this.dibujarTexto(i.toString(),  -0.4,i - 0.1, 'gray'  )
@@ -583,9 +774,12 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarRectas() : void { 
+    if (!this.rectas || this.rectas.length === 0 ) {
+      return
+    }
     for (let index = 0; index < this.rectas.length; index++) {
-      const recta: {x1: number, y1: number, x2: number, y2: number} = this.rectas[index];
-      this.dibujarLinea2(recta.x1, recta.y1, recta.x2, recta.y2)
+      const recta: Recta = this.rectas[index];
+      this.dibujarLinea2(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)
       
     }
 
@@ -594,6 +788,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   dibujarPuntos(): void {
 
     // no deberia recibir mas de tres puntos 
+
+    if (!this.puntos) {
+      return;
+    }
 
     for (let index = 0; index < this.puntos.length; index++) {
       const punto = this.puntos[index];
@@ -606,7 +804,10 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarCircunferencias(): void { 
-    console.log('dibujando circunferencias')
+
+    if (!this.circunferencias) {
+      return
+    }
     
     for (let index = 0; index < this.circunferencias.length; index++) {
       this.context.beginPath()
@@ -628,7 +829,13 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
   }
 
+  sigmoide(x : number): number {
+    return this.K_SIGMOIDE *  1 / (1 + Math.exp(-x)) + this.SIGMOIDE_Y;
+
+    }
+
   draw(): void {
+
 
     // this.context.beginPath();
     this.parabola = new ParabolaConcreta(this.tipo, this.f);
@@ -636,7 +843,7 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
     this.transformadorDePuntos = new TransformadorDePuntosConcretos(this.anchoLienzo,
-      this.largoLienzo, this.ANCHO_EJE_X, this.ANCHO_EJE_X)
+      this.largoLienzo, this.ANCHO_EJE_X, this.ANCHO_EJE_Y)
     this.distanciaPuntosDerivada = 0.001
 
 
@@ -644,15 +851,14 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
     this.context.fillStyle = this.colorFondoLienzo;
     this.context.clearRect(0, 0, this.anchoLienzo, this.largoLienzo);
-    this.context.fillRect(0, 0, this.anchoLienzo, this.largoLienzo,)
-      this.dibujarRectas()
-      this.dibujarPuntos()
-      this.dibujarCircunferencias()
-      this.dibujarPerpendiculares()
+    this.context.fillRect(0, 0, this.anchoLienzo, this.largoLienzo,);
+    this.dibujarRectas();
+    this.dibujarPuntos();
+    this.dibujarCircunferencias();
+    this.dibujarPerpendiculares();
 
 
-
-    if (this.integral) {
+    if (this.integral && this.SHOW_INTEGRAL) {
 
       this.dibujarIntegral()
     }
@@ -664,15 +870,37 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
 
 
 
+    if ( this.tipo === 'SIGMOIDE') {
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.sigmoide ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.sigmoide(x) } ), 'red')
+    } 
+
+    else if ( this.tipo === 'SENO'){
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.seno ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.seno(x) } ), 'red')
+    }
+    else if ( this.tipo === 'GAUSS'){
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.gauss ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.gauss(x) } ), 'red')
+    }
+    else if ( this.tipo === 'CUADRATICA'){
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, this.cuadratica ), 'red')
+      this.dibujarCurva( new ParabolaConcreta(this.tipo, (x: number) => {return this.cuadratica(x) } ), 'red')
+    }
+    else {
+
     this.curvas.map( curva => {
       this.dibujarCurva(new ParabolaConcreta(this.tipo , curva.f), curva.color)
     })
+
+
+    }
       // this.dibujarCurva(this.parabola)
       // this.dibujarCurva(curva2);
 
 
 
-    if (this.mostrarDerivada) {
+    if (this.mostrarDerivada && this.SHOW_DERIVADA) {
 
       this.dibujarDerivada()
     }
@@ -682,6 +910,11 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
   }
 
   dibujarPerpendiculares(): void {
+
+    if ( !this.perpendiculares) {
+      return;
+    }
+
     for (let index = 0; index < this.perpendiculares.length; index++) {
       const element = this.perpendiculares[index];
       console.log(element)
@@ -763,4 +996,229 @@ export class ParabolaComponent implements OnInit, Parabola, ControladorCalculado
     this.context.fillText(texto, newPoint.getX(), newPoint.getY());
   }
 
+
+
+  actualizarPunto(punto: {id: number, x: number, y: number}) {
+    this.geometry.actualizarPunto(punto.id, punto.x, punto.y).subscribe( response => {
+      this.draw()
+    })
+  }
+
+  crearPunto(): void {
+    this.geometry.crearPunto(this.lienzoID , this.nuevoX, this.nuevoY)
+    .subscribe( response => {
+      console.log(response)
+      this.draw();
+      this.cargarPuntos()
+    } )
+  }
+
+  changeP1(): void {
+    console.log('changing p1 ', this.nuevoP1)
+  }
+
+  changeP2(): void { 
+    console.log('changing p2 ', this.nuevoP2);
+  }
+
+  crearRecta(): void { 
+    console.log(this.nuevoP1.id)
+    console.log(this.nuevoP2.id)
+    this.geometry.crearRecta(this.lienzoID , this.nuevoP1.id, this.nuevoP2.id)
+    .subscribe( response => {
+      console.log(response)
+      this.draw();
+      this.cargarPuntos()
+      this.cargarRectas();
+    } )
+  }
+
+  borrarPunto(id: number): void {
+    this.geometry.borrarPunto(id)
+    .subscribe( response => {
+      console.log(response);
+      this.cargarPuntos();
+    } )
+  }
+
+
+  obtenerPuntos(): {id: number, x: number, y: number}[]  {
+    return this.puntos;
+  }
+
+  obtenerRectas(): Recta[] {
+    return this.rectas;
+  }
+
+  obtenerCircunferencias() : {x: number, y: number, radio: number}[] {
+    return this.circunferencias;
+  }
+
+  obtenerPerpendiculares(): Perpendicular[] {
+    return this.perpendiculares;
+  }
+
+  cargarPuntos() {
+    this.puntos = [];
+    this.lienzoService.getPoints(this.lienzoID).subscribe(response => {
+      this.puntos = response;
+      this.draw()
+    })
+  }
+  cargarRectas() {
+    this.geometry.obtenerRectas(this.lienzoID).subscribe(response => {
+      this.rectas = response;
+      this.draw()
+    })
+  }
+
+  cargarPerpendiculares() {
+    // this.geometry.obtenerPerpendiculares().subscribe(response => {
+    //   this.perpendiculares = response;
+    // })
+  }
+
+  calcularDistanciaPuntos(x1: number, y1: number, x2: number, y2: number): number {
+
+        // Fórmula de la distancia euclidiana: √((x2 - x1)² + (y2 - y1)²)
+      const distanciaX = x2 - x1;
+      const distanciaY = y2 - y1;
+      const distanciaCuadrada = distanciaX * distanciaX + distanciaY * distanciaY;
+      const distancia = Math.sqrt(distanciaCuadrada);
+  
+      return distancia;
+
+
+  }
+
+   calcularPendiente(x1: number, y1: number, x2: number, y2: number): number {
+    // Fórmula de la pendiente: (y2 - y1) / (x2 - x1)
+    if (x2 === x1) {
+        // Si los puntos tienen la misma coordenada x, la pendiente no está definida
+        throw new Error("La pendiente no está definida para puntos con la misma coordenada x");
+    }
+
+    const pendiente = (y2 - y1) / (x2 - x1);
+    return pendiente;
+}
+
+
+  cargarCircunferencias() {
+    this.geometry.obtenerCircunferencias().subscribe(response => {
+      this.circunferencias = response;
+    })
+  }
+
+  gradosARadianes(grados: number): number {
+    return grados * Math.PI / 180;
+}
+
+ radianesAGrados(radianes: number): number {
+  return radianes * 180 / Math.PI;
+}
+
+  anguloAlfa(): number { 
+
+    let diferencia = this.distanciaBC()/this.distanciaAC()
+    let angulo = Math.asin(diferencia)
+
+    return  this.radianesAGrados(angulo)
+  }
+
+  anguloBeta(): number { 
+    return this.radianesAGrados(( Math.acos(this.distanciaBC() / this.distanciaAC() ) ))
+  }
+
+
+  sumaCatetos(): number { 
+    return this.distancia(this.puntoA, this.puntoB) ** 2 + this.distancia(this.puntoB, this.puntoC) ** 2;
+  }
+
+  cuadradoHipotenusa(): number { 
+    return this.distancia(this.puntoA, this.puntoC) ** 2
+  }
+
+  // funcion(): (x: number) => number {
+  //   return (x: number) => Math.log(x);
+  // }
+
+
+  logaritmoEnBase(x: number, base: number): (x: number) => number {
+    return (x: number) => Math.log(x) / Math.log(base);
+  }
+
+
+  // puntos(): {x: number, y: number}[] {
+  //   return [
+  //     this.puntoA,
+  //     this.puntoB,
+  //     this.puntoC
+  //   ]
+  // }
+
+  distancia(p1: {x: number, y: number}, p2: {x: number, y: number}): number {
+    let point1 = new ConcretePoint(p1.x, p1.y);
+    let point2 = new ConcretePoint(p2.x, p2.y);
+
+    let line = new ConcreteLine(point1, point2);
+    return line.calcularDistancia();
+  }
+
+
+  distanciaAB() : number {
+    return this.distancia(this.puntoA, this.puntoB);
+  }
+
+   distanciaBC() : number {
+    return this.distancia(this.puntoB, this.puntoC);
+
+
+  }
+
+   distanciaAC() : number {
+    return this.distancia(this.puntoA, this.puntoC);
+  }
+
+
+  hipotenusa(): number {
+    return this.distancia(this.puntoC, this.puntoA) 
+  }
+
+  // retorna la longitud del cateto 1 
+  cateto1() : number {
+    return this.distancia(this.puntoA, this.puntoB) 
+  }
+
+  cateto2() : number {
+    return this.distancia(this.puntoB, this.puntoC)
+  }
+
+
+  curvas2(): {color: string, f: (x: number) => number }[] {
+    return [];
+    // return [
+    //   { f: (x: number) => Math.log(x + 3) + 1, color: 'red', },
+    //   { f: (x: number) => Math.cos(x ) , color: 'green', },
+    //   // { f: (x: number) => Math.sin(x ) , color: 'red', },
+    //   // { f: (x: number) => - Math.pow(x , 2 ) + 3 , color: 'blue', },
+    //   { f: (x: number) => Math.pow(Math.E, x) , color: 'blue', },
+    //   //  { f: (x: number) => Math.log2(x), color: 'green', },
+    //   //  { f: (x: number) => Math.log10(x), color: 'blue', },
+    //   //  { f: (x: number) => Math.pow(x, 2) - 2, color: 'brown' },
+    //   //  { f: (x: number) => Math.pow(x, 2) - 9*x +14, color: 'brown', },
+    //   //  { f: (x: number) => Math.cos(x) , color: 'brown', },
+
+      // ]
+  }
+
+
+
+
+
+
+
+}
+
+function th(x: number): number {
+  throw new Error('Function not implemented.');
 }

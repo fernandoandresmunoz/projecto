@@ -3,6 +3,7 @@ import { Rule } from "rule";
 
 
 export class Seeds implements Rule {
+    name: string = 'seeds';
     surviveCondition(vivas: number): boolean {
         return false;
     }

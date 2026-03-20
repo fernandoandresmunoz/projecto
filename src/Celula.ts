@@ -1,8 +1,8 @@
-import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { JUEGO } from "./JUEGO";
 import { Nodo } from "./Nodo";
 import { Automata } from "cube";
 import ConcreteAutomata from "concreteAutomata";
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 
 function makeid(length: number) {
     let result = '';
@@ -22,9 +22,56 @@ export class Celula implements Nodo {
     umbralInferior: number;
     umbralSuperior: number;
 
+    id: number;
+    nombre: string;
+    name: string;
+    filas: number;
+    columnas: number;
+    hiddenAutomata: boolean;
+
+    matriz_ac: number;
+    automataId: number;
+    desplegado: boolean;
+
+    children: Nodo[];
+    parent: Nodo;
 
     constructor() {
     }
+    allAnneal(): void {
+        this.automata.setBrownRule(this.factory.createAnnealRule())
+        this.automata.setGreenRule(this.factory.createAnnealRule())
+        this.automata.setRedRule(this.factory.createAnnealRule())
+        this.automata.setBlueRule(this.factory.createAnnealRule())
+        this.automata.setGrayRule(this.factory.createAnnealRule())
+    }
+    
+
+    
+    hideAutomatas(): void {
+        this.hiddenAutomata = !this.hiddenAutomata;
+    }
+
+    desplegar(): void {
+        this.desplegado = true;
+    }
+    replegar(): void {
+        this.desplegado = false;
+    }
+    operation2(): void {
+        console.log('operation # 2 ', this.nombre)
+    }
+
+    removeChildren(nodo: Nodo): void {
+        throw new Error("Method not implemented.");
+    }
+    removeChild(nodo: Nodo): void {
+        throw new Error("Method not implemented.");
+    }
+    getParent(): Nodo {
+        return this.parent;
+    }
+
     isLeaf(): boolean {
         return true;
     }
@@ -45,7 +92,10 @@ export class Celula implements Nodo {
         this.umbralSuperior = umbralSuperior;
     }
     totalBloques(): number {
-        return this.getAutomata().getBloques().length 
+        if (this.automata) {
+            return this.getAutomata().getBloques().length 
+        }
+        return 0;
     }
     getColor(): string {
         throw new Error("Method not implemented.");
@@ -54,20 +104,29 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     azules(): number {
-        return this.getAutomata()?.totalAzules() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
+        const automata = this.getAutomata();
+        if (!automata) return 0;
+        return automata.totalAzules() / (automata.getFilas() * automata.getColumnas());
     }
     cafes(): number {
-
-        return  this.getAutomata()?.totalCafes() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
+        const automata = this.getAutomata();
+        if (!automata) return 0;
+        return automata.totalCafes() / (automata.getFilas() * automata.getColumnas());
     }
     grises(): number {
-        return  this.getAutomata()?.totalGrises() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
+        const automata = this.getAutomata();
+        if (!automata) return 0;
+        return automata.totalGrises() / (automata.getFilas() * automata.getColumnas());
     }
     rojos(): number {
-        return  this.getAutomata()?.totalRojos() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
+        const automata = this.getAutomata();
+        if (!automata) return 0;
+        return automata.totalRojos() / (automata.getFilas() * automata.getColumnas());
     }
     verdes(): number {
-        return  this.getAutomata()?.totalVerdes() / ( this.getAutomata()?.getFilas() * this.getAutomata()?.getColumnas() )
+        const automata = this.getAutomata();
+        if (!automata) return 0;
+        return automata.totalVerdes() / (automata.getFilas() * automata.getColumnas());
     }
     agregarHojas(): void {
         // throw new Error("Method not implemented.");
@@ -76,21 +135,35 @@ export class Celula implements Nodo {
         throw new Error("Method not implemented.");
     }
     setAutomatas(): void { // deberia ser set automata
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(40, 40) : this.factory.createMilitaryCube(40, 40))
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ?
+            this.factory.createMilitaryCube(50, 50) :
+            this.factory.createMilitaryCube(50, 50))
     }
     avanzarUnaGeneracion(): void {
-        this.getAutomata()?.avanzarUnaGeneracion();
+        const automata = this.getAutomata();
+        if (automata) {
+            automata.avanzarUnaGeneracion();
+        }
     }
     initialize(): void {
         
-        this.setAutomata(JUEGO.CELULA.PROJECTION === 0 ? this.factory.createMilitary2(70, 70) : this.factory.createMilitaryCube(70, 70))
+        this.setAutomata(JUEGO.CELULA.PROJECTION === 0
+            ? this.factory.createMilitary2(
+                this.getAutomata().getFilas(),
+                this.getAutomata().getColumnas())
+            : this.factory.createMilitaryCube(
+                this.getAutomata().getFilas(),
+                this.getAutomata().getColumnas()))
         
     }
     getState(umbralInferior: number, umbralSuperior: number): string {
-
-        if ( this.getAutomata()?.densidad() < umbralInferior) {
+        const automata = this.getAutomata();
+        if (!automata) return JUEGO.DANGER_COLOR;
+        
+        const densidad = automata.densidad();
+        if (densidad < umbralInferior) {
             return JUEGO.DANGER_COLOR;
-        } else if ( this.getAutomata()?.densidad() >= umbralInferior && this.getAutomata().densidad() < umbralSuperior) {
+        } else if (densidad >= umbralInferior && densidad < umbralSuperior) {
             return JUEGO.WARNING_COLOR;
         } 
         return JUEGO.OK_COLOR;
@@ -102,15 +175,34 @@ export class Celula implements Nodo {
         this.automata.setBrownRule(this.factory.createReplicatorRule());
         this.automata.setGreenRule(this.factory.createReplicatorRule());
     }
+
+    allGeology(): void {
+        this.automata.setBrownRule(this.factory.createGeologyRule())
+        this.automata.setGreenRule(this.factory.createGeologyRule())
+        this.automata.setRedRule(this.factory.createGeologyRule())
+        this.automata.setBlueRule(this.factory.createGeologyRule())
+        this.automata.setGrayRule(this.factory.createGeologyRule())
+
+    }
+
     allDiamoeba(): void {
         this.automata.setBrownRule(this.factory.createDiamoebaRule())
         this.automata.setGreenRule(this.factory.createDiamoebaRule())
-        // this.automata.(this.factory.createDiademaRule())
-        // this.automata.setBrownRule(this.factory.createDiademaRule())
-        // this.automata.setBrownRule(this.factory.createDiademaRule())
+        this.automata.setRedRule(this.factory.createDiamoebaRule())
+        this.automata.setBlueRule(this.factory.createDiamoebaRule())
+        this.automata.setGrayRule(this.factory.createDiamoebaRule())
+    }
+    allDayAndNight(): void {
+        this.automata.setBrownRule(this.factory.createDayAndNightRule())
+        this.automata.setGreenRule(this.factory.createDayAndNightRule())
+        this.automata.setRedRule(this.factory.createDayAndNightRule())
+        this.automata.setBlueRule(this.factory.createDayAndNightRule())
+        this.automata.setGrayRule(this.factory.createDayAndNightRule())
+
     }
     average(): number {
-        return this.getAutomata()?.densidad();
+        const automata = this.getAutomata();
+        return automata ? automata.densidad() : 0;
     }
     addChild(nodo: Nodo): void {
         throw new Error("Method not implemented.");
@@ -120,19 +212,21 @@ export class Celula implements Nodo {
     }
     operation(): void {
 
-        console.log(console.log(makeid(5)), 'aqui comienza una celula ***** ***** ***** ***** ***** *********** ')
-        let id = makeid(5);
-        if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
+        console.log('operation en hoja ', this.nombre)
 
-        }
-        console.log('value ', this.automata.densidad())
-        let counter = 1;
-        for (let i = 0; i < this.getAutomata().getMatrizActiva().length; i++) {
-            console.log('fila-', counter, this.getAutomata().getMatrizActiva()[i])
-            counter += 1;
-        }
-        localStorage.setItem('celula+' + id, JSON.stringify( this.getAutomata().getBloques() ))
-        console.log(" aqui termina **************************************************************** ")
+        // console.log(console.log(makeid(5)), 'aqui comienza una celula ***** ***** ***** ***** ***** *********** ')
+        // let id = makeid(5);
+        // if (this.getState(JUEGO.UMBRAL_INFERIOR, JUEGO.UMBRAL_SUPERIOR) === JUEGO.OK_COLOR) {
+
+        // }
+        // console.log('value ', this.automata.densidad())
+        // let counter = 1;
+        // for (let i = 0; i < this.getAutomata().getMatrizActiva().length; i++) {
+        //     console.log('fila-', counter, this.getAutomata().getMatrizActiva()[i])
+        //     counter += 1;
+        // }
+        // localStorage.setItem('celula+' + id, JSON.stringify( this.getAutomata().getBloques() ))
+        // console.log(" aqui termina **************************************************************** ")
     }
     setAutomata(automata: Automata): void {
         this.automata = automata;

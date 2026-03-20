@@ -1,23 +1,6 @@
 # Projecto
 
-
-
-
-
-<img width="1302" height="878" alt="Captura de pantalla 2025-11-20 a la(s) 4 43 16 p m" src="https://github.com/user-attachments/assets/338b7203-c2d6-477c-96a0-f452ef446e26" />
-
-
-
-https://github.com/user-attachments/assets/3228c67c-cc76-4e02-a3ce-8ce2ad8d42dd
-
-
-
-https://github.com/user-attachments/assets/2c72a514-4cd9-456d-9c80-c754e4fc96ce
-
-
-
-https://github.com/user-attachments/assets/2f3e4ebf-f6f3-40e4-a8c0-fd7fc91914c5
-
+"This repository hosts a robust Configuration-Driven Cellular Automata Simulation Engine.The project provides a flexible environment for running various complex automata rules, visualized in a persistent 3D Voxel/Minecraft-style world.Key Architectural FeaturesDecoupled System: Strict separation of concerns between the logic and presentation layers.Dynamic Ruleset: The system supports dynamic rule assignment (e.g., 'Coral', 'Maze', etc.) which are fully persisted in the Django backend.Z-Autómata Capability: Advanced state management includes dynamic voxel height ($H$) as a rule-driven variable, allowing for the procedural generation of evolving 3D terrains and biomes.Total Persistence: All simulation parameters, including aesthetic settings (colors, heights) and camera configuration, are database-driven, ensuring complete reproducibility across sessions.Technologies: Angular (Frontend Rendering) and Django (Backend Engine)."
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
 

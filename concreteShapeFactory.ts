@@ -1,6 +1,6 @@
 import { TwoXTwo } from "2x2";
 import { Life34 } from "34life";
-import { Element  } from "./rules/element";
+import { Element } from "./rules/element";
 import { Anneal } from "anneal";
 import { Bloque } from "bloque";
 import { BloqueConcreto } from "bloque-concreto";
@@ -46,16 +46,119 @@ import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrate
 import { GliderCreationStrategy } from "src/app/glider-creation-strategy";
 import { GliderNextGenStrategy } from "src/app/GliderNextGenStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
+import { PersianCarpet } from "rules/PersianCarpet";
 
 
 
 export class ConcreteShapeFactory implements ShapeFactory {
 
+    // REGLAS_DECIMAL = {
+    //     "life rule":               [8,   12],
+    //     "diamoeba":                [488, 480],
+    //     "replicator":              [170, 170],
+    //     "seeds":                   [4,   0],
+    //     "life without death":      [8,   511],
+    //     "life 34":                 [24,  24],
+    //     "2x2":                     [72,  38],
+    //     "highlife":                [72,  12],
+    //     "day and night":           [456, 472],
+    //     "morley":                  [328, 52],
+    //     "anneal":                  [464, 488],
+    //     "coagulation":             [392, 492],
+    //     "coral":                   [8,   496],
+    //     "gnarl":                   [2,   2],
+    //     "maze":                    [8,   62],
+    //     "move":                    [328, 52],
+    //     "walled city":             [456, 508],
+    //     "mazectric":               [8,   30],
+    //     "mazectric with mice":     [136, 30],
+    //     "maze with mice":          [136, 62],
+    //     "pedestrian life":         [264, 12],
+    //     "corrosion of conformity": [8,   22],
+    //     "snow":                    [8,   6],
+    //     "serviettes":              [4,   0],
+    //     "empty":                   [0,   0],
+    //     "geology":                 [232, 468],
+    //     "persian carpet":          [24,  4],
+    // }
+
+
+    createRule(ruleName: string | undefined): Rule {
+
+        if (ruleName === undefined) {
+            return this.createLifeRule();
+        }
+
+        switch (ruleName) {
+            case "life rule":
+                return this.createLifeRule();
+            case "diamoeba":
+                return this.createDiamoebaRule();
+            case "replicator":
+                return this.createReplicatorRule();
+            case "seeds":
+                return this.createSeedsRule();
+            case "life without death":
+                return this.createLifeWithoutDeathRule();
+            case "life 34":
+                return this.create34LifeRule();
+            case "2x2":
+                return this.create2x2Rule();
+            case "highlife":
+                return this.createHighLifeRule();
+            case "day and night":
+                return this.createDayAndNightRule();
+            case "morley":
+                return this.createMorleyRule();
+            case "anneal":
+                return this.createAnnealRule();
+            case "coagulation":
+                return this.createCoagulationRule();
+            case "coral":
+                return this.createCoralRule();
+            case "gnarl":
+                return this.createGnarlRule();
+            case "maze":
+                return this.createMazeRule();
+            case "move":
+                return this.createMoveRule();
+            case "walled city":
+                return this.createWalledCityRule();
+            case "mazectric":
+                return this.Mazectric();
+            case "mazectric with mice":
+                return this.MazectricWithMice();
+            case "maze with mice":
+                return this.MazeWithMice();
+            case "pedestrian life":
+                return this.PedestrianLife();
+            case "corrosion of conformity":
+                return this.CorrosionOfConformity();
+            case "snow":
+                return this.SnowLife();
+            case "serviettes":
+                return this.serviettes();
+            case "empty":
+                return this.emptyRule();
+            case "geology":
+                return this.geologyRule();
+            case "persian carpet":
+                return this.createPersianCarpet();
+
+            default:
+                break;
+        }
+        throw new Error("Method not implemented.");
+    }
+    createPersianCarpet(): Rule {
+        return new PersianCarpet()
+    }
+
 
 
     createMilitary3(filas: number, columnas: number): Automata {
         let cube = this.createMilitaryCube(filas, columnas);
-        for (let i = 0 ;  i< 20; i++) {
+        for (let i = 0; i < 20; i++) {
             cube.downMilitary();
         }
         return cube;
@@ -83,7 +186,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
         return new Geology();
     }
 
-    emptyRule() : Rule {
+    emptyRule(): Rule {
         return new EmptyRule();
     }
     Iceballs(): Rule {
@@ -325,7 +428,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    ecosistema(filas: number, columnas: number) : Automata {
+    ecosistema(filas: number, columnas: number): Automata {
         let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         cube.setGreenRule(this.MazectricWithMice());
@@ -337,7 +440,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
     }
-    ecosistema2(filas: number, columnas: number) : Automata {
+    ecosistema2(filas: number, columnas: number): Automata {
         let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
@@ -351,7 +454,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    coagulation(filas: number, columnas: number) : Automata {
+    coagulation(filas: number, columnas: number): Automata {
         let cube = this.createMilitaryCube(filas, columnas);
         cube.setNextGenStrategy(new Life())
         // cube.setGreenRule(this.createLifeRule());
@@ -367,7 +470,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     createMilitary2(filas: number, columnas: number): Automata {
         let cube = this.createMilitaryCube(filas, columnas);
-        for (let i = 0 ;  i< 10; i++) {
+        for (let i = 0; i < 10; i++) {
             cube.downMilitary();
         }
         return cube;
@@ -383,8 +486,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
 
-        let automata = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
-    
+        let automata = this.createCube(pointA, pointB, pointC, pointD, filas, columnas);
+
         automata.setMatrizActiva(automata.createRandomMatriz())
 
 
@@ -416,11 +519,11 @@ export class ConcreteShapeFactory implements ShapeFactory {
         }
 
         // cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ? // creo que no se usa para nada
-        
+
 
         automata.setScale(JUEGO.CELULA.SCALE);
 
-        
+
 
         // cube.setMatrizActiva(cube.createRandomMatriz())
         return automata;
@@ -428,7 +531,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
-    configureIsometricSettings(filas:number, columnas: number): Automata { 
+    configureIsometricSettings(filas: number, columnas: number): Automata {
         // esto aplica solo para la vista isometrica 
         let pointA = this.createPoint(240, 50);
         let pointB = this.createPoint(240, 30);
@@ -439,7 +542,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
 
         // creo que tambien aplica solo para la vista isometrica 
-        let cube = this.createCube(pointA, pointB, pointC, pointD, filas , columnas);
+        let cube = this.createCube(pointA, pointB, pointC, pointD, filas, columnas);
 
 
         // esto tambien aplica solo para la vista isometrica 
@@ -465,15 +568,17 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
         cube.upMilitary(JUEGO.MILITAR_DEFAULT);
 
-        for (let i = 0; i < 240; i++) {
+        for (let i = 0; i < 200; i++) {
             cube.down();
         }
-        for (let i = 0; i < 340; i++) {
+        for (let i = 0; i < 305; i++) {
             cube.derecha()
         }
 
+        cube.upMilitary(10);
+
         // cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ? // creo que no se usa para nada
-        
+
 
         //isometrica 
         cube.setScale(JUEGO.CELULA.SCALE);
@@ -488,21 +593,41 @@ export class ConcreteShapeFactory implements ShapeFactory {
         // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
         // automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
         automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
-    // nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
+        // nextGenStrategy: NextGenStrategy //= new ConcreteNextGenStrategy();
         automata.setNextGenStrategy(new ConcreteNextGenStrategy())
 
         automata.setMatrizActiva(automata.createRandomMatriz())
         return automata;
     }
 
-    createGliderStrategy(filas:number, columnas: number): Automata {
+    crearAutomataPrecargado(filas: number, columnas: number): Automata {
+        let automata = this.configureIsometricSettings(filas, columnas)
+        automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        automata.setNextGenStrategy(new ConcreteNextGenStrategy())
+
+        // automata.setMatrizActiva(automata.createRandomMatriz())
+        return automata;
+    }
+
+    crearAutomataNuevo(filas: number, columnas: number): Automata {
+        let automata = this.configureIsometricSettings(filas, columnas)
+        automata.setMatrixCreationStrategy(new ConcreteRandomMatrixStrategy())
+        automata.setNextGenStrategy(new ConcreteNextGenStrategy())
+
+        automata.setMatrizActiva(automata.createRandomMatriz())
+        return automata;
+    }
+
+
+
+    createGliderStrategy(filas: number, columnas: number): Automata {
 
         let automata = this.configureIsometricSettings(filas, columnas)
 
         automata.setMatrixCreationStrategy(new GliderCreationStrategy())
         // automata.setNextMatrixStrategy(new ConcreteNextMatrixStrategy(automata))
         automata.setNextGenStrategy(new GliderNextGenStrategy())
-//= new ConcreteNextMatrixStrategy(this);
+        //= new ConcreteNextMatrixStrategy(this);
         automata.setMatrizActiva(automata.createRandomMatriz())
 
         return automata;
@@ -510,16 +635,19 @@ export class ConcreteShapeFactory implements ShapeFactory {
 
     }
 
+    createGeologyRule(): Rule {
+        return new Geology();
+    }
     createDiamoebaRule() {
         return new Diamoeba();
     }
-    crearTablero(cube: Automata, largo: number, ancho: number ) {
+    crearTablero(cube: Automata, largo: number, ancho: number) {
         for (let j = 0; j < largo; j++) {
             for (let i = 0; i < ancho; i++) {
 
 
                 const n = Math.floor(Math.random() * 10);
-                if (n%2==0) {
+                if (n % 2 == 0) {
 
 
                     // cube.crearBloque();
@@ -530,7 +658,7 @@ export class ConcreteShapeFactory implements ShapeFactory {
             }
             cube.down();
         }
-        for ( let i = 0 ; i <  largo; i ++) {
+        for (let i = 0; i < largo; i++) {
             cube.up();
         }
     }
@@ -547,8 +675,8 @@ export class ConcreteShapeFactory implements ShapeFactory {
         let pointA = this.createPoint(13, 58);
         let pointB = this.createPoint(91, 9);
         let pointC = this.createPoint(116, 55);
-        let pointD = this.createPoint(2,11);
-        let cube = this.createCube(pointA, pointB, pointC, pointD, filas, columnas) ;
+        let pointD = this.createPoint(2, 11);
+        let cube = this.createCube(pointA, pointB, pointC, pointD, filas, columnas);
         cube.setSelectedProjection('cavalier');
         cube.setHeight(4)
         cube.setFilas(100);
@@ -597,11 +725,11 @@ export class ConcreteShapeFactory implements ShapeFactory {
         }
 
         cube.clean(); // esto se usa o no , no estoy seguro de si sirve para algo ?
-        
+
 
         cube.setScale(JUEGO.CELULA.SCALE);
 
-        
+
 
         // cube.setMatrizActiva(cube.createRandomMatriz())
         cube.setRule(this.createLifeRule());
@@ -622,15 +750,15 @@ export class ConcreteShapeFactory implements ShapeFactory {
         throw new Error("Method not implemented.");
     }
     createLine(pointA: Point, pointB: Point): Line {
-            try {
-                
-                return new ConcreteLine(pointA, pointB);
-            } catch (error) {
-                
-                throw new Error("error no s e ecuentra valor en pointA o pointB");
-            }
-        } 
-        
+        try {
+
+            return new ConcreteLine(pointA, pointB);
+        } catch (error) {
+
+            throw new Error("error no s e ecuentra valor en pointA o pointB");
+        }
+    }
+
     createPoint(x: number, y: number): Point {
         return new ConcretePoint(x, y);
     }

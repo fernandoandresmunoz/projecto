@@ -1,0 +1,82 @@
+<table border="1">
+    <tr>
+        <td></td>
+        <td>
+            <button [disabled]="j === 0" (click)="j = j - 1">top</button>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+
+            <button [disabled]="i === 0" (click)="i = i - 1">left</button>
+        </td>
+        <td></td>
+        <td>
+            <button [disabled]="i === matrix[0].length - 1" (click)="i = i + 1">right</button>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <button [disabled]="j === matrix.length - 1" (click)="j = j + 1">down</button>
+        </td>
+        <td></td>
+    </tr>
+
+</table>
+
+<table>
+    <tr>
+        <td>FILA</td>
+        <td>{{ j }}</td>
+    </tr>
+    <tr>
+
+        <td>COLUMNA</td>
+        <td>{{ i }}</td>
+    </tr>
+
+</table>
+
+{{ matrix[j][i] }}
+
+<table border="1">
+    <tr *ngIf="j===0">
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr *ngIf="j>0">
+        <td *ngIf="i>0">{{ matrix[j-1][i - 1] }}</td>
+        <td *ngIf="i===0">0</td>
+        <td>{{ matrix[j-1][i] }}</td>
+        <td>{{ matrix[j-1][i + 1] }}</td>
+    </tr>
+    <tr>
+        <td *ngIf="i>0">{{ matrix[j][i - 1] }}</td>
+        <td *ngIf="i===0">0</td>
+        <td>{{ matrix[j][i] }}</td>
+        <td>{{ matrix[j][i + 1] }}</td>
+    </tr>
+    <tr>
+        <td *ngIf="i>0">{{ matrix[j +1][i - 1] }}</td>
+        <td *ngIf="i===0">0</td>
+        <td>{{ matrix[j + 1][i] }}</td>
+        <td>{{ matrix[j + 1][i + 1] }}</td>
+    </tr>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="0">
+    <tr *ngFor="let row of matrix; let m = index;">
+        <td *ngFor="let cell of row; let n = index;">
+            <div *ngIf="cell && !( m === j && n === i )" style="width: 5px ; height: 5px; background-color: red; ">
+            </div>
+            <div *ngIf="!( m === j && n === i ) && !cell" style="width: 5px ; height: 5px; background-color: white; ">
+            </div>
+            <div *ngIf="m === j && n === i" style="width: 5px ; height: 5px; background-color: green; ">$0</div>
+
+        </td>
+    </tr>
+</table>
+<hr>

@@ -1,8 +1,7 @@
-import { Automata  } from "cube";
+import { Automata, ObservadorAutomata } from "cube";
 import { Line } from "line";
 import { Point } from "point";
 import { ShapeFactory } from "shapeFactory";
-import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 import { Bloque } from "bloque";
 import { Rule } from "rule";
 import { Element } from './rules/element';
@@ -10,7 +9,6 @@ import { NextMatrixStrategy } from "src/app/NextMatrixStrategy";
 import { ConcreteNextMatrixStrategy } from "src/app/ConcreteNextMatrixStrategy";
 import { ConcreteAliveNeighborsStrategy } from "src/app/ConcreteAliveNeighborsStrategy";
 import { AliveNeighborsStrategy } from "src/app/AliveNeighborsStrategy";
-import { ConcreteRandomMatrixStrategy } from "src/app/ConcreteRandomMatrixStrategy";
 import { DrawingStrategy } from "src/app/DrawingStrategy";
 import { ConcreteDrawingStrategy } from "src/app/ConcreteDrawingStrategy";
 import { BlockCreationStrategy } from "src/app/BlockCreationStrategy";
@@ -18,6 +16,7 @@ import { ConcreteBlockCreationStrategy } from "src/app/ConcreteBlockCreationStra
 import { NextGenStrategy } from "src/app/NextGenStrategy";
 import { JUEGO } from "src/JUEGO";
 import { MatrixCreationStrategy } from "src/app/matrix-creation-strategy";
+import { ConcreteShapeFactory } from "concreteShapeFactory";
 
 
 export default class ConcreteAutomata implements Automata {
@@ -72,8 +71,8 @@ export default class ConcreteAutomata implements Automata {
     puntos: number[][][] = [];
 
     altoCelula = 2;
-    anchoCelula = 5;
-    largoCelula = 5;
+    anchoCelula = 1;
+    largoCelula = 1;
     auxiliaryLines = true
 
     anchoLienzo = 1500;
@@ -97,7 +96,7 @@ export default class ConcreteAutomata implements Automata {
 
     rules: { name: string, rule: Rule, notation: string }[] = [
         {
-            name: 'life',
+            name: 'life rule',
             rule: this.shapeFactory.createLifeRule(),
             notation: ''
         },
@@ -122,7 +121,7 @@ export default class ConcreteAutomata implements Automata {
             notation: ''
         },
         {
-            name: 'life 34',
+            name: '34 life',
             rule: this.shapeFactory.create34LifeRule(),
             notation: ''
         },
@@ -137,7 +136,7 @@ export default class ConcreteAutomata implements Automata {
             notation: ''
         },
         {
-            name: 'day & night ',
+            name: 'day and night',
             rule: this.shapeFactory.createDayAndNightRule(),
             notation: ''
         },
@@ -182,12 +181,12 @@ export default class ConcreteAutomata implements Automata {
             notation: ''
         },
         {
-            name: 'mazectric',
+            name: 'mazetric1',
             rule: this.shapeFactory.Mazectric(),
             notation: ''
         },
         {
-            name: 'mazectric with mice ',
+            name: 'mazectric with mice',
             rule: this.shapeFactory.MazectricWithMice(),
             notation: ''
         },
@@ -207,7 +206,7 @@ export default class ConcreteAutomata implements Automata {
             notation: ''
         },
         {
-            name: 'snow',
+            name: 'snow life',
             rule: this.shapeFactory.SnowLife(),
             notation: ''
         },
@@ -216,8 +215,8 @@ export default class ConcreteAutomata implements Automata {
             rule: this.shapeFactory.serviettes(),
             notation: ''
         },
-{
-            name: 'empty',
+        {
+            name: 'empty rule',
             rule: this.shapeFactory.emptyRule(),
             notation: ''
         },
@@ -225,38 +224,48 @@ export default class ConcreteAutomata implements Automata {
             name: 'geology',
             rule: this.shapeFactory.geologyRule(),
             notation: ''
+        },
+        {
+            name: 'persian carpet',
+            rule: this.shapeFactory.createPersianCarpet(),
+            notation: ''
         }
     ]
 
     elements: Element[] = [];
 
-    colorSchema: any = {
-        'Red': {
-            primary: 'Red',
-            secondary: 'Coral',
-            terciary: 'DarkRed'
-        },
-        'Green': {
-            primary: 'Green',
-            secondary: 'Green',
-            terciary: 'Green'
-        },
-        'Blue': {
-            primary: 'Blue',
-            secondary: 'Blue',
-            terciary: 'Blue'
-        },
-        'Brown': {
-            primary: 'Brown',
-            secondary: 'Brown',
-            terciary: 'Brown'
-        },
-        'Gray': {
-            primary: 'Gray',
-            secondary: 'Gray',
-            terciary: 'Gray'
-        }
-    }
+    //     colorSchema: any = {
+    //         // 'Red': {
+    //         //     primary: 'Red',
+    //         //     secondary: 'Coral',
+    //         //     terciary: 'DarkRed'
+    //         // },
+    // 'Red': {
+    //             primary: 'Brown',
+    //             secondary: 'Brown',
+    //             terciary: 'Brown'
+    //         },
+    //         'Green': {
+    //             primary: 'Green',
+    //             secondary: 'Green',
+    //             terciary: 'Green'
+    //         },
+    //         'Blue': {
+    //             primary: 'Blue',
+    //             secondary: 'Blue',
+    //             terciary: 'Blue'
+    //         },
+    //         'Brown': {
+    //             primary: 'Brown',
+    //             secondary: 'Brown',
+    //             terciary: 'Brown'
+    //         },
+    //         'Gray': {
+    //             primary: 'Gray',
+    //             secondary: 'Gray',
+    //             terciary: 'Gray'
+    //         }
+    //     }
 
 
     nextMatrixStrategy: NextMatrixStrategy = new ConcreteNextMatrixStrategy(this);
@@ -267,14 +276,14 @@ export default class ConcreteAutomata implements Automata {
 
     drawingStrategy: DrawingStrategy = new ConcreteDrawingStrategy();
     blockCreationStrategy: BlockCreationStrategy = new ConcreteBlockCreationStrategy(this, this.shapeFactory);
-    nextGenStrategy: NextGenStrategy; 
+    nextGenStrategy: NextGenStrategy;
 
 
-    dataAzul : [ number,number ][] = []
-    dataGris : [ number,number ][] = []
-    dataVerde :[ number,number ][] = []
-    dataRojo : [ number,number ][]= []
-    dataCafe  :  [ number,number ][] = []
+    dataAzul: [number, number][] = []
+    dataGris: [number, number][] = []
+    dataVerde: [number, number][] = []
+    dataRojo: [number, number][] = []
+    dataCafe: [number, number][] = []
 
     constructor(pointA: Point, pointB: Point, pointC: Point, pointD: Point) {
         this.pointA = pointA;
@@ -301,6 +310,55 @@ export default class ConcreteAutomata implements Automata {
         // this.setGreenRule(this.shapeFactory.createCoralRule());
 
     }
+    reset(): void {
+        this.setGreenRule(this.shapeFactory.createLifeWithoutDeathRule());
+        this.setBrownRule(this.shapeFactory.emptyRule());
+        this.setGrayRule(this.shapeFactory.emptyRule());
+        this.setBlueRule(this.shapeFactory.emptyRule());
+        this.setRedRule(this.shapeFactory.emptyRule());
+        this.setGeneration(0); this.setMatrizActiva(this.createRandomMatriz());
+    }
+    escalaVistaPlana: number;
+    altura_regla_1: number = 2;
+    altura_regla_2: number = 2;
+    altura_regla_3: number = 2;
+    altura_regla_4: number = 2;
+    altura_regla_5: number = 2;
+
+
+    id: number;
+    nombre: string;
+    generacion: number;
+    estado_actual: string;
+    fecha_creacion: string;
+    regla_1_color_1: string;
+    regla_1_color_2: string;
+    regla_1_color_3: string;
+    regla_2_color_1: string;
+    regla_2_color_2: string;
+    regla_2_color_3: string;
+    regla_3_color_1: string;
+    regla_3_color_2: string;
+    regla_3_color_3: string;
+    regla_4_color_1: string;
+    regla_4_color_2: string;
+    regla_4_color_3: string;
+    regla_5_color_1: string;
+    regla_5_color_2: string;
+    regla_5_color_3: string;
+
+    leftPosition: number = 0;
+    topPosition: number = 0;
+
+    addObserver(observer: ObservadorAutomata): void {
+        throw new Error("Method not implemented.");
+    }
+    removeObserver(observer: ObservadorAutomata): void {
+        throw new Error("Method not implemented.");
+    }
+    notifyObservers(): void {
+        throw new Error("Method not implemented.");
+    }
     addDataAzul(generation: number, value: number): void {
         this.dataAzul.push([generation, value])
     }
@@ -316,47 +374,49 @@ export default class ConcreteAutomata implements Automata {
     addDataVerde(generation: number, value: number): void {
         this.dataVerde.push([generation, value])
     }
-    dataAzules(): [ number, number ][] {
+    dataAzules(): [number, number][] {
         return this.dataAzul;
     }
-    dataCafes(): [ number, number ][] {
+    dataCafes(): [number, number][] {
         return this.dataCafe;
     }
-    dataGrises(): [ number, number ][] {
+    dataGrises(): [number, number][] {
         return this.dataGris;
     }
-    dataRojos(): [ number , number][] {
+    dataRojos(): [number, number][] {
         return this.dataRojo;
     }
-    dataVerdes(): [ number , number][] {
+    dataVerdes(): [number, number][] {
         return this.dataVerde;
     }
     porcentajeAzules(): number {
-        return this.totalAzules() / ( this.getFilas() * this.getColumnas() )
+        // return this.totalAzules() / (this.getFilas() * this.getColumnas())
+        return this.totalAzules() / (this.totalSumadoElementos())
     }
     porcentajeCafes(): number {
-        return this.totalCafes() / ( this.getFilas() * this.getColumnas() )
+        return this.totalCafes() / this.totalSumadoElementos()
     }
     porcentajeGrises(): number {
-        return this.totalGrises() / ( this.getFilas() * this.getColumnas() )
+        return this.totalGrises() / this.totalSumadoElementos()
     }
     porcentajeRojos(): number {
-        return this.totalRojos() / ( this.getFilas() * this.getColumnas() )
+        return this.totalRojos() / this.totalSumadoElementos()
     }
     porcentajeVerdes(): number {
-        return this.totalVerdes() / ( this.getFilas() * this.getColumnas() )
+        return this.totalVerdes() / this.totalSumadoElementos()
     }
 
     totalPorcentaje(): number {
-        return this.totalSumadoElementos() / (this.getFilas() * this.getColumnas() )
+        return (this.totalSumadoElementos() * 100) / (this.getFilas() * this.getColumnas())
     }
 
-    
+
     totalSumadoElementos(): number {
-        return this.totalAzules() + this.totalCafes() + this.totalVerdes() + this.totalGrises() + this.totalRojos();
+        return this.getFilas() * this.getColumnas()
+        // return this.totalAzules() + this.totalCafes() + this.totalVerdes() + this.totalGrises() + this.totalRojos();
     }
     setColorSchema(colorSchema: any): void {
-        this.colorSchema = colorSchema;
+        // this.colorSchema = colorSchema;
     }
     setNextMatrixStrategy(nextMatrixStrategy: NextMatrixStrategy): void {
         this.nextMatrixStrategy = nextMatrixStrategy;
@@ -381,7 +441,7 @@ export default class ConcreteAutomata implements Automata {
             },
             {
                 name: 'cafe',
-                total:100 *  this.totalCafes() / this.getBloques().length,
+                total: 100 * this.totalCafes() / this.getBloques().length,
                 color: 'brown'
             }, {
                 name: 'verdes',
@@ -397,7 +457,7 @@ export default class ConcreteAutomata implements Automata {
                 color: 'gray'
             },
         ]
-        d.sort((a, b) => { return b.total - a.total})
+        d.sort((a, b) => { return b.total - a.total })
 
         return d
     }
@@ -410,10 +470,13 @@ export default class ConcreteAutomata implements Automata {
     avanzarUnaGeneracion(): void {
         if (!this.getPause()) {
 
-            this.nextGenStrategy.nextGeneration(this);
+            // this.nextGenStrategy.nextGeneration(this);
             this.setMatrizActiva(this.matrizSiguiente(this.getMatrizActiva()))
             this.dibujarMatriz(this.getMatrizActiva())
             this.setGeneration(this.getGeneration() + 1);
+
+
+
         }
 
     }
@@ -451,7 +514,7 @@ export default class ConcreteAutomata implements Automata {
         }
     }
     getColorSchema(): any {
-        return this.colorSchema;
+        // return this.colorSchema;
     }
     getBlueRule(): Rule {
         return this.blueRule;
@@ -472,7 +535,7 @@ export default class ConcreteAutomata implements Automata {
         this.grayRule = rule;
     }
     totalAzules(): number {
-        return this.getBloques().filter(obj => obj.getData().color === 'Blue').length;
+        return this.getBloques().filter(obj => obj.getData().color === 'Blue' && obj.getData().state === 1).length;
     }
     totalVerdes(): number {
         return this.getBloques().filter(obj => obj.getData().color === 'Green').length;
@@ -517,7 +580,7 @@ export default class ConcreteAutomata implements Automata {
         return this.aliveNeighborsStrategy.calculate(nuevaMatriz, fila, columna);
     }
     getRules(): { name: string; rule: Rule; notation: string; }[] {
-        
+
         return this.rules;
     }
     setRules(rules: { name: string; rule: Rule; notation: string; }[]): void {
@@ -561,13 +624,7 @@ export default class ConcreteAutomata implements Automata {
     }
     setGeneration(generation: number): void {
         this.generation = generation
-        if (this.generation === 0 ) {
-            this.setBlueRule(this.shapeFactory.createCoralRule())
-            this.setGreenRule(this.shapeFactory.createCoralRule())
-            this.setRedRule(this.shapeFactory.createCoralRule())
-            this.setBrownRule(this.shapeFactory.createCoralRule())
-            this.setGrayRule(this.shapeFactory.createLifeRule())
-        }
+
     }
 
     getAvance(): number {
@@ -593,7 +650,7 @@ export default class ConcreteAutomata implements Automata {
     }
 
     dibujarMatriz(matriz: { state: number, color: string }[][]): void {
-        this.drawingStrategy.draw(this, this.getMatrizActiva() );
+        this.drawingStrategy.draw(this, this.getMatrizActiva());
     }
     crearTableroAleatorio(): void {
         // this.clean();
@@ -646,6 +703,7 @@ export default class ConcreteAutomata implements Automata {
 
     }
     bajar(): void {
+        this.topPosition += 1;
         for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.down()
         }
@@ -664,6 +722,8 @@ export default class ConcreteAutomata implements Automata {
         // this.bajarCubos();
     }
     izquierda(): void {
+
+        this.leftPosition += 1;
 
         for (let i = 0; i < JUEGO.AVANCE; i++) {
             this.left()

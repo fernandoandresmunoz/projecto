@@ -42,19 +42,21 @@ export class Factory {
         let b = this.crearGrupoCelula();
         let c = this.crearGrupoCelula();
 
-        if (JUEGO.PISOS !== 1) {
-            a.addChild(b);
-            a.addChild(c)
-        }
-        if (JUEGO.PISOS === 2) {
+        // if (JUEGO.PISOS !== 1) {
+        //     a.addChild(b);
+        //     a.addChild(c)
+        // }
+        // if (JUEGO.PISOS === 2) {
 
-            a.agregarHijos();
-        } else if (JUEGO.PISOS === 3) {
+        //     a.agregarHijos();
+        // } else if (JUEGO.PISOS === 3) {
 
-            a.agregarHijos();
-            a.agregarHijos();
-        }
-        a.agregarHojas();
+        //     a.agregarHijos();
+        //     a.agregarHijos();
+        // }
+        b.agregarHijos();
+        c.agregarHojas();
+        a.setAutomatas()
         return a;
     }
 
@@ -184,12 +186,14 @@ export class Factory {
     crearPlanta(): Nodo {
 
         let a = this.crearGrupoCelula();
-        // let b = this.crearGrupoCelula()
-        // let c = this.crearGrupoCelula()
+        
+        let b = this.crearGrupoCelula()
+        let c = this.crearGrupoCelula()
 
 
-        // a.addChild(b)
-        // a.addChild(c)
+        a.addChild(b)
+        a.addChild(c)
+        c.agregarHojas()
         // b.addChild(this.crearGrupoCelula())
         // b.addChild(this.crearGrupoCelula())
 
@@ -197,35 +201,20 @@ export class Factory {
         // c.addChild(this.crearGrupoCelula())
 
 
-        a.addChild(this.superPlanta())
-        a.addChild(this.superPlanta())
-        a.agregarHojas()
+        // a.addChild(this.superPlanta())
+        // a.addChild(this.superPlanta())
+        // a.agregarHojas()
         // // a.addChild(this.megaPlanta2())
         // a.agregarHojas()
         // a.setAutomatas()
 
-        a.setAutomatas()
+        // a.setAutomatas()
 
         return a;
     }
 
     superPlanta() : Nodo {
-
         let a = this.crearGrupoCelula();
-
-        let b= this.crearGrupoCelula();
-        let c = this.crearGrupoCelula();
-
-        b.addChild(this.crearGrupoCelula())
-        b.addChild(this.crearGrupoCelula())
-
-        c.addChild(this.crearGrupoCelula())
-        c.addChild(this.crearGrupoCelula())
-
-
-
-        a.addChild(b)
-        a.addChild(c)
         // a.setAutomatas();
         return a ;
     }

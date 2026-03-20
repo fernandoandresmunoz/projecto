@@ -13,7 +13,7 @@ export class FuncionSenoComponent implements OnInit {
   }
 
   seno() : (x: number) => number { 
-    return x => Math.sin(x);
+    return x => 3 * Math.sin(x);
   }
 
 }

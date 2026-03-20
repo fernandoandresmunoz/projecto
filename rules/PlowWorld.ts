@@ -2,6 +2,7 @@ import { Rule } from "rule";
 
 
 export class PlowWorld implements Rule {
+    name: string = 'plow world';
     surviveCondition(vivas: number): boolean {
         // B378/S012345678	
         if ( vivas >= 0 && vivas <= 8) {

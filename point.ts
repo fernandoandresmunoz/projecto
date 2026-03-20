@@ -2,6 +2,11 @@ import { Line } from "line";
 import { Drawable, Nameable, Scalable } from "src/modelo";
 
 export interface Point extends Drawable, Nameable, Scalable {
+  x: number;
+  y: number;
+  id: number;
+  etiqueta: string;
+  lienzo: number;
   getX(): number;
   getScaledX(): number;
 

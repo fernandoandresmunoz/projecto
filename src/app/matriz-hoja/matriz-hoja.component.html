@@ -1,0 +1,13 @@
+<!-- <p>matriz-hoja works!</p>
+{{ matriz_ac }}
+
+<app-pause-reset [automata]="automata"></app-pause-reset> -->
+<!-- GENERATION = {{ nodo.automata?.generation}} -->
+<!-- {{ automata.totalPorcentaje()}} -->
+<!-- DENSIDAD = {{ automata.densidad() }} -->
+<app-tabla
+*ngIf="nodo.automata !== undefined"
+[anchoCelda]="0.02"
+[datos_matriz]="nodo.automata.getMatrizActiva()"
+>
+</app-tabla>

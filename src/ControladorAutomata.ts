@@ -12,4 +12,6 @@ export interface ControladorAutomata {
     avanzarUnaGeneracion(): void;
 
 
+
+
 }

@@ -14,6 +14,9 @@ export class ConcretePoint implements Point {
         this.x = x;
         this.y = y;
     }
+    id: number;
+    etiqueta: string;
+    lienzo: number;
     getLine(pointB: Point): Line {
         return this.factory.createLine(this, pointB);
     }

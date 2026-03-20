@@ -16,7 +16,7 @@ import { NextGenStrategy } from '../NextGenStrategy';
   templateUrl: './two-lines-app.component.html',
   styleUrls: ['./two-lines-app.component.styl']
 })
-export class TwoLinesAppComponent implements OnInit, OnChanges{
+export class TwoLinesAppComponent implements OnInit, OnChanges {
 
   @Input() showStats: boolean;
   // @Input() showController: boolean;
@@ -32,11 +32,13 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   ]
   MILITAR_STEP = JUEGO.MILITAR_STEP
 
+  points: Point[] = [];
 
-  shapeFactory: ShapeFactory = new ConcreteShapeFactory();
+
+  shapeFactory: ConcreteShapeFactory = new ConcreteShapeFactory();
   // cube: Cube;
   @Input() automata: Automata;
-  @Input() filas:  number;
+  @Input() filas: number;
   @Input() columnas: number;
   @Input() auxiliaryLines: boolean;
   @Input() coloresRegla1: string[];
@@ -51,14 +53,27 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   public context: CanvasRenderingContext2D;
 
-    factory2 = new ConcreteShapeFactory()
+  factory2 = new ConcreteShapeFactory()
   sentido: boolean = false;
   constructor() {
+    // setInterval(() => {
+    //   this.draw();
+    //   // this.avanzarUnaGeneracion()
+    //   this.right()
+    //   // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
+    // }, 00)
+    this.draw();
+
 
     setInterval(() => {
-      this.draw();
-      this.avanzarUnaGeneracion()
-      this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
+      if (this.automata && !this.getPause()) {
+        // this.avanzarUnaGeneracion()
+        // this.right()
+        this.draw();
+      }
+      // this.draw();
+
+      // this.automata.addDataAzul(this.getGeneration(), this.automata.totalAzules())
     }, 250)
   }
   totales() {
@@ -76,8 +91,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   densidad(): number {
     return this.automata.densidad();
   }
-  changeRule(element: string, rule: string): void {
-    this.automata.changeRule(element, rule);
+  changeRule(element: string, rule: any): void {
+    if (rule)
+      this.automata.changeRule(element, rule.value);
   }
   getBlueRule(): Rule {
     return this.automata.getBlueRule();
@@ -124,7 +140,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   addElement(element: Element): void {
     throw new Error('Method not implemented.');
   }
-  calculateAliveNeighbors(matriz: { state: number; color: string; }[][], fila: number, columna: number): { state: number; color: string; }[] {
+  calculateAliveNeighbors(
+    matriz: { state: number; color: string; }[][],
+    fila: number, columna: number): { state: number; color: string; }[] {
     throw new Error('Method not implemented.');
   }
 
@@ -230,27 +248,38 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.automata.downMilitary();
   }
   showAuxiliaryLines(): boolean {
-    return this.auxiliaryLines;
     return this.automata.showAuxiliaryLines();
   }
   subir(): void {
-    this.automata.subir();
-    this.automata.derecha();
+    for (let i = 0; i < 10; i++) {
+      this.automata.subir();
+      this.automata.derecha();
+    }
+
     this.draw();
   }
   bajar(): void {
-    this.automata.bajar();
-    this.automata.izquierda();
+
+    for (let i = 0; i < 10; i++) {
+      this.automata.bajar();
+      this.automata.izquierda();
+    }
     this.draw();
   }
   izquierda(): void {
-    this.automata.izquierda();
-    this.automata.subir();
+
+    for (let i = 0; i < 10; i++) {
+      this.automata.izquierda();
+      this.automata.subir();
+    }
+
     this.draw();
   }
   derecha(): void {
-    this.automata.derecha();
-    this.automata.bajar();
+    for (let i = 0; i < 10; i++) {
+      this.automata.derecha();
+      this.automata.bajar();
+    }
     this.draw();
   }
   subirCubos(): void {
@@ -388,17 +417,18 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
   parseColors(color: string) {
     if (color === "Red") {
-      return [this.coloresRegla2[0],this.coloresRegla2[1],this.coloresRegla2[2],]
+      // return [this.coloresRegla2[0],this.coloresRegla2[1],this.coloresRegla2[2],]
+      return [this.automata.regla_1_color_1, this.automata.regla_1_color_2, this.automata.regla_1_color_3];
     } else if (color === "Green") {
-      return [this.coloresRegla1[0], this.coloresRegla1[1], this.coloresRegla1[2]]
+      return [this.automata.regla_3_color_1, this.automata.regla_3_color_2, this.automata.regla_3_color_3];
     } else if (color === "Blue") {
 
-      return [this.coloresRegla3[0], this.coloresRegla3[1], this.coloresRegla3[2]]
+      return [this.automata.regla_2_color_1, this.automata.regla_2_color_2, this.automata.regla_2_color_3];
     } else if (color === "Brown") {
-      return [this.coloresRegla4[0], this.coloresRegla4[1], this.coloresRegla4[2]]
+      return [this.automata.regla_4_color_1, this.automata.regla_4_color_2, this.automata.regla_4_color_3];
     }
     else if (color === "Gray") {
-      return [this.coloresRegla5[0], this.coloresRegla5[1], this.coloresRegla5[2]]
+      return [this.automata.regla_5_color_1, this.automata.regla_5_color_2, this.automata.regla_5_color_3];
     }
     return ["", "", ""]
   }
@@ -650,7 +680,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
 
     // this.context.clearRect(0, 0, this.cube.getAnchoLienzo(), this.cube.getAltoLienzo());
-    if ( this.context === undefined ) {
+    if (this.context === undefined) {
       return
     }
     this.context.clearRect(0, 0, this.automata.getAnchoLienzo(), this.automata.getAltoLienzo());
@@ -662,10 +692,22 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     this.context.fillRect(0, 0, this.automata.getAnchoLienzo(), this.automata.getAltoLienzo());
     // this.context.fillRect(0, 0, 200, 200);
 
-    let puntoA = this.getPointA();
-    let puntoB = this.getPointB();
-    let puntoC = this.getPointC();
-    let puntoD = this.getPointD();
+
+    let puntoA: Point = this.getPointA();
+    let puntoB: Point = this.getPointB();
+    let puntoC: Point = this.getPointC();
+    let puntoD: Point = this.getPointD();
+
+    this.points = [
+      puntoA,
+      puntoB,
+      puntoC,
+      puntoD,
+    ]
+
+
+
+
 
     let pointA = puntoA;
     let pointB = puntoB;
@@ -706,9 +748,9 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
     if (this.showAuxiliaryLines()) {
 
 
-      let pointE = this.shapeFactory.createPoint(puntoA.getX(), puntoA.getY() + 20+ this.getHeight())
-      let pointF = this.shapeFactory.createPoint(puntoD.getX(), puntoD.getY() +20+  this.getHeight())
-      let pointG = this.shapeFactory.createPoint(puntoC.getX(), puntoC.getY() +20+  this.getHeight())
+      let pointE = this.shapeFactory.createPoint(puntoA.getX(), puntoA.getY() + 20 + this.getHeight())
+      let pointF = this.shapeFactory.createPoint(puntoD.getX(), puntoD.getY() + 20 + this.getHeight())
+      let pointG = this.shapeFactory.createPoint(puntoC.getX(), puntoC.getY() + 20 + this.getHeight())
 
       this.drawLine(puntoA, pointE);
       this.drawLine(puntoD, pointF);
@@ -779,7 +821,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
 
     if (this.showAuxiliaryLines()) {
 
-      const ANCHO_CUADRADO = 5 
+      const ANCHO_CUADRADO = 5
 
       this.context.fillStyle = 'Red'
       this.context.fillRect(this.getPoint().getX() * this.getScale(), this.getPoint().getY() * this.getScale(), ANCHO_CUADRADO, ANCHO_CUADRADO)
@@ -829,7 +871,7 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
       this.context.fillText('3', this.getPoint3().getX() * this.getScale(), this.getPoint3().getY() * this.getScale())
       this.context.fillText('4', this.getPoint4().getX() * this.getScale(), this.getPoint4().getY() * this.getScale())
       this.context.fillText('5', this.getPoint5().getX() * this.getScale(), this.getPoint5().getY() * this.getScale())
-      this.context.fillText('6', this.getPoint6().getX() * this.getScale() + 10 , this.getPoint6().getY() * this.getScale())
+      this.context.fillText('6', this.getPoint6().getX() * this.getScale() + 10, this.getPoint6().getY() * this.getScale())
       this.context.fillText('7', this.getPoint7().getX() * this.getScale(), this.getPoint7().getY() * this.getScale())
     }
 
@@ -839,8 +881,10 @@ export class TwoLinesAppComponent implements OnInit, OnChanges{
   }
 
   dibujarRectaCompleta(line: Line): void {
-    this.drawLine(this.shapeFactory.createPoint(0, line.calcularPendiente() * 0 + line.intereseccionEnEjeY().getY()),
-      this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY()))
+    this.drawLine(
+      this.shapeFactory.createPoint(0, line.calcularPendiente() * 0 + line.intereseccionEnEjeY().getY()),
+      this.shapeFactory.createPoint(2000, line.calcularPendiente() * 2000 + line.intereseccionEnEjeY().getY())
+    )
   }
 
   paintQuadrilateral(pointA: Point, pointB: Point, pointC: Point, pointD: Point): void {

@@ -1,13 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConcreteShapeFactory } from 'ConcreteShapeFactory.1';
-import { FabricaDeLienzos } from '../lienzos/fabrica-de-lienzos';
-import { FabricaDeFunciones } from '../lienzos/fabrica-de-funciones';
-import { Lienzo } from '../lienzos/lienzo';
-import { FabricaDeLienzosConcreta } from '../lienzos/fabrica-de-lienzos-concreta';
-import { FabricaDeFuncionesConcreta } from '../lienzos/fabrica-de-funciones-concreta';
-import { JUEGO } from 'src/JUEGO';
-import { Juego } from '../ifaces/game';
-
+import { Automata } from 'cube';
 
 
 @Component({
@@ -18,12 +11,45 @@ import { Juego } from '../ifaces/game';
 export class NuevoAutomataComponent implements OnInit {
 
   factory2 = new ConcreteShapeFactory()
+  @Input() automata: Automata;
 
-  automata = this.factory2.createMilitaryCube(JUEGO.FILAS, JUEGO.COLUMNAS)
+ 
 
-  constructor() { }
+  constructor() { 
 
-  ngOnInit(): void {
   }
+  ngOnInit(): void {
+    if (this.automata === undefined) {
+      this.automata = this.factory2.createMilitaryCube(200, 200)
+      
+    }
+    this.automata.setScale(1)
+    this.automata.setShowAuxiliaryLines(false)
+    this.automata.setAnchoLienzo(400);
+    this.automata.setAltoLienzo(400);
+    
+    console.log(this.automata.getColorSchema())
 
+    for ( let i = 0; i < 240; i++ ) {
+      this.automata.up()
+
+    }
+
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    this.automata.bajar()
+    }
 }

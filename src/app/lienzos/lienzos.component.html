@@ -1,0 +1,106 @@
+#{{ lienzos.length }} total canvas
+
+
+
+<p>
+
+New Canvas
+</p>
+
+
+
+
+
+<table>
+    <tr>
+        <td>title</td>
+        <td><input
+            [(ngModel)]="nombre"
+            type="text"></td>
+    </tr>
+<tr>
+        <td>ancho</td>
+        <td><input
+            [(ngModel)]="ancho"
+            type="number"
+            
+            ></td>
+    </tr>
+    <tr>
+    <td>alto</td>
+        <td><input
+
+            [(ngModel)]="alto"
+            type="number"></td>
+    </tr>
+    
+    <tr>
+        <td>color fondo</td>
+        <td><input
+
+            [(ngModel)]="color_fondo"
+            type="color"
+            default="#ccc"></td>
+    </tr>
+    <tr>
+    <td>ancho_eje_x</td>
+        <td><input
+
+            [(ngModel)]="ancho_eje_x"
+            type="number"></td>
+    </tr>
+<tr>
+    <td>ancho_eje_y</td>
+        <td><input
+
+            [(ngModel)]="ancho_eje_y"
+            type="number"></td>
+    </tr>
+<tr>
+    <td>zoom</td>
+        <td><input
+
+            [(ngModel)]="zoom"
+            type="number"></td>
+    </tr>
+</table>
+<div style="margin-top: 1em; margin-bottom: 3em; margin-left: 4em">
+<button style="margin-right: 1em">
+   CANCELAR 
+</button>
+<button (click)="crearCanvas()">
+   CREAR 
+</button>
+
+</div>
+
+<table border="1" style="width: 100%">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>ancho</th>
+            <th>alto</th>
+            <th>color fondo</th>
+            <th>ancho eje x</th>
+            <th>ancho eje y</th>
+            <th>zoom</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let lienzo of lienzos"
+        (click)='lienzoDetail(lienzo)' 
+        
+        >
+            <td>{{ lienzo.id }}</td>
+            <td> {{ lienzo.nombre }} </td>
+            <td>{{ lienzo.ancho }}</td>
+            <td>{{ lienzo.alto }}</td>
+            <td>{{ lienzo.color_fondo }}</td>
+            <td>{{ lienzo.ancho_eje_x }}</td>
+            <td>{{ lienzo.ancho_eje_y  }}</td>
+            <td>{{ lienzo.zoom  }}</td>
+        </tr>
+    </tbody>
+
+</table>

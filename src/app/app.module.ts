@@ -48,6 +48,28 @@ import { StateManagerComponent } from './components/state-manager/state-manager.
 import { AutomataPersistenceService } from './services/automata-persistence.service';
 import { AutomataLayoutComponent } from './components/automata-layout/automata-layout.component';
 import { MinecraftViewComponent } from './minecraft-view/minecraft-view.component';
+import { AutomataControllerComponent } from './automata-controller/automata-controller.component';
+import { CurvasComponent } from './curvas/curvas.component';
+import { RectaComponent } from './recta/recta.component';
+import { AutomatasComponent } from './automatas/automatas.component';
+import { CanvasControllerComponent } from './canvas-controller/canvas-controller.component';
+import { LienzosComponent } from './lienzos/lienzos.component';
+import { LienzoDetailComponent } from './lienzo-detail/lienzo-detail.component';
+import { ArbolesComponent } from './arboles/arboles.component';
+import { DetalleNodoComponent } from './detalle-nodo/detalle-nodo.component';
+import { MatricesComponent } from './matrices/matrices.component';
+import { CommonModule } from '@angular/common';
+import { DetalleMatrizComponent } from './detalle-matriz/detalle-matriz.component';
+import { MatrizPreviewComponent } from './matriz-preview/matriz-preview.component';
+import { MatrizHojaComponent } from './matriz-hoja/matriz-hoja.component';
+import { TablaReglasComponent } from './tabla-reglas/tabla-reglas.component';
+import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view/wrapper-minecraft-view.component';
+import { EditorComponent } from './editor/editor.component';
+import { ConvolutionComponent } from './convolution/convolution.component';
+import { ControladorCanalesComponent } from './controlador-canales/controlador-canales.component';
+import { MenuComponent } from './menu/menu.component';
+
+
 
 @NgModule({
   declarations: [
@@ -93,13 +115,33 @@ import { MinecraftViewComponent } from './minecraft-view/minecraft-view.componen
     GraficasAutomataComponent,
     StateManagerComponent,
     AutomataLayoutComponent,
-    MinecraftViewComponent
+    MinecraftViewComponent,
+    AutomataControllerComponent,
+    CurvasComponent,
+    RectaComponent,
+    AutomatasComponent,
+    CanvasControllerComponent,
+    LienzosComponent,
+    LienzoDetailComponent,
+    ArbolesComponent,
+    DetalleNodoComponent,
+    MatricesComponent,
+    DetalleMatrizComponent,
+    MatrizPreviewComponent,
+    MatrizHojaComponent,
+    TablaReglasComponent,
+    WrapperMinecraftViewComponent,
+    EditorComponent,
+    ConvolutionComponent,
+    ControladorCanalesComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [AutomataPersistenceService],
   bootstrap: [AppComponent]

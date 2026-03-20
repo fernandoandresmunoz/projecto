@@ -39,7 +39,7 @@ export class ConcreteAliveNeighborsStrategy implements AliveNeighborsStrategy {
             vecinos.push(nuevaMatriz[filaAnterior][columna])
 
         }
-        if ( nuevaMatriz[filaAnterior][columnaSiguiente]?.state == 1) {
+        if ( nuevaMatriz[filaAnterior][columnaSiguiente] && nuevaMatriz[filaAnterior][columnaSiguiente].state == 1) {
             vivas += 1
             vecinos.push(nuevaMatriz[filaAnterior][columnaSiguiente])
         }
@@ -47,7 +47,7 @@ export class ConcreteAliveNeighborsStrategy implements AliveNeighborsStrategy {
             vivas += 1
             vecinos.push(nuevaMatriz[fila][columnaAnterior])
         }
-        if (nuevaMatriz[fila][columnaSiguiente]?.state == 1) {
+        if (nuevaMatriz[fila][columnaSiguiente] && nuevaMatriz[fila][columnaSiguiente].state == 1) {
             vivas += 1
             vecinos.push(nuevaMatriz[fila][columnaSiguiente])
         }
@@ -59,8 +59,7 @@ export class ConcreteAliveNeighborsStrategy implements AliveNeighborsStrategy {
             vivas += 1
             vecinos.push(nuevaMatriz[filaSiguiente][columna])
         }
-        if ( nuevaMatriz[filaSiguiente][columnaSiguiente]?.state == 1) {
-
+        if ( nuevaMatriz[filaSiguiente][columnaSiguiente] && nuevaMatriz[filaSiguiente][columnaSiguiente].state == 1) {
             vivas += 1
             vecinos.push(nuevaMatriz[filaSiguiente][columnaSiguiente])
         }
