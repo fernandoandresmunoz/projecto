@@ -1,13 +1,13 @@
 services:
   karma-tests:
-    image: projecto:latest
+    image: projecto-test:latest
     volumes:
       - ./coverage:/app/coverage
       - ./junit-report:/app/junit-report
     command: >
       sh -c "
         mkdir -p coverage &&
-        npx ng test || true
+        npx ng test --no-watch --browsers=ChromeHeadlessNoSandbox || true
       "
 
   karma-tests-develop:
