@@ -14,7 +14,8 @@ COPY package.json .
 RUN npm --version
 
 RUN rm -rf node_modules/* 
-RUN npm install
+#RUN npm install
+RUN npm install --legacy-peer-deps
 
 ENV CHROME_BIN=/usr/bin/chromium
 
