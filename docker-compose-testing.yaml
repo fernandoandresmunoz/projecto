@@ -1,6 +1,6 @@
 services:
   karma-tests:
-    image: vzor-front:latest
+    image: projecto:latest
     volumes:
       - ./coverage:/app/coverage
       - ./junit-report:/app/junit-report
@@ -12,7 +12,7 @@ services:
 
 
   karma-tests-develop:
-    image: vzor-front-develop:latest
+    image: projecto:latest
     volumes:
       - ./coverage:/app/coverage
       - ./junit-report:/app/junit-report
@@ -23,7 +23,7 @@ services:
       "
 
   build-test:
-    image: vzor-front:latest
+    image: projecto:latest
     volumes:
       - ./dist:/app/dist
 
@@ -33,7 +33,7 @@ services:
       "
 
   build-test-operaciones:
-    image: vzor-front:latest
+    image: projecto:latest
     volumes:
       - ./dist:/app/dist
 
