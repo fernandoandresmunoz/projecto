@@ -19,6 +19,17 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image Testing') {
+            steps {
+                script {
+                    sh 'whoami'
+                    sh 'docker build -f integration.Dockerfile -t vzor-front:latest .'
+                    // sh 'docker build -f tests-cypress.Dockerfile -t test-cypress:latest .'
+                    // sh 'docker build . -f FullBuild.dockerfile -t test-cypress:latest'
+                }
+            }
+        }
+
 
         stage('Build &  docker image for projecto ') {
             steps {
