@@ -224,7 +224,32 @@ class BlockFlyweightFactory {
         roughness: 0.9,
         metalness: 0.1,
         flatShading: true
+      }),
+      sand: new THREE.MeshStandardMaterial({
+        color: 0xEEDC9A,
+        roughness: 1.0,
+        metalness: 0.0,
+        flatShading: true
       })
+    };
+
+    materials.water.onBeforeCompile = (shader) => {
+      shader.uniforms.uTime = { value: 0 };
+      materials.water.userData['shader'] = shader;
+
+      shader.vertexShader = `
+        uniform float uTime;
+        ${shader.vertexShader}
+      `;
+
+      shader.vertexShader = shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `
+        #include <begin_vertex>
+        float wave = sin(position.x * 2.0 + uTime) * 0.1 + cos(position.z * 2.0 + uTime) * 0.1;
+        transformed.y += wave;
+        `
+      );
     };
 
     // Registrar flyweights
@@ -258,6 +283,11 @@ class BlockFlyweightFactory {
       geometry: geometries.path,
       material: materials.path,
       type: 'path'
+    });
+    this.flyweights.set('sand', {
+      geometry: geometries.cube,
+      material: materials.sand,
+      type: 'sand'
     });
   }
 
@@ -1153,7 +1183,22 @@ export class MinecraftViewComponent implements OnInit {
 
 
             case 'Brown':
-              this.addBlockContext('ground', {
+              let isAdjacentToWater = false;
+              for (let nx = -1; nx <= 1; nx++) {
+                for (let nz = -1; nz <= 1; nz++) {
+                  if (nx === 0 && nz === 0) continue;
+                  const wx = ((wrappedX + nx) % worldWidth + worldWidth) % worldWidth;
+                  const wz = ((wrappedZ + nz) % worldDepth + worldDepth) % worldDepth;
+                  if (this.matrix[wx] && this.matrix[wx][wz] && this.matrix[wx][wz].state === 1 && this.matrix[wx][wz].color === 'Blue') {
+                    isAdjacentToWater = true;
+                    break;
+                  }
+                }
+                if (isAdjacentToWater) break;
+              }
+
+              const groundType = isAdjacentToWater ? 'sand' : 'ground';
+              this.addBlockContext(groundType, {
                 position: new THREE.Vector3(worldX, height + 1.0, worldZ),
                 rotation: new THREE.Euler(0, 0, 0),
                 scale: new THREE.Vector3(1, this.automata.altura_regla_4, 1)
@@ -1715,6 +1760,11 @@ export class MinecraftViewComponent implements OnInit {
       this.currentFps = Math.round((this.frameCount * 1000) / (currentTime - this.lastFpsTime));
       this.frameCount = 0;
       this.lastFpsTime = currentTime;
+    }
+    const flyweight = this.flyweightFactory ? this.flyweightFactory.getFlyweight('water') : null;
+    const waterMaterial = flyweight ? flyweight.material as THREE.MeshStandardMaterial : null;
+    if (waterMaterial && waterMaterial.userData['shader']) {
+      waterMaterial.userData['shader'].uniforms.uTime.value = currentTime * 0.002;
     }
 
     this.renderer.render(this.scene, this.camera);
