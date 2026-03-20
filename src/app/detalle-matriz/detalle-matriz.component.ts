@@ -318,6 +318,7 @@ export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit 
   guardando: boolean = false;
 
   anchoBarra: number = 400;
+  anchoCelda: number = 2;
 
   lastTimeStamp: number = Date.now();
 
