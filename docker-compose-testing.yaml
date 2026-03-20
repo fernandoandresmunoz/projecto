@@ -7,9 +7,8 @@ services:
     command: >
       sh -c "
         mkdir -p coverage &&
-        ng test || true
+        npx ng test || true
       "
-
 
   karma-tests-develop:
     image: projecto:latest
@@ -41,9 +40,6 @@ services:
       sh -c "
         npm run build-operaciones
       "
-
-
-
 
   # cypress-tests2:
   #   image: test-cypress:latest
@@ -88,36 +84,31 @@ services:
         npx cypress run --browser /usr/bin/chrome --headless
       "
 
-
   cypress-tests-electron:
     # image: cypress/browsers:22.15.0
     image: cypress/included:12.17.4
     volumes:
-      - ./:/e2e  # Monta todo el proyecto
-      - /e2e/node_modules  # Evita sobrescribir node_modules
-      - ./cypress/reports:/e2e/cypress/reports  # Para guardar los reportes
+      - ./:/e2e # Monta todo el proyecto
+      - /e2e/node_modules # Evita sobrescribir node_modules
+      - ./cypress/reports:/e2e/cypress/reports # Para guardar los reportes
     working_dir: /e2e
     environment:
       - CYPRESS_BASE_URL=https://cloud.vzorsuite.com
       - CYPRESS_REPORTS_FOLDER=/e2e/cypress/reports
     command: cypress run  --browser firefox --headless --spec 'cypress/e2e/**/*'
 
-
-
   cypress-tests-chrome:
     # image: cypress/browsers:22.15.0
     image: cypress/included:12.17.4
     volumes:
-      - ./:/e2e  # Monta todo el proyecto
-      - /e2e/node_modules  # Evita sobrescribir node_modules
-      - ./cypress/reports:/e2e/cypress/reports  # Para guardar los reportes
+      - ./:/e2e # Monta todo el proyecto
+      - /e2e/node_modules # Evita sobrescribir node_modules
+      - ./cypress/reports:/e2e/cypress/reports # Para guardar los reportes
     working_dir: /e2e
     environment:
       - CYPRESS_BASE_URL=http://staging-dev:4201/
       - CYPRESS_REPORTS_FOLDER=/e2e/cypress/reports
     command: npx @puppeteer/browsers install chrome@stable && cypress run  --browser chrome --headless --spec 'cypress/e2e/**/*'
-
-
 
   cypress-tests:
     image: test-cypress:latest
