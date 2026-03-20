@@ -20,19 +20,18 @@ pipeline {
         }
 
 
-        stage('Build & deploy docker image') {
+        stage('Build &  docker image for projecto ') {
             steps {
               sh ' docker build . -t projecto:latest'
               sh ' docker stack rm projecto'
               sh   'sleep 20'
-              sh ' docker stack deploy -c stack.yaml projecto'
             }
         }
 
 
-    stage('stage') {
+    stage('Deploy') {
       steps {
-        sh 'echo "test 1"'
+              sh ' docker stack deploy -c stack.yaml projecto'
       }
     }
     stage('test') {
