@@ -33,7 +33,7 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml', 'junit'],
+    reporters: ['progress', 'kjhtml', 'junit', 'coverage'],
     junitReporter: {
       outputDir: 'junit-report', // Directorio donde se guardará
       // outputDir: 'reports/junit', // Directorio donde se guardará
