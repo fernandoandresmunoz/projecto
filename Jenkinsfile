@@ -69,21 +69,22 @@ pipeline {
             }
         }
 
-        stage('Publish Cobertura Report') {
+        stage('Publish HTML Coverage Report') {
             steps {
-                echo 'dummy cobertura report'
-                // TODO
                 script {
-                    sh 'ls -la coverage'
-                    cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                        autoUpdateHealth: true,
-                        autoUpdateStability: true,
-                        lineCoverageTargets: '70,80,90',
-                        branchCoverageTargets: '60,70,80',
-                        failUnhealthy: true,         // Opcional: Falla el build si la cobertura es "Unhealthy"
-                        failUnstable: true,          // Opcional: Marca el build como "Unstable" si la cobertura es "Unstable"
-                        onlyStable: false,           // Procesa reportes incluso de builds inestables
-                        failNoReports: true
+                    echo 'publish coverage'
+
+                    // TODO:
+                    publishHTML(
+                      [allowMissing: false,
+                      alwaysLinkToLastBuild: false,
+                      keepAll: false,
+                      reportDir: './coverage/report-html',
+                      reportFiles: 'index.html',
+                      reportName: 'Coverage Report',
+                      reportTitles: 'Coverage Report']
+                    )
+
 
 
                 }
