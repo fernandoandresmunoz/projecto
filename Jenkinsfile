@@ -45,7 +45,7 @@ pipeline {
                     echo 'dummy jasmine/karma tests'
                     //sh 'docker system prune -f'
                     sh 'mkdir -p junit-report'
-                    def testResult = sh( script: 'docker compose -f docker-compose-testing.yaml run karma-tests', returnStatus: true )
+                    def testResult = sh( script: 'docker compose -f docker-compose-testing.yaml run --user \$(id -u):\$(id -g) karma-tests', returnStatus: true )
                     if (testResult != 0) {
                         echo "Jasmine/Karma tests completed with exit code: ${testResult}"
                     } else {
