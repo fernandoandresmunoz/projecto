@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__ } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Celula } from 'src/Celula';
 import { GrupoCelulas } from 'src/GrupoCelula';
 import { Nodo } from 'src/Nodo';
@@ -28,10 +28,10 @@ export class ArbolViewComponent implements OnInit {
   selectedTab: string = this.EDICION_TAB;
 
   nuevoNodoNombre: string = "";
-  
-  nuevoNombreEdicion: string ;
 
-  constructor( 
+  nuevoNombreEdicion: string;
+
+  constructor(
     private geometry: GeometryService,
   ) {
 
@@ -44,45 +44,45 @@ export class ArbolViewComponent implements OnInit {
       this.nuevoNombreEdicion,
       this.root.automataId
 
-    ).subscribe( resp => {
+    ).subscribe(resp => {
       this.root.nombre = resp.nombre;
       this.loadTree();
     })
   }
-    guardarNuevaMatriz(): void {
-      this.geometry.crearMatriz(this.nuevoNombreMatriz,
-        this.totalNuevasFilas,
-        this.totalNuevasColumnas 
-        ).subscribe( resp => {
-          this.root.automataId = resp.id;
-          this.actualizarNodo();
-        })
-    }
+  guardarNuevaMatriz(): void {
+    this.geometry.crearMatriz(this.nuevoNombreMatriz,
+      this.totalNuevasFilas,
+      this.totalNuevasColumnas
+    ).subscribe(resp => {
+      this.root.automataId = resp.id;
+      this.actualizarNodo();
+    })
+  }
 
 
   quitar(): void {
 
 
     this.geometry.borrarNodo(this.root.id)
-    .subscribe( resp => {
+      .subscribe(resp => {
 
 
-    this.root.getChildren().map( child => {
-      this.geometry.actualizarNodo(
-        child.id,
-        this.root.getParent().id,
-        child.nombre,
-        child.automataId
-      )
-      .subscribe( nodo => {
+        this.root.getChildren().map(child => {
+          this.geometry.actualizarNodo(
+            child.id,
+            this.root.getParent().id,
+            child.nombre,
+            child.automataId
+          )
+            .subscribe(nodo => {
 
-        this.loadTree()
+              this.loadTree()
+
+            })
+
+        })
 
       })
-
-    })
-
-    }) 
   }
 
   ngOnInit(): void {
@@ -93,37 +93,37 @@ export class ArbolViewComponent implements OnInit {
   loadTree(): void {
     if (this.root && this.root !== undefined)
       this.root.children = [];
-      this.geometry.obtenerHijos(this.root.id).subscribe(
-        hijos=> {
-          if ( hijos.length > 0) {
-            hijos.map( hijo => {
+    this.geometry.obtenerHijos(this.root.id).subscribe(
+      hijos => {
+        if (hijos.length > 0) {
+          hijos.map(hijo => {
 
-              let celula: Nodo;
-              if (hijo.is_leaf) {
-                celula = new Celula();
-              } else {
-                celula = new GrupoCelulas();
-              }
-              celula.id = hijo.id
-              celula.nombre = hijo.nombre;
-              celula.automataId = hijo.matriz_ac
-              celula.matriz_ac = hijo.matriz_ac
-              celula.filas = hijo.filas;
-              celula.columnas = hijo.columnas;
+            let celula: Nodo;
+            if (hijo.is_leaf) {
+              celula = new Celula();
+            } else {
+              celula = new GrupoCelulas();
+            }
+            celula.id = hijo.id
+            celula.nombre = hijo.nombre;
+            celula.automataId = hijo.matriz_ac
+            celula.matriz_ac = hijo.matriz_ac
+            celula.filas = hijo.filas;
+            celula.columnas = hijo.columnas;
 
-              this.root.addChild(celula)
+            this.root.addChild(celula)
 
-            })
-          }
-            
+          })
         }
-      )
+
+      }
+    )
   }
 
 
   borrarNodo(root: Nodo): void {
     this.geometry.borrarNodo(root.id)
-      .subscribe( resp=> {
+      .subscribe(resp => {
         root.parent.removeChild(root)
       })
   }
@@ -141,12 +141,12 @@ export class ArbolViewComponent implements OnInit {
         parent.addChild(nuevoPadre) // parent pasa a ser "abuelo"
 
         this.geometry.actualizarNodo(root.id, nuevoPadre.id, root.nombre, root.matriz_ac)
-        .subscribe( resp => {
+          .subscribe(resp => {
 
-          parent.removeChild(root)
-          nuevoPadre.addChild(root)
-          this.nuevoNodoNombre = "";
-        })
+            parent.removeChild(root)
+            nuevoPadre.addChild(root)
+            this.nuevoNodoNombre = "";
+          })
 
       })
 
