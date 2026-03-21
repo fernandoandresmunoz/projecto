@@ -73,7 +73,7 @@ pipeline {
             steps {
                 script {
                     echo 'publish coverage'
-
+sh 'sudo chown -R jenkins:jenkins coverage/'
                     // TODO:
                     publishHTML(
                       [allowMissing: false,
