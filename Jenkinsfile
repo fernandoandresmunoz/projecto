@@ -53,6 +53,7 @@ pipeline {
                     }
                     sh 'ls -lhtr' 
                     sh 'ls -lhtrs ./junit-report/'
+                    sh 'ls -lhtrs ./coverage/'
 
                 }
             }
