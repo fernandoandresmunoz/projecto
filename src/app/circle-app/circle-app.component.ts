@@ -11,7 +11,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class CircleAppComponent implements OnInit {
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   // circleApp: CircleApp;
