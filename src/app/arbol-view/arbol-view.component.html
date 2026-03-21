@@ -14,8 +14,8 @@
 
                 {{ root.nombre}}
             </span>
-             <!-- {{ root.matriz_ac}} -->
-             <br>
+            <!-- {{ root.matriz_ac}} -->
+            <br>
             {{ root.average() | number}}
             <!-- <br>
         GENERATION = {{  root.automata && root.automata.getGeneration()}}
@@ -26,20 +26,13 @@
    [matriz_ac]="root.matriz_ac" 
     ></app-matriz-hoja> -->
             <!-- {{ root.average() | number}} -->
-            <button
-            *ngIf="!root.hiddenAutomata"
-            (click)="edicion = !edicion; root.desplegado = !root.desplegado"
-            >+</button>
+            <button *ngIf="!root.hiddenAutomata"
+                (click)="edicion = !edicion; root.desplegado = !root.desplegado">+</button>
 
-            <div *ngIf="root && root.desplegado && !root.isLeaf()"
-            style="width: 400px; background: gray">
+            <div *ngIf="root && root.desplegado && !root.isLeaf()" style="width: 400px; background: gray">
                 <div style="width: 100%">
-                    <button
-                    [disabled]="selectedTab === EDICION_TAB"
-                    (click)="selectedTab = EDICION_TAB">Editar</button>
-                    <button
-                    [disabled]="selectedTab === AGREGAR_TAB"
-                        (click)="selectedTab = AGREGAR_TAB">
+                    <button [disabled]="selectedTab === EDICION_TAB" (click)="selectedTab = EDICION_TAB">Editar</button>
+                    <button [disabled]="selectedTab === AGREGAR_TAB" (click)="selectedTab = AGREGAR_TAB">
                         Agregar
                     </button>
                 </div>
@@ -179,9 +172,7 @@
 
     <ul *ngIf="root.getChildren().length > 0">
         <li *ngFor='let child of root.getChildren()'>
-            <app-arbol-view 
-             [root]="child" [umbralInferior]='umbralInferior'
-                [umbralSuperior]='umbralSuperior'>
+            <app-arbol-view [root]="child" [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior'>
             </app-arbol-view>
         </li>
     </ul>
@@ -199,7 +190,7 @@
         <!-- <button>Add child</button> -->
         <span *ngIf="!root.hiddenAutomata">
 
-        {{ root.nombre}}
+            {{ root.nombre}}
         </span>
 
         <!-- <table *ngIf="!root.hiddenAutomata" border="1">
@@ -264,13 +255,11 @@
         </app-matriz-hoja>
         <!-- {{ root.automata && root.automata.getGeneration()}} -->
         <!-- <button>add parent</button> -->
-        <button
-        *ngIf="!root.hiddenAutomata"
-        (click)="root.desplegado = !root.desplegado">x</button>
+        <button *ngIf="!root.hiddenAutomata" (click)="root.desplegado = !root.desplegado">x</button>
 
         <br>
 
-        {{ root?.average() | number}}
+        {{ root.average() | number}}
         <!-- FILAS = {{ root.filas }} -->
         <!-- COLUMNAS = {{ root.columnas }} -->
         <!-- {{ root.average() | number}} -->
@@ -404,14 +393,9 @@
 
 
         <br>
-        <button
-        (click)="agregarGrupoCelula(root);
+        <button (click)="agregarGrupoCelula(root);
         edicion = false" [disabled]="nuevoNodoNombre === ''">+grupo</button>
-        <button
-        [disabled]="nuevoNodoNombre === ''"
-        (click)="agregarHoja(root); edicion = false">+hoja</button>
-        <button
-        [disabled]="nuevoNodoNombre === ''"
-        (click)="agregarPadre(root); edicion = false">+parent</button>
+        <button [disabled]="nuevoNodoNombre === ''" (click)="agregarHoja(root); edicion = false">+hoja</button>
+        <button [disabled]="nuevoNodoNombre === ''" (click)="agregarPadre(root); edicion = false">+parent</button>
     </div>
 </div>

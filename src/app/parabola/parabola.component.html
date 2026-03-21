@@ -1,44 +1,27 @@
-<canvas style="display: 'inline'; border: '1px solid gray'"
-#myCanvas
-[width]="anchoLienzo"
-[height]="largoLienzo" >
+<canvas style="display: 'inline'; border: '1px solid gray'" #myCanvas [width]="anchoLienzo" [height]="largoLienzo">
 
 </canvas>
 
 <div class="TABS">
-    <button
-    [disabled]="PESTANA_ACTIVA==='INTEGRAL'"
-    (click)="PESTANA_ACTIVA=INTEGRAL">INTEGRAL</button>
-    <button
-    [disabled]="PESTANA_ACTIVA==='DERIVADA'"
-    (click)="PESTANA_ACTIVA=DERIVADA">DERIVADA</button>
-    <button
-    [disabled]="PESTANA_ACTIVA==='FUNCION'"
-    (click)="PESTANA_ACTIVA=FUNCION">FUNCION</button>
-    <button
-    [disabled]="PESTANA_ACTIVA==='LIENZO'"
-    (click)="PESTANA_ACTIVA=LIENZO">LIENZO</button>
+    <button [disabled]="PESTANA_ACTIVA==='INTEGRAL'" (click)="PESTANA_ACTIVA=INTEGRAL">INTEGRAL</button>
+    <button [disabled]="PESTANA_ACTIVA==='DERIVADA'" (click)="PESTANA_ACTIVA=DERIVADA">DERIVADA</button>
+    <button [disabled]="PESTANA_ACTIVA==='FUNCION'" (click)="PESTANA_ACTIVA=FUNCION">FUNCION</button>
+    <button [disabled]="PESTANA_ACTIVA==='LIENZO'" (click)="PESTANA_ACTIVA=LIENZO">LIENZO</button>
 </div>
 
 
 
 <div *ngIf="PESTANA_ACTIVA===INTEGRAL">
-    <input
-    (change)="showIntegral()"
-    type="checkbox"> Show Integral
+    <input (change)="showIntegral()" type="checkbox"> Show Integral
 </div>
 <div *ngIf="PESTANA_ACTIVA===DERIVADA">
-    <input
-    (change)="showDerivada()"
-    type="checkbox"> Show Derivada
+    <input (change)="showDerivada()" type="checkbox"> Show Derivada
 </div>
 <div *ngIf="PESTANA_ACTIVA===INTEGRAL">
-    <input
-    (change)="cambiarFillRectangles()"
-    type="checkbox"> Change fille rectangles
+    <input (change)="cambiarFillRectangles()" type="checkbox"> Change fille rectangles
 </div>
 <table *ngIf='PESTANA_ACTIVA==LIENZO' border="1">
-<tr>
+    <tr>
         <td>ZOOM</td>
         <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_X }}</td>
         <td>
@@ -47,24 +30,20 @@
         </td>
     </tr>
 
- <tr>
+    <tr>
         <td>ANCHO EJE X</td>
         <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_X }}</td>
         <td>
-            <button
-            [disabled]="ANCHO_EJE_X === 2"
-            (click)="aumentarAnchoEjeX()">-</button>
+            <button [disabled]="ANCHO_EJE_X === 2" (click)="aumentarAnchoEjeX()">-</button>
             <button (click)="disminuirAnchoEjeX()">+</button>
         </td>
-    </tr>   
+    </tr>
 
-<tr>
+    <tr>
         <td>ANCHO EJE Y</td>
         <td style="max-width: '200px'; width: '200px'">{{ ANCHO_EJE_Y }}</td>
         <td>
-            <button
-            [disabled]="ANCHO_EJE_Y === 2"
-            (click)="aumentarAnchoEjeY()">-</button>
+            <button [disabled]="ANCHO_EJE_Y === 2" (click)="aumentarAnchoEjeY()">-</button>
             <button (click)="disminuirAnchoEjeY()">+</button>
         </td>
     </tr>
@@ -75,7 +54,7 @@
 <br>
 
 <table *ngIf="PESTANA_ACTIVA===FUNCION" border="1">
-<tr>
+    <tr>
         <td>TIPO</td>
         <td style="max-width: '200px'; width: '200px'">{{ tipo }}</td>
         <td>
@@ -83,7 +62,7 @@
             <button (click)="disminuirAnchoEjeY()" disabled>+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SENO'">
+    <tr *ngIf="tipo === 'SENO'">
         <td>SIN_POS_Y</td>
         <td style="max-width: '200px'; width: '200px'">{{ SIN_POS_Y }}</td>
         <td>
@@ -93,7 +72,7 @@
              <button (click)="SIN_POS_Y += 1" >+</button> -->
         </td>
     </tr>
-<tr *ngIf="tipo === 'GAUSS'">
+    <tr *ngIf="tipo === 'GAUSS'">
         <td>K_GAUSS_AMPLITUDE</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_GAUSS_AMPLITUDE }}</td>
         <td>
@@ -103,7 +82,7 @@
              <button (click)="SIN_POS_Y += 1" >+</button> -->
         </td>
     </tr>
-<tr *ngIf="tipo === 'GAUSS' && PESTANA_ACTIVA===FUNCION">
+    <tr *ngIf="tipo === 'GAUSS' && PESTANA_ACTIVA===FUNCION">
         <td>K_GAUSS</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_GAUSS }}</td>
         <td>
@@ -113,76 +92,76 @@
              <button (click)="SIN_POS_Y += 1" >+</button> -->
         </td>
     </tr>
-<tr *ngIf="tipo === 'SIGMOIDE' ">
+    <tr *ngIf="tipo === 'SIGMOIDE' ">
         <td>CONSTANTE SIGMOIDE</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_SIGMOIDE }}</td>
         <td>
-            <button (click)="K_SIGMOIDE = K_SIGMOIDE - 1; draw()" >-</button> 
-             <button (click)="K_SIGMOIDE = K_SIGMOIDE + 1; draw()" >+</button>
+            <button (click)="K_SIGMOIDE = K_SIGMOIDE - 1; draw()">-</button>
+            <button (click)="K_SIGMOIDE = K_SIGMOIDE + 1; draw()">+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SIGMOIDE' ">
+    <tr *ngIf="tipo === 'SIGMOIDE' ">
         <td>SIN_FREQUENCY</td>
         <td style="max-width: '200px'; width: '200px'">{{ SIGMOIDE_Y }}</td>
         <td>
-            <button (click)="SIGMOIDE_Y = SIGMOIDE_Y - 1; draw()" >-</button> 
-             <button (click)="SIGMOIDE_Y = SIGMOIDE_Y + 1; draw()" >+</button>
+            <button (click)="SIGMOIDE_Y = SIGMOIDE_Y - 1; draw()">-</button>
+            <button (click)="SIGMOIDE_Y = SIGMOIDE_Y + 1; draw()">+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SENO' ">
+    <tr *ngIf="tipo === 'SENO' ">
         <td>K_SENO</td>
         <td style="max-width: '200px'; width: '200px'">{{ K_SENO }}</td>
         <td>
-            <button (click)="K_SENO = K_SENO - 0.5; draw()" >-</button> 
-             <button (click)="K_SENO = K_SENO + 0.5; draw()" >+</button>
+            <button (click)="K_SENO = K_SENO - 0.5; draw()">-</button>
+            <button (click)="K_SENO = K_SENO + 0.5; draw()">+</button>
         </td>
     </tr>
-<tr *ngIf="tipo === 'SENO' ">
-    <td>SIN_FREQUENCY</td>
-    <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
-    <td>
-        <button (click)="decrementSinFrequency()">-</button>
-        <button (click)="incrementSinFrequency()">+</button>
-    </td>
-</tr>
-<tr *ngIf="tipo === 'CUADRATICA' ">
-    <td>CUADRATICA_D</td>
-    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_D }}</td>
-    <td>
-        <button (click)="CUADRATICA_D = CUADRATICA_D - 1; draw();">-</button>
-        <button (click)="CUADRATICA_D = CUADRATICA_D + 1; draw();">+</button>
-    </td>
-</tr>
-<tr *ngIf="tipo === 'CUADRATICA' ">
-    <td>CUADRATICA_A</td>
-    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_A }}</td>
-    <td>
-        <button (click)="CUADRATICA_A = CUADRATICA_A - 1; draw();">-</button>
-        <button (click)="CUADRATICA_A = CUADRATICA_A + 1; draw();">+</button>
-    </td>
-</tr>
+    <tr *ngIf="tipo === 'SENO' ">
+        <td>SIN_FREQUENCY</td>
+        <td style="max-width: '200px'; width: '200px'">{{ SIN_FREQUENCY }}</td>
+        <td>
+            <button (click)="decrementSinFrequency()">-</button>
+            <button (click)="incrementSinFrequency()">+</button>
+        </td>
+    </tr>
+    <tr *ngIf="tipo === 'CUADRATICA' ">
+        <td>CUADRATICA_D</td>
+        <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_D }}</td>
+        <td>
+            <button (click)="CUADRATICA_D = CUADRATICA_D - 1; draw();">-</button>
+            <button (click)="CUADRATICA_D = CUADRATICA_D + 1; draw();">+</button>
+        </td>
+    </tr>
+    <tr *ngIf="tipo === 'CUADRATICA' ">
+        <td>CUADRATICA_A</td>
+        <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_A }}</td>
+        <td>
+            <button (click)="CUADRATICA_A = CUADRATICA_A - 1; draw();">-</button>
+            <button (click)="CUADRATICA_A = CUADRATICA_A + 1; draw();">+</button>
+        </td>
+    </tr>
 
-<tr *ngIf="tipo === 'CUADRATICA' ">
-    <td>CUADRATICA_B</td>
-    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_B }}</td>
-    <td>
-        <button (click)="CUADRATICA_B = CUADRATICA_B - 1; draw();">-</button>
-        <button (click)="CUADRATICA_B = CUADRATICA_B + 1; draw();">+</button>
-    </td>
-</tr>
-<tr *ngIf="tipo === 'CUADRATICA' ">
-    <td>CUADRATICA_C</td>
-    <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_C }}</td>
-    <td>
-        <button (click)="CUADRATICA_C = CUADRATICA_C - 1; draw();">-</button>
-        <button (click)="CUADRATICA_C = CUADRATICA_C + 1; draw();">+</button>
-    </td>
-</tr>
+    <tr *ngIf="tipo === 'CUADRATICA' ">
+        <td>CUADRATICA_B</td>
+        <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_B }}</td>
+        <td>
+            <button (click)="CUADRATICA_B = CUADRATICA_B - 1; draw();">-</button>
+            <button (click)="CUADRATICA_B = CUADRATICA_B + 1; draw();">+</button>
+        </td>
+    </tr>
+    <tr *ngIf="tipo === 'CUADRATICA' ">
+        <td>CUADRATICA_C</td>
+        <td style="max-width: '200px'; width: '200px'">{{ CUADRATICA_C }}</td>
+        <td>
+            <button (click)="CUADRATICA_C = CUADRATICA_C - 1; draw();">-</button>
+            <button (click)="CUADRATICA_C = CUADRATICA_C + 1; draw();">+</button>
+        </td>
+    </tr>
 </table>
 
 <div *ngIf="PESTANA_ACTIVA===INTEGRAL">VALOR INTEGRAL = {{ valorIntegral }}</div>
 <table border="1" *ngIf="PESTANA_ACTIVA===INTEGRAL">
-<tr >
+    <tr>
         <td>inicio integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ inicio }}</td>
         <td>
@@ -190,7 +169,7 @@
             <button (click)="aumentarInicio()">+</button>
         </td>
     </tr>
-<tr >
+    <tr>
         <td>fin integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
         <td>
@@ -198,7 +177,7 @@
             <button (click)="aumentarFin()">+</button>
         </td>
     </tr>
-<tr >
+    <tr>
         <td>posición integral</td>
         <td style="max-width: '200px'; width: '200px'">{{ fin }}</td>
         <td>
@@ -206,7 +185,7 @@
             <button (click)="avanzarIntegral()">+</button>
         </td>
     </tr>
-    <tr >
+    <tr>
         <td> Integral Rectangle Width </td>
         <td style="max-width: '200px'; width: '200px'">{{ anchoRectangulo }}</td>
         <td>
@@ -216,7 +195,7 @@
     </tr>
 </table>
 <table *ngIf="PESTANA_ACTIVA===DERIVADA" border="1">
-<tr *ngIf="SHOW_DERIVADA">
+    <tr *ngIf="SHOW_DERIVADA">
         <td>DERIVADA value x</td>
         <td style="max-width: '200px'; width: '200px'">{{ usuarioX }}</td>
         <td>
@@ -262,62 +241,54 @@ parabola
 {{ obtenerPuntos().length }} -->
 <div style="margin-top: 3em">
 
-    <button
-    [disabled]="'PUNTOS' === selectedMenu"
-    (click)="selectedMenu='PUNTOS'">PUNTOS</button>
-    <button
-
-    [disabled]="'RECTAS' === selectedMenu"
-    (click)="selectedMenu='RECTAS'">RECTAS</button>
-    <button
-
-    [disabled]="'PERPENDICULARES' == selectedMenu"
-    (click)="selectedMenu='PERPENDICULARES'">PERPENDICULARES</button>
+    <button [disabled]="'PUNTOS' === selectedMenu" (click)="selectedMenu='PUNTOS'">PUNTOS</button>
+    <button [disabled]="'RECTAS' === selectedMenu" (click)="selectedMenu='RECTAS'">RECTAS</button>
+    <button [disabled]="'PERPENDICULARES' == selectedMenu"
+        (click)="selectedMenu='PERPENDICULARES'">PERPENDICULARES</button>
 </div>
 
-    <br>
-    <br>
+<br>
+<br>
 
 <div *ngIf="selectedMenu == 'PUNTOS'">
-    <div>{{ puntos?.length }}</div>
+    <div>{{ puntos.length }}</div>
     <div>
-    
-    
+
+
         <div>
             <label for="">x = </label>
-            <input type="number"  [(ngModel)]="nuevoX" >
+            <input type="number" [(ngModel)]="nuevoX">
         </div>
-    <div>
+        <div>
             <label for="">y = </label>
             <input type="number" [(ngModel)]="nuevoY" required>
         </div>
         <div>
-            <button
-            (click)="crearPunto()">
-            CREAR</button>
+            <button (click)="crearPunto()">
+                CREAR</button>
         </div>
         <br>
-    
+
         <div>
             <table border="1">
-            <thead>
-                        <tr>
+                <thead>
+                    <tr>
                         <th>id</th>
                         <th>x</th>
                         <th>y</th>
                         <th>actions</th>
                         <th>actions</th>
-                        </tr>
-                    </thead>
+                    </tr>
+                </thead>
                 <tbody>
-    
-                <tr *ngFor="let punto of puntos">
-                    <td><input type="text" [disabled]='true' [value]="'P' + punto.id "></td>
-                    <td><input type="number"  [(ngModel)]='punto.x' [value]="punto.x"></td>
-                    <td><input type="number"   [(ngModel)]='punto.y' [value]="punto.y"></td>
-                    <td><button (click)="actualizarPunto(punto) ">ACTUALIZAR</button></td>
-                    <td><button (click)="borrarPunto(punto.id)">BORRAR</button></td>
-                </tr>
+
+                    <tr *ngFor="let punto of puntos">
+                        <td><input type="text" [disabled]='true' [value]="'P' + punto.id "></td>
+                        <td><input type="number" [(ngModel)]='punto.x' [value]="punto.x"></td>
+                        <td><input type="number" [(ngModel)]='punto.y' [value]="punto.y"></td>
+                        <td><button (click)="actualizarPunto(punto) ">ACTUALIZAR</button></td>
+                        <td><button (click)="borrarPunto(punto.id)">BORRAR</button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -328,33 +299,21 @@ parabola
     RECTAS
     <br>
     <label for="">
-    PUNTO #1 {{ nuevoP1?.id }}
+        PUNTO #1 {{ nuevoP1.id }}
     </label>
-    <select name="" id=""
-    [(ngModel)]="nuevoP1"
-    (change)="changeP1()"
-    >
-    
-        <option
-        value=""
-        [ngValue]="punto"
-        *ngFor="let punto of obtenerPuntos()">
-        P {{ punto.id }}
-    </option>
+    <select name="" id="" [(ngModel)]="nuevoP1" (change)="changeP1()">
+
+        <option value="" [ngValue]="punto" *ngFor="let punto of obtenerPuntos()">
+            P {{ punto.id }}
+        </option>
     </select>
     <br>
     <label for="">
-    PUNTO #2
+        PUNTO #2
     </label>
-    <select name="" id=""
-    [(ngModel)]="nuevoP2"
-    (change)="changeP2()"
-    >
-        <option
-        [ngValue]="punto"
-        value=""
-        *ngFor="let punto of obtenerPuntos()">
-        P {{ punto.id }}</option>
+    <select name="" id="" [(ngModel)]="nuevoP2" (change)="changeP2()">
+        <option [ngValue]="punto" value="" *ngFor="let punto of obtenerPuntos()">
+            P {{ punto.id }}</option>
     </select>
     <br>
     <button (click)="crearRecta()">CREAR RECTA</button>
@@ -376,23 +335,23 @@ parabola
         </thead>
         <tbody>
 
-        <tr *ngFor="let recta of rectas">
-<td>
-                #{{ recta.id }}
-            </td>
-            <td>
-                P {{ recta.p1_data.id }}
-            </td>
-            <td>
-                P {{ recta.p2_data.id }}
-            </td>
-            <td>
-                {{ calcularDistanciaPuntos(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
-            </td>
-<td>
-                {{ calcularPendiente(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
-            </td>
-        </tr>
+            <tr *ngFor="let recta of rectas">
+                <td>
+                    #{{ recta.id }}
+                </td>
+                <td>
+                    P {{ recta.p1_data.id }}
+                </td>
+                <td>
+                    P {{ recta.p2_data.id }}
+                </td>
+                <td>
+                    {{ calcularDistanciaPuntos(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
+                </td>
+                <td>
+                    {{ calcularPendiente(recta.p1_data.x, recta.p1_data.y, recta.p2_data.x, recta.p2_data.y)}}
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -410,9 +369,11 @@ parabola
         <tbody>
             <tr *ngFor="let perpendicular of perpendiculares">
                 <td>#{{ perpendicular.id }}</td>
-                <td>#{{ perpendicular.recta_id }} ( {{ perpendicular.x1}}, {{ perpendicular.y1}} ), ( {{ perpendicular.x2}}, {{ perpendicular.y2}} )</td>
+                <td>#{{ perpendicular.recta_id }} ( {{ perpendicular.x1}}, {{ perpendicular.y1}} ), ( {{
+                    perpendicular.x2}}, {{ perpendicular.y2}} )</td>
                 <td>#{{ perpendicular.punto_id }} ( {{ perpendicular.px }}, {{ perpendicular.py }})</td>
-                <td>#{{ geometry.puntoPerpendicular(perpendicular.x1, perpendicular.y1, perpendicular.x2, perpendicular.y2, perpendicular.px, perpendicular.py)}}</td>
+                <td>#{{ geometry.puntoPerpendicular(perpendicular.x1, perpendicular.y1, perpendicular.x2,
+                    perpendicular.y2, perpendicular.px, perpendicular.py)}}</td>
             </tr>
         </tbody>
     </table>

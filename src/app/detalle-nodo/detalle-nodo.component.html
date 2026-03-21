@@ -13,18 +13,13 @@
     <button (click)="raiz.desplegado ? raiz.replegar(): raiz.desplegar()">DESPLEGAR</button>
     {{ raiz && raiz.desplegado ? "DESPLEGADO": "REPLEGADO"}}
     <div>
-        {{ raiz?.average()}}
+        {{ raiz.average()}}
     </div>
-    <div
-        class="tf-tree "
-        style="
+    <div class="tf-tree " style="
             position: relative;
             font-size: 14px; padding-left: 2em">
-            <app-arbol-view
-                [root]="raiz"
-                [umbralInferior]=".6"
-                [umbralSuperior]=".8">
-            </app-arbol-view>
+        <app-arbol-view [root]="raiz" [umbralInferior]=".6" [umbralSuperior]=".8">
+        </app-arbol-view>
 
         <!-- <app-red-view [root]="raiz"></app-red-view> -->
     </div>
