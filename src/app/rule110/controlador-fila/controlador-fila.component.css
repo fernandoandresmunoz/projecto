@@ -1,0 +1,10 @@
+.contenedor {
+  display: flex;
+  flex-wrap: nowrap; /* Evita saltos de línea */
+  align-items: center;
+}
+.bloque {
+  width: 100px;
+  height: 100px;
+  background: #00f;
+}

@@ -1,0 +1,24 @@
+.fondo-negro {
+  background-color: #000;
+  color: #fff; /* Opcional: para asegurar que el texto sea visible */
+}
+/* Para cuando la condición es falsa */
+.fondo-blanco {
+  background-color: #fff;
+  color: #000; /* Opcional: para asegurar que el texto sea visible */
+}
+.fondo-rojo {
+  background-color: #f00;
+}
+.fondo-verde {
+  background-color: #008000;
+}
+.fondo-cafe {
+  background-color: #a52a2a;
+}
+.fondo-azul {
+  background-color: #00f;
+}
+.fondo-gris {
+  background-color: #808080;
+}
