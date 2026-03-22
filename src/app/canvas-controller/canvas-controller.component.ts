@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-canvas-controller',
-  templateUrl: './canvas-controller.component.html',
-  styleUrls: ['./canvas-controller.component.css']
+    selector: 'app-canvas-controller',
+    templateUrl: './canvas-controller.component.html',
+    styleUrls: ['./canvas-controller.component.css'],
+    standalone: false
 })
 export class CanvasControllerComponent implements OnInit {
 

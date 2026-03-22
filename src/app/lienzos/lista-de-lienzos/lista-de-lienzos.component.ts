@@ -5,9 +5,10 @@ import { FabricaDeListaDeLienzos } from '../fabrica-de-lista-de-lienzos';
 import { FabricaDeListaDeLienzosConcreta } from '../fabrica-de-lista-de-lienzos-concreta';
 
 @Component({
-  selector: 'app-lista-de-lienzos',
-  templateUrl: './lista-de-lienzos.component.html',
-  styleUrls: ['./lista-de-lienzos.component.css']
+    selector: 'app-lista-de-lienzos',
+    templateUrl: './lista-de-lienzos.component.html',
+    styleUrls: ['./lista-de-lienzos.component.css'],
+    standalone: false
 })
 export class ListaDeLienzosComponent implements OnInit, ListaDeLienzos {
 

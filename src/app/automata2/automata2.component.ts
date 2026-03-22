@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 @Component({
-  selector: 'app-automata2',
-  templateUrl: './automata2.component.html',
-  styleUrls: ['./automata2.component.css']
+    selector: 'app-automata2',
+    templateUrl: './automata2.component.html',
+    styleUrls: ['./automata2.component.css'],
+    standalone: false
 })
 export class Automata2Component implements OnInit {
 

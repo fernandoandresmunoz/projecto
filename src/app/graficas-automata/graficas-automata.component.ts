@@ -7,9 +7,10 @@ import { FabricaDeLienzosConcreta } from '../lienzos/fabrica-de-lienzos-concreta
 import { FabricaDeFuncionesConcreta } from '../lienzos/fabrica-de-funciones-concreta';
 
 @Component({
-  selector: 'app-graficas-automata',
-  templateUrl: './graficas-automata.component.html',
-  styleUrls: ['./graficas-automata.component.css']
+    selector: 'app-graficas-automata',
+    templateUrl: './graficas-automata.component.html',
+    styleUrls: ['./graficas-automata.component.css'],
+    standalone: false
 })
 export class GraficasAutomataComponent implements OnInit {
 

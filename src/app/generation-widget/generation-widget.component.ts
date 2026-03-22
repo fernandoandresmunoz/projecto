@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Automata } from 'cube';
 
 @Component({
-  selector: 'app-generation-widget',
-  templateUrl: './generation-widget.component.html',
-  styleUrls: ['./generation-widget.component.css']
+    selector: 'app-generation-widget',
+    templateUrl: './generation-widget.component.html',
+    styleUrls: ['./generation-widget.component.css'],
+    standalone: false
 })
 export class GenerationWidgetComponent implements OnInit {
 

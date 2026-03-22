@@ -5,9 +5,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // import { Lienzo } from '../model/lienzo';
 
 @Component({
-  selector: 'app-circle-app',
-  templateUrl: './circle-app.component.html',
-  styleUrls: ['./circle-app.component.css']
+    selector: 'app-circle-app',
+    templateUrl: './circle-app.component.html',
+    styleUrls: ['./circle-app.component.css'],
+    standalone: false
 })
 export class CircleAppComponent implements OnInit {
   ngOnInit(): void {

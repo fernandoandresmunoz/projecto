@@ -25,14 +25,14 @@ interface SavedMatrix {
 }
 
 @Component({
-  selector: 'app-automata1',
-  template: `
+    selector: 'app-automata1',
+    template: `
     <div class="automata-view">
       <app-automata [automata]="automata1"></app-automata>
       <a routerLink="/vista-cubos-3d" class="view-3d-link">Ver en 3D</a>
     </div>
   `,
-  styles: [`
+    styles: [`
     .automata-view {
       padding: 20px;
       height: 100vh;
@@ -51,7 +51,8 @@ interface SavedMatrix {
     .view-3d-link:hover {
       background-color: #45a049;
     }
-  `]
+  `],
+    standalone: false
 })
 export class Automata1Component implements OnInit, ControladorColores {
   factory2 = new ConcreteShapeFactory()

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-funcion-seno',
-  templateUrl: './funcion-seno.component.html',
-  styleUrls: ['./funcion-seno.component.css']
+    selector: 'app-funcion-seno',
+    templateUrl: './funcion-seno.component.html',
+    styleUrls: ['./funcion-seno.component.css'],
+    standalone: false
 })
 export class FuncionSenoComponent implements OnInit {
 

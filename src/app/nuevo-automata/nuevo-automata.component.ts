@@ -4,9 +4,10 @@ import { Automata } from 'cube';
 
 
 @Component({
-  selector: 'app-nuevo-automata',
-  templateUrl: './nuevo-automata.component.html',
-  styleUrls: ['./nuevo-automata.component.css']
+    selector: 'app-nuevo-automata',
+    templateUrl: './nuevo-automata.component.html',
+    styleUrls: ['./nuevo-automata.component.css'],
+    standalone: false
 })
 export class NuevoAutomataComponent implements OnInit {
 

@@ -293,9 +293,10 @@ const GRAY = 'GRAY';
 
 
 @Component({
-  selector: 'app-detalle-matriz',
-  templateUrl: './detalle-matriz.component.html',
-  styleUrls: ['./detalle-matriz.component.css']
+    selector: 'app-detalle-matriz',
+    templateUrl: './detalle-matriz.component.html',
+    styleUrls: ['./detalle-matriz.component.css'],
+    standalone: false
 })
 export class DetalleMatrizComponent implements OnInit, OnDestroy, AfterViewInit {
   // [x: string]: string;

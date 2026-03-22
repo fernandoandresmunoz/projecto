@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { Canvas } from '../canvas';
 
 @Component({
-  selector: 'app-lienzos',
-  templateUrl: './lienzos.component.html',
-  styleUrls: ['./lienzos.component.css']
+    selector: 'app-lienzos',
+    templateUrl: './lienzos.component.html',
+    styleUrls: ['./lienzos.component.css'],
+    standalone: false
 })
 export class LienzosComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-nodo',
-  templateUrl: './nodo.component.html',
-  styleUrls: ['./nodo.component.css']
+    selector: 'app-nodo',
+    templateUrl: './nodo.component.html',
+    styleUrls: ['./nodo.component.css'],
+    standalone: false
 })
 export class NodoComponent implements OnInit {
 

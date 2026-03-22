@@ -3,9 +3,10 @@ import { Automata } from 'cube';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-arbol',
-  templateUrl: './arbol.component.html',
-  styleUrls: ['./arbol.component.css']
+    selector: 'app-arbol',
+    templateUrl: './arbol.component.html',
+    styleUrls: ['./arbol.component.css'],
+    standalone: false
 })
 export class ArbolComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { Automata } from 'cube';
 import { ConcreteShapeFactory } from 'concreteShapeFactory';
 
 @Component({
-  selector: 'app-wrapper-minecraft-view',
-  templateUrl: './wrapper-minecraft-view.component.html',
-  styleUrls: ['./wrapper-minecraft-view.component.css']
+    selector: 'app-wrapper-minecraft-view',
+    templateUrl: './wrapper-minecraft-view.component.html',
+    styleUrls: ['./wrapper-minecraft-view.component.css'],
+    standalone: false
 })
 export class WrapperMinecraftViewComponent implements OnInit {
 

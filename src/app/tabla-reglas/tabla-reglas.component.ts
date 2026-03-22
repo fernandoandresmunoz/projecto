@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Automata } from 'cube';
 
 @Component({
-  selector: 'app-tabla-reglas',
-  templateUrl: './tabla-reglas.component.html',
-  styleUrls: ['./tabla-reglas.component.css']
+    selector: 'app-tabla-reglas',
+    templateUrl: './tabla-reglas.component.html',
+    styleUrls: ['./tabla-reglas.component.css'],
+    standalone: false
 })
 export class TablaReglasComponent implements OnInit {
 

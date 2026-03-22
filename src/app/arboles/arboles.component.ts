@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-arboles',
-  templateUrl: './arboles.component.html',
-  styleUrls: ['./arboles.component.css']
+    selector: 'app-arboles',
+    templateUrl: './arboles.component.html',
+    styleUrls: ['./arboles.component.css'],
+    standalone: false
 })
 export class ArbolesComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import { ChannelController } from '../channel-controller';
 import { ConcreteChannelController } from '../concrete-channel-controller';
 
 @Component({
-  selector: 'app-convolution',
-  templateUrl: './convolution.component.html',
-  styleUrls: ['./convolution.component.css']
+    selector: 'app-convolution',
+    templateUrl: './convolution.component.html',
+    styleUrls: ['./convolution.component.css'],
+    standalone: false
 })
 export class ConvolutionComponent implements OnInit {
 

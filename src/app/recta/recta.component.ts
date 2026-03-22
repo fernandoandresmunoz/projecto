@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recta',
-  templateUrl: './recta.component.html',
-  styleUrls: ['./recta.component.css']
+    selector: 'app-recta',
+    templateUrl: './recta.component.html',
+    styleUrls: ['./recta.component.css'],
+    standalone: false
 })
 export class RectaComponent implements OnInit {
 

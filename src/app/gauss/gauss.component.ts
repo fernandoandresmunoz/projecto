@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-gauss',
-  templateUrl: './gauss.component.html',
-  styleUrls: ['./gauss.component.css']
+    selector: 'app-gauss',
+    templateUrl: './gauss.component.html',
+    styleUrls: ['./gauss.component.css'],
+    standalone: false
 })
 export class GaussComponent implements OnInit {
 

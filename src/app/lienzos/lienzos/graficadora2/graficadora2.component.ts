@@ -4,9 +4,10 @@ import { FabricaDeLienzos } from '../../fabrica-de-lienzos';
 import { FabricaDeLienzosConcreta } from '../../fabrica-de-lienzos-concreta';
 
 @Component({
-  selector: 'app-graficadora2',
-  templateUrl: './graficadora2.component.html',
-  styleUrls: ['./graficadora2.component.css']
+    selector: 'app-graficadora2',
+    templateUrl: './graficadora2.component.html',
+    styleUrls: ['./graficadora2.component.css'],
+    standalone: false
 })
 export class Graficadora2Component implements OnInit {
 

@@ -5,9 +5,10 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-matriz-hoja',
-  templateUrl: './matriz-hoja.component.html',
-  styleUrls: ['./matriz-hoja.component.css']
+    selector: 'app-matriz-hoja',
+    templateUrl: './matriz-hoja.component.html',
+    styleUrls: ['./matriz-hoja.component.css'],
+    standalone: false
 })
 export class MatrizHojaComponent implements OnInit {
 

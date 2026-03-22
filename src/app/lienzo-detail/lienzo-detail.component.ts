@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { LienzosService } from '../graficos.service';
 
 @Component({
-  selector: 'app-lienzo-detail',
-  templateUrl: './lienzo-detail.component.html',
-  styleUrls: ['./lienzo-detail.component.css']
+    selector: 'app-lienzo-detail',
+    templateUrl: './lienzo-detail.component.html',
+    styleUrls: ['./lienzo-detail.component.css'],
+    standalone: false
 })
 export class LienzoDetailComponent implements OnInit {
 

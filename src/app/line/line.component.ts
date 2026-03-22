@@ -5,9 +5,10 @@ import { Line } from 'line';
 import { Point } from 'point';
 
 @Component({
-  selector: 'app-line',
-  templateUrl: './line.component.html',
-  styleUrls: ['./line.component.css']
+    selector: 'app-line',
+    templateUrl: './line.component.html',
+    styleUrls: ['./line.component.css'],
+    standalone: false
 })
 export class LineComponent implements OnInit, Line {
 

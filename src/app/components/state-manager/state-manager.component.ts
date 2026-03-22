@@ -4,9 +4,10 @@ import { ConcreteShapeFactory } from 'ConcreteShapeFactory.1';
 import { JUEGO } from 'src/JUEGO';
 
 @Component({
-  selector: 'app-state-manager',
-  templateUrl: './state-manager.component.html',
-  styleUrls: ['./state-manager.component.scss']
+    selector: 'app-state-manager',
+    templateUrl: './state-manager.component.html',
+    styleUrls: ['./state-manager.component.scss'],
+    standalone: false
 })
 export class StateManagerComponent implements OnInit {
   savedStates: any[] = [];

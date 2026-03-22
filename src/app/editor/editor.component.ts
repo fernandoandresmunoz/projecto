@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GeometryService } from '../geometry.service';
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.css'],
+    standalone: false
 })
 export class EditorComponent implements OnInit {
 

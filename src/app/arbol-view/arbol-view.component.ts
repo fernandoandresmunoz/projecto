@@ -5,9 +5,10 @@ import { Nodo } from 'src/Nodo';
 import { GeometryService } from '../geometry.service';
 
 @Component({
-  selector: 'app-arbol-view',
-  templateUrl: './arbol-view.component.html',
-  styleUrls: ['./arbol-view.component.css']
+    selector: 'app-arbol-view',
+    templateUrl: './arbol-view.component.html',
+    styleUrls: ['./arbol-view.component.css'],
+    standalone: false
 })
 export class ArbolViewComponent implements OnInit {
 

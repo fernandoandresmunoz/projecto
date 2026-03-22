@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-reglas',
-  templateUrl: './reglas.component.html',
-  styleUrls: ['./reglas.component.css']
+    selector: 'app-reglas',
+    templateUrl: './reglas.component.html',
+    styleUrls: ['./reglas.component.css'],
+    standalone: false
 })
 export class ReglasComponent implements OnInit {
 

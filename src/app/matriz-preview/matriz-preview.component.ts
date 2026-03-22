@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-matriz-preview',
-  templateUrl: './matriz-preview.component.html',
-  styleUrls: ['./matriz-preview.component.css']
+    selector: 'app-matriz-preview',
+    templateUrl: './matriz-preview.component.html',
+    styleUrls: ['./matriz-preview.component.css'],
+    standalone: false
 })
 export class MatrizPreviewComponent implements OnInit {
 

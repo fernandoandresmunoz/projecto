@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JUEGO } from 'src/JUEGO';
 
 @Component({
-  selector: 'app-controlador-umbrales',
-  templateUrl: './controlador-umbrales.component.html',
-  styleUrls: ['./controlador-umbrales.component.css']
+    selector: 'app-controlador-umbrales',
+    templateUrl: './controlador-umbrales.component.html',
+    styleUrls: ['./controlador-umbrales.component.css'],
+    standalone: false
 })
 export class ControladorUmbralesComponent implements OnInit {
   @Input() umbralInferior: number;

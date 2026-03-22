@@ -7,9 +7,10 @@ import { GrupoCelulas } from '../../GrupoCelula';
 import { Celula } from '../../Celula';
 
 @Component({
-  selector: 'app-detalle-nodo',
-  templateUrl: './detalle-nodo.component.html',
-  styleUrls: ['./detalle-nodo.component.css']
+    selector: 'app-detalle-nodo',
+    templateUrl: './detalle-nodo.component.html',
+    styleUrls: ['./detalle-nodo.component.css'],
+    standalone: false
 })
 export class DetalleNodoComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-red-view',
-  templateUrl: './red-view.component.html',
-  styleUrls: ['./red-view.component.css']
+    selector: 'app-red-view',
+    templateUrl: './red-view.component.html',
+    styleUrls: ['./red-view.component.css'],
+    standalone: false
 })
 export class RedViewComponent implements OnInit, OnChanges {
 

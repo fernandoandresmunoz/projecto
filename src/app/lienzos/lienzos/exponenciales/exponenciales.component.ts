@@ -6,9 +6,10 @@ import { FabricaDeFunciones } from '../../fabrica-de-funciones';
 import { FabricaDeFuncionesConcreta } from '../../fabrica-de-funciones-concreta';
 
 @Component({
-  selector: 'app-exponenciales',
-  templateUrl: './exponenciales.component.html',
-  styleUrls: ['./exponenciales.component.css']
+    selector: 'app-exponenciales',
+    templateUrl: './exponenciales.component.html',
+    styleUrls: ['./exponenciales.component.css'],
+    standalone: false
 })
 export class ExponencialesComponent implements OnInit {
 

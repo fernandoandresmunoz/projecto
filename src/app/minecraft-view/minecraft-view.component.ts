@@ -494,7 +494,8 @@ interface SavedGameState {
     .flight-message.visible {
       opacity: 1;
     }
-  `]
+  `],
+  standalone: false
 })
 export class MinecraftViewComponent implements OnInit {
 
@@ -789,7 +790,8 @@ export class MinecraftViewComponent implements OnInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     this.renderer.sortObjects = false;
-    this.renderer.physicallyCorrectLights = false;
+    // En lugar de: this.renderer.physicallyCorrectLights = false;
+    // this.renderer.useLegacyLights = true;
 
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Mejores sombras
@@ -2143,7 +2145,7 @@ export class MinecraftViewComponent implements OnInit {
           const parsedData = JSON.parse(savedData);
           parsedData.matrix = this.matrix;
           localStorage.setItem('automata_matrix', JSON.stringify(parsedData));
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }

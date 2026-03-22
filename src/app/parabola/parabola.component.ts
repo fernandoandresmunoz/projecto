@@ -17,9 +17,10 @@ import { Punto } from '../lienzo';
 
 
 @Component({
-  selector: 'app-parabola',
-  templateUrl: './parabola.component.html',
-  styleUrls: ['./parabola.component.css']
+    selector: 'app-parabola',
+    templateUrl: './parabola.component.html',
+    styleUrls: ['./parabola.component.css'],
+    standalone: false
 })
 export class ParabolaComponent implements OnInit, Parabola, ControladorCalculadora {
 

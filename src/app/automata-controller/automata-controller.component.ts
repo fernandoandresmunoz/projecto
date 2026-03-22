@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Automata, ControladorAutomata } from 'cube';
 
 @Component({
-  selector: 'app-automata-controller',
-  templateUrl: './automata-controller.component.html',
-  styleUrls: ['./automata-controller.component.css']
+    selector: 'app-automata-controller',
+    templateUrl: './automata-controller.component.html',
+    styleUrls: ['./automata-controller.component.css'],
+    standalone: false
 })
 export class AutomataControllerComponent implements OnInit, ControladorAutomata {
 

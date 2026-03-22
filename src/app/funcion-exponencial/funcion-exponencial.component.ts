@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-funcion-exponencial',
-  templateUrl: './funcion-exponencial.component.html',
-  styleUrls: ['./funcion-exponencial.component.css']
+    selector: 'app-funcion-exponencial',
+    templateUrl: './funcion-exponencial.component.html',
+    styleUrls: ['./funcion-exponencial.component.css'],
+    standalone: false
 })
 export class FuncionExponencialComponent implements OnInit {
 

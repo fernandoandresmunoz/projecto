@@ -5,9 +5,10 @@ import { Automata } from 'cube';
 import { ConcreteShapeFactory } from 'concreteShapeFactory';
 
 @Component({
-  selector: 'app-matrices',
-  templateUrl: './matrices.component.html',
-  styleUrls: ['./matrices.component.css'],
+    selector: 'app-matrices',
+    templateUrl: './matrices.component.html',
+    styleUrls: ['./matrices.component.css'],
+    standalone: false
 })
 export class MatricesComponent implements OnInit {
 

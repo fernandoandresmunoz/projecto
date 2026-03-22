@@ -6,9 +6,10 @@ import { Fila } from '../fila';
 import { GeometryService } from 'src/app/geometry.service';
 
 @Component({
-  selector: 'app-controlador-fila',
-  templateUrl: './controlador-fila.component.html',
-  styleUrls: ['./controlador-fila.component.css']
+    selector: 'app-controlador-fila',
+    templateUrl: './controlador-fila.component.html',
+    styleUrls: ['./controlador-fila.component.css'],
+    standalone: false
 })
 export class ControladorFilaComponent implements OnInit, ControladorFila {
 

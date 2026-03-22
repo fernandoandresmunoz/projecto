@@ -4,9 +4,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Line } from 'line';
 import { Point } from 'point';
 @Component({
-  selector: 'app-point',
-  templateUrl: './point.component.html',
-  styleUrls: ['./point.component.css']
+    selector: 'app-point',
+    templateUrl: './point.component.html',
+    styleUrls: ['./point.component.css'],
+    standalone: false
 })
 export class PointComponent implements OnInit, Point  {
 

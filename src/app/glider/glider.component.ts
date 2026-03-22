@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 
 @Component({
-  selector: 'app-glider',
-  templateUrl: './glider.component.html',
-  styleUrls: ['./glider.component.css']
+    selector: 'app-glider',
+    templateUrl: './glider.component.html',
+    styleUrls: ['./glider.component.css'],
+    standalone: false
 })
 export class GliderComponent implements OnInit {
 

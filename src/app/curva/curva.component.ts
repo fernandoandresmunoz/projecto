@@ -3,9 +3,10 @@ import { Automata } from 'cube';
 import { JUEGO } from 'src/JUEGO';
 
 @Component({
-  selector: 'app-curva',
-  templateUrl: './curva.component.html',
-  styleUrls: ['./curva.component.css']
+    selector: 'app-curva',
+    templateUrl: './curva.component.html',
+    styleUrls: ['./curva.component.css'],
+    standalone: false
 })
 export class CurvaComponent implements OnInit, OnChanges {
 

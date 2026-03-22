@@ -12,9 +12,10 @@ import { Derivada } from '../derivada';
 import { ConcreteLine } from 'concrete-line';
 
 @Component({
-  selector: 'app-lienzo',
-  templateUrl: './lienzo.component.html',
-  styleUrls: ['./lienzo.component.css']
+    selector: 'app-lienzo',
+    templateUrl: './lienzo.component.html',
+    styleUrls: ['./lienzo.component.css'],
+    standalone: false
 })
 export class LienzoComponent implements OnInit, Lienzo {
 

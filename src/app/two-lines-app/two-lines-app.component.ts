@@ -12,9 +12,10 @@ import { JUEGO } from 'src/JUEGO';
 import { NextGenStrategy } from '../NextGenStrategy';
 
 @Component({
-  selector: 'app-two-lines-app',
-  templateUrl: './two-lines-app.component.html',
-  styleUrls: ['./two-lines-app.component.css']
+    selector: 'app-two-lines-app',
+    templateUrl: './two-lines-app.component.html',
+    styleUrls: ['./two-lines-app.component.css'],
+    standalone: false
 })
 export class TwoLinesAppComponent implements OnInit, OnChanges {
 

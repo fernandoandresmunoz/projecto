@@ -4,9 +4,10 @@ import { JUEGO } from 'src/JUEGO';
 import { Nodo } from 'src/Nodo';
 
 @Component({
-  selector: 'app-tabla-nodo',
-  templateUrl: './tabla-nodo.component.html',
-  styleUrls: ['./tabla-nodo.component.css']
+    selector: 'app-tabla-nodo',
+    templateUrl: './tabla-nodo.component.html',
+    styleUrls: ['./tabla-nodo.component.css'],
+    standalone: false
 })
 export class TablaNodoComponent implements OnInit {
 
