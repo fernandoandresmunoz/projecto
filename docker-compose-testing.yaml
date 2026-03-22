@@ -1,6 +1,8 @@
 services:
   karma-tests:
     image: projecto-test:latest
+    environment:
+      - npm_config_cache=/tmp/.npm-cache
     volumes:
       - ./coverage:/app/coverage
       - ./junit-report:/app/junit-report
