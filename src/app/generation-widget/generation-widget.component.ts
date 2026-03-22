@@ -4,7 +4,7 @@ import { Automata } from 'cube';
 @Component({
   selector: 'app-generation-widget',
   templateUrl: './generation-widget.component.html',
-  styleUrls: ['./generation-widget.component.styl']
+  styleUrls: ['./generation-widget.component.css']
 })
 export class GenerationWidgetComponent implements OnInit {
 

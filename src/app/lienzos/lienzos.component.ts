@@ -7,7 +7,7 @@ import { Canvas } from '../canvas';
 @Component({
   selector: 'app-lienzos',
   templateUrl: './lienzos.component.html',
-  styleUrls: ['./lienzos.component.styl']
+  styleUrls: ['./lienzos.component.css']
 })
 export class LienzosComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { GeometryService } from '../geometry.service';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.styl']
+  styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
 

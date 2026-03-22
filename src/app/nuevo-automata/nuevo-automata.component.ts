@@ -6,7 +6,7 @@ import { Automata } from 'cube';
 @Component({
   selector: 'app-nuevo-automata',
   templateUrl: './nuevo-automata.component.html',
-  styleUrls: ['./nuevo-automata.component.styl']
+  styleUrls: ['./nuevo-automata.component.css']
 })
 export class NuevoAutomataComponent implements OnInit {
 

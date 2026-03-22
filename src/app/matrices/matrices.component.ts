@@ -7,7 +7,7 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 @Component({
   selector: 'app-matrices',
   templateUrl: './matrices.component.html',
-  styleUrls: ['./matrices.component.styl'],
+  styleUrls: ['./matrices.component.css'],
 })
 export class MatricesComponent implements OnInit {
 

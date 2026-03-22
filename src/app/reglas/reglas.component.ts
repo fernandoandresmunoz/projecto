@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-reglas',
   templateUrl: './reglas.component.html',
-  styleUrls: ['./reglas.component.styl']
+  styleUrls: ['./reglas.component.css']
 })
 export class ReglasComponent implements OnInit {
 

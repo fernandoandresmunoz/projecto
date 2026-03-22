@@ -5,7 +5,7 @@ import { JUEGO } from 'src/JUEGO';
 @Component({
   selector: 'app-curva',
   templateUrl: './curva.component.html',
-  styleUrls: ['./curva.component.styl']
+  styleUrls: ['./curva.component.css']
 })
 export class CurvaComponent implements OnInit, OnChanges {
 

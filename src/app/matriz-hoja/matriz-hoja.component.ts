@@ -7,7 +7,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-matriz-hoja',
   templateUrl: './matriz-hoja.component.html',
-  styleUrls: ['./matriz-hoja.component.styl']
+  styleUrls: ['./matriz-hoja.component.css']
 })
 export class MatrizHojaComponent implements OnInit {
 

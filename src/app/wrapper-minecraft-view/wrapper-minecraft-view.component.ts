@@ -7,7 +7,7 @@ import { ConcreteShapeFactory } from 'concreteShapeFactory';
 @Component({
   selector: 'app-wrapper-minecraft-view',
   templateUrl: './wrapper-minecraft-view.component.html',
-  styleUrls: ['./wrapper-minecraft-view.component.styl']
+  styleUrls: ['./wrapper-minecraft-view.component.css']
 })
 export class WrapperMinecraftViewComponent implements OnInit {
 

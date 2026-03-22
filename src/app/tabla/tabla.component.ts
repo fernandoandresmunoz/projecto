@@ -4,7 +4,7 @@ import { Automata } from 'cube';
 @Component({
   selector: 'app-tabla',
   templateUrl: './tabla.component.html',
-  styleUrls: ['./tabla.component.styl']
+  styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent implements OnInit {
 

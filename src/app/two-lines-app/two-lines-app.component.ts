@@ -14,7 +14,7 @@ import { NextGenStrategy } from '../NextGenStrategy';
 @Component({
   selector: 'app-two-lines-app',
   templateUrl: './two-lines-app.component.html',
-  styleUrls: ['./two-lines-app.component.styl']
+  styleUrls: ['./two-lines-app.component.css']
 })
 export class TwoLinesAppComponent implements OnInit, OnChanges {
 

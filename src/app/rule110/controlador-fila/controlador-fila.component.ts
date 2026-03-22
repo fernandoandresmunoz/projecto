@@ -8,7 +8,7 @@ import { GeometryService } from 'src/app/geometry.service';
 @Component({
   selector: 'app-controlador-fila',
   templateUrl: './controlador-fila.component.html',
-  styleUrls: ['./controlador-fila.component.styl']
+  styleUrls: ['./controlador-fila.component.css']
 })
 export class ControladorFilaComponent implements OnInit, ControladorFila {
 

@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-canvas-controller',
   templateUrl: './canvas-controller.component.html',
-  styleUrls: ['./canvas-controller.component.styl']
+  styleUrls: ['./canvas-controller.component.css']
 })
 export class CanvasControllerComponent implements OnInit {
 

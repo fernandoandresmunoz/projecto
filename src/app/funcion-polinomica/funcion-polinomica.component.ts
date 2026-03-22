@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-funcion-polinomica',
   templateUrl: './funcion-polinomica.component.html',
-  styleUrls: ['./funcion-polinomica.component.styl']
+  styleUrls: ['./funcion-polinomica.component.css']
 })
 export class FuncionPolinomicaComponent implements OnInit {
   curvas: {color: string, f: (x: number) => number }[] =  [];

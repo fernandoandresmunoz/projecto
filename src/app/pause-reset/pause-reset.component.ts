@@ -4,7 +4,7 @@ import { Automata } from 'cube';
 @Component({
   selector: 'app-pause-reset',
   templateUrl: './pause-reset.component.html',
-  styleUrls: ['./pause-reset.component.styl']
+  styleUrls: ['./pause-reset.component.css']
 })
 export class PauseResetComponent implements OnInit {
 

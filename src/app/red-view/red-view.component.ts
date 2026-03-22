@@ -5,7 +5,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-red-view',
   templateUrl: './red-view.component.html',
-  styleUrls: ['./red-view.component.styl']
+  styleUrls: ['./red-view.component.css']
 })
 export class RedViewComponent implements OnInit, OnChanges {
 

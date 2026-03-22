@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-recta',
   templateUrl: './recta.component.html',
-  styleUrls: ['./recta.component.styl']
+  styleUrls: ['./recta.component.css']
 })
 export class RectaComponent implements OnInit {
 

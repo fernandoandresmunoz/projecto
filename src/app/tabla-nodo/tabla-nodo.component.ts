@@ -6,7 +6,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-tabla-nodo',
   templateUrl: './tabla-nodo.component.html',
-  styleUrls: ['./tabla-nodo.component.styl']
+  styleUrls: ['./tabla-nodo.component.css']
 })
 export class TablaNodoComponent implements OnInit {
 

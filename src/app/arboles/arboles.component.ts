@@ -6,7 +6,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-arboles',
   templateUrl: './arboles.component.html',
-  styleUrls: ['./arboles.component.styl']
+  styleUrls: ['./arboles.component.css']
 })
 export class ArbolesComponent implements OnInit {
 

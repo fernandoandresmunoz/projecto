@@ -7,7 +7,7 @@ import { GeometryService } from '../geometry.service';
 @Component({
   selector: 'app-arbol-view',
   templateUrl: './arbol-view.component.html',
-  styleUrls: ['./arbol-view.component.styl']
+  styleUrls: ['./arbol-view.component.css']
 })
 export class ArbolViewComponent implements OnInit {
 

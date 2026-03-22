@@ -9,7 +9,7 @@ import { Celula } from '../../Celula';
 @Component({
   selector: 'app-detalle-nodo',
   templateUrl: './detalle-nodo.component.html',
-  styleUrls: ['./detalle-nodo.component.styl']
+  styleUrls: ['./detalle-nodo.component.css']
 })
 export class DetalleNodoComponent implements OnInit {
 

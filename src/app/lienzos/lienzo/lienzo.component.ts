@@ -14,7 +14,7 @@ import { ConcreteLine } from 'concrete-line';
 @Component({
   selector: 'app-lienzo',
   templateUrl: './lienzo.component.html',
-  styleUrls: ['./lienzo.component.styl']
+  styleUrls: ['./lienzo.component.css']
 })
 export class LienzoComponent implements OnInit, Lienzo {
 

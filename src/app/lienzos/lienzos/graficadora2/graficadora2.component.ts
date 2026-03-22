@@ -6,7 +6,7 @@ import { FabricaDeLienzosConcreta } from '../../fabrica-de-lienzos-concreta';
 @Component({
   selector: 'app-graficadora2',
   templateUrl: './graficadora2.component.html',
-  styleUrls: ['./graficadora2.component.styl']
+  styleUrls: ['./graficadora2.component.css']
 })
 export class Graficadora2Component implements OnInit {
 

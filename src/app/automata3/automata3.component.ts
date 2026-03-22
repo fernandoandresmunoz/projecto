@@ -4,7 +4,7 @@ import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 @Component({
   selector: 'app-automata3',
   templateUrl: './automata3.component.html',
-  styleUrls: ['./automata3.component.styl']
+  styleUrls: ['./automata3.component.css']
 })
 export class Automata3Component implements OnInit {
 

@@ -8,7 +8,7 @@ import { FabricaDeFuncionesConcreta } from '../../fabrica-de-funciones-concreta'
 @Component({
   selector: 'app-exponenciales',
   templateUrl: './exponenciales.component.html',
-  styleUrls: ['./exponenciales.component.styl']
+  styleUrls: ['./exponenciales.component.css']
 })
 export class ExponencialesComponent implements OnInit {
 

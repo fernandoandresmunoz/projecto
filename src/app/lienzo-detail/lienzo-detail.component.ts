@@ -5,7 +5,7 @@ import { LienzosService } from '../graficos.service';
 @Component({
   selector: 'app-lienzo-detail',
   templateUrl: './lienzo-detail.component.html',
-  styleUrls: ['./lienzo-detail.component.styl']
+  styleUrls: ['./lienzo-detail.component.css']
 })
 export class LienzoDetailComponent implements OnInit {
 

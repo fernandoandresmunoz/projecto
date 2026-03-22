@@ -6,7 +6,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.styl']
+  styleUrls: ['./tree.component.css']
 })
 export class TreeComponent implements OnInit {
 

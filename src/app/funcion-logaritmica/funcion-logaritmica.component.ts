@@ -17,7 +17,7 @@ interface Punto {
 @Component({
   selector: 'app-funcion-logaritmica',
   templateUrl: './funcion-logaritmica.component.html',
-  styleUrls: ['./funcion-logaritmica.component.styl']
+  styleUrls: ['./funcion-logaritmica.component.css']
 })
 export class FuncionLogaritmicaComponent implements OnInit {
 

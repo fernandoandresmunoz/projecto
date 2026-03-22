@@ -5,7 +5,7 @@ import { Nodo } from 'src/Nodo';
 @Component({
   selector: 'app-nodo',
   templateUrl: './nodo.component.html',
-  styleUrls: ['./nodo.component.styl']
+  styleUrls: ['./nodo.component.css']
 })
 export class NodoComponent implements OnInit {
 

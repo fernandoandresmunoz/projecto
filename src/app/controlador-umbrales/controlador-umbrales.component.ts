@@ -4,7 +4,7 @@ import { JUEGO } from 'src/JUEGO';
 @Component({
   selector: 'app-controlador-umbrales',
   templateUrl: './controlador-umbrales.component.html',
-  styleUrls: ['./controlador-umbrales.component.styl']
+  styleUrls: ['./controlador-umbrales.component.css']
 })
 export class ControladorUmbralesComponent implements OnInit {
   @Input() umbralInferior: number;

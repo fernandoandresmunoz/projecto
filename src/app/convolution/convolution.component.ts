@@ -6,7 +6,7 @@ import { ConcreteChannelController } from '../concrete-channel-controller';
 @Component({
   selector: 'app-convolution',
   templateUrl: './convolution.component.html',
-  styleUrls: ['./convolution.component.styl']
+  styleUrls: ['./convolution.component.css']
 })
 export class ConvolutionComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { Automata, ControladorAutomata } from 'cube';
 @Component({
   selector: 'app-automata-controller',
   templateUrl: './automata-controller.component.html',
-  styleUrls: ['./automata-controller.component.styl']
+  styleUrls: ['./automata-controller.component.css']
 })
 export class AutomataControllerComponent implements OnInit, ControladorAutomata {
 

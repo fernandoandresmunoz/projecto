@@ -7,7 +7,7 @@ import { FabricaDeListaDeLienzosConcreta } from '../fabrica-de-lista-de-lienzos-
 @Component({
   selector: 'app-lista-de-lienzos',
   templateUrl: './lista-de-lienzos.component.html',
-  styleUrls: ['./lista-de-lienzos.component.styl']
+  styleUrls: ['./lista-de-lienzos.component.css']
 })
 export class ListaDeLienzosComponent implements OnInit, ListaDeLienzos {
 

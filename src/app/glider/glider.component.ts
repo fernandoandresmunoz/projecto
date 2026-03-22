@@ -4,7 +4,7 @@ import { ConcreteShapeFactory } from "ConcreteShapeFactory.1";
 @Component({
   selector: 'app-glider',
   templateUrl: './glider.component.html',
-  styleUrls: ['./glider.component.styl']
+  styleUrls: ['./glider.component.css']
 })
 export class GliderComponent implements OnInit {
 
