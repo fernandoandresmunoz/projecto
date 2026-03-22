@@ -7,8 +7,8 @@ pipeline {
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm install v16.20.2
-                    nvm use v16.20.2
+                    nvm install v18
+                    nvm use v18
                     npm i -g  @angular/cli@14.2.12
                     npm install --legacy-peer-deps
                     ng build --configuration production
