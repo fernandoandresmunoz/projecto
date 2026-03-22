@@ -11,7 +11,7 @@ pipeline {
                     nvm use v16.20.2
                     npm i -g  @angular/cli@11.0.0
                     npm install --force
-                    ng build --prod
+                    ng build --configuration production
                     ls -l dist/projecto
                    
                     
