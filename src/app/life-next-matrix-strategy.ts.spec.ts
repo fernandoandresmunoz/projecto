@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {} from '@angular/common/http/testing';
 import { LifeNextMatrixStrategy } from './life-next-matrix-strategy.ts';
 import { Automata } from '../../cube';
 import { ConcreteShapeFactory } from '../../concreteShapeFactory';

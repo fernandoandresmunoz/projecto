@@ -1,9 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WrapperMinecraftViewComponent } from './wrapper-minecraft-view.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('WrapperMinecraftViewComponent', () => {
   let component: WrapperMinecraftViewComponent;
@@ -11,10 +12,11 @@ describe('WrapperMinecraftViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WrapperMinecraftViewComponent ]
-    ,
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      schemas: [NO_ERRORS_SCHEMA]})
+    declarations: [WrapperMinecraftViewComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

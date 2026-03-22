@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ConcreteShapeFactory } from '../../concreteShapeFactory';
 import { Point } from '../../point';
@@ -9,16 +9,17 @@ import { Bloque } from '../../bloque';
 import { Automata } from '../../cube';
 import { Rule } from '../../rule';
 import { Element } from '../../rules/element';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ConcreteShapeFactory', () => {
   let factory: ConcreteShapeFactory;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConcreteShapeFactory]
-    ,
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      schemas: [NO_ERRORS_SCHEMA]});
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule],
+    providers: [ConcreteShapeFactory, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     factory = new ConcreteShapeFactory();
   });
 

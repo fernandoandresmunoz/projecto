@@ -1,12 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import ConcreteAutomata from '../../concreteAutomata';
 import { ConcreteShapeFactory } from '../../concreteShapeFactory';
 import { Point } from '../../point';
 import { Rule } from '../../rule';
 import { Element } from '../../rules/element';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ConcreteAutomata', () => {
   let automata: ConcreteAutomata;
@@ -14,10 +15,10 @@ describe('ConcreteAutomata', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConcreteShapeFactory]
-    ,
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      schemas: [NO_ERRORS_SCHEMA]});
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule],
+    providers: [ConcreteShapeFactory, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     factory = new ConcreteShapeFactory();
     
     // Create points for the automata

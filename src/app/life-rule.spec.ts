@@ -1,18 +1,19 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { LifeRule } from '../../life-rule';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LifeRule', () => {
   let rule: LifeRule;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LifeRule]
-    ,
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      schemas: [NO_ERRORS_SCHEMA]});
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule],
+    providers: [LifeRule, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     rule = new LifeRule();
   });
 
