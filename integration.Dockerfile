@@ -1,4 +1,10 @@
 FROM node:24-bookworm
+RUN apt-get update && apt-get install -y \
+    chromium \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV CHROME_BIN=/usr/bin/chromium
 
 # ... (instalación de chromium igual que antes)
 
