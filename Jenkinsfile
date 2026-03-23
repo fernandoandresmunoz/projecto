@@ -44,6 +44,9 @@ pipeline {
                 script {
                     echo 'dummy jasmine/karma tests'
                     //sh 'docker system prune -f'
+                    sh "docker compose -f docker-compose-testing.yaml down --remove-orphans"
+                    // Usamos una imagen ligera para borrar las carpetas que están bloqueadas
+                    sh "docker run --rm -v \$(pwd):/app busybox rm -rf /app/coverage /app/junit-report"
                     sh 'mkdir -p junit-report'
                     sh "mkdir -p coverage junit-report"
                     sh "chmod -R 777 coverage junit-report"
