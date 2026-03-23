@@ -1,26 +1,43 @@
-# Usamos Node 24 (Debian Bookworm)
 FROM node:24-bookworm
 
-# Instalamos Chromium de los repositorios oficiales de Bookworm
-# No necesitamos cambiar el sources.list
-RUN apt-get update && apt-get install -y \
-    chromium \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+# ... (instalación de chromium igual que antes)
 
 WORKDIR /app
 
-# Definimos la variable para que Karma/Protractor/Cypress lo encuentren
-ENV CHROME_BIN=/usr/bin/chromium
+# Creamos la carpeta de cache y le damos permisos 
+# para que cualquier usuario pueda escribir en ella
+RUN mkdir -p .angular && chmod 777 .angular
 
-# Copiamos solo los archivos de dependencias primero (mejor uso de caché)
 COPY package*.json ./
-
-# Instalamos con la velocidad de Node 24
 RUN npm install --legacy-peer-deps
 
-# Copiamos el resto del código
 COPY . .
+
+# Aseguramos que el usuario de Jenkins pueda escribir en todo el proyecto
+RUN chmod -R 777 /app
+# # Usamos Node 24 (Debian Bookworm)
+# FROM node:24-bookworm
+
+# # Instalamos Chromium de los repositorios oficiales de Bookworm
+# # No necesitamos cambiar el sources.list
+# RUN apt-get update && apt-get install -y \
+#     chromium \
+#     --no-install-recommends && \
+#     rm -rf /var/lib/apt/lists/*
+
+# WORKDIR /app
+
+# # Definimos la variable para que Karma/Protractor/Cypress lo encuentren
+# ENV CHROME_BIN=/usr/bin/chromium
+
+# # Copiamos solo los archivos de dependencias primero (mejor uso de caché)
+# COPY package*.json ./
+
+# # Instalamos con la velocidad de Node 24
+# RUN npm install --legacy-peer-deps
+
+# # Copiamos el resto del código
+# COPY . .
 
 # Si quieres ejecutar tests en el build, descomenta la siguiente línea
 # RUN npm run test -- --browsers=ChromeHeadless --watch=false
