@@ -1,4 +1,4 @@
-FROM node:18.19.1
+FROM node:24
 #FROM node:14
 RUN echo "deb http://archive.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list && \
     echo "deb http://archive.debian.org/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list && \

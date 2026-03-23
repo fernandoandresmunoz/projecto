@@ -100,7 +100,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.styl"
+              "src/styles.css"
             ],
             "scripts": []
           }

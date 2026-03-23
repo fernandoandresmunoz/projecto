@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CircleAppComponent } from './circle-app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -10,7 +10,7 @@ describe('CircleAppComponent', () => {
   let component: CircleAppComponent;
   let fixture: ComponentFixture<CircleAppComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     declarations: [CircleAppComponent],
     schemas: [NO_ERRORS_SCHEMA],
