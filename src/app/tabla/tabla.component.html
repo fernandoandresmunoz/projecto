@@ -1,53 +1,57 @@
 <table cellspacing="0">
-    <tr *ngFor="let fila of automata.getMatrizActiva()">
-        <td *ngFor="let columna of fila" [ngStyle]="{
+  @for (fila of automata.getMatrizActiva(); track fila) {
+    <tr>
+      @for (columna of fila; track columna) {
+<td [ngStyle]="{
             'background': columna.state === 1 ?  getColor(columna.color): 'white' ,
             'width': anchoCelda + 'px', 'height': anchoCelda + 'px'
             }">
-            <div>
-            </div>
+          <div>
+          </div>
         </td>
+      }
     </tr>
+  }
 </table>
 <!-- <div style="display: flex; flex-direction: row;">
 
-    <div style="border: 1px solid black; display: flex; flex-direction: row;" *ngIf="showChannels">
-        <div style="border: 1px solid gray;" *ngFor="let regla of reglas">
-            <h2> CHANNEL #{{ regla.id }} </h2>
-            <p>
-                {{ regla.name }} no work
-            </p>
-            <p>
-                {{ regla.notation }}
-            </p>
-            <table cellspacing="0">
-                <tr *ngFor="let fila of automata.getMatrizActiva()">
+<div style="border: 1px solid black; display: flex; flex-direction: row;" *ngIf="showChannels">
+  <div style="border: 1px solid gray;" *ngFor="let regla of reglas">
+    <h2> CHANNEL #{{ regla.id }} </h2>
+    <p>
+      {{ regla.name }} no work
+    </p>
+    <p>
+      {{ regla.notation }}
+    </p>
+    <table cellspacing="0">
+      <tr *ngFor="let fila of automata.getMatrizActiva()">
                     <td *ngFor="let columna of fila" [ngStyle]="{
                         'background': columna.state === 1 && columna.color === regla.color ?  getColor(columna.color): 'white' ,
                         'width': anchoCelda + 'px', 'height': anchoCelda + 'px'
                         }">
-                        <div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+          <div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
 </div> -->
 
 <!-- <div style="border: 1px solid black;" *ngIf="showChannels">
 
-    <h2> CHANNEL #0 </h2>
-    <table cellspacing="0">
-        <tr *ngFor="let fila of automata.getMatrizActiva()">
+<h2> CHANNEL #0 </h2>
+<table cellspacing="0">
+  <tr *ngFor="let fila of automata.getMatrizActiva()">
             <td *ngFor="let columna of fila" [ngStyle]="{
                             'background': columna.state === 0  ?  'black': 'white' ,
                             'width': anchoCelda + 'px', 'height': anchoCelda + 'px'
                             }">
-                <div>
-                </div>
-            </td>
-        </tr>
+      <div>
+      </div>
+    </td>
+  </tr>
 
-    </table>
+</table>
 </div> -->

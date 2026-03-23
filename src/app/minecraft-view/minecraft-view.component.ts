@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, HostListener, Input } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Automata } from 'cube';
 import * as THREE from 'three';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
 
 interface Cell {
   state: number;
@@ -2009,7 +2009,7 @@ export class MinecraftViewComponent implements OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onWindowResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
@@ -2707,7 +2707,7 @@ export class MinecraftViewComponent implements OnInit {
     return false;
   }
 
-  @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:beforeunload')
   onBeforeUnload() {
     // Guardar estado antes de cerrar la página
     this.saveGameState();

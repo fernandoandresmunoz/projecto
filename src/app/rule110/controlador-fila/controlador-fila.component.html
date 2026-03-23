@@ -1,56 +1,52 @@
 
 <!-- <div>
-    <h1>
+<h1>
 
-    Rule: {{ getRegla() }}
-    </h1>
+  Rule: {{ getRegla() }}
+</h1>
 </div> -->
 
 
 
-<div *ngIf="getDebug()">
+@if (getDebug()) {
+  <div>
     <div>
-    
-    <button (click)="apagarTodasLasCeldas()" > apagar todas</button>
-    <button (click)="encenderTodasLasCeldas()" > encender todas</button>
-    <button (click)="toggleCeldas()" >toggle</button>
-    
+      <button (click)="apagarTodasLasCeldas()" > apagar todas</button>
+      <button (click)="encenderTodasLasCeldas()" > encender todas</button>
+      <button (click)="toggleCeldas()" >toggle</button>
     </div>
-    
     <p>
-        columnas = {{ getModel().getCeldas().length }}
+      columnas = {{ getModel().getCeldas().length }}
     </p>
     <p>
-        {{ getRuleBinary() }}
+      {{ getRuleBinary() }}
     </p>
-    <div *ngIf="getDebug()">
-    
+    @if (getDebug()) {
+      <div>
         <div>
-            ESATADO SIGUIENTE = {{ getEstadoSiguiente(getModel(), getActiveIndex()) }}
+          ESATADO SIGUIENTE = {{ getEstadoSiguiente(getModel(), getActiveIndex()) }}
         </div>
-    
-    <div>
-        <h2>
-    
-        {{ getRuleBinary()}}
-        </h2>
-    </div>
-    
-    <table border="1">
-        <tr>
+        <div>
+          <h2>
+            {{ getRuleBinary()}}
+          </h2>
+        </div>
+        <table border="1">
+          <tr>
             <td>Current Patern</td>
-            <td *ngFor="let t of getNewStateList()">{{ t[0] }}</td>
-        </tr>
-    <tr>
+            @for (t of getNewStateList(); track t) {
+              <td>{{ t[0] }}</td>
+            }
+          </tr>
+          <tr>
             <td>New state for center cell</td>
-            <td *ngFor="let t of getNewStateList()">{{ t[1] }}</td>
-        </tr>
-    </table>
-    
-    
+            @for (t of getNewStateList(); track t) {
+              <td>{{ t[1] }}</td>
+            }
+          </tr>
+        </table>
         <table>
-    
-            <tr>
+          <tr>
     <td  [ngStyle]="{'background-color':getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) === 1 ? 'black': 'white',
                'width': '1em',
                'height': '2em',
@@ -66,11 +62,12 @@
                'height': '2em',
                'border': '1px solid gray'
             }"></td>
-            </tr>
+          </tr>
         </table>
-</div>
+      </div>
+    }
     <!-- <table>
-        <tr>
+    <tr>
             <td  [ngStyle]="{'background-color':  'white',
            'width': '2em',
            'height': '2em',
@@ -82,29 +79,32 @@
            'border': '1px solid gray',
            
         }">{{ getEstadoCeldaSiguienteActiva() }}</td>
-        </tr>
-    </table> -->
-<p>
+    </tr>
+  </table> -->
+  <p>
     ESTADO CELDA ANTERIOR {{ getEstadoCeldaAnteriorActiva(getModel(), getActiveIndex()) }}
-</p>
-    <p>
-
+  </p>
+  <p>
     ESTADO CELDA ACTIVA {{ getEstadoCeldaActiva(getModel(), getActiveIndex()) }}
-    </p>
-    <p>
-        ESTADO CELDA SIGUIENTE {{ getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) }}
-    </p>
-
+  </p>
+  <p>
+    ESTADO CELDA SIGUIENTE {{ getEstadoCeldaSiguienteActiva(getModel(), getActiveIndex()) }}
+  </p>
 </div>
-<div *ngIf="getDebug()">
+}
+@if (getDebug()) {
+  <div>
     <h2>ACTIVE INDEX = {{ getActiveIndex() }}</h2>
     <button (click)="decrementIndex()">decrement</button>
     <button (click)="incrementIndex()">increment</button>
-</div>
+  </div>
+}
 <div style="margin-top: '2em'">
-    <table  *ngIf="getDebug()" style="border-collapse: collapse;">
-        <tr>
-           <td *ngFor="let celda of getModel().getCeldas(); index as i "
+  @if (getDebug()) {
+    <table  style="border-collapse: collapse;">
+      <tr>
+        @for (celda of getModel().getCeldas(); track celda; let i = $index) {
+          <td
            [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
            'width': '1em',
            'height': '1em',
@@ -112,76 +112,78 @@
            'margin': 0,
            'padding': 0
          }"
-        
-          (click)="toggleCelda(i)"
-    
-           ></td>
-        </tr>
+            (click)="toggleCelda(i)"
+          ></td>
+        }
+      </tr>
     </table>
+  }
 
-    <!-- <table >
-        <tr>
-            <td *ngFor="let c of filaSiguiente(getModel()).getCeldas()"
+  <!-- <table >
+  <tr>
+    <td *ngFor="let c of filaSiguiente(getModel()).getCeldas()"
   [ngStyle]="{'background-color': (c.getState() === 1) ? 'black' : 'white',
            'width': '1em',
            'height': '1em'
         }"
-            >
-            </td>
-        </tr>
-        
-    </table> -->
+      >
+    </td>
+  </tr>
+
+</table> -->
 <!-- <table border="1">
-        <tr>
-            <td *ngFor="let c of filaSiguiente( filaSiguiente(getModel()) ).getCeldas()"
+<tr>
+  <td *ngFor="let c of filaSiguiente( filaSiguiente(getModel()) ).getCeldas()"
   [ngStyle]="{'background-color': (c.getState() === 1) ? 'black' : 'white',
            'width': '2em',
            'height': '2em'
         }"
-            >
-                {{ c.getState() }}
-            </td>
-        </tr>
-        
-    </table> -->
+    >
+    {{ c.getState() }}
+  </td>
+</tr>
 
-    
+</table> -->
+
+
 </div>
 
-<div *ngIf="getDebug()">
-
-<table style="border-collapse: collapse; margin-top: 4em">
-        <tr *ngFor="let fila of matrixCompleta()">
-            <td *ngFor="let celda of fila.getCeldas()"
+@if (getDebug()) {
+  <div>
+    <table style="border-collapse: collapse; margin-top: 4em">
+      @for (fila of matrixCompleta(); track fila) {
+        <tr>
+          @for (celda of fila.getCeldas(); track celda) {
+            <td
               [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
            'width': '0.25em',
            'height': '0.25em',
            'margin': 0,
            'padding': 0
         }"
-            
-            >
-                
-                <!-- {{ celda.getState() }} -->
+              >
+              <!-- {{ celda.getState() }} -->
             </td>
+          }
         </tr>
+      }
     </table>
-
-    
-    
-</div>
+  </div>
+}
 <button
-(click)="saveMatrix()"
+  (click)="saveMatrix()"
 >SAVE AS MATRIX</button>
-<div *ngFor="let fila of matrixCompleta()" class="contenedor">
-
-            <span *ngFor="let celda of fila.getCeldas()" class="bloque"
+@for (fila of matrixCompleta(); track fila) {
+  <div class="contenedor">
+    @for (celda of fila.getCeldas(); track celda) {
+      <span class="bloque"
                [ngStyle]="{'background-color': (celda.getState() === 1) ? 'black' : 'white',
                'width': '4px',
                'height': '4px',
                'margin': 0,
                'padding': 0
             }"
-            
-            ></span>
-    </div>
+      ></span>
+    }
+  </div>
+}

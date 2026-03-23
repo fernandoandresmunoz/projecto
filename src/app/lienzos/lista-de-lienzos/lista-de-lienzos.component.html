@@ -1,6 +1,6 @@
 
-<div *ngFor="let lienzo of getLienzos()">
-
-
+@for (lienzo of getLienzos(); track lienzo) {
+  <div>
     <app-lienzo [lienzo]="lienzo"></app-lienzo>
-</div>
+  </div>
+}

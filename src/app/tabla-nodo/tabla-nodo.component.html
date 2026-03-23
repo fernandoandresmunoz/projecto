@@ -1,33 +1,34 @@
 
 <div>
-    <div >
-        <!-- <div>
-            <div *ngFor='let child of nodo.getChildren()' style='margin-bottom: 2em;'>
-                <div *ngFor='let x of child.getChildren()'>
-                    <div [ngStyle]="{ 'background-color': x.getState(umbralInferior, umbralSuperior), 'height': ALTO_BARRA +  'px', 'width': ANCHO_BARRA * x.average() + 'px', 'border': '1px solid gray' }"></div>
-                </div>
-            </div>
-        </div> -->
-        <table style='display: inline-block; margin-right: 1em ' border=1 *ngFor='let child of nodo.getChildren()'>
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th colspan="2">state</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor='let x of child.getChildren(); let i = index'>
-                    <td>Equipo {{ i }}</td>
-                    <td [ngStyle]="{'background-color': x.getState(umbralInferior, umbralSuperior), 'width': '10px'}">
-                    </td>
-
-
-                    <td>{{ x.average().toFixed(2) }}</td>
-
-                </tr>
-            </tbody>
-        </table>
+  <div >
+    <!-- <div>
+    <div *ngFor='let child of nodo.getChildren()' style='margin-bottom: 2em;'>
+      <div *ngFor='let x of child.getChildren()'>
+        <div [ngStyle]="{ 'background-color': x.getState(umbralInferior, umbralSuperior), 'height': ALTO_BARRA +  'px', 'width': ANCHO_BARRA * x.average() + 'px', 'border': '1px solid gray' }"></div>
+      </div>
     </div>
+  </div> -->
+  @for (child of nodo.getChildren(); track child) {
+    <table style='display: inline-block; margin-right: 1em ' border=1>
+      <thead>
+        <tr>
+          <th>name</th>
+          <th colspan="2">state</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (x of child.getChildren(); track x; let i = $index) {
+          <tr>
+            <td>Equipo {{ i }}</td>
+            <td [ngStyle]="{'background-color': x.getState(umbralInferior, umbralSuperior), 'width': '10px'}">
+            </td>
+            <td>{{ x.average().toFixed(2) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
 </div>
 <hr>
-<br>
+  <br>

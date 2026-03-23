@@ -5,9 +5,10 @@
 <!-- GENERATION = {{ nodo.automata?.generation}} -->
 <!-- {{ automata.totalPorcentaje()}} -->
 <!-- DENSIDAD = {{ automata.densidad() }} -->
-<app-tabla
-*ngIf="nodo.automata !== undefined"
-[anchoCelda]="0.02"
-[datos_matriz]="nodo.automata.getMatrizActiva()"
->
-</app-tabla>
+@if (nodo.automata !== undefined) {
+  <app-tabla
+    [anchoCelda]="0.02"
+    [datos_matriz]="nodo.automata.getMatrizActiva()"
+    >
+  </app-tabla>
+}

@@ -1,35 +1,37 @@
 Total resultados: {{ count }}
 
 
-<div *ngIf="loading">Cargando...</div>
+@if (loading) {
+  <div>Cargando...</div>
+}
 
 
-<!-- 
+<!--
 <div>
-    Mostrando {{ ( main.current_page - 1 ) * 40 + 1 }} a {{ main.current_page * 40 }} de {{ main.count | number
-    }} artículos</div> -->
+  Mostrando {{ ( main.current_page - 1 ) * 40 + 1 }} a {{ main.current_page * 40 }} de {{ main.count | number
+}} artículos</div> -->
 
 <div style="margin-bottom: 2em">
-    <table border="1">
-        <tr>
-            <td>Nombre</td>
-            <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Filas">Filas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
-        </tr>
-        <tr>
-            <td>
-                <label for="Columnas">Columnas</label>
-            </td>
-            <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
-        </tr>
-    </table>
-    <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">
-        Guardar</button>
+  <table border="1">
+    <tr>
+      <td>Nombre</td>
+      <td><input [(ngModel)]="nuevoNombreMatriz" type="text"></td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Filas">Filas</label>
+      </td>
+      <td><input [(ngModel)]="totalNuevasFilas" type="number"></td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Columnas">Columnas</label>
+      </td>
+      <td><input [(ngModel)]="totalNuevasColumnas" type="number"></td>
+    </tr>
+  </table>
+  <button [disabled]="nuevoNombreMatriz === ''" (click)="guardarNuevaMatriz()">
+  Guardar</button>
 </div>
 
 
@@ -37,38 +39,38 @@ Total resultados: {{ count }}
 
 <button (click)="cargarMatrices(previous)">Previous</button>
 <button (click)="cargarMatrices(next)">Next</button>
-<table border="1" *ngIf="matrices && matrices.length > 0">
+@if (matrices && matrices.length > 0) {
+  <table border="1">
     <thead>
-        <tr>
-            <th>Preview</th>
-            <th>id</th>
-            <th>nombre</th>
-            <th>generation</th>
-            <th>filas</th>
-            <th>columnas</th>
-            <th>estado</th>
-            <th>fecha creación</th>
-            <th>3d view</th>
-        </tr>
+      <tr>
+        <th>Preview</th>
+        <th>id</th>
+        <th>nombre</th>
+        <th>generation</th>
+        <th>filas</th>
+        <th>columnas</th>
+        <th>estado</th>
+        <th>fecha creación</th>
+        <th>3d view</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let matriz of automatas">
-            <td>
-                <app-tabla [anchoCelda]="0.1" [automata]="matriz" [preview]="true">
-                </app-tabla>
-
-
-
-            </td>
-            <td>{{ matriz.id }}</td>
-            <td (click)="detalleMatriz(matriz.id)">{{ matriz.nombre }}</td>
-            <td>{{ matriz.generacion }}</td>
-            <td>{{ matriz.filas }}</td>
-            <td>{{ matriz.columnas }}</td>
-            <td>{{ matriz.estado_actual }}</td>
-            <td>{{ matriz.fecha_creacion }}</td>
-            <td><button>3d view</button></td>
-
+      @for (matriz of automatas; track matriz) {
+        <tr>
+          <td>
+            <app-tabla [anchoCelda]="0.1" [automata]="matriz" [preview]="true">
+            </app-tabla>
+          </td>
+          <td>{{ matriz.id }}</td>
+          <td (click)="detalleMatriz(matriz.id)">{{ matriz.nombre }}</td>
+          <td>{{ matriz.generacion }}</td>
+          <td>{{ matriz.filas }}</td>
+          <td>{{ matriz.columnas }}</td>
+          <td>{{ matriz.estado_actual }}</td>
+          <td>{{ matriz.fecha_creacion }}</td>
+          <td><button>3d view</button></td>
         </tr>
+      }
     </tbody>
-</table>
+  </table>
+}

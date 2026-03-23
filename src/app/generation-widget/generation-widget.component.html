@@ -1,5 +1,7 @@
-<div *ngIf="automata">
+@if (automata) {
+  <div>
     <h1>
-        generation : {{ automata.getGeneration() }}
+      generation : {{ automata.getGeneration() }}
     </h1>
-</div>
+  </div>
+}

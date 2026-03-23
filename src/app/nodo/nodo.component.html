@@ -1,5 +1,6 @@
 <!-- si tengo hijos, o sea si soy un composite-->
-<li *ngIf='root.getChildren().length > 0'>
+@if (root.getChildren().length > 0) {
+  <li>
     <span class='tf-nc ' [ngStyle]="{
             'background-color': root.getState(umbralInferior, umbralSuperior),
             'color': ( root.getState(umbralInferior, umbralSuperior) === 'red' || root.getState(umbralInferior, umbralSuperior) === 'green' ) ? 'white': 'black',
@@ -9,18 +10,21 @@
     }
  
  ">
-        {{ root.average() | number}}
-
-    </span>
-    <ul>
-        <li *ngFor='let child of root.getChildren()'>
-            <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='child' [showDraw]="showDraw"></app-nodo>
-        </li>
-    </ul>
+    {{ root.average() | number}}
+  </span>
+  <ul>
+    @for (child of root.getChildren(); track child) {
+      <li>
+        <app-nodo [umbralInferior]='umbralInferior' [umbralSuperior]='umbralSuperior' [root]='child' [showDraw]="showDraw"></app-nodo>
+      </li>
+    }
+  </ul>
 </li>
+}
 
 <!-- si soy una hoja -->
-<li *ngIf='root.getChildren().length === 0 '>
+@if (root.getChildren().length === 0 ) {
+  <li>
     <span class='tf-nc ' [ngStyle]="{
     'background-color': root.getState(umbralInferior, umbralSuperior), 
     'font-size': '14px',
@@ -28,11 +32,15 @@
     'color': ( root.getState(umbralInferior, umbralSuperior) === 'red' || root.getState(umbralInferior, umbralSuperior) === 'green' ) ? 'white': 'black'
 }
     ">
-        {{ root.average() | number}}
-    </span>
+    {{ root.average() | number}}
+  </span>
 </li>
+}
 <!-- si soy una hoja y quiero mostrar el automata-->
-<span *ngIf='showDraw == 1' class=''>
-    <app-two-lines-app *ngIf='root.getChildren().length === 0' [automata]='root.getAutomata()' ></app-two-lines-app>
-
-</span>
+@if (showDraw == 1) {
+  <span class=''>
+    @if (root.getChildren().length === 0) {
+      <app-two-lines-app [automata]='root.getAutomata()' ></app-two-lines-app>
+    }
+  </span>
+}
