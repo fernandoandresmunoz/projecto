@@ -11,7 +11,7 @@ services:
     command: >
       sh -c "
         mkdir -p coverage &&
-        npx ng test --no-watch --browsers=ChromeHeadlessNoSandbox --code-coverage --no-cache || true
+        npx ng test --no-watch --browsers=ChromeHeadlessNoSandbox --code-coverage  true
       "
 
   karma-tests-develop:
