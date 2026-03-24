@@ -1,2 +1,2 @@
 FROM nginx:latest
-COPY ./dist/projecto/ /usr/share/nginx/html/
+COPY ./dist/projecto/browser/ /usr/share/nginx/html/
