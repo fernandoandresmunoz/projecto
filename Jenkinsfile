@@ -31,14 +31,6 @@ pipeline {
         }
 
 
-        stage('Build &  docker image for projecto ') {
-            steps {
-              sh ' docker build . -t projecto:latest'
-              sh ' docker stack rm projecto'
-              sh   'sleep 20'
-            }
-        }
-
         stage('Jasmine/Karma Tests') {
             steps {
                 script {
@@ -97,6 +89,18 @@ pipeline {
                 }
             }
         }
+
+
+        stage('Build &  docker image for projecto ') {
+            steps {
+            sh 'npx ng build --configuration production'
+              sh ' docker build . -t projecto:latest'
+              sh ' docker stack rm projecto'
+              sh   'sleep 20'
+            }
+        }
+
+
     stage('Deploy') {
       steps {
               sh ' docker stack deploy -c stack.yaml projecto'
