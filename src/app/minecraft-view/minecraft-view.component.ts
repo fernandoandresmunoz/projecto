@@ -622,6 +622,8 @@ export class MinecraftViewComponent implements OnInit {
   };
 
   private animals: Animal[] = [];
+  private people: Animal[] = [];
+  private houses: THREE.Group[] = [];
   private lastAnimalUpdate = 0;
 
   private clouds: THREE.Group[] = [];
@@ -851,6 +853,42 @@ export class MinecraftViewComponent implements OnInit {
     // Añadir nubes y animales
     this.createClouds();
     this.initAnimals();
+    this.initPeople();
+    this.initVillages();
+  }
+
+  private initPeople() {
+    const numPeople = 10;
+    for (let i = 0; i < numPeople; i++) {
+      const x = (Math.random() - 0.5) * this.matrix.length;
+      const z = (Math.random() - 0.5) * this.matrix[0].length;
+      const y = this.getTerrainHeightAt(x, z);
+
+      const person = this.createPerson(new THREE.Vector3(x, y, z));
+      this.people.push(person);
+    }
+  }
+
+  private initVillages() {
+    const numHouses = 8;
+    for (let i = 0; i < numHouses; i++) {
+      const x = (Math.random() - 0.5) * this.matrix.length;
+      const z = (Math.random() - 0.5) * this.matrix[0].length;
+      const y = this.getTerrainHeightAt(x, z);
+
+      // Solo colocar casas en terreno firme (Brown o Green)
+      const matrixX = Math.round(x + this.matrix.length / 2);
+      const matrixZ = Math.round(z + this.matrix[0].length / 2);
+      
+      if (matrixX >= 0 && matrixX < this.matrix.length && 
+          matrixZ >= 0 && matrixZ < this.matrix[0].length) {
+        const cell = this.matrix[matrixX][matrixZ];
+        if (cell.color === 'Brown' || cell.color === 'Green' || cell.color === 'Red') {
+          const type = Math.floor(Math.random() * 3) + 1;
+          this.createHouse(type, new THREE.Vector3(x, y + 0.5, z));
+        }
+      }
+    }
   }
 
   private initAnimals() {
@@ -1748,6 +1786,7 @@ export class MinecraftViewComponent implements OnInit {
       // Actualizar animales y su movimiento
       this.updateAnimals(currentTime);
       this.animals.forEach(animal => this.moveAnimal(animal, delta));
+      this.people.forEach(person => this.moveAnimal(person, delta));
       this.checkAnimalCollisions();
     }
 
@@ -2247,6 +2286,130 @@ export class MinecraftViewComponent implements OnInit {
     };
   }
 
+  private createPerson(position: THREE.Vector3): Animal {
+    const group = new THREE.Group();
+    
+    // Materiales para la persona
+    const skinMat = new THREE.MeshStandardMaterial({ color: 0xFFDBAC }); // Tono de piel
+    const shirtMat = new THREE.MeshStandardMaterial({ color: Math.random() > 0.5 ? 0x2196F3 : 0x4CAF50 });
+    const pantsMat = new THREE.MeshStandardMaterial({ color: 0x3F51B5 });
+    const hairMat = new THREE.MeshStandardMaterial({ color: 0x3D2410 });
+
+    // Cabeza
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), skinMat);
+    head.position.y = 1.6;
+    group.add(head);
+
+    // Cabello
+    const hair = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.1, 0.32), hairMat);
+    hair.position.y = 1.75;
+    group.add(hair);
+
+    // Cuerpo
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.6, 0.2), shirtMat);
+    body.position.y = 1.15;
+    group.add(body);
+
+    // Brazos
+    const armGeom = new THREE.BoxGeometry(0.12, 0.5, 0.12);
+    const leftArm = new THREE.Mesh(armGeom, skinMat);
+    leftArm.position.set(-0.26, 1.15, 0);
+    group.add(leftArm);
+
+    const rightArm = new THREE.Mesh(armGeom, skinMat);
+    rightArm.position.set(0.26, 1.15, 0);
+    group.add(rightArm);
+
+    // Piernas
+    const legGeom = new THREE.BoxGeometry(0.15, 0.8, 0.15);
+    const leftLeg = new THREE.Mesh(legGeom, pantsMat);
+    leftLeg.position.set(-0.1, 0.4, 0);
+    group.add(leftLeg);
+
+    const rightLeg = new THREE.Mesh(legGeom, pantsMat);
+    rightLeg.position.set(0.1, 0.4, 0);
+    group.add(rightLeg);
+
+    group.position.copy(position);
+    this.scene.add(group);
+
+    return {
+      type: 'person',
+      position,
+      mesh: group,
+      health: 100,
+      isAlive: true,
+      colors: { body: '#000000', face: '#000000', legs: '#000000' }, // Dummy colors
+      lastStateChange: performance.now()
+    };
+  }
+
+  private createHouse(type: number, position: THREE.Vector3): void {
+    const group = new THREE.Group();
+    
+    if (type === 1) { // Wood Cabin
+      // Base/Paredes
+      const walls = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 3), new THREE.MeshStandardMaterial({ color: 0x8B4513 }));
+      walls.position.y = 1;
+      group.add(walls);
+      
+      // Techo
+      const roof = new THREE.Mesh(new THREE.ConeGeometry(2.5, 1.5, 4), new THREE.MeshStandardMaterial({ color: 0x5D2906 }));
+      roof.position.y = 2.75;
+      roof.rotation.y = Math.PI / 4;
+      group.add(roof);
+      
+      // Puerta
+      const door = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.2, 0.1), new THREE.MeshStandardMaterial({ color: 0x3D2410 }));
+      door.position.set(0, 0.6, 1.51);
+      group.add(door);
+    } 
+    else if (type === 2) { // Stone House
+      // Paredes
+      const walls = new THREE.Mesh(new THREE.BoxGeometry(4, 2.5, 3), new THREE.MeshStandardMaterial({ color: 0x808080 }));
+      walls.position.y = 1.25;
+      group.add(walls);
+      
+      // Techo (Dos aguas)
+      const roofGeom = new THREE.BoxGeometry(4.5, 0.2, 2);
+      const roofLeft = new THREE.Mesh(roofGeom, new THREE.MeshStandardMaterial({ color: 0x444444 }));
+      roofLeft.position.set(0, 3, 0.7);
+      roofLeft.rotation.x = Math.PI / 4;
+      group.add(roofLeft);
+      
+      const roofRight = new THREE.Mesh(roofGeom, new THREE.MeshStandardMaterial({ color: 0x444444 }));
+      roofRight.position.set(0, 3, -0.7);
+      roofRight.rotation.x = -Math.PI / 4;
+      group.add(roofRight);
+      
+      // Ventanas
+      const winGeom = new THREE.BoxGeometry(0.8, 0.8, 0.1);
+      const window1 = new THREE.Mesh(winGeom, new THREE.MeshStandardMaterial({ color: 0x87CEEB, transparent: true, opacity: 0.6 }));
+      window1.position.set(1, 1.6, 1.51);
+      group.add(window1);
+    }
+    else { // Modern House
+      // Base Blanca
+      const base = new THREE.Mesh(new THREE.BoxGeometry(4, 3, 4), new THREE.MeshStandardMaterial({ color: 0xEEEEEE }));
+      base.position.y = 1.5;
+      group.add(base);
+      
+      // Techo Plano / Detalle Azul
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.4, 4.2), new THREE.MeshStandardMaterial({ color: 0x0D47A1 }));
+      roof.position.y = 3.2;
+      group.add(roof);
+      
+      // Gran Ventanal
+      const glass = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 0.1), new THREE.MeshStandardMaterial({ color: 0x81D4FA, transparent: true, opacity: 0.4 }));
+      glass.position.set(0, 1.5, 2.01);
+      group.add(glass);
+    }
+
+    group.position.copy(position);
+    this.scene.add(group);
+    this.houses.push(group);
+  }
+
   private updateTimeOfDay(): void {
     if (!this.directionalLight || !this.ambientLight || !this.sun || !this.moon) return;
 
@@ -2338,6 +2501,11 @@ export class MinecraftViewComponent implements OnInit {
         this.updateAnimalBehavior(animal);
       }
     });
+    this.people.forEach(person => {
+      if (person && person.mesh) {
+        this.updateAnimalBehavior(person);
+      }
+    });
   }
 
   private moveAnimal(animal: Animal, delta: number): void {
@@ -2393,6 +2561,15 @@ export class MinecraftViewComponent implements OnInit {
         // Huir del jugador (elegir punto en dirección contraria)
         const escapeDir = new THREE.Vector3().subVectors(animal.position, this.camera.position).setY(0).normalize();
         animal.targetPosition = animal.position.clone().add(escapeDir.multiplyScalar(5));
+      }
+    });
+    this.people.forEach(person => {
+      if (!person.isAlive) return;
+      const playerDistance = this.camera.position.distanceTo(person.position);
+
+      if (playerDistance < 3) {
+        const escapeDir = new THREE.Vector3().subVectors(person.position, this.camera.position).setY(0).normalize();
+        person.targetPosition = person.position.clone().add(escapeDir.multiplyScalar(4));
       }
     });
   }
