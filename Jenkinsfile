@@ -93,7 +93,7 @@ pipeline {
 
         stage('Build &  docker image for projecto ') {
             steps {
-            sh 'npx ng build --configuration production'
+            sh 'ng build --configuration production'
               sh ' docker build . -t projecto:latest'
               sh ' docker stack rm projecto'
               sh   'sleep 20'
