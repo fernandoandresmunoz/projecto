@@ -93,10 +93,16 @@ pipeline {
 
         stage('Build &  docker image for projecto ') {
             steps {
-            sh 'ng build --configuration production'
-              sh ' docker build . -t projecto:latest'
-              sh ' docker stack rm projecto'
-              sh   'sleep 20'
+                sh '''
+export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm install v24
+                    nvm use v24
+                    npm i -g  @angular/cli@21
+                    npm install --legacy-peer-deps
+                    ng build --configuration production
+                    ls -l dist/projecto
+                    '''
             }
         }
 
