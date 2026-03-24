@@ -109,7 +109,9 @@ export NVM_DIR="$HOME/.nvm"
 
     stage('Deploy') {
       steps {
-              sh ' docker stack deploy -c stack.yaml projecto'
+
+            sh 'docker build  -t projecto:latest .'
+            sh ' docker stack deploy -c stack.yaml projecto'
       }
     }
     stage('test') {
