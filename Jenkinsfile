@@ -4,18 +4,19 @@ pipeline {
 
         stage('Use NVM') {
             steps {
-                sh '''
-                    export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm install v24
-                    nvm use v24
-                    npm i -g  @angular/cli@21
-                    npm install --legacy-peer-deps
-                    ng build --configuration production
-                    ls -l dist/projecto
+                sh 'stage omitida'
+                // sh '''
+                //     export NVM_DIR="$HOME/.nvm"
+                //     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                //     nvm install v24
+                //     nvm use v24
+                //     npm i -g  @angular/cli@21
+                //     npm install --legacy-peer-deps
+                //     ng build --configuration production
+                //     ls -l dist/projecto
                    
                     
-                '''
+                // '''
             }
         }
 
