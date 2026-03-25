@@ -95,7 +95,7 @@ pipeline {
         stage('BUILD STATICS ') {
             steps {
                 sh '''
-docker run -it -v ./dist:/app/dist projecto-test:latest /usr/local/bin/npx ng build   --configuration production
+docker run -v ./dist:/app/dist projecto-test:latest /usr/local/bin/npx ng build   --configuration production
                     '''
             }
         }
