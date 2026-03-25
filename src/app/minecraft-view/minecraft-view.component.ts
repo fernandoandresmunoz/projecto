@@ -1630,6 +1630,7 @@ export class MinecraftViewComponent implements OnInit {
     this.player.add(rightArm);
 
     this.player.position.y = this.playerHeight;
+    this.player.visible = false; // Ocultar para el jugador local para que no tape la vista
     this.scene.add(this.player);
   }
 
@@ -1776,7 +1777,6 @@ export class MinecraftViewComponent implements OnInit {
         this.canJump = true;
       }
 
-      this.updatePlayerAnimation();
       this.updateMinimap();
       this.updateClouds(delta);
 

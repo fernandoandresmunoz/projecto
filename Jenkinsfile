@@ -24,6 +24,7 @@ pipeline {
                 script {
                     sh 'whoami'
                     sh 'docker build -f integration.Dockerfile -t projecto-test:latest .'
+                    sh 'docker images '
                     // sh 'docker build -f tests-cypress.Dockerfile -t test-cypress:latest .'
                     // sh 'docker build . -f FullBuild.dockerfile -t test-cypress:latest'
                 }
@@ -91,17 +92,10 @@ pipeline {
         }
 
 
-        stage('Build &  docker image for projecto ') {
+        stage('BUILD STATICS ') {
             steps {
                 sh '''
-export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm install v24
-                    nvm use v24
-                    npm i -g  @angular/cli@21
-                    npm install --legacy-peer-deps
-                    ng build --configuration production
-                    ls -l dist/projecto
+docker run -it -v ./dist:/app/dist projecto-test:latest /usr/local/bin/npx ng build   --configuration production
                     '''
             }
         }
