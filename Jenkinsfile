@@ -105,7 +105,7 @@ docker run -v ./dist:/app/dist projecto-test:latest /usr/local/bin/npx ng build 
       steps {
 
             sh 'docker build  -t projecto:latest .'
-            sh ' docker stack deploy -c stack.yaml projecto'
+            sh ' docker stack deploy -c stack.yaml projecto --resolve-image always'
       }
     }
     stage('test') {
